@@ -4,12 +4,24 @@ import Providers from "next-auth/providers";
 import Adapters from "next-auth/adapters";
 import prisma from '../../../lib/prisma'
 
+// import FacebookProvider from 'next-auth/providers/facebook';
+// import GoogleProvider from 'next-auth/providers/google';
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
 export default authHandler;
 
 const options = {
   providers: [
+    Providers.Facebook({    
+      clientId: process.env.FACEBOOK_CLIENT_ID,    
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET  
+    }),
+    Providers.Google({    
+      clientId: process.env.GOOGLE_CLIENT_ID,    
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET  
+    }),
+
+    /*
     Providers.GitHub({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
@@ -25,6 +37,7 @@ const options = {
       },
       from: process.env.SMTP_FROM,
     }),
+    */
   ],
   adapter: Adapters.Prisma.Adapter({ prisma }),
   secret: process.env.SECRET,
