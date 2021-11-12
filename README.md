@@ -1,7 +1,5 @@
 # Next Prisma Boilerplate
 
-## Getting started
-
 ### Google
 
 Redirect URI
