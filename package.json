@@ -12,7 +12,7 @@
     "build": "next build",
     "start": "next start",
     "type-check": "tsc --pretty --noEmit",
-    "lint": "eslint . --ext ts --ext tsx --ext js --ext md",
+    "lint": "eslint . --ext ts --ext tsx --ext js",
     "format": "prettier --write .",
     "test-all": "yarn lint && yarn type-check && yarn test"
   },
