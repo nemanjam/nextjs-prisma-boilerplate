@@ -13,6 +13,7 @@ CREATE TABLE "users" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT,
     "email" TEXT,
+    "password" TEXT,
     "email_verified" DATETIME,
     "image" TEXT,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

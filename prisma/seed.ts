@@ -4,8 +4,8 @@ const prisma = new PrismaClient();
 
 const userData: Prisma.UserCreateInput[] = [
   {
-    name: 'Alice',
-    email: 'alice@prisma.io',
+    name: 'user0 name',
+    email: 'user0@email.com',
     posts: {
       create: [
         {
@@ -17,8 +17,8 @@ const userData: Prisma.UserCreateInput[] = [
     },
   },
   {
-    name: 'Nilu',
-    email: 'nilu@prisma.io',
+    name: 'user1 name',
+    email: 'user1@email.com',
     posts: {
       create: [
         {
@@ -30,8 +30,8 @@ const userData: Prisma.UserCreateInput[] = [
     },
   },
   {
-    name: 'Mahmoud',
-    email: 'mahmoud@prisma.io',
+    name: 'user2 name',
+    email: 'user2@email.com',
     posts: {
       create: [
         {
@@ -49,14 +49,14 @@ const userData: Prisma.UserCreateInput[] = [
 ];
 
 async function main() {
-  console.log(`Start seeding ...`);
+  console.log('Start seeding ...');
   for (const u of userData) {
     const user = await prisma.user.create({
       data: u,
     });
     console.log(`Created user with id: ${user.id}`);
   }
-  console.log(`Seeding finished.`);
+  console.log('Seeding finished.');
 }
 
 main()
