@@ -1,4 +1,4 @@
-# Next Prisma Boilerplate
+# Nextjs Prisma Boilerplate
 
 ## References
 

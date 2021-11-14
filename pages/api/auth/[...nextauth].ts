@@ -2,6 +2,7 @@ import { NextApiHandler } from 'next';
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 import Adapters from 'next-auth/adapters';
+import { compare } from 'bcryptjs';
 import prisma from '../../../lib/prisma';
 
 // import FacebookProvider from 'next-auth/providers/facebook';
@@ -27,11 +28,26 @@ const options = {
         },
       },
       async authorize(credentials, req) {
+        const { email, password } = credentials;
+
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+          where: { email },
         });
-        // check pass too
-        return user || null;
+        if (!user) {
+          return null;
+          // return { error: `User with email: ${email} does not exist.` };
+        }
+        // You can also Reject this callback with an Error or with a URL:
+        // throw new Error('error message') // Redirect to error page
+        // throw '/path/to/redirect'        // Redirect to a URL
+        const isValid =
+          password && user.password && (await compare(password, user.password));
+        if (!isValid) {
+          return null;
+          // return { error: 'Invalid password.' };
+        }
+
+        return user;
       },
     }),
     Providers.Facebook({
@@ -49,4 +65,5 @@ const options = {
   },
   adapter: Adapters.Prisma.Adapter({ prisma }),
   secret: process.env.SECRET,
+  // debug: true,
 };
