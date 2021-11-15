@@ -24,6 +24,10 @@
 - MongoDB [tutorial](https://dev.to/dawnind/authentication-with-credentials-using-next-auth-and-mongodb-part-1-m38)
 - MongoDB code [DawnMD/next-auth-credentials](https://github.com/DawnMD/next-auth-credentials)
 
+### Custom SignIn page
+
+- [v4 docs](https://next-auth.js.org/v4/configuration/pages)
+
 ### Google auth
 
 Redirect URI

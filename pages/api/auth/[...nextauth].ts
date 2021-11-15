@@ -1,12 +1,11 @@
 import { NextApiHandler } from 'next';
 import NextAuth from 'next-auth';
-import Providers from 'next-auth/providers';
-import Adapters from 'next-auth/adapters';
-import { compare } from 'bcryptjs';
+import GoogleProvider from 'next-auth/providers/google';
+import FacebookProvider from 'next-auth/providers/facebook';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from 'lib/prisma';
-
-// import FacebookProvider from 'next-auth/providers/facebook';
-// import GoogleProvider from 'next-auth/providers/google';
+import { compare } from 'bcryptjs';
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
 export default authHandler;
@@ -14,7 +13,7 @@ export default authHandler;
 const options = {
   providers: [
     // find complete example
-    Providers.Credentials({
+    CredentialsProvider({
       name: 'Credentials',
       credentials: {
         email: {
@@ -47,11 +46,11 @@ const options = {
         return user;
       },
     }),
-    Providers.Facebook({
+    FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     }),
-    Providers.Google({
+    GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
@@ -60,7 +59,8 @@ const options = {
     jwt: true, // needed for credentials
     maxAge: 1 * 60 * 60, // 1 hour
   },
-  adapter: Adapters.Prisma.Adapter({ prisma }),
+  pages: { signIn: '/signin' },
+  adapter: PrismaAdapter(prisma),
   secret: process.env.SECRET,
-  // debug: true,
+  debug: true,
 };

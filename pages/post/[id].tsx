@@ -5,7 +5,7 @@ import Layout from 'components/Layout';
 import Router from 'next/router';
 import { PostProps } from 'components/Post';
 import prisma from 'lib/prisma';
-import { useSession } from 'next-auth/client';
+import { useSession } from 'next-auth/react';
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const post = await prisma.post.findUnique({
@@ -25,21 +25,23 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 };
 
 async function publishPost(id: number): Promise<void> {
-  await fetch(`http://localhost:3000/api/publish/${id}`, {
+  await fetch(`/api/publish/${id}`, {
     method: 'PUT',
   });
   await Router.push('/');
 }
 
 async function deletePost(id: number): Promise<void> {
-  await fetch(`http://localhost:3000/api/post/${id}`, {
+  await fetch(`/api/post/${id}`, {
     method: 'DELETE',
   });
   await Router.push('/');
 }
 
 const Post: React.FC<PostProps> = (props) => {
-  const [session, loading] = useSession();
+  const { data: session, status } = useSession();
+  const loading = status === 'loading';
+
   if (loading) {
     return <div>Authenticating ...</div>;
   }

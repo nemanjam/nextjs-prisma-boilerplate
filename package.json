@@ -17,10 +17,11 @@
     "test-all": "yarn lint && yarn type-check && yarn test"
   },
   "dependencies": {
+    "@next-auth/prisma-adapter": "^0.5.2-next.19",
     "@prisma/client": "3.4.2",
     "bcryptjs": "^2.4.3",
     "next": "11.1.2",
-    "next-auth": "3.29.0",
+    "next-auth": "4.0.0-beta.6",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-markdown": "7.1.0"
