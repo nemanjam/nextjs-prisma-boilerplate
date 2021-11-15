@@ -3,7 +3,7 @@ import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 import Adapters from 'next-auth/adapters';
 import { compare } from 'bcryptjs';
-import prisma from '../../../lib/prisma';
+import prisma from 'lib/prisma';
 
 // import FacebookProvider from 'next-auth/providers/facebook';
 // import GoogleProvider from 'next-auth/providers/google';
@@ -20,7 +20,6 @@ const options = {
         email: {
           label: 'Email',
           type: 'email',
-          placeholder: 'email@gmail.com',
         },
         password: {
           label: 'Password',
@@ -37,9 +36,7 @@ const options = {
           return null;
           // return { error: `User with email: ${email} does not exist.` };
         }
-        // You can also Reject this callback with an Error or with a URL:
-        // throw new Error('error message') // Redirect to error page
-        // throw '/path/to/redirect'        // Redirect to a URL
+
         const isValid =
           password && user.password && (await compare(password, user.password));
         if (!isValid) {

@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "baseUrl": ".", // this handles the root
+    "paths": {
+      "@lib/*": ["lib/*"] // just placeholder for now
+    },
+
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
