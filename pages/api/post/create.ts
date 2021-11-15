@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'lib/prisma';
 import { getSession } from 'next-auth/client';
 
-// POST /api/post
+// POST /api/post/create
 // Required fields in body: title
 // Optional fields in body: content
 export default async function handle(

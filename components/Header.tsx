@@ -17,6 +17,7 @@ const Header: React.FC = () => {
           Feed
         </a>
       </Link>
+
       <style jsx>{`
         .bold {
           font-weight: bold;
@@ -49,6 +50,7 @@ const Header: React.FC = () => {
             Feed
           </a>
         </Link>
+
         <style jsx>{`
           .bold {
             font-weight: bold;
@@ -73,6 +75,7 @@ const Header: React.FC = () => {
     right = (
       <div className="right">
         <p>Validating session ...</p>
+
         <style jsx>{`
           .right {
             margin-left: auto;
@@ -88,6 +91,7 @@ const Header: React.FC = () => {
         <Link href="/api/auth/signin">
           <a data-active={isActive('/signup')}>Log in</a>
         </Link>
+
         <style jsx>{`
           a {
             text-decoration: none;
@@ -124,6 +128,7 @@ const Header: React.FC = () => {
         <Link href="/drafts">
           <a data-active={isActive('/drafts')}>My drafts</a>
         </Link>
+
         <style jsx>{`
           .bold {
             font-weight: bold;
@@ -158,6 +163,7 @@ const Header: React.FC = () => {
         <button onClick={() => signOut()}>
           <a>Log out</a>
         </button>
+
         <style jsx>{`
           a {
             text-decoration: none;
@@ -197,6 +203,7 @@ const Header: React.FC = () => {
     <nav>
       {left}
       {right}
+
       <style jsx>{`
         nav {
           display: flex;

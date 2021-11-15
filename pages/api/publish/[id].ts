@@ -11,5 +11,6 @@ export default async function handle(
     where: { id: Number(postId) },
     data: { published: true },
   });
+
   res.json(post);
 }

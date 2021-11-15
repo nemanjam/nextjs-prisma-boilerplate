@@ -1,10 +1,10 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import ReactMarkdown from 'react-markdown';
-import Layout from '../../components/Layout';
+import Layout from 'components/Layout';
 import Router from 'next/router';
-import { PostProps } from '../../components/Post';
-import prisma from '../../lib/prisma';
+import { PostProps } from 'components/Post';
+import prisma from 'lib/prisma';
 import { useSession } from 'next-auth/client';
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
@@ -18,6 +18,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       },
     },
   });
+
   return {
     props: post,
   };

@@ -17,6 +17,7 @@ export const getStaticProps: GetStaticProps = async () => {
       },
     },
   });
+
   return {
     props: { feed },
   };
@@ -39,6 +40,7 @@ const Blog: React.FC<Props> = (props) => {
           ))}
         </main>
       </div>
+
       <style jsx>{`
         .post {
           background: white;
