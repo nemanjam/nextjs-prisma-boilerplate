@@ -26,7 +26,7 @@
 
 ### Custom SignIn page
 
-- [v4 docs](https://next-auth.js.org/v4/configuration/pages)
+- [v4 docs](https://next-auth.js.org/configuration/pages)
 
 ### Google auth
 
