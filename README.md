@@ -31,7 +31,21 @@
 ### Create trusted certificate
 
 - install and run mkcert (instruction at the bottom) with [local-ssl-proxy](https://github.com/cameronhunter/local-ssl-proxy/)
-- install brew for mkcert [ubuntu tutorial](https://www.how2shout.com/linux/how-to-install-brew-ubuntu-20-04-lts-linux/)
+- install mkcert [easy way](https://www.howtoforge.com/how-to-create-locally-trusted-ssl-certificates-with-mkcert-on-ubuntu/)
+- to point node.js to the root certificate add NODE_EXTRA_CA_CERTS var permanently in `~/.profile` and log out/log in
+
+```
+export NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem"
+```
+
+- test with:
+
+```
+echo $NODE_EXTRA_CA_CERTS
+```
+
+- You should see this in the browser:
+  ![certificate](/notes/certificate.png)
 
 ### Google auth
 

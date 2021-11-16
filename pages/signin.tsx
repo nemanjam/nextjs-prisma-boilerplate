@@ -21,7 +21,7 @@ const SignIn: React.FC<Props> = ({ providers }) => {
       password: enteredPassword,
     });
   };
-  console.log('providers', providers);
+  // console.log('providers', providers);
 
   return (
     <>
