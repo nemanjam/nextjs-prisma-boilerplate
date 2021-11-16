@@ -28,6 +28,11 @@
 
 - [v4 docs](https://next-auth.js.org/configuration/pages)
 
+### Create trusted certificate
+
+- install and run mkcert (instruction at the bottom) with [local-ssl-proxy](https://github.com/cameronhunter/local-ssl-proxy/)
+- install brew for mkcert [ubuntu tutorial](https://www.how2shout.com/linux/how-to-install-brew-ubuntu-20-04-lts-linux/)
+
 ### Google auth
 
 Redirect URI

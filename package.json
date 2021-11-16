@@ -7,7 +7,7 @@
   "author": "",
   "scripts": {
     "dev": "next",
-    "https": "local-ssl-proxy --source 3001 --target 3000",
+    "https": "local-ssl-proxy --key certs/localhost-key.pem --cert certs/localhost.pem --source 3001 --target 3000",
     "dev-https": "yarn dev & yarn https",
     "build": "next build",
     "start": "next start",

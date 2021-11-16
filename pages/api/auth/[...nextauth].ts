@@ -11,6 +11,7 @@ const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
 export default authHandler;
 
 const options = {
+  site: process.env.NEXTAUTH_URL,
   providers: [
     // find complete example
     CredentialsProvider({
