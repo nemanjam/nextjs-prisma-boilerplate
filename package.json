@@ -17,8 +17,8 @@
     "test-all": "yarn lint && yarn type-check && yarn test"
   },
   "dependencies": {
-    "@next-auth/prisma-adapter": "^0.5.2-next.19",
-    "@prisma/client": "3.4.2",
+    "@prisma/client": "3.5.0",
+    "@next-auth/prisma-adapter": "0.5.2-next.19",
     "bcryptjs": "^2.4.3",
     "next": "11.1.2",
     "next-auth": "4.0.0-beta.6",
@@ -28,9 +28,9 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
-    "@types/next-auth": "3.13.0",
     "@types/node": "16.4.2",
     "@types/react": "17.0.34",
+    "@types/react-dom": "^17.0.8",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
     "eslint": "^7.19.0",
@@ -38,7 +38,7 @@
     "eslint-plugin-react": "^7.19.0",
     "local-ssl-proxy": "^1.3.0",
     "prettier": "^2.0.2",
-    "prisma": "3.4.2",
+    "prisma": "3.5.0",
     "ts-node": "10.4.0",
     "typescript": "4.4.4"
   },

@@ -11,9 +11,7 @@ const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
 export default authHandler;
 
 const options = {
-  site: process.env.NEXTAUTH_URL,
   providers: [
-    // find complete example
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -57,11 +55,11 @@ const options = {
     }),
   ],
   session: {
-    jwt: true, // needed for credentials
-    maxAge: 1 * 60 * 60, // 1 hour
+    strategy: 'jwt',
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
+  jwt: { secret: process.env.SECRET },
   pages: { signIn: '/signin' },
   adapter: PrismaAdapter(prisma),
-  secret: process.env.SECRET,
-  debug: true,
+  debug: false,
 };
