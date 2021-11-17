@@ -49,17 +49,36 @@ echo $NODE_EXTRA_CA_CERTS
 
 ### Google auth
 
-Redirect URI
+- Redirect URI
 
 ```
 https://localhost:3001/api/auth/callback/google
 ```
 
+### Facebook auth
+
+- email must be different from Google auth\* - check db in callback
+- Just set these two:
+
+  - Basic settings -> Site URL
+
+  ```
+  https://localhost:3001/
+  ```
+
+  - Facebook login settings -> Valid OAuth Redirect URIs:
+
+  ```
+  https://localhost:3001/api/auth/callback/facebook
+  ```
+
 ### Todo
 
 - extract styles
-- facebook auth
+- avatar
 - tests
-- docker
 - rethink routes, extract
 - update next and everything else
+- docker
+- ci cd, deploy
+- readme

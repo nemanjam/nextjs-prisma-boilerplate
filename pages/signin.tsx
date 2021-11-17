@@ -24,7 +24,7 @@ const SignIn: React.FC<Props> = ({ providers }) => {
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
-    const result = await signIn('credentials', {
+    await signIn('credentials', {
       email: enteredEmail,
       password: enteredPassword,
     });
