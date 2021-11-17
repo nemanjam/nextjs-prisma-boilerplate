@@ -32,7 +32,7 @@
 
 - install and run mkcert (instruction at the bottom) with [local-ssl-proxy](https://github.com/cameronhunter/local-ssl-proxy/)
 - install mkcert [easy way](https://www.howtoforge.com/how-to-create-locally-trusted-ssl-certificates-with-mkcert-on-ubuntu/)
-- to point node.js to the root certificate add NODE_EXTRA_CA_CERTS var permanently in `~/.profile` and log out/log in
+- to point Node.js to the root certificate add `NODE_EXTRA_CA_CERTS` var permanently in `~/.profile` and log out/log in
 
 ```
 export NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem"
@@ -75,7 +75,7 @@ https://localhost:3001/api/auth/callback/google
 ### Todo
 
 - extract styles
-- avatar
+- avatar, already exists `session.user.image`
 - tests
 - rethink routes, extract
 - update next and everything else

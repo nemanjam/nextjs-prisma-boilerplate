@@ -54,6 +54,14 @@ const options = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  /*
+  callbacks: {
+    async session(session, user) {
+      console.log('session', session), 'user', user;
+      return session;
+    },
+  },
+  */
   session: {
     jwt: true, // doesnt work without this...
     strategy: 'jwt',
