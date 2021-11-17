@@ -5,29 +5,6 @@ import Post, { PostProps } from 'components/Post';
 import { useSession, getSession } from 'next-auth/react';
 import prisma from 'lib/prisma';
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await getSession({ req });
-  if (!session) {
-    res.statusCode = 403;
-    return { props: { drafts: [] } };
-  }
-
-  const drafts = await prisma.post.findMany({
-    where: {
-      author: { email: session.user.email },
-      published: false,
-    },
-    include: {
-      author: {
-        select: { name: true },
-      },
-    },
-  });
-  return {
-    props: { drafts },
-  };
-};
-
 type Props = {
   drafts: PostProps[];
 };
@@ -72,6 +49,29 @@ const Drafts: React.FC<Props> = (props) => {
       `}</style>
     </Layout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getSession({ req });
+  if (!session) {
+    res.statusCode = 403;
+    return { props: { drafts: [] } };
+  }
+
+  const drafts = await prisma.post.findMany({
+    where: {
+      author: { email: session.user.email },
+      published: false,
+    },
+    include: {
+      author: {
+        select: { name: true },
+      },
+    },
+  });
+  return {
+    props: { drafts },
+  };
 };
 
 export default Drafts;

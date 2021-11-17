@@ -6,11 +6,11 @@ const Draft: React.FC = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const submitData = async (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
       const body = { title, content };
-      await fetch(`http://localhost:3000/api/post`, {
+      await fetch('/api/post/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -24,7 +24,7 @@ const Draft: React.FC = () => {
   return (
     <Layout>
       <div>
-        <form onSubmit={submitData}>
+        <form onSubmit={handleSubmit}>
           <h1>New Draft</h1>
           <input
             autoFocus

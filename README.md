@@ -54,3 +54,12 @@ Redirect URI
 ```
 https://localhost:3001/api/auth/callback/google
 ```
+
+### Todo
+
+- extract styles
+- facebook auth
+- tests
+- docker
+- rethink routes, extract
+- update next and everything else

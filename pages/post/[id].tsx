@@ -7,23 +7,6 @@ import { PostProps } from 'components/Post';
 import prisma from 'lib/prisma';
 import { useSession } from 'next-auth/react';
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = await prisma.post.findUnique({
-    where: {
-      id: Number(params?.id) || -1,
-    },
-    include: {
-      author: {
-        select: { name: true, email: true },
-      },
-    },
-  });
-
-  return {
-    props: post,
-  };
-};
-
 async function publishPost(id: number): Promise<void> {
   await fetch(`/api/publish/${id}`, {
     method: 'PUT',
@@ -88,6 +71,23 @@ const Post: React.FC<PostProps> = (props) => {
       `}</style>
     </Layout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: Number(params?.id) || -1,
+    },
+    include: {
+      author: {
+        select: { name: true, email: true },
+      },
+    },
+  });
+
+  return {
+    props: post,
+  };
 };
 
 export default Post;
