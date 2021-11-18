@@ -90,7 +90,10 @@ const Header: React.FC = () => {
     right = (
       <div className="right">
         <Link href="/api/auth/signin">
-          <a data-active={isActive('/signup')}>Log in</a>
+          <a>Log in</a>
+        </Link>
+        <Link href="/signup">
+          <a>Sign up</a>
         </Link>
 
         <style jsx>{`
@@ -126,6 +129,13 @@ const Header: React.FC = () => {
             Feed
           </a>
         </Link>
+
+        <Link href="/profile">
+          <a className="bold" data-active={isActive('/profile')}>
+            Profile
+          </a>
+        </Link>
+
         <Link href="/drafts">
           <a data-active={isActive('/drafts')}>My drafts</a>
         </Link>

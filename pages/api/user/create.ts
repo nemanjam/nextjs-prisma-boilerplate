@@ -11,6 +11,7 @@ export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
+  // reuse...?
   const prisma = new PrismaClient({ log: ['query'] });
 
   try {
