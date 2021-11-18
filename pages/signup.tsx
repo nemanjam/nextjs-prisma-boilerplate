@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 const SignUp: React.FC = () => {
   const [name, setName] = useState('');
@@ -21,6 +22,27 @@ const SignUp: React.FC = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files?.length) {
+      return;
+    }
+
+    const formData = new FormData();
+
+    Array.from(event.target.files).forEach((file) => {
+      formData.append(event.target.name, file);
+    });
+
+    const config = {
+      headers: { 'content-type': 'multipart/form-data' },
+      onUploadProgress: (event: ProgressEvent) => {
+        const progress = Math.round((event.loaded * 100) / event.total);
+      },
+    };
+
+    await axios.post('/api/upload-avatar', formData, config);
   };
 
   return (
@@ -55,6 +77,16 @@ const SignUp: React.FC = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
+      <div>
+        <input
+          accept="image/*"
+          multiple={false}
+          name="avatar"
+          onChange={handleUpload}
+          type="file"
+        />
+      </div>
+      {/* preview image */}
 
       <input type="submit" value="Sign up" />
     </form>

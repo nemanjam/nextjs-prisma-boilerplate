@@ -72,10 +72,15 @@ https://localhost:3001/api/auth/callback/google
   https://localhost:3001/api/auth/callback/facebook
   ```
 
+### Upload avatar
+
+- [tutorial](https://betterprogramming.pub/upload-files-to-next-js-with-api-routes-839ce9f28430)
+
 ### Todo
 
 - extract styles
-- avatar, already exists `session.user.image`
+- avatar, already exists `session.user.image`, multer upload for emails
+- migrate to axios, fetch has no progress
 - tests
 - rethink routes, extract
 - update next and everything else
