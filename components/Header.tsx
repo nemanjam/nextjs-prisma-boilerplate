@@ -11,6 +11,8 @@ const Header: React.FC = () => {
   const { data: session, status } = useSession();
   const loading = status === 'loading';
 
+  console.log('session', session);
+
   let left = (
     <div className="left">
       <Link href="/">
@@ -164,10 +166,7 @@ const Header: React.FC = () => {
     right = (
       <div className="right">
         <p>
-          <img
-            src={session.user.image || 'https://i.pravatar.cc/50'}
-            className="avatar"
-          />
+          <img src={session.user.image} className="avatar" />
           {session.user.name} ({session.user.email})
         </p>
         <Link href="/create">

@@ -15,12 +15,12 @@ const Profile: React.FC<Props> = ({ profile }) => {
   const [avatarFile, setAvatarFile] = useState(undefined);
   const [progress, setProgress] = useState(0);
 
-  const router = useRouter();
-
   const { data: session, status } = useSession();
   const loading = status === 'loading';
 
-  const isEditable = session.user.username === router.query.username;
+  // console.log('profile', profile, 'session', session);
+
+  const isEditable = session?.user?.username === profile.username;
 
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files?.length) {
@@ -74,16 +74,27 @@ const Profile: React.FC<Props> = ({ profile }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const router = useRouter();
-  const { username } = router.query;
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const username = params.username as string;
 
-  const drafts = await prisma.post.findMany({
+  const profile = await prisma.user.findUnique({
     where: { username },
   });
 
+  if (!profile) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
-    props: { drafts },
+    props: {
+      profile: {
+        ...profile,
+        createdAt: profile.createdAt.toISOString(), // dates not seriazable but needed
+        updatedAt: profile.updatedAt.toISOString(),
+      },
+    },
   };
 };
 

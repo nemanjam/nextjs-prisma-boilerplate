@@ -37,7 +37,7 @@ const options = {
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
       // just on register?
-      profile: async (profile: FacebookProfile) => {
+      async profile(profile: FacebookProfile) {
         const username = `facebook_user__${uniqueString(6)}`;
 
         // handle non existing fb email
@@ -52,10 +52,12 @@ const options = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      profile: async (profile: FacebookProfile) => {
+      async profile(profile: GoogleProfile) {
         await checkUniqueEmail(profile);
+
         const username = `google_user__${uniqueString(6)}`;
-        return { ...profile, username };
+        const id = uniqueString(9); // why?
+        return { ...profile, username, id };
       },
     }),
     CredentialsProvider({
@@ -97,6 +99,19 @@ const options = {
     jwt: true, // doesnt work without this...
     strategy: 'jwt',
     maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+  callbacks: {
+    // both jwt and session are used to attach user to session
+    async jwt({ token, user }) {
+      user && (token.user = user);
+      return token;
+    },
+    async session({ session, token }) {
+      const _session = token.user
+        ? { ...session, user: token.user }
+        : undefined;
+      return _session;
+    },
   },
   jwt: { secret: process.env.SECRET },
   pages: { signIn: '/signin' },
