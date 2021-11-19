@@ -80,7 +80,9 @@ https://localhost:3001/api/auth/callback/google
 
 - extract styles
 - avatar, already exists `session.user.image`, multer upload for emails
+- disable prisma seed before migrate
 - migrate to axios, fetch has no progress
+- validation server, client
 - tests
 - rethink routes, extract
 - update next and everything else

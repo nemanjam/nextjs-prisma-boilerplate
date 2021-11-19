@@ -1,17 +1,63 @@
 import { NextApiHandler } from 'next';
 import NextAuth from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
-import FacebookProvider from 'next-auth/providers/facebook';
+import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google';
+import FacebookProvider, {
+  FacebookProfile,
+} from 'next-auth/providers/facebook';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from 'lib/prisma';
 import { compare } from 'bcryptjs';
+import { uniqueString } from 'utils';
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
 export default authHandler;
 
+const checkUniqueEmail = async (profile: FacebookProfile | GoogleProfile) => {
+  // check if email already exists
+  const { email } = profile;
+  const user = await prisma.user.findUnique({
+    where: { email },
+    include: {
+      accounts: true,
+    },
+  });
+
+  // limit to one account per user so that email is unique
+  if (user) {
+    throw Error(
+      `User is already registered with ${email} using ${user.accounts[0].provider} provider`
+    );
+  }
+};
+
 const options = {
   providers: [
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+      // just on register?
+      profile: async (profile: FacebookProfile) => {
+        const username = `facebook_user__${uniqueString(6)}`;
+
+        // handle non existing fb email
+        if (!profile.email) {
+          profile.email = `${username}@non-existing-facebook-email.com`;
+        }
+
+        await checkUniqueEmail(profile);
+        return { ...profile, username };
+      },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      profile: async (profile: FacebookProfile) => {
+        await checkUniqueEmail(profile);
+        const username = `google_user__${uniqueString(6)}`;
+        return { ...profile, username };
+      },
+    }),
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -24,6 +70,7 @@ const options = {
           type: 'password',
         },
       },
+      // this is login, not register
       async authorize(credentials, req) {
         const { email, password } = credentials;
 
@@ -44,14 +91,6 @@ const options = {
 
         return user;
       },
-    }),
-    FacebookProvider({
-      clientId: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
   session: {

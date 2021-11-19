@@ -12,6 +12,7 @@ CREATE TABLE "Post" (
 CREATE TABLE "users" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT,
+    "username" TEXT NOT NULL,
     "email" TEXT,
     "password" TEXT,
     "email_verified" DATETIME,
@@ -52,6 +53,9 @@ CREATE TABLE "verificationtokens" (
     "token" TEXT NOT NULL,
     "expires" DATETIME NOT NULL
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "users_username_key" ON "users"("username");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");

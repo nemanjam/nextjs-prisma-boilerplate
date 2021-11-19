@@ -1,10 +1,26 @@
 import { useState } from 'react';
+import { GetServerSideProps } from 'next';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import axios from 'axios';
+import prisma from 'lib/prisma';
+import { Prisma } from '@prisma/client';
 
-const Profile: React.FC = () => {
+type Props = {
+  profile: Prisma.UserCreateInput;
+};
+
+const Profile: React.FC<Props> = ({ profile }) => {
   const [avatar, setAvatar] = useState(undefined);
   const [avatarFile, setAvatarFile] = useState(undefined);
   const [progress, setProgress] = useState(0);
+
+  const router = useRouter();
+
+  const { data: session, status } = useSession();
+  const loading = status === 'loading';
+
+  const isEditable = session.user.username === router.query.username;
 
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files?.length) {
@@ -58,6 +74,17 @@ const Profile: React.FC = () => {
   );
 };
 
-// getServerSideProps and prisma get user
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const router = useRouter();
+  const { username } = router.query;
+
+  const drafts = await prisma.post.findMany({
+    where: { username },
+  });
+
+  return {
+    props: { drafts },
+  };
+};
 
 export default Profile;

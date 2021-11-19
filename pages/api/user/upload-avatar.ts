@@ -1,29 +1,25 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { getSession } from 'next-auth/react';
 import nextConnect from 'next-connect';
 import multer from 'multer';
 import prisma from 'lib/prisma';
-
-const formatDate = (date = Date.now()) => {
-  let d = new Date(date),
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear();
-
-  if (month.length < 2) month = '0' + month;
-  if (day.length < 2) day = '0' + day;
-
-  return [month, day, year].join('-');
-};
+import { formatDate } from 'utils';
 
 const upload = multer({
   storage: multer.diskStorage({
     destination: process.env.UPLOADS_PATH,
     filename: async (req, file, cb) => {
+      const session = await getSession({ req });
+
+      if (!session) {
+        cb(new Error('Unauthenticated user'), null);
+      }
+
       const fileName = `${formatDate()}_${file.originalname}`;
 
       // save name to db
-      const _user = await prisma.user.update({
-        where: { email: '' }, // pass id
+      await prisma.user.update({
+        where: { email: session.user.email },
         data: {
           image: fileName,
         },
@@ -45,7 +41,7 @@ const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({
 
 apiRoute.use(upload.array('avatar'));
 
-apiRoute.post((req, res) => {
+apiRoute.post(async (req, res) => {
   res.status(200).json({ data: 'success' });
 });
 
