@@ -164,16 +164,18 @@ const Header: React.FC = () => {
     );
     right = (
       <div className="right">
-        <p>
-          <Image
-            src={`/images/avatars/${
-              session.user.image || 'placeholder-avatar.jpg'
-            }`}
+        <div className="p-temp">
+          <img
+            src={
+              session.user.image
+                ? `/uploads/avatars/${session.user.image}`
+                : '/images/avatars/placeholder-avatar.jpg'
+            }
             width="50"
             height="50"
           />
           {session.user.name} ({session.user.email})
-        </p>
+        </div>
         <Link href="/create">
           <button>
             <a>New post</a>
@@ -190,7 +192,7 @@ const Header: React.FC = () => {
             display: inline-block;
           }
 
-          p {
+          .p-temp {
             display: inline-block;
             font-size: 13px;
             padding-right: 1rem;

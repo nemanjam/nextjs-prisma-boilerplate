@@ -8,8 +8,9 @@
 
 ### Https proxy for Facebook auth
 
+- used custom server
 - Github [issue](https://github.com/vercel/next.js/discussions/10935)
-- package [local-ssl-proxy](https://www.npmjs.com/package/local-ssl-proxy)
+- package [local-ssl-proxy](https://www.npmjs.com/package/local-ssl-proxy) - **removed**
 
 ### ESlint and Prettier configuration
 
@@ -75,6 +76,12 @@ https://localhost:3001/api/auth/callback/google
 ### Upload avatar
 
 - [tutorial](https://betterprogramming.pub/upload-files-to-next-js-with-api-routes-839ce9f28430)
+
+### Custom Https Express Typescript server
+
+- to use uploads folder at runtime
+- Next.js example (typescript, http) [custom-server-typescript](https://github.com/vercel/next.js/tree/canary/examples/custom-server-typescript)
+- stackoverflow (https, express, js) [example](https://stackoverflow.com/questions/55304101/https-on-localhost-using-nextjs-express)
 
 ### Todo
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import Router from 'next/router';
-import ReactMarkdown from 'react-markdown';
 
 export type PostProps = {
   id: number;
@@ -19,7 +18,7 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
     <div onClick={() => Router.push('/post/[id]', `/post/${post.id}`)}>
       <h2>{post.title}</h2>
       <small>By {authorName}</small>
-      <ReactMarkdown source={post.content} />
+      <p>{post.content} </p>
       <style jsx>{`
         div {
           color: inherit;
