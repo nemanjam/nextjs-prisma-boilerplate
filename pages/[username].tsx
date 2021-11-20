@@ -20,7 +20,7 @@ const Profile: React.FC<Props> = ({ profile }) => {
 
   // console.log('profile', profile, 'session', session);
 
-  const isEditable = session?.user?.username === profile.username;
+  const isEditable = session?.user.username === profile.username;
 
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files?.length) {

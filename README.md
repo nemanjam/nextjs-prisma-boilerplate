@@ -78,12 +78,12 @@ https://localhost:3001/api/auth/callback/google
 
 ### Todo
 
-- extract styles
-- avatar, already exists `session.user.image`, multer upload for emails
+- extract styles, tailwind, next examples
+- avatar, already exists `session.user.image`, multer upload for emails provider
 - disable prisma seed before migrate
 - migrate to axios, fetch has no progress
 - validation server, client
-- tests
+- tests, next examples
 - rethink routes, extract
 - update next and everything else
 - docker
