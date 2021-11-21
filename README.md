@@ -81,15 +81,18 @@ https://localhost:3001/api/auth/callback/google
 
 - to use uploads folder at runtime
 - Next.js example (typescript, http) [custom-server-typescript](https://github.com/vercel/next.js/tree/canary/examples/custom-server-typescript)
-- stackoverflow (https, express, js) [example](https://stackoverflow.com/questions/55304101/https-on-localhost-using-nextjs-express)
+- Stackoverflow (https, express, js) [example](https://stackoverflow.com/questions/55304101/https-on-localhost-using-nextjs-express)
 
 ### Todo
 
 - extract styles, tailwind, next examples
-- avatar, already exists `session.user.image`, multer upload for emails provider
+- admin role
+- middleware folder, withProtect, withRoles
 - disable prisma seed before migrate
 - migrate to axios, fetch has no progress
 - validation server, client
+- error handling
+- logging
 - tests, next examples
 - rethink routes, extract
 - update next and everything else

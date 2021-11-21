@@ -30,22 +30,26 @@ const upload = multer({
   }),
 });
 
-const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({
+const handler = nextConnect<NextApiRequest, NextApiResponse>({
   onError(error, req, res) {
     res.status(501).json({ error: `Error: ${error.message}` });
   },
   onNoMatch(req, res) {
     res.status(405).json({ error: `Method '${req.method}' not allowed` });
   },
+  attachParams: true, // req.params
 });
 
-apiRoute.use(upload.array('avatar'));
+handler.use(upload.array('avatar'));
 
-apiRoute.post(async (req, res) => {
-  res.status(200).json({ data: 'success' });
-});
+// real handler
+const _handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  // switch case here...
+};
 
-export default apiRoute;
+handler.use(_handler);
+
+export default handler;
 
 export const config = {
   api: {
