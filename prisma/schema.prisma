@@ -24,6 +24,7 @@ model User {
   password      String? 
   emailVerified DateTime? @map("email_verified")
   image         String?
+  role          String    @default("user") // user, admin
   accounts      Account[] // next-auth requires this scheme, user is in scheme too
   sessions      Session[]
   posts         Post[]

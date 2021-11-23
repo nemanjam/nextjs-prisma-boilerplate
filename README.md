@@ -90,7 +90,7 @@ https://localhost:3001/api/auth/callback/google
 - middleware folder, withProtect, withRoles
 - disable prisma seed before migrate
 - migrate to axios, fetch has no progress
-- validation server, client
+- validation server, client, example [with-joi](https://github.com/vercel/next.js/tree/canary/examples/with-joi), [next-joi](https://github.com/codecoolture/next-joi)
 - error handling
 - logging
 - tests, next examples
@@ -99,3 +99,5 @@ https://localhost:3001/api/auth/callback/google
 - docker
 - ci cd, deploy
 - readme
+- dev, prode remove express https
+- add types file

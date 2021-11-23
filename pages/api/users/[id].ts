@@ -1,58 +1,51 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
-import nextConnect from 'next-connect';
-import multer from 'multer';
+import { hash } from 'bcryptjs';
 import prisma from 'lib/prisma';
-import { formatDate } from 'utils';
+import avatarUpload from 'lib/middleware/avatarUpload';
+import nc, { options } from 'lib/nc';
 
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: `${process.cwd()}/uploads/avatars`,
-    filename: async (req, file, cb) => {
-      const session = await getSession({ req });
+interface MulterRequest extends NextApiRequest {
+  file: any;
+}
 
-      if (!session) {
-        cb(new Error('Unauthenticated user'), null);
-      }
+const handler = nc(options);
 
-      const fileName = `${formatDate()}_${file.originalname}`;
+// joi validate middleware
+handler.use(avatarUpload);
 
-      // save name to db
-      await prisma.user.update({
-        where: { email: session.user.email },
-        data: {
-          image: fileName,
-        },
-      });
+const updateUser = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { query, body, file } = req as MulterRequest;
+  const id = query.id as string; // so admin can change him too
+  const { name, username, password } = body; // email reconfirm..., types
 
-      cb(null, fileName);
-    },
-  }),
-});
+  const session = await getSession({ req });
 
-const handler = nextConnect<NextApiRequest, NextApiResponse>({
-  onError(error, req, res) {
-    res.status(501).json({ error: `Error: ${error.message}` });
-  },
-  onNoMatch(req, res) {
-    res.status(405).json({ error: `Method '${req.method}' not allowed` });
-  },
-  attachParams: true, // req.params
-});
+  if (session.user.id !== id && session.user.role !== 'admin') {
+    // throw not authorized
+  }
 
-handler.use(upload.array('avatar'));
+  const data = {
+    ...(name && { name }),
+    ...(username && { username }),
+    ...(file?.filename && { image: file.filename }),
+    ...(password && { password: await hash(password, 10) }),
+  };
 
-// real handler
-const _handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  // switch case here...
+  const user = await prisma.user.update({
+    where: { id },
+    data,
+  });
+
+  res.status(200).json({ post: user });
 };
 
-handler.use(_handler);
-
-export default handler;
+handler.patch(updateUser);
 
 export const config = {
   api: {
     bodyParser: false,
   },
 };
+
+export default handler;
