@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { hash } from 'bcryptjs';
 import prisma from 'lib/prisma';
 import nc, { ncOptions } from 'lib/nc';
+import ApiError from '@lib/error';
 
 const handler = nc(ncOptions);
 
@@ -19,7 +20,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     where: { email },
   });
 
-  if (_user) throw new Error(`Email: ${email} already exists.`);
+  if (_user) throw new ApiError(`Email: ${email} already exists.`, 403);
 
   const password = await hash(_password, 10);
 

@@ -10,7 +10,7 @@ const Draft: React.FC = () => {
     e.preventDefault();
     try {
       const body = { title, content };
-      await fetch('/api/post/create', {
+      await fetch('/api/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),

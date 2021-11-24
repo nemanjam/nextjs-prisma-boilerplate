@@ -5,6 +5,7 @@ import prisma from 'lib/prisma';
 import { avatarUpload } from 'lib/middleware/upload';
 import nc, { ncOptions } from 'lib/nc';
 import { requireAuth } from '@lib/middleware/auth';
+import ApiError from '@lib/error';
 
 interface MulterRequest extends NextApiRequest {
   file: any;
@@ -25,7 +26,7 @@ handler.patch(
     const session = await getSession({ req });
 
     if (user.id !== id && session.user.role !== 'admin') {
-      // throw not authorized
+      throw new ApiError('Not authorized.', 401);
     }
 
     const data = {

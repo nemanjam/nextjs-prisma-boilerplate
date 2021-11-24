@@ -1,11 +1,15 @@
 export { default } from 'next-connect';
+import ApiError, { handleError } from 'lib/error';
 
 export const ncOptions = {
   onError(error, req, res) {
-    res.status(501).json({ error: `Error: ${error.message}` });
+    handleError(error, req, res);
   },
   onNoMatch(req, res) {
-    res.status(405).json({ error: `Method '${req.method}' not allowed` });
+    throw new ApiError(`Method '${req.method}' not allowed`, 405);
   },
-  // attachParams: true, // req.params
 };
+
+// attachParams: true, // req.params
+// res.status(501).json({ error: `Error: ${error.message}` });
+// res.status(405).json({ error: `Method '${req.method}' not allowed` });

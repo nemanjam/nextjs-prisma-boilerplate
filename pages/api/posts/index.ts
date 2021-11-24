@@ -10,13 +10,13 @@ const handler = nc(ncOptions);
 // valid middleware
 
 handler.post(requireAuth, async (req: NextApiRequest, res: NextApiResponse) => {
-  const { title, content, user } = req.body;
+  const { title, content } = req.body;
 
   const post = await prisma.post.create({
     data: {
       title: title,
       content: content,
-      author: { connect: { email: user?.email } },
+      author: { connect: { email: req.user.email } },
     },
   });
 
