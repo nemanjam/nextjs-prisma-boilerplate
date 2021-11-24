@@ -1,39 +1,30 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import prisma from 'lib/prisma';
+import nc from 'lib/nc';
 
-// POST /api/post/create
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const { method, body } = req;
-  const session = await getSession({ req });
+const handler = nc();
 
-  switch (method) {
-    case 'GET':
-      // getServerSideProps does this already
-      break;
-    case 'POST':
-      try {
-        const { title, content } = body;
+// getPosts - getServerSideProps does this already
 
-        const post = await prisma.post.create({
-          data: {
-            title: title,
-            content: content,
-            author: { connect: { email: session?.user?.email } },
-          },
-        });
+// if auth middleware
+// valid middleware
 
-        res.status(201).json({ post });
-      } catch (error) {
-        res.status(500).json({ error });
-      }
+const createPost = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { title, content } = req.body;
+  const session = await getSession({ req }); // middleware...
 
-      break;
-    default:
-      res.setHeader('Allow', ['GET', 'POST']);
-      res.status(405).end(`Method ${method} Not Allowed`);
-  }
-}
+  const post = await prisma.post.create({
+    data: {
+      title: title,
+      content: content,
+      author: { connect: { email: session?.user?.email } },
+    },
+  });
+
+  res.status(201).json({ post });
+};
+
+handler.post(createPost);
+
+export default handler;

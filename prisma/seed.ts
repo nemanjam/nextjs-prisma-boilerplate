@@ -11,6 +11,7 @@ const userData: Prisma.UserCreateInput[] = [
     email: 'user0@email.com',
     image: 'avatar0.jpg',
     password,
+    role: 'admin',
     posts: {
       create: [
         {
