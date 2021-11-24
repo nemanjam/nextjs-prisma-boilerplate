@@ -1,30 +1,26 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
 import prisma from 'lib/prisma';
-import nc from 'lib/nc';
+import nc, { ncOptions } from 'lib/nc';
+import { requireAuth } from '@lib/middleware/auth';
 
-const handler = nc();
+const handler = nc(ncOptions);
 
 // getPosts - getServerSideProps does this already
 
-// if auth middleware
 // valid middleware
 
-const createPost = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { title, content } = req.body;
-  const session = await getSession({ req }); // middleware...
+handler.post(requireAuth, async (req: NextApiRequest, res: NextApiResponse) => {
+  const { title, content, user } = req.body;
 
   const post = await prisma.post.create({
     data: {
       title: title,
       content: content,
-      author: { connect: { email: session?.user?.email } },
+      author: { connect: { email: user?.email } },
     },
   });
 
   res.status(201).json({ post });
-};
-
-handler.post(createPost);
+});
 
 export default handler;

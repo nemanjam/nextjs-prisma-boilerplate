@@ -2,45 +2,47 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import { hash } from 'bcryptjs';
 import prisma from 'lib/prisma';
-import avatarUpload from 'lib/middleware/avatarUpload';
-import nc from 'lib/nc';
+import { avatarUpload } from 'lib/middleware/upload';
+import nc, { ncOptions } from 'lib/nc';
+import { requireAuth } from '@lib/middleware/auth';
 
 interface MulterRequest extends NextApiRequest {
   file: any;
 }
 
-const handler = nc();
+const handler = nc(ncOptions);
 
 // joi validate middleware
-handler.use(avatarUpload);
 
-const updateUser = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { query, body, file } = req as MulterRequest;
-  const id = query.id as string; // so admin can change him too
-  const { name, username, password } = body; // email reconfirm..., types
+handler.patch(
+  requireAuth,
+  avatarUpload,
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    const { query, body, file } = req as MulterRequest;
+    const id = query.id as string; // so admin can change him too
+    const { name, username, password, user } = body; // email reconfirm..., types
 
-  const session = await getSession({ req });
+    const session = await getSession({ req });
 
-  if (session.user.id !== id && session.user.role !== 'admin') {
-    // throw not authorized
+    if (user.id !== id && session.user.role !== 'admin') {
+      // throw not authorized
+    }
+
+    const data = {
+      ...(name && { name }),
+      ...(username && { username }),
+      ...(file?.filename && { image: file.filename }),
+      ...(password && { password: await hash(password, 10) }),
+    };
+
+    const _user = await prisma.user.update({
+      where: { id },
+      data,
+    });
+
+    res.status(200).json({ user: _user });
   }
-
-  const data = {
-    ...(name && { name }),
-    ...(username && { username }),
-    ...(file?.filename && { image: file.filename }),
-    ...(password && { password: await hash(password, 10) }),
-  };
-
-  const user = await prisma.user.update({
-    where: { id },
-    data,
-  });
-
-  res.status(200).json({ post: user });
-};
-
-handler.patch(updateUser);
+);
 
 export const config = {
   api: {

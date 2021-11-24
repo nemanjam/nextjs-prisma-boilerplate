@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { hash } from 'bcryptjs';
 import prisma from 'lib/prisma';
-import nc from 'lib/nc';
+import nc, { ncOptions } from 'lib/nc';
 
-const handler = nc();
+const handler = nc(ncOptions);
 
 // todo: validate...
 
@@ -12,7 +12,7 @@ const handler = nc();
  * Required fields in body: name, username, email, password
  */
 
-const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
+handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const { name, username, email, password: _password } = req.body;
 
   const _user = await prisma.user.findFirst({
@@ -34,14 +34,11 @@ const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
   });
 
   res.status(201).json({ user });
-};
+});
 
-const getUsers = async (req: NextApiRequest, res: NextApiResponse) => {
+handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   const users = await prisma.user.findMany();
   res.status(200).json({ users });
-};
-
-handler.post(createUser);
-handler.get(getUsers);
+});
 
 export default handler;
