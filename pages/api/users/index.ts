@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { hash } from 'bcryptjs';
-import prisma from 'lib/prisma';
-import nc, { ncOptions } from 'lib/nc';
-import ApiError from '@lib/error';
+import prisma from 'lib-server/prisma';
+import nc, { ncOptions } from 'lib-server/nc';
+import ApiError from 'lib-server/error';
 
 const handler = nc(ncOptions);
 

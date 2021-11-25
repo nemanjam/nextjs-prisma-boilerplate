@@ -1,5 +1,5 @@
 export { default } from 'next-connect';
-import ApiError, { handleError } from 'lib/error';
+import ApiError, { handleError } from 'lib-server/error';
 
 export const ncOptions = {
   onError(error, req, res) {

@@ -6,10 +6,10 @@ import FacebookProvider, {
 } from 'next-auth/providers/facebook';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import prisma from 'lib/prisma';
+import prisma from 'lib-server/prisma';
 import { compare } from 'bcryptjs';
 import { uniqueString } from 'utils';
-import nc, { ncOptions } from 'lib/nc';
+import nc, { ncOptions } from 'lib-server/nc';
 
 const handler = nc(ncOptions);
 
@@ -84,7 +84,7 @@ handler.use(
       session: {
         jwt: true, // doesnt work without this...
         // strategy: 'jwt',
-        maxAge: 30 * 24 * 60 * 60, // 30 days
+        maxAge: 60 * 60, // 1h // 30 * 24 * 60 * 60, // 30 days
       },
       callbacks: {
         // both jwt and session are used to attach user to session

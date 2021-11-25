@@ -3,21 +3,22 @@ import { GetServerSideProps } from 'next';
 import Layout from 'components/Layout';
 import Router from 'next/router';
 import { PostProps } from 'components/Post';
-import prisma from 'lib/prisma';
+import prisma from 'lib-server/prisma';
 import { useSession } from 'next-auth/react';
+import { Routes } from 'lib-client/constants';
 
 async function publishPost(id: number): Promise<void> {
-  await fetch(`/api/publish/${id}`, {
-    method: 'PUT',
+  await fetch(`${Routes.API.POSTS}${id}`, {
+    method: 'PATCH',
   });
-  await Router.push('/');
+  await Router.push(Routes.SITE.HOME);
 }
 
 async function deletePost(id: number): Promise<void> {
-  await fetch(`/api/post/${id}`, {
+  await fetch(`${Routes.API.POSTS}${id}`, {
     method: 'DELETE',
   });
-  await Router.push('/');
+  await Router.push(Routes.SITE.HOME);
 }
 
 const Post: React.FC<PostProps> = (props) => {

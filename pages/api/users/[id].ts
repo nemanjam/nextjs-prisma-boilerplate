@@ -1,11 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import { hash } from 'bcryptjs';
-import prisma from 'lib/prisma';
-import { avatarUpload } from 'lib/middleware/upload';
-import nc, { ncOptions } from 'lib/nc';
-import { requireAuth } from '@lib/middleware/auth';
-import ApiError from '@lib/error';
+import prisma from 'lib-server/prisma';
+import { avatarUpload } from 'lib-server/middleware/upload';
+import nc, { ncOptions } from 'lib-server/nc';
+import { requireAuth } from 'lib-server/middleware/auth';
+import ApiError from 'lib-server/error';
 
 interface MulterRequest extends NextApiRequest {
   file: any;
@@ -21,11 +21,11 @@ handler.patch(
   async (req: NextApiRequest, res: NextApiResponse) => {
     const { query, body, file } = req as MulterRequest;
     const id = query.id as string; // so admin can change him too
-    const { name, username, password, user } = body; // email reconfirm..., types
+    const { name, username, password } = body; // email reconfirm..., types
 
     const session = await getSession({ req });
 
-    if (user.id !== id && session.user.role !== 'admin') {
+    if (session.user.id !== id && session.user.role !== 'admin') {
       throw new ApiError('Not authorized.', 401);
     }
 

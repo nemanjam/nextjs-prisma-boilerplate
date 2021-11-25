@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import Layout from 'components/Layout';
 import Post, { PostProps } from 'components/Post';
 import { useSession, getSession } from 'next-auth/react';
-import prisma from 'lib/prisma';
+import prisma from 'lib-server/prisma';
 
 type Props = {
   drafts: PostProps[];

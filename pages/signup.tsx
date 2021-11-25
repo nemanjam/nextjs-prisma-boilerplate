@@ -1,3 +1,4 @@
+import { Routes } from 'lib-client/constants';
 import { useState } from 'react';
 
 const SignUp: React.FC = () => {
@@ -13,7 +14,7 @@ const SignUp: React.FC = () => {
         email,
         password,
       };
-      await fetch('/api/user/create', {
+      await fetch(Routes.API.USERS, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),

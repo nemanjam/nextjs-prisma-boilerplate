@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import prisma from 'lib/prisma';
-import nc, { ncOptions } from 'lib/nc';
-import { requireAuth } from '@lib/middleware/auth';
+import prisma from 'lib-server/prisma';
+import nc, { ncOptions } from 'lib-server/nc';
+import { requireAuth } from 'lib-server/middleware/auth';
+import { getSession } from 'next-auth/react';
 
 const handler = nc(ncOptions);
 
@@ -11,12 +12,13 @@ const handler = nc(ncOptions);
 
 handler.post(requireAuth, async (req: NextApiRequest, res: NextApiResponse) => {
   const { title, content } = req.body;
+  const session = await getSession({ req });
 
   const post = await prisma.post.create({
     data: {
       title: title,
       content: content,
-      author: { connect: { email: req.user.email } },
+      author: { connect: { email: session.user.email } },
     },
   });
 

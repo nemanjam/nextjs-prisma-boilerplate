@@ -1,4 +1,4 @@
-import ApiError from '@lib/error';
+import ApiError from 'lib-server/error';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 
@@ -10,9 +10,8 @@ export const requireAuth = async (
   next: NextHandler
 ) => {
   const session = await getSession({ req });
-  console.log('session', session);
-
-  const error = session?.user
+  // dont attach req.user because it complicates types
+  const error = session?.user?.id
     ? undefined
     : new ApiError('You are not logged in.', 401);
   next(error);

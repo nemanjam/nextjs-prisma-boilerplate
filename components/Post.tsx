@@ -1,5 +1,6 @@
 import React from 'react';
 import Router from 'next/router';
+import { Routes } from 'lib-client/constants';
 
 export type PostProps = {
   id: number;
@@ -15,7 +16,11 @@ export type PostProps = {
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {
   const authorName = post.author ? post.author.name : 'Unknown author';
   return (
-    <div onClick={() => Router.push('/post/[id]', `/post/${post.id}`)}>
+    <div
+      onClick={() =>
+        Router.push(`${Routes.SITE.POST}[id]`, `${Routes.SITE.POST}${post.id}`)
+      }
+    >
       <h2>{post.title}</h2>
       <small>By {authorName}</small>
       <p>{post.content} </p>

@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
-import nc, { ncOptions } from 'lib/nc';
-import prisma from 'lib/prisma';
-import { requireAuth } from '@lib/middleware/auth';
-import ApiError from '@lib/error';
+import nc, { ncOptions } from 'lib-server/nc';
+import prisma from 'lib-server/prisma';
+import { requireAuth } from 'lib-server/middleware/auth';
+import ApiError from 'lib-server/error';
 
 const handler = nc(ncOptions);
 const getId = (req: NextApiRequest) => Number(req.query.id as string);
@@ -19,10 +19,10 @@ handler.patch(
   requireAuth,
   async (req: NextApiRequest, res: NextApiResponse) => {
     const id = getId(req);
-    const { title, content, published, user } = req.body;
+    const { title, content, published } = req.body;
     const session = await getSession({ req });
 
-    if (user.id !== id && session.user.role !== 'admin') {
+    if (Number(session.user.id) !== id && session.user.role !== 'admin') {
       throw new ApiError('Not authorized.', 401);
     }
 

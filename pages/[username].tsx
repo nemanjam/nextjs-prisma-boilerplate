@@ -3,8 +3,9 @@ import { GetServerSideProps } from 'next';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import prisma from 'lib/prisma';
+import prisma from 'lib-server/prisma';
 import { Prisma } from '@prisma/client';
+import { Routes } from 'lib-client/constants';
 
 type Props = {
   profile: Prisma.UserCreateInput;
@@ -47,7 +48,7 @@ const Profile: React.FC<Props> = ({ profile }) => {
     };
 
     try {
-      await axios.post('/api/user/upload-avatar', formData, config);
+      await axios.post(Routes.API.USERS, formData, config);
     } catch (error) {
       console.error(error);
     }
