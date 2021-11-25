@@ -20,8 +20,8 @@ handler.patch(
   avatarUpload,
   async (req: NextApiRequest, res: NextApiResponse) => {
     const { query, body, file } = req as MulterRequest;
-    const id = query.id as string; // so admin can change him too
-    const { name, username, password } = body; // email reconfirm..., types
+    const id = query.id as string;
+    const { name, username, password } = body; // email reconfirm...
 
     const session = await getSession({ req });
 

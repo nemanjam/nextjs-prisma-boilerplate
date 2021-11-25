@@ -2,22 +2,27 @@ import React from 'react';
 import { GetServerSideProps } from 'next';
 import Layout from 'components/Layout';
 import Router from 'next/router';
+import axios from 'axios';
 import { PostProps } from 'components/Post';
 import prisma from 'lib-server/prisma';
 import { useSession } from 'next-auth/react';
 import { Routes } from 'lib-client/constants';
 
 async function publishPost(id: number): Promise<void> {
-  await fetch(`${Routes.API.POSTS}${id}`, {
-    method: 'PATCH',
-  });
+  try {
+    await axios.patch(`${Routes.API.POSTS}${id}`, { published: true });
+  } catch (error) {
+    console.error(error);
+  }
   await Router.push(Routes.SITE.HOME);
 }
 
 async function deletePost(id: number): Promise<void> {
-  await fetch(`${Routes.API.POSTS}${id}`, {
-    method: 'DELETE',
-  });
+  try {
+    await axios.delete(`${Routes.API.POSTS}${id}`);
+  } catch (error) {
+    console.error(error);
+  }
   await Router.push(Routes.SITE.HOME);
 }
 

@@ -22,9 +22,19 @@ handler.patch(
     const { title, content, published } = req.body;
     const session = await getSession({ req });
 
-    if (Number(session.user.id) !== id && session.user.role !== 'admin') {
+    const _post = await prisma.post.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        author: true,
+      },
+    });
+
+    if (!_post) throw new ApiError(`Post with id:${id} not found.`, 404);
+
+    if (session.user.id !== _post.author.id && session.user.role !== 'admin')
       throw new ApiError('Not authorized.', 401);
-    }
 
     const data = {
       ...(title && { title }),
