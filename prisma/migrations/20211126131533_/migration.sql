@@ -17,6 +17,7 @@ CREATE TABLE "users" (
     "password" TEXT,
     "email_verified" DATETIME,
     "image" TEXT,
+    "role" TEXT NOT NULL DEFAULT 'user',
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL
 );

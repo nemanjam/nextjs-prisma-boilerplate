@@ -83,21 +83,48 @@ https://localhost:3001/api/auth/callback/google
 - Next.js example (typescript, http) [custom-server-typescript](https://github.com/vercel/next.js/tree/canary/examples/custom-server-typescript)
 - Stackoverflow (https, express, js) [example](https://stackoverflow.com/questions/55304101/https-on-localhost-using-nextjs-express)
 
+### Prisma db reset, migrate, seed
+
+Reset (doesnt work):
+
+```
+npx prisma migrate reset --skip-seed
+
+```
+
+Migrate:
+
+```
+npx prisma migrate dev --skip-seed
+
+```
+
+Seed:
+
+```
+npx prisma db seed
+
+```
+
 ### Todo
 
+- admin role - done, maybe type admin | user in prisma
+- middleware folder, withProtect, withRoles - done
+- disable prisma seed before migrate - done
+- error handling, next-connect - almost done
+- rethink routes, extract - done
+
+---
+
 - extract styles, tailwind, next examples
-- admin role
-- middleware folder, withProtect, withRoles
-- disable prisma seed before migrate
 - migrate to axios, fetch has no progress
 - validation server, client, example [with-joi](https://github.com/vercel/next.js/tree/canary/examples/with-joi), [next-joi](https://github.com/codecoolture/next-joi)
-- error handling
 - logging
 - tests, next examples
-- rethink routes, extract
 - update next and everything else
 - docker
 - ci cd, deploy
 - readme
-- dev, prode remove express https
+- dev, prod remove express https
 - add types file
+- sqlite to postgres
