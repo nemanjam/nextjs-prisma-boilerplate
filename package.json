@@ -24,8 +24,11 @@
     "next": "11.1.2",
     "next-auth": "4.0.0-beta.6",
     "next-connect": "^0.11.0",
+    "next-validations": "^0.1.10",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-hook-form": "^7.20.4",
+    "zod": "^3.11.6"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

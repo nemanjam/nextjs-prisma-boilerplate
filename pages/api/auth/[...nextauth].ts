@@ -10,6 +10,8 @@ import prisma from 'lib-server/prisma';
 import { compare } from 'bcryptjs';
 import { uniqueString } from 'utils';
 import nc, { ncOptions } from 'lib-server/nc';
+import ApiError from 'lib-server/error';
+import { userLoginSchema } from 'lib-server/validation';
 
 const handler = nc(ncOptions);
 
@@ -58,14 +60,19 @@ handler.use(
           },
           // this is login, not register
           async authorize(credentials, req) {
+            const res = userLoginSchema.safeParse(credentials);
+            console.log('res', res);
+
             const { email, password } = credentials;
 
             const user = await prisma.user.findUnique({
               where: { email },
             });
             if (!user) {
-              return null;
-              // return { error: `User with email: ${email} does not exist.` };
+              throw new ApiError(
+                `User with email: ${email} does not exist.`,
+                404
+              );
             }
 
             const isValid =
@@ -73,8 +80,7 @@ handler.use(
               user.password &&
               (await compare(password, user.password));
             if (!isValid) {
-              return null;
-              // return { error: 'Invalid password.' };
+              throw new ApiError('Invalid password.', 401);
             }
 
             return user;
@@ -83,8 +89,7 @@ handler.use(
       ],
       session: {
         jwt: true, // doesnt work without this...
-        // strategy: 'jwt',
-        maxAge: 60 * 60, // 1h // 30 * 24 * 60 * 60, // 30 days
+        maxAge: 60 * 60, // 1h
       },
       callbacks: {
         // both jwt and session are used to attach user to session
@@ -118,8 +123,9 @@ async function checkUniqueEmail(profile: FacebookProfile | GoogleProfile) {
 
   // limit to one account per user so that email is unique
   if (user) {
-    throw Error(
-      `User is already registered with ${email} using ${user.accounts[0].provider} provider`
+    throw new ApiError(
+      `User is already registered with ${email} using ${user.accounts[0].provider} provider`,
+      400
     );
   }
 }

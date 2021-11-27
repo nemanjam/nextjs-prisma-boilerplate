@@ -2601,6 +2601,11 @@ next-connect@^0.11.0:
   dependencies:
     trouter "^3.1.0"
 
+next-validations@^0.1.10:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/next-validations/-/next-validations-0.1.10.tgz#cf85144c1d298c24d95fadccb0ab60294030b5b7"
+  integrity sha512-97rgBPyoSoYfUpqorR2wDAe++hPFERudgmTVghqav6Ln1Ovqa+YtkYeFPVKmQtWwb8eAPIoEY+T85W/r2orG0Q==
+
 next@11.1.2:
   version "11.1.2"
   resolved "https://registry.yarnpkg.com/next/-/next-11.1.2.tgz#527475787a9a362f1bc916962b0c0655cc05bc91"
@@ -3226,6 +3231,11 @@ react-dom@17.0.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     scheduler "^0.20.2"
+
+react-hook-form@^7.20.4:
+  version "7.20.4"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.20.4.tgz#7c23dcaed54812fba9ac63be0313b7c5d11d2b93"
+  integrity sha512-Nvy6TnNMlBoR+qS8FpA8lrqtGJ4uoi/MRYEgMEdBMY0HwHVuC7wB1sk6wTjg7FjOUt7QqMAP2W/vOhTWbKrtkQ==
 
 react-is@17.0.2:
   version "17.0.2"
@@ -4141,3 +4151,8 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+zod@^3.11.6:
+  version "3.11.6"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.11.6.tgz#e43a5e0c213ae2e02aefe7cb2b1a6fa3d7f1f483"
+  integrity sha512-daZ80A81I3/9lIydI44motWe6n59kRBfNzTuS2bfzVh1nAXi667TOTWWtatxyG+fwgNUiagSj/CWZwRRbevJIg==

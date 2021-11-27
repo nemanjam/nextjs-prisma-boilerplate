@@ -83,6 +83,18 @@ https://localhost:3001/api/auth/callback/google
 - Next.js example (typescript, http) [custom-server-typescript](https://github.com/vercel/next.js/tree/canary/examples/custom-server-typescript)
 - Stackoverflow (https, express, js) [example](https://stackoverflow.com/questions/55304101/https-on-localhost-using-nextjs-express)
 
+### Api Error handling
+
+...
+
+### next-connect
+
+...
+
+### Validation
+
+...
+
 ### Prisma db reset, migrate, seed
 
 Reset (doesnt work):
