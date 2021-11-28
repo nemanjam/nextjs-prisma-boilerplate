@@ -65,9 +65,7 @@ const Profile: React.FC<Props> = ({ profile }) => {
           type="file"
         />
       </div>
-      {avatar && (
-        <img src={avatar} style={{ height: '100px', width: '100px' }} />
-      )}
+      {avatar && <img src={avatar} style={{ height: '100px', width: '100px' }} />}
       {progress > 0 && progress}
 
       <button onClick={handleUpload}>Upload</button>

@@ -12,9 +12,10 @@
     "type-check": "tsc --pretty --noEmit",
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "format": "prettier --write .",
-    "test-all": "yarn lint && yarn type-check && yarn test"
+    "test-all": "yarn lint && yarn type-check && yarn format"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.8.3",
     "@next-auth/prisma-adapter": "0.5.2-next.19",
     "@prisma/client": "3.5.0",
     "axios": "^0.24.0",

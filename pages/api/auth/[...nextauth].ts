@@ -1,9 +1,7 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import NextAuth, { Session } from 'next-auth';
 import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google';
-import FacebookProvider, {
-  FacebookProfile,
-} from 'next-auth/providers/facebook';
+import FacebookProvider, { FacebookProfile } from 'next-auth/providers/facebook';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from 'lib-server/prisma';
@@ -70,16 +68,11 @@ handler.use(
             });
 
             if (!user) {
-              throw new ApiError(
-                `User with email: ${email} does not exist.`,
-                404
-              );
+              throw new ApiError(`User with email: ${email} does not exist.`, 404);
             }
 
             const isValid =
-              password &&
-              user.password &&
-              (await compare(password, user.password));
+              password && user.password && (await compare(password, user.password));
 
             if (!isValid) {
               throw new ApiError('Invalid password.', 401);
@@ -100,9 +93,7 @@ handler.use(
           return token;
         },
         async session({ session, token }) {
-          const _session = token.user
-            ? { ...session, user: token.user }
-            : undefined;
+          const _session = token.user ? { ...session, user: token.user } : undefined;
           return _session as Session;
         },
       },

@@ -1,12 +1,7 @@
 import React, { useRef } from 'react';
 import { GetServerSideProps } from 'next';
 import Router from 'next/router';
-import {
-  getProviders,
-  signIn,
-  useSession,
-  ClientSafeProvider,
-} from 'next-auth/react';
+import { getProviders, signIn, useSession, ClientSafeProvider } from 'next-auth/react';
 
 type Props = {
   providers: Record<string, ClientSafeProvider>;

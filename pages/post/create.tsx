@@ -1,47 +1,42 @@
 import React, { useState } from 'react';
-import Layout from 'components/Layout';
 import Router from 'next/router';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import { Routes } from 'lib-client/constants';
+import Layout from 'components/Layout';
+import { postCreateSchema } from 'lib-server/validation';
 
-const Draft: React.FC = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-
-  const handleSubmit = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
+const Create: React.FC = () => {
+  const onSubmit = async ({ title, content }) => {
     try {
-      const body = { title, content };
-      await fetch(Routes.API.POSTS, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
+      await axios.post(Routes.API.POSTS, { title, content });
+      // swr and handle server error
       await Router.push('/post/drafts');
     } catch (error) {
       console.error(error);
     }
   };
 
+  const { register, handleSubmit, formState } = useForm({
+    resolver: zodResolver(postCreateSchema),
+  });
+  const { errors } = formState;
+
   return (
     <Layout>
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <h1>New Draft</h1>
-          <input
-            autoFocus
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Title"
-            type="text"
-            value={title}
-          />
-          <textarea
-            cols={50}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="Content"
-            rows={8}
-            value={content}
-          />
-          <input disabled={!content || !title} type="submit" value="Create" />
+
+          <input {...register('title')} autoFocus placeholder="Title" type="text" />
+          <p className="has-error">{errors.title?.message}</p>
+
+          <textarea {...register('content')} placeholder="Content" cols={50} rows={8} />
+          <p className="has-error">{errors.content?.message}</p>
+
+          <button type="submit">Create</button>
+
           <a className="back" href="#" onClick={() => Router.push('/')}>
             or Cancel
           </a>
@@ -65,10 +60,19 @@ const Draft: React.FC = () => {
           border: 0.125rem solid rgba(0, 0, 0, 0.2);
         }
 
-        input[type='submit'] {
+        button[type='submit'] {
           background: #ececec;
           border: 0;
           padding: 1rem 2rem;
+        }
+
+        button[disabled] {
+          border: 1px solid red;
+        }
+
+        .has-error {
+          color: red;
+          font-size: 14px;
         }
 
         .back {
@@ -79,4 +83,4 @@ const Draft: React.FC = () => {
   );
 };
 
-export default Draft;
+export default Create;

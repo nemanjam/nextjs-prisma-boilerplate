@@ -131,10 +131,7 @@ const Header: React.FC = () => {
         </Link>
 
         <Link href={`/${session.user.username}`}>
-          <a
-            className="bold"
-            data-active={isActive(`/${session.user.username}`)}
-          >
+          <a className="bold" data-active={isActive(`/${session.user.username}`)}>
             Profile
           </a>
         </Link>

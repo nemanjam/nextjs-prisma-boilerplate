@@ -14,11 +14,7 @@ export default class ApiError extends Error {
   }
 }
 
-export const handleError = (
-  error: any,
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
+export const handleError = (error: any, req: NextApiRequest, res: NextApiResponse) => {
   console.error('my error', error);
   res.status(error.statusCode || 500).send(error.message);
 };

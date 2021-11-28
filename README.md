@@ -140,3 +140,4 @@ npx prisma db seed
 - dev, prod remove express https
 - add types file
 - sqlite to postgres
+- tailwind and root font-size 10px 1rem, global and component styles

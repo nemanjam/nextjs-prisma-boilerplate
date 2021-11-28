@@ -60,15 +60,12 @@ handler.patch(
   }
 );
 
-handler.delete(
-  requireAuth,
-  async (req: NextApiRequest, res: NextApiResponse) => {
-    const post = await prisma.post.delete({
-      where: { id: getId(req) },
-    });
+handler.delete(requireAuth, async (req: NextApiRequest, res: NextApiResponse) => {
+  const post = await prisma.post.delete({
+    where: { id: getId(req) },
+  });
 
-    res.status(204).json({ post });
-  }
-);
+  res.status(204).json({ post });
+});
 
 export default handler;
