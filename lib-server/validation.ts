@@ -1,11 +1,8 @@
 import { z } from 'zod';
 
 export const userLoginSchema = z.object({
-  email: z
-    .string()
-    .nonempty({ message: 'Can not be empty' })
-    .email({ message: 'Invalid email address' }), // maybe it has default messages...
-  password: z.string().nonempty({ message: 'Can not be empty' }).min(3).max(20),
+  email: z.string().nonempty().email(), // it has default messages...
+  password: z.string().nonempty().min(3).max(20),
 });
 
 export const userRegisterSchema = userLoginSchema.extend({

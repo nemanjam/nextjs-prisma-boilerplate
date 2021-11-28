@@ -107,7 +107,7 @@ handler.use(
         },
       },
       jwt: { secret: process.env.SECRET },
-      pages: { signIn: '/signin' },
+      pages: { signIn: '/auth/login' },
       adapter: PrismaAdapter(prisma),
       debug: false,
     })

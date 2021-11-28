@@ -12,7 +12,7 @@ type Props = {
   providers: Record<string, ClientSafeProvider>;
 };
 
-const SignIn: React.FC<Props> = ({ providers }) => {
+const Login: React.FC<Props> = ({ providers }) => {
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
@@ -67,4 +67,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return { props: { providers } };
 };
 
-export default SignIn;
+export default Login;

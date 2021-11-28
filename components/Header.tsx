@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
-import Image from 'next/image';
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -90,11 +89,11 @@ const Header: React.FC = () => {
   if (!session) {
     right = (
       <div className="right">
-        <Link href="/api/auth/signin">
+        <Link href="/auth/login">
           <a>Log in</a>
         </Link>
-        <Link href="/signup">
-          <a>Sign up</a>
+        <Link href="/auth/register">
+          <a>Register</a>
         </Link>
 
         <style jsx>{`

@@ -4,36 +4,17 @@ import Layout from 'components/Layout';
 import Post, { PostProps } from 'components/Post';
 import prisma from 'lib-server/prisma';
 
-export const getStaticProps: GetStaticProps = async () => {
-  const feed = await prisma.post.findMany({
-    where: {
-      published: true,
-    },
-    include: {
-      author: {
-        select: {
-          name: true,
-        },
-      },
-    },
-  });
-
-  return {
-    props: { feed },
-  };
-};
-
 type Props = {
   feed: PostProps[];
 };
 
-const Blog: React.FC<Props> = (props) => {
+const Blog: React.FC<Props> = ({ feed }) => {
   return (
     <Layout>
       <div className="page">
         <h1>Public Feed</h1>
         <main>
-          {props.feed.map((post) => (
+          {feed.map((post) => (
             <div key={post.id} className="post">
               <Post post={post} />
             </div>
@@ -57,6 +38,25 @@ const Blog: React.FC<Props> = (props) => {
       `}</style>
     </Layout>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const feed = await prisma.post.findMany({
+    where: {
+      published: true,
+    },
+    include: {
+      author: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+
+  return {
+    props: { feed },
+  };
 };
 
 export default Blog;

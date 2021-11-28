@@ -1,7 +1,7 @@
 import { Routes } from 'lib-client/constants';
 import { useState } from 'react';
 
-const SignUp: React.FC = () => {
+const Register: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -61,4 +61,4 @@ const SignUp: React.FC = () => {
     </form>
   );
 };
-export default SignUp;
+export default Register;
