@@ -21,7 +21,7 @@ const validateUserUpdate = withValidation({
 
 handler.patch(
   requireAuth,
-  // validateUserUpdate,
+  validateUserUpdate(),
   avatarUpload,
   async (req: NextApiRequest, res: NextApiResponse) => {
     const { query, body, file } = req as MulterRequest;

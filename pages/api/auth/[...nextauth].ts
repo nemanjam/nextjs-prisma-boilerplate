@@ -60,14 +60,15 @@ handler.use(
           },
           // this is login, not register
           async authorize(credentials, req) {
-            const res = userLoginSchema.safeParse(credentials);
-            console.log('res', res);
+            // const res = userLoginSchema.safeParse(credentials);
+            // console.log('res', res);
 
             const { email, password } = credentials;
 
             const user = await prisma.user.findUnique({
               where: { email },
             });
+
             if (!user) {
               throw new ApiError(
                 `User with email: ${email} does not exist.`,
@@ -79,6 +80,7 @@ handler.use(
               password &&
               user.password &&
               (await compare(password, user.password));
+
             if (!isValid) {
               throw new ApiError('Invalid password.', 401);
             }

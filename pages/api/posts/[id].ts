@@ -25,7 +25,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 
 handler.patch(
   requireAuth,
-  validatePostUpdate,
+  validatePostUpdate(),
   async (req: NextApiRequest, res: NextApiResponse) => {
     const id = getId(req);
     const { title, content, published } = req.body;

@@ -18,11 +18,11 @@ const validatePostCreate = withValidation({
 
 handler.post(
   requireAuth,
-  validatePostCreate,
+  validatePostCreate(),
   async (req: NextApiRequest, res: NextApiResponse) => {
     const { title, content } = req.body;
     const session = await getSession({ req });
-    console.log('run 123');
+
     const post = await prisma.post.create({
       data: {
         title,

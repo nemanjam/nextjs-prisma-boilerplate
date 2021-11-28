@@ -20,7 +20,7 @@ const validateUserRegister = withValidation({
  */
 
 handler.post(
-  validateUserRegister,
+  validateUserRegister(),
   async (req: NextApiRequest, res: NextApiResponse) => {
     const { name, username, email, password: _password } = req.body;
 
