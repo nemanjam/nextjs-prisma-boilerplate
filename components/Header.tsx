@@ -139,8 +139,8 @@ const Header: React.FC = () => {
           </a>
         </Link>
 
-        <Link href="/drafts">
-          <a data-active={isActive('/drafts')}>My drafts</a>
+        <Link href="/post/drafts">
+          <a data-active={isActive('/post/drafts')}>My drafts</a>
         </Link>
 
         <style jsx>{`
@@ -178,7 +178,7 @@ const Header: React.FC = () => {
           />
           {session.user.name} ({session.user.email})
         </div>
-        <Link href="/create">
+        <Link href="/post/create">
           <button>
             <a>New post</a>
           </button>
