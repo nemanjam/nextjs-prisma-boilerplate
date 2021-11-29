@@ -165,11 +165,9 @@ const Header: React.FC = () => {
       <div className="right">
         <div className="p-temp">
           <img
-            src={
-              session.user.image
-                ? `/uploads/avatars/${session.user.image}`
-                : '/images/avatars/placeholder-avatar.jpg'
-            }
+            src={`${process.env.NEXT_PUBLIC_AVATARS_PATH}${
+              session.user.image || 'placeholder-avatar.jpg'
+            }`}
             width="50"
             height="50"
           />

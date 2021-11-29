@@ -11,6 +11,7 @@ type Props = {
   profile: Prisma.UserCreateInput;
 };
 
+// this profile feed with messages, not edit profile settings
 const Profile: React.FC<Props> = ({ profile }) => {
   const [avatar, setAvatar] = useState(undefined);
   const [avatarFile, setAvatarFile] = useState(undefined);

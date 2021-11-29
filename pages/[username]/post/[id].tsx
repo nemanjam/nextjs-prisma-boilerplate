@@ -79,14 +79,14 @@ const Post: React.FC<PostProps> = (props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  console.log('params', params);
+
   const post = await prisma.post.findUnique({
     where: {
       id: Number(params?.id) || -1,
     },
     include: {
-      author: {
-        select: { name: true, email: true },
-      },
+      author: true,
     },
   });
 

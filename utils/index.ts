@@ -19,3 +19,5 @@ export const formatDate = (date = Date.now()) => {
 
   return [month, day, year].join('-');
 };
+
+export const isBrowser = () => typeof window !== 'undefined';
