@@ -6,6 +6,7 @@ const password = hashSync('123', 10);
 
 const userData: Prisma.UserCreateInput[] = [
   {
+    // assign Account to
     name: 'user0 name',
     username: 'user0',
     email: 'user0@email.com',

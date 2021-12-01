@@ -36,12 +36,18 @@ handler.use(
         GoogleProvider({
           clientId: process.env.GOOGLE_CLIENT_ID,
           clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          // callback needed to assign username
           async profile(profile: GoogleProfile) {
             await checkUniqueEmail(profile);
 
-            const username = `google_user__${uniqueString(6)}`;
-            const id = uniqueString(9); // why?
-            return { ...profile, username, id };
+            // projection and mapping is needed
+            return {
+              id: profile.sub,
+              name: profile.name,
+              email: profile.email,
+              username: `google_user__${uniqueString(6)}`,
+              image: profile.picture,
+            };
           },
         }),
         CredentialsProvider({

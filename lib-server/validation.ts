@@ -1,31 +1,49 @@
 import { z } from 'zod';
 import { isBrowser } from 'utils';
 
-// it has default messages...
+const passwordMin = 3,
+  passwordMax = 20,
+  nameMin = 3,
+  nameMax = 15,
+  usernameMin = 3,
+  usernameMax = 15;
+
 export const userLoginSchema = z.object({
-  email: z.string().nonempty().email(),
-  password: z.string().nonempty().min(3).max(20),
+  email: z.string().email(),
+  password: z.string().min(passwordMin).max(passwordMax),
 });
 
-export const userRegisterSchema = userLoginSchema.extend({
-  name: z.string().nonempty().min(3).max(15),
-  username: z.string().nonempty().min(3).max(15),
+export const userRegisterSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(passwordMin).max(passwordMax),
+  // +
+  name: z.string().min(nameMin).max(nameMax),
+  username: z.string().min(usernameMin).max(usernameMax),
+  // add confirm password
 });
 
-export const userUpdateSchema = userRegisterSchema
-  .extend({
-    avatar: isBrowser() ? z.instanceof(FileList) : z.any(),
-  })
-  .omit({ email: true })
-  .partial();
+export const userUpdateSchema = z.object({
+  password: z.string().min(passwordMin).max(passwordMax).or(z.literal('')),
+  // +
+  name: z.string().min(nameMin).max(nameMax).or(z.literal('')),
+  username: z.string().min(usernameMin).max(usernameMax).or(z.literal('')),
+  avatar: isBrowser() ? z.instanceof(FileList) : z.any(),
+  // avatar: z.instanceof(File).refine((file) => file.size < 1024 ** 2)...
+});
+
+const titleMin = 6,
+  titleMax = 100,
+  contentMin = 6,
+  contentMax = 1000;
 
 export const postCreateSchema = z.object({
-  title: z.string().nonempty().min(6).max(100),
-  content: z.string().nonempty().min(6).max(1000),
+  title: z.string().min(titleMin).max(titleMax),
+  content: z.string().min(contentMin).max(contentMax),
 });
 
-export const postUpdateSchema = postCreateSchema
-  .extend({
-    published: z.boolean(),
-  })
-  .partial();
+export const postUpdateSchema = z.object({
+  title: z.string().min(titleMin).max(titleMax).or(z.literal('')),
+  content: z.string().min(contentMin).max(contentMax).or(z.literal('')),
+  // +
+  published: z.boolean().optional(),
+});

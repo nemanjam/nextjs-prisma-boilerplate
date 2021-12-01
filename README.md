@@ -118,6 +118,13 @@ npx prisma db seed
 
 ```
 
+Dashboard:
+
+```
+npx prisma studio
+
+```
+
 ### Todo
 
 - admin role - done, maybe type admin | user in prisma

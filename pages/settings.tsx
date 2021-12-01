@@ -8,7 +8,6 @@ import { Prisma } from '@prisma/client';
 import prisma from 'lib-server/prisma';
 import { Routes } from 'lib-client/constants';
 import { userUpdateSchema } from 'lib-server/validation';
-import { z } from 'zod';
 
 type Props = {
   user: Prisma.UserCreateInput;
@@ -27,8 +26,12 @@ const Settings: React.FC<Props> = ({ user }) => {
     },
   });
 
+  const result = userUpdateSchema.safeParse({ password: '' });
+  console.log('result', result);
+
   const { errors } = formState;
   const formAvatar = watch('avatar');
+  // console.log('formAvatar', formAvatar);
 
   // needs File instead of FileList
   // new File(url) for initial value
@@ -83,7 +86,7 @@ const Settings: React.FC<Props> = ({ user }) => {
         <input
           id="avatar"
           accept="image/*"
-          multiple={false}
+          // multiple={false}
           {...register('avatar')}
           type="file"
         />
