@@ -20,7 +20,7 @@ handler.use(
         FacebookProvider({
           clientId: process.env.FACEBOOK_CLIENT_ID,
           clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-          // just on register?
+          // both login and register
           async profile(profile: FacebookProfile) {
             const username = `facebook_user__${uniqueString(6)}`;
 
@@ -29,8 +29,16 @@ handler.use(
               profile.email = `${username}@non-existing-facebook-email.com`;
             }
 
+            // cant forward error?
             await checkUniqueEmail(profile);
-            return { ...profile, username };
+
+            return {
+              id: profile.id,
+              name: profile.name,
+              email: profile.email,
+              username,
+              image: profile.picture.data.url,
+            };
           },
         }),
         GoogleProvider({
@@ -62,28 +70,10 @@ handler.use(
               type: 'password',
             },
           },
-          // this is login, not register
-          async authorize(credentials, req) {
-            // const res = userLoginSchema.safeParse(credentials);
-            // console.log('res', res);
-
-            const { email, password } = credentials;
-
-            const user = await prisma.user.findUnique({
-              where: { email },
-            });
-
-            if (!user) {
-              throw new ApiError(`User with email: ${email} does not exist.`, 404);
-            }
-
-            const isValid =
-              password && user.password && (await compare(password, user.password));
-
-            if (!isValid) {
-              throw new ApiError('Invalid password.', 401);
-            }
-
+          // redirect to same page and parse query params, unable to return api res
+          async authorize(credentials) {
+            const { user, error } = await getUser(credentials);
+            if (error) throw error;
             return user;
           },
         }),
@@ -103,6 +93,12 @@ handler.use(
           return _session as Session;
         },
       },
+      events: {
+        async createUser(user) {
+          // set username here
+          console.log('user created', user);
+        },
+      },
       jwt: { secret: process.env.SECRET },
       pages: { signIn: '/auth/login' },
       adapter: PrismaAdapter(prisma),
@@ -111,7 +107,6 @@ handler.use(
 );
 
 async function checkUniqueEmail(profile: FacebookProfile | GoogleProfile) {
-  // check if email already exists
   const { email } = profile;
   const user = await prisma.user.findUnique({
     where: { email },
@@ -127,6 +122,39 @@ async function checkUniqueEmail(profile: FacebookProfile | GoogleProfile) {
       400
     );
   }
+}
+
+async function getUser({ email, password }) {
+  const result = userLoginSchema.safeParse({ email, password });
+
+  if (!result.success) {
+    return {
+      user: null,
+      error: new ApiError(`Validation error: ${(result as any).error[0].message}.`, 401),
+    };
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!user) {
+    return {
+      user: null,
+      error: new ApiError(`User with email: ${email} does not exist.`, 404),
+    };
+  }
+
+  const isValid = password && user.password && (await compare(password, user.password));
+
+  if (!isValid) {
+    return {
+      user,
+      error: new ApiError('Invalid password.', 401),
+    };
+  }
+
+  return { user, error: null };
 }
 
 export default handler;
