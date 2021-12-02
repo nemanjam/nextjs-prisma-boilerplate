@@ -12,8 +12,9 @@ CREATE TABLE "Post" (
 CREATE TABLE "users" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT,
-    "username" TEXT NOT NULL,
     "email" TEXT,
+    "username" TEXT NOT NULL,
+    "provider" TEXT NOT NULL DEFAULT 'initial',
     "password" TEXT,
     "email_verified" DATETIME,
     "image" TEXT,
@@ -56,10 +57,10 @@ CREATE TABLE "verificationtokens" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_username_key" ON "users"("username");
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+CREATE UNIQUE INDEX "users_username_key" ON "users"("username");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "accounts_provider_provider_account_id_key" ON "accounts"("provider", "provider_account_id");
