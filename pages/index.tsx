@@ -49,6 +49,7 @@ export const getStaticProps: GetStaticProps = async () => {
       author: {
         select: {
           name: true,
+          username: true,
         },
       },
     },

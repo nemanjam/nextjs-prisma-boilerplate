@@ -28,4 +28,5 @@ export const getAvatarPath = (user: User) => {
   return user.provider === 'credentials'
     ? `${process.env.NEXT_PUBLIC_AVATARS_PATH}${user.image || 'placeholder-avatar.jpg'}`
     : user.image;
+  // can edit avatar, startsWith('https://')
 };

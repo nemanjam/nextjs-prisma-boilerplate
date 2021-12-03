@@ -7,6 +7,7 @@ export type PostProps = {
   title: string;
   author: {
     name: string;
+    username: string;
     email: string;
   } | null;
   content: string;
@@ -18,7 +19,10 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
   return (
     <div
       onClick={() =>
-        Router.push(`${Routes.SITE.POST}[id]`, `${Routes.SITE.POST}${post.id}`)
+        Router.push(
+          `/[username]${Routes.SITE.POST}[id]`,
+          `${post.author.username}${Routes.SITE.POST}${post.id}`
+        )
       }
     >
       <h2>{post.title}</h2>

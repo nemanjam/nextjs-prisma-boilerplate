@@ -4,6 +4,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { User, Account } from 'next-auth/core/types';
 import prisma from 'lib-server/prisma';
 import { compare } from 'bcryptjs';
 import nc, { ncOptions } from 'lib-server/nc';
@@ -50,7 +51,14 @@ handler.use(
       },
       callbacks: {
         // both jwt and session are used to attach user to session
-        async jwt({ token, user }) {
+        async jwt({ token, user, account, isNewUser }) {
+          // isNewUser = true only on user creation, can be used
+          // to update db and session
+          if (isNewUser && user && account) {
+            const data = await updateUser(user, account);
+            user = { ...user, ...data };
+          }
+
           user && (token.user = user);
           return token;
         },
@@ -59,33 +67,30 @@ handler.use(
           return _session as Session;
         },
       },
-      events: {
-        // in createUser event user.accounts is empty []
-        // set username and provider here
-        // runs only on oauth
-        // credentials default for non-linked
-        async linkAccount({ user, account }) {
-          const data = {
-            provider: account.provider,
-            username: `${account.provider}_user_${user.username}`,
-          } as any;
-
-          if (!user.email) {
-            data.email = `${data.username}@non-existing-facebook-email.com`;
-          }
-
-          await prisma.user.update({
-            where: { id: user.id },
-            data,
-          });
-        },
-      },
       jwt: { secret: process.env.SECRET },
       pages: { signIn: '/auth/login' },
       adapter: PrismaAdapter(prisma),
       debug: false,
     })
 );
+
+async function updateUser(user: User, account: Account) {
+  const data = {
+    provider: account.provider,
+    username: `${account.provider}_user_${user.username}`,
+  } as any;
+
+  if (!user.email) {
+    data.email = `${data.username}@non-existing-facebook-email.com`;
+  }
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data,
+  });
+
+  return data;
+}
 
 // for rest api? https://next-auth.js.org/getting-started/rest-api
 async function getUser({ email, password }) {
