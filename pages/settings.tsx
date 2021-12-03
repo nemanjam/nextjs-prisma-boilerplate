@@ -4,13 +4,14 @@ import { getSession } from 'next-auth/react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Prisma } from '@prisma/client';
 import prisma from 'lib-server/prisma';
 import { Routes } from 'lib-client/constants';
 import { userUpdateSchema } from 'lib-server/validation';
+import { getAvatarPath } from 'utils';
+import { User } from 'next-auth';
 
 type Props = {
-  user: Prisma.UserCreateInput;
+  user: User;
 };
 
 const Settings: React.FC<Props> = ({ user }) => {
@@ -42,7 +43,7 @@ const Settings: React.FC<Props> = ({ user }) => {
     // console.log('typeof', typeof formAvatar[0], formAvatar[0] instanceof File);
 
     return formAvatar === user.image
-      ? `${process.env.NEXT_PUBLIC_AVATARS_PATH}${formAvatar || 'placeholder-avatar.jpg'}`
+      ? getAvatarPath(user)
       : URL.createObjectURL(formAvatar[0]);
   };
 

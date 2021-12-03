@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
+import { getAvatarPath } from 'utils';
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -164,13 +165,7 @@ const Header: React.FC = () => {
     right = (
       <div className="right">
         <div className="p-temp">
-          <img
-            src={`${process.env.NEXT_PUBLIC_AVATARS_PATH}${
-              session.user.image || 'placeholder-avatar.jpg'
-            }`}
-            width="50"
-            height="50"
-          />
+          <img src={getAvatarPath(session.user)} width="50" height="50" />
           {session.user.name} ({session.user.email})
         </div>
         <Link href="/post/create">

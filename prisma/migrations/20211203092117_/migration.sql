@@ -14,7 +14,7 @@ CREATE TABLE "users" (
     "name" TEXT,
     "email" TEXT,
     "username" TEXT NOT NULL,
-    "provider" TEXT NOT NULL DEFAULT 'initial',
+    "provider" TEXT NOT NULL DEFAULT 'credentials',
     "password" TEXT,
     "email_verified" DATETIME,
     "image" TEXT,

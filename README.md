@@ -125,6 +125,12 @@ npx prisma studio
 
 ```
 
+### Prisma User Model path
+
+```typescript
+import { User } from '.prisma/client';
+```
+
 ### Todo
 
 - admin role - done, maybe type admin | user in prisma
@@ -132,6 +138,7 @@ npx prisma studio
 - disable prisma seed before migrate - done
 - error handling, next-connect - almost done
 - rethink routes, extract - done
+- fix User type - done
 
 ---
 
