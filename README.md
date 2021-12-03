@@ -128,6 +128,7 @@ npx prisma studio
 ### Prisma User Model path
 
 ```typescript
+import { User } from '@prisma/client';
 import { User } from '.prisma/client';
 ```
 
