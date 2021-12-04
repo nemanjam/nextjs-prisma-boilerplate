@@ -157,3 +157,5 @@ import { User } from '.prisma/client';
 - sqlite to postgres
 - tailwind and root font-size 10px 1rem, global and component styles
 - Header component
+- fix remaining forms
+- fix routing from Post

@@ -1,20 +1,21 @@
 import React from 'react';
 import { GetStaticProps } from 'next';
 import Layout from 'components/Layout';
-import Post, { PostProps } from 'components/Post';
+import Post, { PostWithAuthor } from 'components/Post';
 import prisma from 'lib-server/prisma';
+import { datesToStrings } from 'utils';
 
-type Props = {
-  feed: PostProps[];
+type HomeProps = {
+  posts: PostWithAuthor[];
 };
 
-const Home: React.FC<Props> = ({ feed }) => {
+const Home: React.FC<HomeProps> = ({ posts }) => {
   return (
     <Layout>
       <div className="page">
         <h1>Public Feed</h1>
         <main>
-          {feed.map((post) => (
+          {posts.map((post) => (
             <div key={post.id} className="post">
               <Post post={post} />
             </div>
@@ -41,7 +42,7 @@ const Home: React.FC<Props> = ({ feed }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = await prisma.post.findMany({
+  let _posts = await prisma.post.findMany({
     where: {
       published: true,
     },
@@ -50,8 +51,16 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   });
 
+  _posts = _posts?.length > 0 ? _posts : [];
+
+  const posts = _posts.map(({ author, ...post }) =>
+    datesToStrings({ ...post, author: datesToStrings(author) })
+  );
+
   return {
-    props: { posts },
+    props: {
+      posts,
+    },
   };
 };
 

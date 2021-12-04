@@ -1,15 +1,16 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import Layout from 'components/Layout';
-import Post, { PostProps } from 'components/Post';
+import Post, { PostWithAuthor } from 'components/Post';
 import { useSession, getSession } from 'next-auth/react';
 import prisma from 'lib-server/prisma';
+import { datesToStrings } from 'utils';
 
-type Props = {
-  drafts: PostProps[];
+type DraftProps = {
+  posts: PostWithAuthor[];
 };
 
-const Drafts: React.FC<Props> = (props) => {
+const Drafts: React.FC<DraftProps> = ({ posts }) => {
   const { data: session } = useSession();
 
   if (!session) {
@@ -26,13 +27,14 @@ const Drafts: React.FC<Props> = (props) => {
       <div className="page">
         <h1>My Drafts</h1>
         <main>
-          {props.drafts.map((post) => (
+          {posts.map((post) => (
             <div key={post.id} className="post">
               <Post post={post} />
             </div>
           ))}
         </main>
       </div>
+
       <style jsx>{`
         .post {
           background: white;
@@ -53,25 +55,30 @@ const Drafts: React.FC<Props> = (props) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
+
   if (!session) {
     res.statusCode = 403;
-    return { props: { drafts: [] } };
+    return { props: { posts: [] } };
   }
 
-  const drafts = await prisma.post.findMany({
+  let _posts = await prisma.post.findMany({
     where: {
-      author: { email: session.user.email },
+      author: { id: session.user.id },
       published: false,
     },
     include: {
-      author: {
-        select: { name: true },
-      },
+      author: true,
     },
   });
 
+  _posts = _posts?.length > 0 ? _posts : [];
+
+  const posts = _posts.map(({ author, ...post }) =>
+    datesToStrings({ ...post, author: datesToStrings(author) })
+  );
+
   return {
-    props: { drafts },
+    props: { posts },
   };
 };
 

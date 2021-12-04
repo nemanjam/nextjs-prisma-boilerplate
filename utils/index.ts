@@ -32,9 +32,14 @@ export const getAvatarPath = (user: User) => {
 };
 
 type ObjectWithDates = { createdAt: Date; updatedAt: Date };
-type ObjectWithStrings = { createdAt: string; updatedAt: string };
+type ObjectWithStrings = {
+  createdAt: string;
+  updatedAt: string;
+};
 
-export const datesToStrings = (_object: ObjectWithDates): ObjectWithStrings => {
+export const datesToStrings = <T extends ObjectWithDates>(
+  _object: T
+): Omit<T, keyof ObjectWithDates> & ObjectWithStrings => {
   return {
     ..._object,
     createdAt: _object.createdAt.toISOString(),

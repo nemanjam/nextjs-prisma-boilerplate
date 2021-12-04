@@ -7,52 +7,59 @@ import { PostProps } from 'components/Post';
 import prisma from 'lib-server/prisma';
 import { useSession } from 'next-auth/react';
 import { Routes } from 'lib-client/constants';
+import { datesToStrings } from 'utils';
+import Link from 'next/link';
 
-async function publishPost(id: number): Promise<void> {
+const publishOrDeletePost = async (
+  id: number,
+  action: 'publish' | 'delete'
+): Promise<void> => {
   try {
-    await axios.patch(`${Routes.API.POSTS}${id}`, { published: true });
+    switch (action) {
+      case 'publish':
+        await axios.patch(`${Routes.API.POSTS}${id}`, { published: true });
+        break;
+      case 'delete':
+        await axios.delete(`${Routes.API.POSTS}${id}`);
+        break;
+    }
   } catch (error) {
     console.error(error);
   }
   await Router.push(Routes.SITE.HOME);
-}
+};
 
-async function deletePost(id: number): Promise<void> {
-  try {
-    await axios.delete(`${Routes.API.POSTS}${id}`);
-  } catch (error) {
-    console.error(error);
-  }
-  await Router.push(Routes.SITE.HOME);
-}
-
-const Post: React.FC<PostProps> = (props) => {
+const Post: React.FC<PostProps> = ({ post }) => {
   const { data: session, status } = useSession();
   const loading = status === 'loading';
 
   if (loading) {
     return <div>Authenticating ...</div>;
   }
-  const userHasValidSession = Boolean(session);
-  const postBelongsToUser = session?.user?.email === props.author?.email;
-  let title = props.title;
-  if (!props.published) {
-    title = `${title} (Draft)`;
-  }
+
+  const isOwner = session && session.user?.id === post.author?.id;
+  const title = `${post.title} ${post.published ? '' : '(Draft)'}`;
 
   return (
     <Layout>
       <div>
         <h2>{title}</h2>
-        <p>By {props?.author?.name || 'Unknown author'}</p>
-        <p>{props.content} </p>
-        {!props.published && userHasValidSession && postBelongsToUser && (
-          <button onClick={() => publishPost(props.id)}>Publish</button>
+        <small>
+          By
+          <Link href={`/${post.author.username}`}>
+            <a>{post.author.name}</a>
+          </Link>
+        </small>
+        <p>{post.content} </p>
+
+        {!post.published && isOwner && (
+          <button onClick={() => publishOrDeletePost(post.id, 'publish')}>Publish</button>
         )}
-        {userHasValidSession && postBelongsToUser && (
-          <button onClick={() => deletePost(props.id)}>Delete</button>
+        {isOwner && (
+          <button onClick={() => publishOrDeletePost(post.id, 'delete')}>Delete</button>
         )}
       </div>
+
       <style jsx>{`
         .page {
           background: white;
@@ -84,17 +91,18 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       id: Number(params?.id) || -1,
     },
     include: {
-      author: {
-        select: {
-          name: true,
-          username: true,
-        },
-      },
+      author: true,
     },
   });
 
+  if (!post) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
-    props: post,
+    props: { post: datesToStrings({ ...post, author: datesToStrings(post.author) }) },
   };
 };
 

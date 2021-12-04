@@ -2,15 +2,17 @@ import React from 'react';
 import Router from 'next/router';
 import { Routes } from 'lib-client/constants';
 import { UserStr, PostStr } from 'types/utils';
+import Link from 'next/link';
 
 export type PostWithAuthor = PostStr & {
   author: UserStr;
 };
 
-export type PostProps = PostWithAuthor;
+export type PostProps = {
+  post: PostWithAuthor;
+};
 
-const Post: React.FC<{ post: PostProps }> = ({ post }) => {
-  const authorName = post.author ? post.author.name : 'Unknown author';
+const Post: React.FC<PostProps> = ({ post }) => {
   return (
     <div
       onClick={() =>
@@ -21,8 +23,15 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
       }
     >
       <h2>{post.title}</h2>
-      <small>By {authorName}</small>
+      <small>
+        By
+        <Link href={`/${post.author.username}`}>
+          <a>{post.author.name}</a>
+        </Link>
+      </small>
+      <small>On {post.updatedAt}</small>
       <p>{post.content} </p>
+
       <style jsx>{`
         div {
           color: inherit;

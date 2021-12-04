@@ -2,17 +2,13 @@ import React from 'react';
 import { GetServerSideProps } from 'next';
 import Layout from 'components/Layout';
 import prisma from 'lib-server/prisma';
-import { default as PostComponent, PostWithAuthor } from 'components/Post';
+import { default as PostComponent } from 'components/Post';
 import { UserStr, PostStr } from 'types/utils';
 import { datesToStrings } from 'utils';
 
 type ProfileProps = {
   profile: UserStr;
   posts: PostStr[];
-};
-
-const addAuthorToPosts = (user: UserStr, posts: PostStr[]): PostWithAuthor[] => {
-  return posts.map((post) => ({ ...post, author: user }));
 };
 
 const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
@@ -22,9 +18,9 @@ const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
         <h1>Profile</h1>
         <pre>{JSON.stringify(profile, null, 2)}</pre>
         <main>
-          {addAuthorToPosts(profile, posts).map((post) => (
+          {posts.map((post) => (
             <div key={post.id} className="post">
-              <PostComponent post={post} />
+              <PostComponent post={{ ...post, author: profile }} />
             </div>
           ))}
         </main>
