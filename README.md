@@ -159,3 +159,5 @@ import { User } from '.prisma/client';
 - Header component
 - fix remaining forms
 - fix routing from Post
+- react query, redux toolkit
+- faker reseed
