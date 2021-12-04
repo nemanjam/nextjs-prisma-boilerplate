@@ -1,99 +1,83 @@
-import { useState } from 'react';
+import React from 'react';
 import { GetServerSideProps } from 'next';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
-import axios from 'axios';
+import Layout from 'components/Layout';
 import prisma from 'lib-server/prisma';
-import { Prisma } from '@prisma/client';
-import { Routes } from 'lib-client/constants';
+import { default as PostComponent, PostWithAuthor } from 'components/Post';
+import { UserStr, PostStr } from 'types/utils';
+import { datesToStrings } from 'utils';
 
-type Props = {
-  profile: Prisma.UserCreateInput;
+type ProfileProps = {
+  profile: UserStr;
+  posts: PostStr[];
 };
 
-// this profile feed with messages, not edit profile settings
-const Profile: React.FC<Props> = ({ profile }) => {
-  const [avatar, setAvatar] = useState(undefined);
-  const [avatarFile, setAvatarFile] = useState(undefined);
-  const [progress, setProgress] = useState(0);
+const addAuthorToPosts = (user: UserStr, posts: PostStr[]): PostWithAuthor[] => {
+  return posts.map((post) => ({ ...post, author: user }));
+};
 
-  const { data: session, status } = useSession();
-  const loading = status === 'loading';
-
-  // console.log('profile', profile, 'session', session);
-
-  const isEditable = session?.user.username === profile.username;
-
-  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files?.length) {
-      return;
-    }
-
-    const file = event.target.files[0];
-    setAvatar(URL.createObjectURL(file));
-    setAvatarFile(file);
-  };
-
-  const handleUpload = async (event: React.SyntheticEvent) => {
-    event.preventDefault();
-
-    const formData = new FormData();
-    formData.append('avatar', avatarFile);
-
-    const config = {
-      headers: { 'content-type': 'multipart/form-data' },
-      onUploadProgress: (event: ProgressEvent) => {
-        const _progress = Math.round((event.loaded * 100) / event.total);
-        setProgress(_progress);
-      },
-    };
-
-    try {
-      await axios.post(Routes.API.USERS, formData, config);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
   return (
-    <form>
-      <div>
-        <input
-          accept="image/*"
-          multiple={false}
-          name="avatar"
-          onChange={handleChange}
-          type="file"
-        />
+    <Layout>
+      <div className="page">
+        <h1>Profile</h1>
+        <pre>{JSON.stringify(profile, null, 2)}</pre>
+        <main>
+          {addAuthorToPosts(profile, posts).map((post) => (
+            <div key={post.id} className="post">
+              <PostComponent post={post} />
+            </div>
+          ))}
+        </main>
       </div>
-      {avatar && <img src={avatar} style={{ height: '100px', width: '100px' }} />}
-      {progress > 0 && progress}
 
-      <button onClick={handleUpload}>Upload</button>
-    </form>
+      <style jsx>{`
+        .post {
+          background: white;
+          transition: box-shadow 0.1s ease-in;
+        }
+
+        .post:hover {
+          box-shadow: 1px 1px 3px #aaa;
+        }
+
+        .post + .post {
+          margin-top: 2rem;
+        }
+      `}</style>
+    </Layout>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const username = params.username as string;
-
-  const profile = await prisma.user.findUnique({
-    where: { username },
+  // validate first
+  const user = await prisma.user.findUnique({
+    where: {
+      username: params?.username as string,
+    },
+    include: {
+      posts: {
+        where: {
+          published: true,
+        },
+        orderBy: {
+          updatedAt: 'desc',
+        },
+      },
+    },
   });
 
-  if (!profile) {
+  if (!user) {
     return {
       notFound: true,
     };
   }
 
+  const { posts, password, ...profile } = user;
+
   return {
     props: {
-      profile: {
-        ...profile,
-        createdAt: profile.createdAt.toISOString(), // dates not seriazable but needed
-        updatedAt: profile.updatedAt.toISOString(),
-      },
+      profile: datesToStrings(profile),
+      posts: posts.map((post) => datesToStrings(post)),
     },
   };
 };

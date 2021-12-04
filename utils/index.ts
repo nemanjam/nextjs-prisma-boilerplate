@@ -30,3 +30,14 @@ export const getAvatarPath = (user: User) => {
     : user.image;
   // can edit avatar, startsWith('https://')
 };
+
+type ObjectWithDates = { createdAt: Date; updatedAt: Date };
+type ObjectWithStrings = { createdAt: string; updatedAt: string };
+
+export const datesToStrings = (_object: ObjectWithDates): ObjectWithStrings => {
+  return {
+    ..._object,
+    createdAt: _object.createdAt.toISOString(),
+    updatedAt: _object.updatedAt.toISOString(),
+  };
+};

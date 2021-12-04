@@ -7,8 +7,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import prisma from 'lib-server/prisma';
 import { Routes } from 'lib-client/constants';
 import { userUpdateSchema } from 'lib-server/validation';
-import { getAvatarPath } from 'utils';
+import { datesToStrings, getAvatarPath } from 'utils';
 import { User } from 'next-auth';
+import { datesToStrings } from 'utils';
 
 type Props = {
   user: User;
@@ -130,11 +131,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   return {
     props: {
-      user: {
-        ...user,
-        createdAt: user.createdAt.toISOString(), // dates not seriazable but needed
-        updatedAt: user.updatedAt.toISOString(),
-      },
+      user: datesToStrings(user),
     },
   };
 };

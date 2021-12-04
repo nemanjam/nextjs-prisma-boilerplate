@@ -8,7 +8,7 @@ type Props = {
   feed: PostProps[];
 };
 
-const Blog: React.FC<Props> = ({ feed }) => {
+const Home: React.FC<Props> = ({ feed }) => {
   return (
     <Layout>
       <div className="page">
@@ -41,23 +41,18 @@ const Blog: React.FC<Props> = ({ feed }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = await prisma.post.findMany({
+  const posts = await prisma.post.findMany({
     where: {
       published: true,
     },
     include: {
-      author: {
-        select: {
-          name: true,
-          username: true,
-        },
-      },
+      author: true,
     },
   });
 
   return {
-    props: { feed },
+    props: { posts },
   };
 };
 
-export default Blog;
+export default Home;
