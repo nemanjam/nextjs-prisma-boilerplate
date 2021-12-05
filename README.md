@@ -159,6 +159,8 @@ import { User } from '.prisma/client';
 - Header component
 - fix remaining forms
 - fix routing from Post
-- react query, redux toolkit
+- react query, redux toolkit, redux toolkit query
 - faker reseed
 - \_document.tsx
+- vs code recommended extensions
+- redux toolkit vercel example
