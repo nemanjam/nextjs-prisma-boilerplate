@@ -161,3 +161,4 @@ import { User } from '.prisma/client';
 - fix routing from Post
 - react query, redux toolkit
 - faker reseed
+- \_document.tsx

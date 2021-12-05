@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
+import { Routes } from 'lib-client/constants';
 import { getAvatarPath } from 'utils';
 
 const Header: React.FC = () => {
@@ -14,7 +15,7 @@ const Header: React.FC = () => {
 
   let left = (
     <div className="left">
-      <Link href="/">
+      <Link href={Routes.SITE.HOME}>
         <a className="bold" data-active={isActive('/')}>
           Feed
         </a>
@@ -47,7 +48,7 @@ const Header: React.FC = () => {
   if (loading) {
     left = (
       <div className="left">
-        <Link href="/">
+        <Link href={Routes.SITE.HOME}>
           <a className="bold" data-active={isActive('/')}>
             Feed
           </a>
@@ -90,10 +91,10 @@ const Header: React.FC = () => {
   if (!session) {
     right = (
       <div className="right">
-        <Link href="/auth/login">
+        <Link href={Routes.SITE.LOGIN}>
           <a>Log in</a>
         </Link>
-        <Link href="/auth/register">
+        <Link href={Routes.SITE.REGISTER}>
           <a>Register</a>
         </Link>
 
@@ -125,20 +126,25 @@ const Header: React.FC = () => {
   if (session) {
     left = (
       <div className="left">
-        <Link href="/">
-          <a className="bold" data-active={isActive('/')}>
+        <Link href={Routes.SITE.HOME}>
+          <a className="bold" data-active={isActive(Routes.SITE.HOME)}>
             Feed
           </a>
         </Link>
 
-        <Link href={`/${session.user.username}`}>
+        <Link
+          href={{
+            pathname: '/[username]',
+            query: { username: session.user.username },
+          }}
+        >
           <a className="bold" data-active={isActive(`/${session.user.username}`)}>
             Profile
           </a>
         </Link>
 
-        <Link href="/post/drafts">
-          <a data-active={isActive('/post/drafts')}>My drafts</a>
+        <Link href={Routes.SITE.DRAFTS}>
+          <a data-active={isActive(Routes.SITE.DRAFTS)}>My drafts</a>
         </Link>
 
         <style jsx>{`
@@ -168,7 +174,7 @@ const Header: React.FC = () => {
           <img src={getAvatarPath(session.user)} width="50" height="50" />
           {session.user.name} ({session.user.email})
         </div>
-        <Link href="/post/create">
+        <Link href={Routes.SITE.CREATE}>
           <button>
             <a>New post</a>
           </button>

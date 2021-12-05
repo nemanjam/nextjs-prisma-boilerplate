@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import Router from 'next/router';
+import React from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
@@ -8,11 +9,13 @@ import Layout from 'components/Layout';
 import { postCreateSchema } from 'lib-server/validation';
 
 const Create: React.FC = () => {
+  const router = useRouter();
+
   const onSubmit = async ({ title, content }) => {
     try {
       await axios.post(Routes.API.POSTS, { title, content });
       // swr and handle server error
-      await Router.push('/post/drafts');
+      await router.push(Routes.SITE.DRAFTS);
     } catch (error) {
       console.error(error);
     }
@@ -37,11 +40,12 @@ const Create: React.FC = () => {
 
           <button type="submit">Create</button>
 
-          <a className="back" href="#" onClick={() => Router.push('/')}>
-            or Cancel
-          </a>
+          <Link href={Routes.SITE.HOME}>
+            <a className="back">or Cancel</a>
+          </Link>
         </form>
       </div>
+
       <style jsx>{`
         .page {
           background: white;

@@ -1,10 +1,11 @@
 import React, { useRef } from 'react';
 import { GetServerSideProps } from 'next';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { getProviders, signIn, useSession, ClientSafeProvider } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userLoginSchema } from 'lib-server/validation';
+import { Routes } from 'lib-client/constants';
 
 type Props = {
   providers: Record<string, ClientSafeProvider>;
@@ -12,6 +13,7 @@ type Props = {
 
 const Login: React.FC<Props> = ({ providers }) => {
   const { data: session } = useSession();
+  const router = useRouter();
 
   // axios post to /api/auth/callback/credentials
   // https://next-auth.js.org/configuration/pages#credentials-sign-in
@@ -28,7 +30,7 @@ const Login: React.FC<Props> = ({ providers }) => {
   const { errors } = formState;
 
   if (session) {
-    Router.push('/');
+    router.push(Routes.SITE.HOME);
   }
 
   return (

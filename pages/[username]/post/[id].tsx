@@ -46,7 +46,12 @@ const Post: React.FC<PostProps> = ({ post }) => {
         <h2>{title}</h2>
         <small>
           By
-          <Link href={`/${post.author.username}`}>
+          <Link
+            href={{
+              pathname: '/[username]',
+              query: { username: post.author.username },
+            }}
+          >
             <a>{post.author.name}</a>
           </Link>
         </small>
