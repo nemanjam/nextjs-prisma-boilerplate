@@ -1,8 +1,14 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    // Run Stylelint fix when you save the file
+    "source.fixAll.stylelint": true
   },
   // Add those two lines:
   "editor.formatOnSave": true, // Tell VSCode to format files on save
-  "editor.defaultFormatter": "esbenp.prettier-vscode" // Tell VSCode to use Prettier as default file formatter
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // Tell VSCode to use Prettier as default file formatter
+  // Recommended config for the extension
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false
 }

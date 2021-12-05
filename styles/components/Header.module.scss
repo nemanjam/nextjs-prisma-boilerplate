@@ -1,0 +1,21 @@
+$color: red;
+
+.hello {
+  color: $color;
+  @apply bg-green-500;
+}
+
+/*
+.wrapper {
+  @apply py-4
+      border-b
+      border-solid
+      border-white-transparent-10;
+
+  @screen lg {
+    @apply border-0
+        pt-10
+        pb-8;
+  }
+}
+*/
