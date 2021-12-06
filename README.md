@@ -140,11 +140,13 @@ import { User } from '.prisma/client';
 - error handling, next-connect - almost done
 - rethink routes, extract - done
 - fix User type - done
+- migrate to axios, fetch has no progress, done
+- add types file, mostly done
+- fix routing from Post, done
 
 ---
 
 - extract styles, tailwind, next examples
-- migrate to axios, fetch has no progress
 - validation server, client, example [with-joi](https://github.com/vercel/next.js/tree/canary/examples/with-joi), [next-joi](https://github.com/codecoolture/next-joi)
 - logging
 - tests, next examples
@@ -153,12 +155,10 @@ import { User } from '.prisma/client';
 - ci cd, deploy
 - readme
 - dev, prod remove express https
-- add types file
 - sqlite to postgres
 - tailwind and root font-size 10px 1rem, global and component styles
 - Header component
 - fix remaining forms
-- fix routing from Post
 - react query, redux toolkit, redux toolkit query
 - faker reseed
 - \_document.tsx
