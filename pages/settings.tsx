@@ -8,47 +8,45 @@ import prisma from 'lib-server/prisma';
 import { Routes } from 'lib-client/constants';
 import { userUpdateSchema } from 'lib-server/validation';
 import { datesToStrings, getAvatarPath } from 'utils';
-import { User } from 'next-auth';
-import { datesToStrings } from 'utils';
+import { User } from '@prisma/client';
 
 type Props = {
   user: User;
 };
 
+const getFileFromUrl = (url: string): Promise<File> =>
+  fetch(url)
+    .then((e) => {
+      return e.blob();
+    })
+    .then((blob) => {
+      let b: any = blob;
+      b.lastModifiedDate = new Date();
+      b.name = '';
+      return b as File;
+    });
+
 const Settings: React.FC<Props> = ({ user }) => {
   const [progress, setProgress] = useState(0);
+  const avatar = [await getFileFromUrl(getAvatarPath(user))];
 
   const { register, handleSubmit, formState, watch, getValues } = useForm({
     resolver: zodResolver(userUpdateSchema),
     defaultValues: {
       username: user.username,
       name: user.name,
-      avatar: user.image,
+      avatar,
       password: '',
     },
   });
 
-  const result = userUpdateSchema.safeParse({ password: '' });
-  console.log('result', result);
-
-  const { errors } = formState;
+  const { errors, dirtyFields } = formState;
   const formAvatar = watch('avatar');
-  // console.log('formAvatar', formAvatar);
+  const previewAvatar = URL.createObjectURL(formAvatar[0]);
 
   // needs File instead of FileList
   // new File(url) for initial value
-  const values = getValues();
-  console.log('values', values);
-
-  const getAvatar = (formAvatar) => {
-    // console.log('typeof', typeof formAvatar[0], formAvatar[0] instanceof File);
-
-    return formAvatar === user.image
-      ? getAvatarPath(user)
-      : URL.createObjectURL(formAvatar[0]);
-  };
-
-  const previewAvatar = getAvatar(formAvatar);
+  // const values = getValues();
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -85,13 +83,7 @@ const Settings: React.FC<Props> = ({ user }) => {
 
       <div>
         <label htmlFor="avatar">Avatar</label>
-        <input
-          id="avatar"
-          accept="image/*"
-          // multiple={false}
-          {...register('avatar')}
-          type="file"
-        />
+        <input id="avatar" accept="image/*" {...register('avatar')} type="file" />
       </div>
       <img
         src={previewAvatar}
@@ -113,20 +105,24 @@ const Settings: React.FC<Props> = ({ user }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
-  const username = session.user.username;
+  const redirect = {
+    redirect: {
+      permanent: false,
+      destination: Routes.SITE.LOGIN,
+    },
+  };
+
+  if (!session) {
+    return redirect;
+  }
 
   // not all user fields are available in session.user
   const user = await prisma.user.findUnique({
-    where: { username },
+    where: { username: session.user.username },
   });
 
   if (!user) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/auth/login',
-      },
-    };
+    return redirect;
   }
 
   return {
