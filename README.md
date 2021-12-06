@@ -132,6 +132,15 @@ import { User } from '@prisma/client';
 import { User } from '.prisma/client';
 ```
 
+### VS Code extensions
+
+- add in `.vscode/extensions.json`
+- list extensions:
+
+```
+code --list-extensions
+```
+
 ### Todo
 
 - admin role - done, maybe type admin | user in prisma
@@ -143,6 +152,7 @@ import { User } from '.prisma/client';
 - migrate to axios, fetch has no progress, done
 - add types file, mostly done
 - fix routing from Post, done
+- vs code recommended extensions, done
 
 ---
 
@@ -162,5 +172,4 @@ import { User } from '.prisma/client';
 - react query, redux toolkit, redux toolkit query
 - faker reseed
 - \_document.tsx
-- vs code recommended extensions
 - redux toolkit vercel example
