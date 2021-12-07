@@ -6,6 +6,7 @@ export const Routes = {
     CREATE: '/post/create/',
     REGISTER: '/auth/register/',
     LOGIN: '/auth/login/',
+    SETTINGS: '/settings/',
   },
   API: {
     POSTS: '/api/posts/',

@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
-import { getProviders, signIn, useSession, ClientSafeProvider } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
+import { getProviders, signIn, ClientSafeProvider } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userLoginSchema } from 'lib-server/validation';
@@ -12,9 +12,6 @@ type Props = {
 };
 
 const Login: React.FC<Props> = ({ providers }) => {
-  const { data: session } = useSession();
-  const router = useRouter();
-
   // axios post to /api/auth/callback/credentials
   // https://next-auth.js.org/configuration/pages#credentials-sign-in
   const onSubmit = async ({ email, password }) => {
@@ -28,10 +25,6 @@ const Login: React.FC<Props> = ({ providers }) => {
     resolver: zodResolver(userLoginSchema),
   });
   const { errors } = formState;
-
-  if (session) {
-    router.push(Routes.SITE.HOME);
-  }
 
   return (
     <>
@@ -65,7 +58,18 @@ const Login: React.FC<Props> = ({ providers }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
+
+  if (session) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: Routes.SITE.HOME,
+      },
+    };
+  }
+
   const providers = await getProviders();
   return { props: { providers } };
 };
