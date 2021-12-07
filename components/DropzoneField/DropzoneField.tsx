@@ -11,9 +11,12 @@ interface IFileInputProps
   dropzoneOptions?: DropzoneOptions;
 }
 
-const DropzoneField: FC<IFileInputProps> = (props) => {
-  const { dropzoneOptions, name, label = name } = props;
-
+const DropzoneField: FC<IFileInputProps> = ({
+  dropzoneOptions,
+  name,
+  label = name,
+  ...rest
+}) => {
   const { register, unregister, setValue, watch } = useFormContext();
   const files: File[] = watch(name);
 
@@ -47,9 +50,10 @@ const DropzoneField: FC<IFileInputProps> = (props) => {
 
       <div {...getRootProps()}>
         <input
-          {...props}
+          {...rest}
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id={name}
+          name={name}
           {...getInputProps()}
         />
 

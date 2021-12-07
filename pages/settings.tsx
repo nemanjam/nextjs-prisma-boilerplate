@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import axios from 'axios';
@@ -8,7 +8,7 @@ import { DropzoneOptions } from 'react-dropzone';
 import prisma from 'lib-server/prisma';
 import { Routes } from 'lib-client/constants';
 import { userUpdateSchema } from 'lib-server/validation';
-import { datesToStrings, getAvatarPath } from 'utils';
+import { datesToStrings, getAvatarFullUrl } from 'utils';
 import { User } from '@prisma/client';
 import DropzoneField from 'components/DropzoneField';
 
@@ -24,7 +24,7 @@ const Settings: React.FC<Props> = ({ user }) => {
     defaultValues: {
       username: user.username,
       name: user.name,
-      avatar: '',
+      avatar: undefined,
       password: '',
     },
   });
@@ -39,11 +39,25 @@ const Settings: React.FC<Props> = ({ user }) => {
     // validator: ...
   };
 
-  const { register, handleSubmit, formState, watch, getValues } = methods;
+  const { register, handleSubmit, formState, watch, getValues, setValue } = methods;
   const { errors, dirtyFields } = formState;
+
   const formAvatar = watch('avatar');
   const values = getValues();
-  console.log('getValues values', values);
+  // console.log('getValues values', values, 'dirtyFields', dirtyFields);
+
+  const setDefaultAvatar = async (avatarUrl: string) => {
+    const response = await axios.get(avatarUrl, { responseType: 'blob' });
+    const avatarFile = new File([response.data], 'defaultAvatar');
+    setValue('avatar', [avatarFile]);
+  };
+
+  useEffect(() => {
+    if (user) {
+      const url = getAvatarFullUrl(user);
+      setDefaultAvatar(url);
+    }
+  }, [user]);
 
   const onSubmit = (values) => {
     console.log('dz values', values);

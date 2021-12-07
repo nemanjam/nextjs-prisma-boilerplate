@@ -31,6 +31,10 @@ export const getAvatarPath = (user: User) => {
   // can edit avatar, startsWith('https://')
 };
 
+export const getAvatarFullUrl = (user: User) => {
+  return `${process.env.NEXT_PUBLIC_BASE_URL}${getAvatarPath(user)}`;
+};
+
 type ObjectWithDates = { createdAt: Date; updatedAt: Date };
 type ObjectWithStrings = {
   createdAt: string;
