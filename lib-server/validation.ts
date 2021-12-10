@@ -6,7 +6,8 @@ const passwordMin = 3,
   nameMin = 3,
   nameMax = 15,
   usernameMin = 3,
-  usernameMax = 15;
+  usernameMax = 15,
+  bioMax = 200;
 
 export const userLoginSchema = z.object({
   email: z.string().email(),
@@ -27,12 +28,11 @@ export const userUpdateSchema = z.object({
   // +
   name: z.string().min(nameMin).max(nameMax).or(z.literal('')),
   username: z.string().min(usernameMin).max(usernameMax).or(z.literal('')),
+  bio: z.string().max(bioMax).or(z.literal('')),
   avatar: isBrowser()
-    ? z
-        .instanceof(File)
-        .refine((file) => file.size >= 50 * 1024 && file.size <= 1024 * 1024, {
-          message: 'Avatar size must be between 50kB and 1MB.',
-        })
+    ? z.instanceof(File).refine((file) => file.size <= 1024 * 1024, {
+        message: 'Avatar size must be less than 1MB.', // no minSize google, fb...
+      })
     : z.any(),
 });
 

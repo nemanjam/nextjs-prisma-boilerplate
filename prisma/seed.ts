@@ -3,6 +3,7 @@ import { hashSync } from 'bcryptjs';
 
 const prisma = new PrismaClient();
 const password = hashSync('123', 10);
+const bio = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod';
 
 const userData: Prisma.UserCreateInput[] = [
   {
@@ -12,6 +13,7 @@ const userData: Prisma.UserCreateInput[] = [
     email: 'user0@email.com',
     image: 'avatar0.jpg',
     password,
+    bio,
     role: 'admin',
     posts: {
       create: [
@@ -29,6 +31,7 @@ const userData: Prisma.UserCreateInput[] = [
     email: 'user1@email.com',
     image: 'avatar1.jpg',
     password,
+    bio,
     posts: {
       create: [
         {
@@ -45,6 +48,7 @@ const userData: Prisma.UserCreateInput[] = [
     email: 'user2@email.com',
     image: 'avatar2.jpg',
     password,
+    bio,
     posts: {
       create: [
         {

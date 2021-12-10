@@ -20,6 +20,7 @@ interface SettingsFormData {
   name: string;
   username: string;
   avatar: File;
+  bio: string;
   password: string;
 }
 
@@ -106,6 +107,12 @@ const Settings: React.FC<Props> = ({ user }) => {
           <DropzoneAvatar name="avatar" dropzoneOptions={dropzoneOptions} />
           {progress > 0 && progress}
           <p className="has-error">{errors.avatar?.message}</p>
+        </div>
+
+        <div>
+          <label htmlFor="bio">Bio</label>
+          <input id="bio" type="text" {...register('bio')} />
+          <p className="has-error">{errors.bio?.message}</p>
         </div>
 
         <div>
