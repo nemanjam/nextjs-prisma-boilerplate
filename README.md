@@ -173,3 +173,4 @@ code --list-extensions
 - faker reseed
 - \_document.tsx
 - redux toolkit vercel example
+- paginacija
