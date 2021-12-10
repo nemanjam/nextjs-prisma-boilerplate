@@ -12,14 +12,16 @@ export const avatarUpload = multer({
   }),
   fileFilter: function (req, file, cb) {
     const { originalname, mimetype } = file;
+    const fileSize = parseInt(req.headers['content-length']);
     const extension = extname(originalname);
     if (
-      !['.png', '.jpg', '.gif', '.jpeg'].includes(extension) ||
+      !['.png', '.jpg', '.jpeg'].includes(extension) ||
       !['image/png', 'image/jpg', 'image/jpeg'].includes(mimetype)
     ) {
       return cb(new Error('Only images are allowed'));
     }
 
+    console.log('fileSize', fileSize);
     cb(null, true);
   },
   limits: {

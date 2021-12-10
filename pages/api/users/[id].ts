@@ -30,7 +30,7 @@ handler.patch(
 
     const session = await getSession({ req });
 
-    if (session!.user.id !== id && session!.user.role !== 'admin') {
+    if (!(session?.user && (session.user.id === id || session.user.role === 'admin'))) {
       throw new ApiError('Not authorized.', 401);
     }
 

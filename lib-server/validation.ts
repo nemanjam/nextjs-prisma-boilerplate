@@ -27,8 +27,13 @@ export const userUpdateSchema = z.object({
   // +
   name: z.string().min(nameMin).max(nameMax).or(z.literal('')),
   username: z.string().min(usernameMin).max(usernameMax).or(z.literal('')),
-  avatar: isBrowser() ? z.instanceof(FileList) : z.any(),
-  // avatar: z.instanceof(File).refine((file) => file.size < 1024 ** 2)...
+  avatar: isBrowser()
+    ? z
+        .instanceof(File)
+        .refine((file) => file.size >= 50 * 1024 && file.size <= 1024 * 1024, {
+          message: 'Avatar size must be between 50kB and 1MB.',
+        })
+    : z.any(),
 });
 
 const titleMin = 6,

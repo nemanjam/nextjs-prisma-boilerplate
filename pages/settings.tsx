@@ -10,16 +10,23 @@ import { Routes } from 'lib-client/constants';
 import { userUpdateSchema } from 'lib-server/validation';
 import { datesToStrings, getAvatarFullUrl } from 'utils';
 import { User } from '@prisma/client';
-import DropzoneField from 'components/DropzoneField';
+import DropzoneAvatar from 'components/DropzoneAvatar';
 
 type Props = {
   user: User;
 };
 
+interface SettingsFormData {
+  name: string;
+  username: string;
+  avatar: File;
+  password: string;
+}
+
 const Settings: React.FC<Props> = ({ user }) => {
   const [progress, setProgress] = useState(0);
 
-  const methods = useForm({
+  const methods = useForm<SettingsFormData>({
     resolver: zodResolver(userUpdateSchema),
     defaultValues: {
       username: user.username,
@@ -39,19 +46,16 @@ const Settings: React.FC<Props> = ({ user }) => {
     // validator: ...
   };
 
-  const { register, handleSubmit, formState, watch, getValues, setValue } = methods;
+  const { register, handleSubmit, formState, setValue } = methods;
   const { errors, dirtyFields } = formState;
-
-  const formAvatar = watch('avatar');
-  const values = getValues();
-  // console.log('getValues values', values, 'dirtyFields', dirtyFields);
 
   const setDefaultAvatar = async (avatarUrl: string) => {
     const response = await axios.get(avatarUrl, { responseType: 'blob' });
     const avatarFile = new File([response.data], 'defaultAvatar');
-    setValue('avatar', [avatarFile]);
+    setValue('avatar', avatarFile);
   };
 
+  // set initial value for avatar async
   useEffect(() => {
     if (user) {
       const url = getAvatarFullUrl(user);
@@ -59,13 +63,14 @@ const Settings: React.FC<Props> = ({ user }) => {
     }
   }, [user]);
 
-  const onSubmit = (values) => {
-    console.log('dz values', values);
-  };
-
-  const onSubmit1 = async (data) => {
+  const onSubmit = async (data: SettingsFormData) => {
     const formData = new FormData();
-    Object.keys(data).forEach((key) => formData.append(key, data[key]));
+    Object.keys(data).forEach((key) => {
+      // send only dirty fileds
+      if (Object.keys(dirtyFields).includes(key)) {
+        formData.append(key, data[key]);
+      }
+    });
 
     const config = {
       headers: { 'content-type': 'multipart/form-data' },
@@ -98,19 +103,10 @@ const Settings: React.FC<Props> = ({ user }) => {
         </div>
 
         <div>
-          <DropzoneField name="avatar" dropzoneOptions={dropzoneOptions} />
+          <DropzoneAvatar name="avatar" dropzoneOptions={dropzoneOptions} />
+          {progress > 0 && progress}
+          <p className="has-error">{errors.avatar?.message}</p>
         </div>
-
-        {/* <div>
-          <label htmlFor="avatar">Avatar</label>
-          <input id="avatar" accept="image/*" {...register('avatar')} type="file" />
-        </div>
-        <img
-          src={previewAvatar}
-          style={{ height: '100px', width: '100px', objectFit: 'cover' }}
-        />
-        {progress > 0 && progress}
-        <p className="has-error">{errors.avatar?.message}</p> */}
 
         <div>
           <label htmlFor="password">Password</label>
