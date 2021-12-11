@@ -174,4 +174,5 @@ code --list-extensions
 - \_document.tsx
 - redux toolkit vercel example
 - paginacija
-- log console.log('req.body', req.body); in api auth, update readme before forget...
+- update readme before forget...
+- refetch session after user is edited
