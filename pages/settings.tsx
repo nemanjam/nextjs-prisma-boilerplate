@@ -82,7 +82,7 @@ const Settings: React.FC<Props> = ({ user }) => {
     };
 
     try {
-      await axios.post(Routes.API.USERS, formData, config);
+      await axios.patch(`${Routes.API.USERS}${user.id}`, formData, config);
     } catch (error) {
       console.error(error);
     }

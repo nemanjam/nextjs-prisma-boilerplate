@@ -24,11 +24,11 @@ export const userRegisterSchema = z.object({
 });
 
 export const userUpdateSchema = z.object({
-  password: z.string().min(passwordMin).max(passwordMax).or(z.literal('')),
+  password: z.string().min(passwordMin).max(passwordMax).optional().or(z.literal('')),
   // +
-  name: z.string().min(nameMin).max(nameMax).or(z.literal('')),
-  username: z.string().min(usernameMin).max(usernameMax).or(z.literal('')),
-  bio: z.string().max(bioMax).or(z.literal('')),
+  name: z.string().min(nameMin).max(nameMax).optional().or(z.literal('')),
+  username: z.string().min(usernameMin).max(usernameMax).optional().or(z.literal('')),
+  bio: z.string().max(bioMax).optional().or(z.literal('')),
   avatar: isBrowser()
     ? z.instanceof(File).refine((file) => file.size <= 1024 * 1024, {
         message: 'Avatar size must be less than 1MB.', // no minSize google, fb...
@@ -47,8 +47,8 @@ export const postCreateSchema = z.object({
 });
 
 export const postUpdateSchema = z.object({
-  title: z.string().min(titleMin).max(titleMax).or(z.literal('')),
-  content: z.string().min(contentMin).max(contentMax).or(z.literal('')),
+  title: z.string().min(titleMin).max(titleMax).optional().or(z.literal('')),
+  content: z.string().min(contentMin).max(contentMax).optional().or(z.literal('')),
   // +
   published: z.boolean().optional(),
 });

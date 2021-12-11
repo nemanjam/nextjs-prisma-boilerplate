@@ -21,14 +21,15 @@ const validateUserUpdate = withValidation({
 
 handler.patch(
   requireAuth,
-  validateUserUpdate(),
   avatarUpload,
+  validateUserUpdate(),
   async (req: NextApiRequest, res: NextApiResponse) => {
     const { query, body, file } = req as MulterRequest;
     const id = query.id as string;
     const { name, username, password } = body; // email reconfirm...
 
     const session = await getSession({ req });
+    // if session.user.id === id force recreate session
 
     if (!(session?.user && (session.user.id === id || session.user.role === 'admin'))) {
       throw new ApiError('Not authorized.', 401);
