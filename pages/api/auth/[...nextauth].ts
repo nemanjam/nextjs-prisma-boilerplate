@@ -46,7 +46,7 @@ handler.use(
         }),
       ],
       session: {
-        jwt: true, // doesnt work without this...
+        // jwt: true, // doesnt work without this...
         maxAge: 60 * 60, // 1h
       },
       callbacks: {
