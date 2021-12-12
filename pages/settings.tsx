@@ -11,6 +11,7 @@ import { userUpdateSchema } from 'lib-server/validation';
 import { datesToStrings, getAvatarFullUrl } from 'utils';
 import { User } from '@prisma/client';
 import DropzoneAvatar from 'components/DropzoneAvatar';
+import Layout from 'components/Layout';
 
 type Props = {
   user: User;
@@ -42,8 +43,8 @@ const Settings: React.FC<Props> = ({ user }) => {
     noDrag: true,
     multiple: false,
     maxFiles: 1,
-    minSize: 10 * 1024,
-    maxSize: 1 * 1024 * 1024, // 1MB
+    // minSize: 10 * 1024, // sets undefined, not good...
+    // maxSize: 1 * 1024 * 1024, // 1MB
     // validator: ...
   };
 
@@ -89,41 +90,43 @@ const Settings: React.FC<Props> = ({ user }) => {
   };
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="username">Username</label>
-          <input id="username" type="text" {...register('username')} />
-          <p className="has-error">{errors.username?.message}</p>
-        </div>
+    <Layout>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <label htmlFor="username">Username</label>
+            <input id="username" type="text" {...register('username')} />
+            <p className="has-error">{errors.username?.message}</p>
+          </div>
 
-        <div>
-          <label htmlFor="name">Name</label>
-          <input id="name" type="text" {...register('name')} />
-          <p className="has-error">{errors.name?.message}</p>
-        </div>
+          <div>
+            <label htmlFor="name">Name</label>
+            <input id="name" type="text" {...register('name')} />
+            <p className="has-error">{errors.name?.message}</p>
+          </div>
 
-        <div>
-          <DropzoneAvatar name="avatar" dropzoneOptions={dropzoneOptions} />
-          {progress > 0 && progress}
-          <p className="has-error">{errors.avatar?.message}</p>
-        </div>
+          <div>
+            <DropzoneAvatar name="avatar" dropzoneOptions={dropzoneOptions} />
+            {progress > 0 && progress}
+            <p className="has-error">{errors.avatar?.message}</p>
+          </div>
 
-        <div>
-          <label htmlFor="bio">Bio</label>
-          <input id="bio" type="text" {...register('bio')} />
-          <p className="has-error">{errors.bio?.message}</p>
-        </div>
+          <div>
+            <label htmlFor="bio">Bio</label>
+            <input id="bio" type="text" {...register('bio')} />
+            <p className="has-error">{errors.bio?.message}</p>
+          </div>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <input id="password" type="password" {...register('password')} />
-          <p className="has-error">{errors.password?.message}</p>
-        </div>
+          <div>
+            <label htmlFor="password">Password</label>
+            <input id="password" type="password" {...register('password')} />
+            <p className="has-error">{errors.password?.message}</p>
+          </div>
 
-        <button type="submit">Submit</button>
-      </form>
-    </FormProvider>
+          <button type="submit">Submit</button>
+        </form>
+      </FormProvider>
+    </Layout>
   );
 };
 
