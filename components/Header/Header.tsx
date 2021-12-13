@@ -5,7 +5,7 @@ import { signOut, useSession } from 'next-auth/react';
 import { Routes } from 'lib-client/constants';
 import { getAvatarPath } from 'utils';
 
-import styles from 'styles/components/Header.module.scss';
+import styles from 'components/Header/Header.module.scss';
 
 const Header: React.FC = () => {
   const router = useRouter();
