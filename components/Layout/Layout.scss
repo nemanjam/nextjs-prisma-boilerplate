@@ -1,0 +1,10 @@
+$color1: gray;
+$color2: pink;
+
+.layout {
+  @apply bg-green-200;
+
+  &__content {
+    @apply bg-pink-200;
+  }
+}

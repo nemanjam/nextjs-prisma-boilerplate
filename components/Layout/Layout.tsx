@@ -1,16 +1,20 @@
 import React, { ReactNode } from 'react';
 import Header from 'components/Header';
-import styles from 'components/Layout/Layout.module.scss';
+import { withBem } from 'utils/bem';
 
 type Props = {
   children: ReactNode;
 };
 
-const Layout: React.FC<Props> = ({ children }) => (
-  <div>
-    <Header />
-    <div>{children}</div>
-  </div>
-);
+const Layout: React.FC<Props> = ({ children }) => {
+  const b = withBem('layout');
+
+  return (
+    <div className={b()}>
+      <Header />
+      <div className={b('content')}>{children}</div>
+    </div>
+  );
+};
 
 export default Layout;

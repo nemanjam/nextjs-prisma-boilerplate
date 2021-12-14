@@ -5,8 +5,6 @@ import { signOut, useSession } from 'next-auth/react';
 import { Routes } from 'lib-client/constants';
 import { getAvatarPath } from 'utils';
 
-import styles from 'components/Header/Header.module.scss';
-
 const Header: React.FC = () => {
   const router = useRouter();
   const isActive: (pathname: string) => boolean = (pathname) =>
@@ -226,7 +224,7 @@ const Header: React.FC = () => {
 
   return (
     <nav>
-      <span className={styles.hello}>test</span>
+      <span className="hello">test</span>
       {left}
       {right}
 
