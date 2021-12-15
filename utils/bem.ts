@@ -8,4 +8,4 @@ export const b_ = B({
   classSeparator: ' ',
 });
 
-export const withBem = b_.with;
+export const withBem = b_.with.bind(b_);
