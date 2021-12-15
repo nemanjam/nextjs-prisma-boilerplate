@@ -178,3 +178,7 @@ code --list-extensions
 - refetch session after user is edited
 - try catch to prisma calls getServerSideProps...
 - install icons
+- navbar
+  - responsive, hamburger
+  - avatar dropdown
+  - scss classes, h-full all

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import Header from 'components/Header';
+import Navbar from 'components/Navbar';
 import { withBem } from 'utils/bem';
 
 type Props = {
@@ -11,7 +11,7 @@ const Layout: React.FC<Props> = ({ children }) => {
 
   return (
     <div className={b()}>
-      <Header />
+      <Navbar />
       <div className={b('content')}>{children}</div>
     </div>
   );
