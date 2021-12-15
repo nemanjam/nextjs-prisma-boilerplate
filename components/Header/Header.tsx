@@ -5,6 +5,8 @@ import { signOut, useSession } from 'next-auth/react';
 import { Routes } from 'lib-client/constants';
 import { getAvatarPath } from 'utils';
 
+import { IoBody } from 'react-icons/io5';
+
 const Header: React.FC = () => {
   const router = useRouter();
   const isActive: (pathname: string) => boolean = (pathname) =>
@@ -13,229 +15,49 @@ const Header: React.FC = () => {
   const { data: session, status } = useSession();
   const loading = status === 'loading';
 
-  let left = (
-    <div className="left">
-      <Link href={Routes.SITE.HOME}>
-        <a className="bold" data-active={isActive('/')}>
-          Feed
-        </a>
-      </Link>
-
-      <style jsx>{`
-        .bold {
-          font-weight: bold;
-        }
-
-        a {
-          text-decoration: none;
-          color: #000;
-          display: inline-block;
-        }
-
-        .left a[data-active='true'] {
-          color: gray;
-        }
-
-        a + a {
-          margin-left: 1rem;
-        }
-      `}</style>
-    </div>
-  );
-
-  let right = null;
-
-  if (loading) {
-    left = (
-      <div className="left">
-        <Link href={Routes.SITE.HOME}>
-          <a className="bold" data-active={isActive('/')}>
-            Feed
-          </a>
-        </Link>
-
-        <style jsx>{`
-          .bold {
-            font-weight: bold;
-          }
-
-          a {
-            text-decoration: none;
-            color: #000;
-            display: inline-block;
-          }
-
-          .left a[data-active='true'] {
-            color: gray;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-        `}</style>
-      </div>
-    );
-    right = (
-      <div className="right">
-        <p>Validating session ...</p>
-
-        <style jsx>{`
-          .right {
-            margin-left: auto;
-          }
-        `}</style>
-      </div>
-    );
-  }
-
-  if (!session) {
-    right = (
-      <div className="right">
-        <Link href={Routes.SITE.LOGIN}>
-          <a>Log in</a>
-        </Link>
-        <Link href={Routes.SITE.REGISTER}>
-          <a>Register</a>
-        </Link>
-
-        <style jsx>{`
-          a {
-            text-decoration: none;
-            color: #000;
-            display: inline-block;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-
-          .right {
-            margin-left: auto;
-          }
-
-          .right a {
-            border: 1px solid black;
-            padding: 0.5rem 1rem;
-            border-radius: 3px;
-          }
-        `}</style>
-      </div>
-    );
-  }
-
-  if (session) {
-    left = (
-      <div className="left">
-        <Link href={Routes.SITE.HOME}>
-          <a className="bold" data-active={isActive(Routes.SITE.HOME)}>
-            Feed
-          </a>
-        </Link>
-
-        <Link
-          href={{
-            pathname: '/[username]',
-            query: { username: session.user.username },
-          }}
-        >
-          <a className="bold" data-active={isActive(`/${session.user.username}`)}>
-            Profile
-          </a>
-        </Link>
-
-        <Link href={Routes.SITE.DRAFTS}>
-          <a data-active={isActive(Routes.SITE.DRAFTS)}>My drafts</a>
-        </Link>
-
-        <Link href={Routes.SITE.SETTINGS}>
-          <a data-active={isActive(Routes.SITE.SETTINGS)}>Settings</a>
-        </Link>
-
-        <style jsx>{`
-          .bold {
-            font-weight: bold;
-          }
-
-          a {
-            text-decoration: none;
-            color: #000;
-            display: inline-block;
-          }
-
-          .left a[data-active='true'] {
-            color: gray;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-        `}</style>
-      </div>
-    );
-    right = (
-      <div className="right">
-        <div className="p-temp">
-          <img src={getAvatarPath(session.user)} width="50" height="50" />
-          {session.user.name} ({session.user.email})
-        </div>
-        <Link href={Routes.SITE.CREATE}>
-          <button>
-            <a>New post</a>
-          </button>
-        </Link>
-        <button onClick={() => signOut()}>
-          <a>Log out</a>
-        </button>
-
-        <style jsx>{`
-          a {
-            text-decoration: none;
-            color: #000;
-            display: inline-block;
-          }
-
-          .p-temp {
-            display: inline-block;
-            font-size: 13px;
-            padding-right: 1rem;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-
-          .right {
-            margin-left: auto;
-          }
-
-          .right a {
-            border: 1px solid black;
-            padding: 0.5rem 1rem;
-            border-radius: 3px;
-          }
-
-          button {
-            border: none;
-          }
-        `}</style>
-      </div>
-    );
-  }
-
   return (
-    <nav>
-      <span className="hello">test</span>
-      {left}
-      {right}
-
-      <style jsx>{`
-        nav {
-          display: flex;
-          padding: 2rem;
-          align-items: center;
-        }
-      `}</style>
-    </nav>
+    <header className="text-gray-600 body-font">
+      <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+        <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+          <span className="ml-3 text-xl">Tailblocks</span>
+        </a>
+        <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 flex flex-wrap items-center text-base justify-center">
+          <a className="mr-5 hover:text-gray-900">First Link</a>
+          <a className="mr-5 hover:text-gray-900">Second Link</a>
+          <a className="mr-5 hover:text-gray-900">Third Link</a>
+          <a className="mr-5 hover:text-gray-900">
+            <IoBody />
+            Fourth Link
+          </a>
+        </nav>
+        <button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+          Button
+          <svg
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            className="w-4 h-4 ml-1"
+            viewBox="0 0 24 24"
+          >
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
   );
 };
 
