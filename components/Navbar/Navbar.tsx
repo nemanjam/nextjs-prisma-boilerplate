@@ -205,13 +205,14 @@ const DesktopNavbar = ({
     <div className="flex justify-between h-14 px-4">
       <div className="flex">
         <div className="flex items-center gap-2">
-          <FaCat className="h-10 w-10 text-violet-500" />
-          <a
-            href="#home"
-            className="text-xl font-bold no-underline text-gray-800 hover:text-gray-600"
-          >
-            NP Boilerplate
-          </a>
+          <Link href={Routes.SITE.HOME}>
+            <a>
+              <FaCat className="h-10 w-10 text-violet-500" />
+              <span className="text-xl font-bold no-underline text-gray-800 hover:text-gray-600">
+                NP Boilerplate
+              </span>
+            </a>
+          </Link>
         </div>
 
         <nav className="hidden md:flex items-center space-x-6 h-full">
