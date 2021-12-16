@@ -141,6 +141,19 @@ import { User } from '.prisma/client';
 code --list-extensions
 ```
 
+### Responsive Navbar
+
+- [tutorial](https://www.notimedad.dev/responsive-navbar-tailwind-react/#Products)
+
+### Dropdown
+
+- [tutorial](https://letsbuildui.dev/articles/building-a-dropdown-menu-component-with-react-hooks)
+- [Codesandbox](https://codesandbox.io/s/dropdown-menu-jzldk)
+
+### Responsive hook
+
+- [tutorial](https://blog.logrocket.com/developing-responsive-layouts-with-react-hooks/)
+
 ### Todo
 
 - admin role - done, maybe type admin | user in prisma

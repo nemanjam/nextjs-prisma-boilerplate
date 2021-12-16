@@ -1,52 +1,137 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { NextRouter, useRouter } from 'next/router';
+import { Session } from 'next-auth';
 import { signOut, useSession } from 'next-auth/react';
 import { Routes } from 'lib-client/constants';
 import { getAvatarPath } from 'utils';
-
 import { FaCat } from 'react-icons/fa';
 import { RiMenuLine } from 'react-icons/ri';
-import { Session } from 'next-auth';
+import Dropdown from 'components/Dropdown';
+import { useViewport } from 'components/hooks';
 
 const isActive: (router: NextRouter, pathname: string) => boolean = (router, pathname) =>
   router.pathname === pathname;
 
-const navLinks = (router: NextRouter, session: Session) => (
+const getNavLinks = (router: NextRouter, session: Session, isMobile: boolean) => (
   <>
-    <Link href={Routes.SITE.HOME}>
-      <a className="bold" data-active={isActive(router, Routes.SITE.HOME)}>
-        Home
-      </a>
-    </Link>
-    {session && (
+    {isMobile ? (
       <>
-        <Link
-          href={{
-            pathname: '/[username]',
-            query: { username: session.user.username },
-          }}
-        >
-          <a className="bold" data-active={isActive(router, `/${session.user.username}`)}>
-            Profile
-          </a>
-        </Link>
+        {session ? (
+          <>
+            <Link href={Routes.SITE.HOME}>
+              <a className="bold" data-active={isActive(router, Routes.SITE.HOME)}>
+                Home
+              </a>
+            </Link>
 
-        <Link href={Routes.SITE.DRAFTS}>
-          <a data-active={isActive(router, Routes.SITE.DRAFTS)}>My drafts</a>
-        </Link>
+            <Link
+              href={{
+                pathname: '/[username]',
+                query: { username: session.user.username },
+              }}
+            >
+              <a
+                className="bold"
+                data-active={isActive(router, `/${session.user.username}`)}
+              >
+                Profile
+              </a>
+            </Link>
 
-        <Link href={Routes.SITE.SETTINGS}>
-          <a data-active={isActive(router, Routes.SITE.SETTINGS)}>Settings</a>
-        </Link>
+            <Link href={Routes.SITE.DRAFTS}>
+              <a data-active={isActive(router, Routes.SITE.DRAFTS)}>My drafts</a>
+            </Link>
+
+            <Link href={Routes.SITE.SETTINGS}>
+              <a data-active={isActive(router, Routes.SITE.SETTINGS)}>Settings</a>
+            </Link>
+
+            <button onClick={() => signOut()}>
+              <a>Log out</a>
+            </button>
+          </>
+        ) : (
+          <>
+            <Link href={Routes.SITE.LOGIN}>
+              <a>Log in</a>
+            </Link>
+            <Link href={Routes.SITE.REGISTER}>
+              <a>Register</a>
+            </Link>
+          </>
+        )}
+      </>
+    ) : (
+      <>
+        {session ? (
+          <>
+            <Link href={Routes.SITE.HOME}>
+              <a className="bold" data-active={isActive(router, Routes.SITE.HOME)}>
+                Home
+              </a>
+            </Link>
+
+            <Link
+              href={{
+                pathname: '/[username]',
+                query: { username: session.user.username },
+              }}
+            >
+              <a
+                className="bold"
+                data-active={isActive(router, `/${session.user.username}`)}
+              >
+                Profile
+              </a>
+            </Link>
+
+            <Link href={Routes.SITE.DRAFTS}>
+              <a data-active={isActive(router, Routes.SITE.DRAFTS)}>My drafts</a>
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link href={Routes.SITE.LOGIN}>
+              <a>Log in</a>
+            </Link>
+            <Link href={Routes.SITE.REGISTER}>
+              <a>Register</a>
+            </Link>
+          </>
+        )}
       </>
     )}
   </>
 );
 
+const getDropdownItems = (router: NextRouter, session: Session) =>
+  session
+    ? [
+        <Link href={Routes.SITE.SETTINGS}>
+          <a data-active={isActive(router, Routes.SITE.SETTINGS)}>Settings</a>
+        </Link>,
+
+        <button onClick={() => signOut()}>
+          <a>Log out</a>
+        </button>,
+      ]
+    : [
+        <Link href={Routes.SITE.LOGIN}>
+          <a>Log in</a>
+        </Link>,
+
+        <Link href={Routes.SITE.REGISTER}>
+          <a>Register</a>
+        </Link>,
+      ];
+
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
+  const { width } = useViewport();
+  const isMobile = width < 768;
+
   const { data: session, status } = useSession();
 
   return (
@@ -56,13 +141,14 @@ const Navbar: React.FC = () => {
         setMenuOpen={setMenuOpen}
         session={session}
         router={router}
+        isMobile={isMobile}
       />
-      {menuOpen && <MobileMenu>{navLinks(router, session)}</MobileMenu>}
+      {menuOpen && <MobileMenu>{getNavLinks(router, session, isMobile)}</MobileMenu>}
     </div>
   );
 };
 
-const DesktopNavbar = ({ menuOpen, setMenuOpen, session, router }) => (
+const DesktopNavbar = ({ menuOpen, setMenuOpen, session, router, isMobile }) => (
   <div className="flex justify-between h-14 px-4">
     <div className="flex">
       <div className="flex items-center gap-2">
@@ -76,24 +162,14 @@ const DesktopNavbar = ({ menuOpen, setMenuOpen, session, router }) => (
       </div>
 
       <nav className="hidden md:flex items-center space-x-6 h-full">
-        {navLinks(router, session)}
+        {getNavLinks(router, session, isMobile)}
       </nav>
     </div>
-    {session ? (
+    {!isMobile && session && (
       <div className="flex space-x-6">
-        <button onClick={() => signOut()}>
-          <a>Log out</a>
-        </button>
-        <img src={getAvatarPath(session.user)} width="50" height="50" />
-      </div>
-    ) : (
-      <div className="space-x-6">
-        <Link href={Routes.SITE.LOGIN}>
-          <a>Log in</a>
-        </Link>
-        <Link href={Routes.SITE.REGISTER}>
-          <a>Register</a>
-        </Link>
+        <Dropdown items={getDropdownItems(router, session)}>
+          <img src={getAvatarPath(session.user)} width="50" height="50" />
+        </Dropdown>
       </div>
     )}
     <button
