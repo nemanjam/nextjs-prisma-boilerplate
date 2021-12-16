@@ -29,7 +29,7 @@ const getAllItems = ({
   isGetDropdownItems,
 }: ItemsArgs) => ({
   home: (
-    <Link href={Routes.SITE.HOME}>
+    <Link key="home" href={Routes.SITE.HOME}>
       <a className="bold" data-active={isActive(router, Routes.SITE.HOME)}>
         Home
       </a>
@@ -37,6 +37,7 @@ const getAllItems = ({
   ),
   profile: session && (
     <Link
+      key="profile"
       href={{
         pathname: '/[username]',
         query: { username: session.user.username },
@@ -48,40 +49,45 @@ const getAllItems = ({
     </Link>
   ),
   drafts: (
-    <Link href={Routes.SITE.DRAFTS}>
+    <Link key="drafts" href={Routes.SITE.DRAFTS}>
       <a data-active={isActive(router, Routes.SITE.DRAFTS)}>My drafts</a>
     </Link>
   ),
   settings: (
-    <Link href={Routes.SITE.SETTINGS}>
+    <Link key="settings" href={Routes.SITE.SETTINGS}>
       <a data-active={isActive(router, Routes.SITE.SETTINGS)}>Settings</a>
     </Link>
   ),
   logout: (
-    <button onClick={() => signOut()}>
+    <button key="logout" onClick={() => signOut()}>
       <a>Log out</a>
     </button>
   ),
   login: (
-    <Link href={Routes.SITE.LOGIN}>
+    <Link key="login" href={Routes.SITE.LOGIN}>
       <a>Log in</a>
     </Link>
   ),
   register: (
-    <Link href={Routes.SITE.REGISTER}>
+    <Link key="register" href={Routes.SITE.REGISTER}>
       <a>Register</a>
     </Link>
   ),
   // prevent recursion
   avatar: !isGetDropdownItems && session && (
     <Dropdown
+      key="avatar"
       items={getDropdownItems({ router, session, onHamburgerClick, mobileMenuOpen })}
     >
       <img src={getAvatarPath(session.user)} width="50" height="50" />
     </Dropdown>
   ),
+  justAvatar: session && (
+    <img key="justAvatar" src={getAvatarPath(session.user)} width="50" height="50" />
+  ),
   hamburger: (
     <button
+      key="hamburger"
       type="button"
       aria-label="Toggle mobile menu"
       onClick={onHamburgerClick}
@@ -95,18 +101,6 @@ const getAllItems = ({
     </button>
   ),
 });
-
-// loged in
-// left desktop navitems: home, profile, drafts
-// right desktop: avatar
-// left mobile: none
-// dropdown desktop: settins, logout
-// dropdown mobile: no dropdown
-
-// loged out
-// left desktop: home
-// right: login, register
-// left mobile: none
 
 // left, loggedin, mobile, dropdown
 
@@ -124,19 +118,13 @@ const filterAllItems = ({ argsArray, ...restArgs }: FilterItemsArgs) =>
       )
     : [];
 
-interface GetNavLinksArgs extends ItemsArgs {
-  isMobile: boolean;
-}
+// getLeftNavLinks, getRightNavLinks, getDropdownItems
+// don't care isMobile/desktop, but where they are called
+const getLeftNavLinks = ({ router, session }: ItemsArgs) => {
+  const leftNavLinksLoggedIn = ['home', 'profile', 'drafts'];
+  const leftNavLinksLoggedOut = ['home'];
 
-const getLeftNavLinks = ({ router, session, isMobile }: GetNavLinksArgs) => {
-  const leftNavLinksDesktopLoggedIn = ['home', 'profile', 'drafts'];
-  const leftNavLinksMobile = [];
-  const leftNavLinksDesktopLoggedOut = ['home'];
-
-  let argsArray = [];
-  if (!isMobile && session) argsArray = leftNavLinksDesktopLoggedIn;
-  if (!isMobile && !session) argsArray = leftNavLinksDesktopLoggedOut;
-  if (isMobile) argsArray = leftNavLinksMobile;
+  const argsArray = session ? leftNavLinksLoggedIn : leftNavLinksLoggedOut;
 
   return filterAllItems({ router, session, argsArray });
 };
@@ -144,43 +132,30 @@ const getLeftNavLinks = ({ router, session, isMobile }: GetNavLinksArgs) => {
 const getRightNavLinks = ({
   router,
   session,
-  isMobile,
   onHamburgerClick,
   mobileMenuOpen,
-}: GetNavLinksArgs) => {
-  const rightNavLinksDesktopLoggedIn = ['avatar'];
-  const rightNavLinksMobile = ['hamburger'];
-  const rightNavLinksDesktopLoggeOut = ['login', 'register'];
+}: ItemsArgs) => {
+  const rightNavLinksLoggedIn = [
+    'settings',
+    mobileMenuOpen ? 'justAvatar' : 'avatar',
+    'logout',
+  ];
+  const rightNavLinksLoggedOut = ['login', 'register'];
 
-  let argsArray = [];
-  if (!isMobile && session) argsArray = rightNavLinksDesktopLoggedIn;
-  if (!isMobile && !session) argsArray = rightNavLinksDesktopLoggeOut;
-  if (isMobile) argsArray = rightNavLinksMobile;
+  const argsArray = session ? rightNavLinksLoggedIn : rightNavLinksLoggedOut;
 
   return filterAllItems({ router, session, argsArray, onHamburgerClick, mobileMenuOpen });
 };
 
-const getMobileNavLinks = (args: GetNavLinksArgs) => {
-  const navLinksMobileLoggedIn = [
-    'home',
-    'profile',
-    'drafts',
-    'settings',
-    'avatar',
-    'logout',
-  ];
-
-  const navLinksMobileLoggedOut = ['home', 'login', 'register'];
+const getAllNavLinks = (args: ItemsArgs) => {
+  return getLeftNavLinks(args).concat(getRightNavLinks(args));
 };
 
 function getDropdownItems(args: ItemsArgs) {
-  const dropdownDesktopLoggedIn = ['settings', 'logout'];
-  const dropdownMobile = [];
+  const dropdownLoggedIn = ['settings', 'logout'];
   const dropdownLoggedOut = [];
 
-  let argsArray = [];
-  if (args?.session) argsArray = dropdownDesktopLoggedIn;
-  if (!args?.session) argsArray = dropdownLoggedOut;
+  const argsArray = args?.session ? dropdownLoggedIn : dropdownLoggedOut;
 
   return filterAllItems({ ...args, argsArray, isGetDropdownItems: true });
 }
@@ -194,18 +169,6 @@ const Navbar: React.FC = () => {
   const { data: session, status } = useSession();
   const _onHamburgerClick = () => setMobileMenuOpen(!mobileMenuOpen);
 
-  const mobileMenu =
-    mobileMenuOpen &&
-    getAllNavLinks({
-      router,
-      session,
-      isMobile,
-      mobileMenuOpen,
-      onHamburgerClick: _onHamburgerClick,
-    });
-
-  console.log('mobileMenu', mobileMenu);
-
   return (
     <div className="bg-gradient-to-r from-blue-300 to-blue-100">
       <DesktopNavbar
@@ -215,7 +178,16 @@ const Navbar: React.FC = () => {
         router={router}
         isMobile={isMobile}
       />
-      {mobileMenuOpen && <MobileMenu>{mobileMenu}</MobileMenu>}
+      {mobileMenuOpen && (
+        <MobileMenu>
+          {getAllNavLinks({
+            router,
+            session,
+            mobileMenuOpen,
+            onHamburgerClick: _onHamburgerClick,
+          })}
+        </MobileMenu>
+      )}
     </div>
   );
 };
@@ -243,7 +215,7 @@ const DesktopNavbar = ({
         </div>
 
         <nav className="hidden md:flex items-center space-x-6 h-full">
-          {getLeftNavLinks({ router, session, isMobile })}
+          {getLeftNavLinks({ router, session })}
         </nav>
       </div>
 
@@ -255,6 +227,16 @@ const DesktopNavbar = ({
           session,
         })?.avatar}
 
+      {/* render login/register */}
+      {!isMobile &&
+        !session &&
+        getRightNavLinks({
+          router,
+          session,
+          mobileMenuOpen,
+          onHamburgerClick: _onHamburgerClick,
+        })}
+
       {/* render hamburger */}
       {isMobile &&
         getAllItems({
@@ -263,16 +245,6 @@ const DesktopNavbar = ({
           mobileMenuOpen,
           onHamburgerClick: _onHamburgerClick,
         })?.hamburger}
-
-      {/* render login/register */}
-      {!session &&
-        getRightNavLinks({
-          router,
-          session,
-          isMobile,
-          mobileMenuOpen,
-          onHamburgerClick: _onHamburgerClick,
-        })}
     </div>
   );
 };
