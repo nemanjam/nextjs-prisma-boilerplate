@@ -166,6 +166,10 @@ code --list-extensions
 - add types file, mostly done
 - fix routing from Post, done
 - vs code recommended extensions, done
+- install icons, done
+- navbar, done
+  - responsive, hamburger
+  - avatar dropdown
 
 ---
 
@@ -186,12 +190,11 @@ code --list-extensions
 - faker reseed
 - \_document.tsx
 - redux toolkit vercel example
-- paginacija
+- pagination
 - update readme before forget...
 - refetch session after user is edited
 - try catch to prisma calls getServerSideProps...
-- install icons
-- navbar
-  - responsive, hamburger
-  - avatar dropdown
-  - scss classes, h-full all
+
+- comment model
+- light, dark, orange, blue theme
+- soft delete for reseed, or logger
