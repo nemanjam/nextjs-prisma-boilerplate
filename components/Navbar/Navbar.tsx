@@ -169,89 +169,56 @@ const Navbar: React.FC = () => {
   const { data: session, status } = useSession();
   const _onHamburgerClick = () => setMobileMenuOpen(!mobileMenuOpen);
 
+  const avatar =
+    !isMobile &&
+    session &&
+    getAllItems({
+      router,
+      session,
+    })?.avatar;
+
+  const args = {
+    router,
+    session,
+    mobileMenuOpen,
+    onHamburgerClick: _onHamburgerClick,
+  };
+
+  const rightNav = !isMobile && !session && getRightNavLinks(args);
+  const hamburger = isMobile && getAllItems(args)?.hamburger;
+  const mobileMenuItems = getAllNavLinks(args);
+
   return (
     <div className="bg-gradient-to-r from-blue-300 to-blue-100">
-      <DesktopNavbar
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={setMobileMenuOpen}
-        session={session}
-        router={router}
-        isMobile={isMobile}
-      />
+      {/* desktop navbar */}
+      <div className="flex justify-between h-14 px-4">
+        <div className="flex">
+          <div className="flex items-center gap-2">
+            <Link href={Routes.SITE.HOME}>
+              <a>
+                <FaCat className="h-10 w-10 text-violet-500" />
+                <span className="text-xl font-bold no-underline text-gray-800 hover:text-gray-600">
+                  NP Boilerplate
+                </span>
+              </a>
+            </Link>
+          </div>
+
+          <nav className="hidden md:flex items-center space-x-6 h-full">
+            {getLeftNavLinks({ router, session })}
+          </nav>
+        </div>
+        {avatar}
+        {rightNav}
+        {hamburger}
+      </div>
+
+      {/* mobile menu */}
       {mobileMenuOpen && (
-        <MobileMenu>
-          {getAllNavLinks({
-            router,
-            session,
-            mobileMenuOpen,
-            onHamburgerClick: _onHamburgerClick,
-          })}
-        </MobileMenu>
+        <nav className="p-4 flex flex-col space-y-3 md:hidden">{mobileMenuItems}</nav>
       )}
     </div>
   );
 };
-
-const DesktopNavbar = ({
-  mobileMenuOpen,
-  setMobileMenuOpen,
-  session,
-  router,
-  isMobile,
-}) => {
-  const _onHamburgerClick = () => setMobileMenuOpen(!mobileMenuOpen);
-
-  return (
-    <div className="flex justify-between h-14 px-4">
-      <div className="flex">
-        <div className="flex items-center gap-2">
-          <Link href={Routes.SITE.HOME}>
-            <a>
-              <FaCat className="h-10 w-10 text-violet-500" />
-              <span className="text-xl font-bold no-underline text-gray-800 hover:text-gray-600">
-                NP Boilerplate
-              </span>
-            </a>
-          </Link>
-        </div>
-
-        <nav className="hidden md:flex items-center space-x-6 h-full">
-          {getLeftNavLinks({ router, session })}
-        </nav>
-      </div>
-
-      {/* render avatar */}
-      {!isMobile &&
-        session &&
-        getAllItems({
-          router,
-          session,
-        })?.avatar}
-
-      {/* render login/register */}
-      {!isMobile &&
-        !session &&
-        getRightNavLinks({
-          router,
-          session,
-          mobileMenuOpen,
-          onHamburgerClick: _onHamburgerClick,
-        })}
-
-      {/* render hamburger */}
-      {isMobile &&
-        getAllItems({
-          router,
-          session,
-          mobileMenuOpen,
-          onHamburgerClick: _onHamburgerClick,
-        })?.hamburger}
-    </div>
-  );
-};
-
-const MobileMenu = ({ children }) => (
-  <nav className="p-4 flex flex-col space-y-3 md:hidden">{children}</nav>
-);
 
 export default Navbar;
