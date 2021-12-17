@@ -3,10 +3,11 @@ import Link from 'next/link';
 import { NextRouter, useRouter } from 'next/router';
 import { Session } from 'next-auth';
 import { signOut, useSession } from 'next-auth/react';
-import { Routes } from 'lib-client/constants';
-import { getAvatarPath } from 'utils';
 import { FaCat } from 'react-icons/fa';
 import { RiMenuLine } from 'react-icons/ri';
+import { withBem } from 'utils/bem';
+import { Routes } from 'lib-client/constants';
+import { getAvatarPath } from 'utils';
 import Dropdown from 'components/Dropdown';
 import { useViewport } from 'components/hooks';
 
@@ -20,6 +21,12 @@ interface ItemsArgs {
   mobileMenuOpen?: boolean;
   isGetDropdownItems?: boolean;
 }
+
+interface FilterItemsArgs extends ItemsArgs {
+  argsArray: string[];
+}
+
+const b = withBem('navbar');
 
 const getAllItems = ({
   router,
@@ -102,14 +109,9 @@ const getAllItems = ({
   ),
 });
 
-// left, loggedin, mobile, dropdown
-
+// helper methods
 const objectFilter = (obj, predicate) =>
   Object.fromEntries(Object.entries(obj).filter(predicate));
-
-interface FilterItemsArgs extends ItemsArgs {
-  argsArray: string[];
-}
 
 const filterAllItems = ({ argsArray, ...restArgs }: FilterItemsArgs) =>
   argsArray?.length > 0
@@ -118,13 +120,23 @@ const filterAllItems = ({ argsArray, ...restArgs }: FilterItemsArgs) =>
       )
     : [];
 
+// main config
+const navConfig = {
+  leftNav: { loggedIn: ['home', 'profile', 'drafts'], loggedOut: ['home'] },
+  rightNav: {
+    loggedIn: {
+      desktop: ['settings', 'avatar', 'logout'],
+      mobile: ['settings', 'justAvatar', 'logout'],
+    },
+    loggedOut: ['login', 'register'],
+  },
+  dropdown: { loggedIn: ['settings', 'logout'], loggedOut: [] },
+};
+
 // getLeftNavLinks, getRightNavLinks, getDropdownItems
 // don't care isMobile/desktop, but where they are called
 const getLeftNavLinks = ({ router, session }: ItemsArgs) => {
-  const leftNavLinksLoggedIn = ['home', 'profile', 'drafts'];
-  const leftNavLinksLoggedOut = ['home'];
-
-  const argsArray = session ? leftNavLinksLoggedIn : leftNavLinksLoggedOut;
+  const argsArray = session ? navConfig.leftNav.loggedIn : navConfig.leftNav.loggedOut;
 
   return filterAllItems({ router, session, argsArray });
 };
@@ -135,14 +147,11 @@ const getRightNavLinks = ({
   onHamburgerClick,
   mobileMenuOpen,
 }: ItemsArgs) => {
-  const rightNavLinksLoggedIn = [
-    'settings',
-    mobileMenuOpen ? 'justAvatar' : 'avatar',
-    'logout',
-  ];
-  const rightNavLinksLoggedOut = ['login', 'register'];
-
-  const argsArray = session ? rightNavLinksLoggedIn : rightNavLinksLoggedOut;
+  const argsArray = session
+    ? mobileMenuOpen
+      ? navConfig.rightNav.loggedIn.mobile
+      : navConfig.rightNav.loggedIn.desktop
+    : navConfig.rightNav.loggedOut;
 
   return filterAllItems({ router, session, argsArray, onHamburgerClick, mobileMenuOpen });
 };
@@ -152,10 +161,9 @@ const getAllNavLinks = (args: ItemsArgs) => {
 };
 
 function getDropdownItems(args: ItemsArgs) {
-  const dropdownLoggedIn = ['settings', 'logout'];
-  const dropdownLoggedOut = [];
-
-  const argsArray = args?.session ? dropdownLoggedIn : dropdownLoggedOut;
+  const argsArray = args?.session
+    ? navConfig.dropdown.loggedIn
+    : navConfig.dropdown.loggedOut;
 
   return filterAllItems({ ...args, argsArray, isGetDropdownItems: true });
 }
@@ -180,7 +188,7 @@ const Navbar: React.FC = () => {
   const leftNav = getLeftNavLinks(args);
   const avatar = !isMobile && session && getAllItems(args)?.avatar;
   const hamburger = isMobile && getAllItems(args)?.hamburger;
-  const mobileMenuItems = getAllNavLinks(args);
+  const mobileNav = getAllNavLinks(args);
 
   return (
     <div className="bg-gradient-to-r from-blue-300 to-blue-100">
@@ -206,7 +214,7 @@ const Navbar: React.FC = () => {
 
       {/* mobile menu */}
       {mobileMenuOpen && (
-        <nav className="p-4 flex flex-col space-y-3 md:hidden">{mobileMenuItems}</nav>
+        <nav className="p-4 flex flex-col space-y-3 md:hidden">{mobileNav}</nav>
       )}
     </div>
   );
