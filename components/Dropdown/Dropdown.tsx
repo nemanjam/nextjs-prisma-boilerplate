@@ -1,5 +1,6 @@
 import React, { ReactNode, useRef, FC } from 'react';
 import { useDetectOutsideClick } from 'components/hooks';
+import { withBem } from 'utils/bem';
 
 type Props = {
   children: ReactNode;
@@ -9,17 +10,23 @@ type Props = {
 const Dropdown: FC<Props> = ({ children, items }) => {
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const b = withBem('dropdown');
 
   return (
-    <div className="container">
-      <div className="menu-container">
-        <button onClick={() => setIsActive(!isActive)} className="menu-trigger">
+    <div className={b()}>
+      <div className={b('container')}>
+        <span onClick={() => setIsActive(!isActive)} className={b('anchor')}>
           {children}
-        </button>
+        </span>
 
-        <nav ref={dropdownRef} className={`menu ${isActive ? 'active' : 'inactive'}`}>
-          <ul>
-            {items?.length > 0 && items.map((item, index) => <li key={index}>{item}</li>)}
+        <nav ref={dropdownRef} className={b('menu', { active: isActive })}>
+          <ul className={b('list')}>
+            {items?.length > 0 &&
+              items.map((item, index) => (
+                <li key={index} className={b('list-item')}>
+                  {item}
+                </li>
+              ))}
           </ul>
         </nav>
       </div>
