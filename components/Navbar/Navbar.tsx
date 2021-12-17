@@ -169,14 +169,6 @@ const Navbar: React.FC = () => {
   const { data: session, status } = useSession();
   const _onHamburgerClick = () => setMobileMenuOpen(!mobileMenuOpen);
 
-  const avatar =
-    !isMobile &&
-    session &&
-    getAllItems({
-      router,
-      session,
-    })?.avatar;
-
   const args = {
     router,
     session,
@@ -185,6 +177,8 @@ const Navbar: React.FC = () => {
   };
 
   const rightNav = !isMobile && !session && getRightNavLinks(args);
+  const leftNav = getLeftNavLinks(args);
+  const avatar = !isMobile && session && getAllItems(args)?.avatar;
   const hamburger = isMobile && getAllItems(args)?.hamburger;
   const mobileMenuItems = getAllNavLinks(args);
 
@@ -203,10 +197,7 @@ const Navbar: React.FC = () => {
               </a>
             </Link>
           </div>
-
-          <nav className="hidden md:flex items-center space-x-6 h-full">
-            {getLeftNavLinks({ router, session })}
-          </nav>
+          <nav className="hidden md:flex items-center space-x-6 h-full">{leftNav}</nav>
         </div>
         {avatar}
         {rightNav}
