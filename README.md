@@ -194,7 +194,7 @@ code --list-extensions
 - update readme before forget...
 - refetch session after user is edited
 - try catch to prisma calls getServerSideProps...
-
 - comment model
 - light, dark, orange, blue theme
 - soft delete for reseed, or logger
+- semantic html

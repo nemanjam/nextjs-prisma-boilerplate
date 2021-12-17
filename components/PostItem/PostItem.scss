@@ -1,0 +1,7 @@
+.post {
+  @apply bg-gradient-to-r from-blue-300 to-blue-100 whitespace-nowrap;
+
+  &__desktop {
+    @apply flex justify-between h-14 px-4;
+  }
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import { GetServerSideProps } from 'next';
 import Layout from 'components/Layout';
 import prisma from 'lib-server/prisma';
-import { default as PostComponent } from 'components/Post';
+import PostItem from 'components/PostItem';
 import { UserStr, PostStr } from 'types/utils';
 import { datesToStrings } from 'utils';
 
@@ -20,7 +20,7 @@ const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
         <main>
           {posts.map((post) => (
             <div key={post.id} className="post">
-              <PostComponent post={{ ...post, author: profile }} />
+              <PostItem post={{ ...post, author: profile }} />
             </div>
           ))}
         </main>

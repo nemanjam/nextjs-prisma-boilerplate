@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import Layout from 'components/Layout';
 import Router from 'next/router';
 import axios from 'axios';
-import { PostProps } from 'components/Post';
+import { PostItemProps } from 'components/PostItem';
 import prisma from 'lib-server/prisma';
 import { useSession } from 'next-auth/react';
 import { Routes } from 'lib-client/constants';
@@ -29,7 +29,7 @@ const publishOrDeletePost = async (
   await Router.push(Routes.SITE.HOME);
 };
 
-const Post: React.FC<PostProps> = ({ post }) => {
+const Post: React.FC<PostItemProps> = ({ post }) => {
   const { data: session, status } = useSession();
   const loading = status === 'loading';
 

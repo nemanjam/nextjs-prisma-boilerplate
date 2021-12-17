@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetStaticProps } from 'next';
 import Layout from 'components/Layout';
-import Post, { PostWithAuthor } from 'components/Post';
+import PostItem, { PostWithAuthor } from 'components/PostItem';
 import prisma from 'lib-server/prisma';
 import { datesToStrings } from 'utils';
 
@@ -17,7 +17,7 @@ const Home: React.FC<HomeProps> = ({ posts }) => {
         <main>
           {posts.map((post) => (
             <div key={post.id} className="post">
-              <Post post={post} />
+              <PostItem post={post} />
             </div>
           ))}
         </main>

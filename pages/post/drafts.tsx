@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import Layout from 'components/Layout';
-import Post, { PostWithAuthor } from 'components/Post';
+import PostItem, { PostWithAuthor } from 'components/PostItem';
 import { useSession, getSession } from 'next-auth/react';
 import prisma from 'lib-server/prisma';
 import { datesToStrings } from 'utils';
@@ -29,7 +29,7 @@ const Drafts: React.FC<DraftProps> = ({ posts }) => {
         <main>
           {posts.map((post) => (
             <div key={post.id} className="post">
-              <Post post={post} />
+              <PostItem post={post} />
             </div>
           ))}
         </main>
