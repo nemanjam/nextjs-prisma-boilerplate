@@ -1,7 +1,7 @@
 import { B } from 'b_';
 
 export const b_ = B({
-  tailSpace: ' ',
+  tailSpace: '',
   elementSeparator: '__',
   modSeparator: '--',
   modValueSeparator: '-',

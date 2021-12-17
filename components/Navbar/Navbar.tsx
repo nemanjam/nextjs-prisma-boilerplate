@@ -37,7 +37,7 @@ const getAllItems = ({
 }: ItemsArgs) => ({
   home: (
     <Link key="home" href={Routes.SITE.HOME}>
-      <a className="bold" data-active={isActive(router, Routes.SITE.HOME)}>
+      <a className={b('nav-link')} data-active={isActive(router, Routes.SITE.HOME)}>
         Home
       </a>
     </Link>
@@ -50,34 +50,48 @@ const getAllItems = ({
         query: { username: session.user.username },
       }}
     >
-      <a className="bold" data-active={isActive(router, `/${session.user.username}`)}>
+      <a
+        className={b('nav-link')}
+        data-active={isActive(router, `/${session.user.username}`)}
+      >
         Profile
       </a>
     </Link>
   ),
   drafts: (
     <Link key="drafts" href={Routes.SITE.DRAFTS}>
-      <a data-active={isActive(router, Routes.SITE.DRAFTS)}>My drafts</a>
+      <a className={b('nav-link')} data-active={isActive(router, Routes.SITE.DRAFTS)}>
+        My drafts
+      </a>
     </Link>
   ),
   settings: (
     <Link key="settings" href={Routes.SITE.SETTINGS}>
-      <a data-active={isActive(router, Routes.SITE.SETTINGS)}>Settings</a>
+      <a className={b('nav-link')} data-active={isActive(router, Routes.SITE.SETTINGS)}>
+        Settings
+      </a>
     </Link>
   ),
   logout: (
-    <button key="logout" onClick={() => signOut()}>
-      <a>Log out</a>
-    </button>
+    <a
+      key="logout"
+      onClick={(e) => {
+        e.preventDefault();
+        signOut();
+      }}
+      className={b('nav-link')}
+    >
+      Log out
+    </a>
   ),
   login: (
     <Link key="login" href={Routes.SITE.LOGIN}>
-      <a>Log in</a>
+      <a className={b('nav-link')}>Log in</a>
     </Link>
   ),
   register: (
     <Link key="register" href={Routes.SITE.REGISTER}>
-      <a>Register</a>
+      <a className={b('nav-link')}>Register</a>
     </Link>
   ),
   // prevent recursion
@@ -86,11 +100,17 @@ const getAllItems = ({
       key="avatar"
       items={getDropdownItems({ router, session, onHamburgerClick, mobileMenuOpen })}
     >
-      <img src={getAvatarPath(session.user)} width="50" height="50" />
+      <img className={b('avatar')} src={getAvatarPath(session.user)} />
     </Dropdown>
   ),
   justAvatar: session && (
-    <img key="justAvatar" src={getAvatarPath(session.user)} width="50" height="50" />
+    <img
+      className={b('just-avatar')}
+      key="justAvatar"
+      src={getAvatarPath(session.user)}
+      width="50"
+      height="50"
+    />
   ),
   hamburger: (
     <button
@@ -98,7 +118,7 @@ const getAllItems = ({
       type="button"
       aria-label="Toggle mobile menu"
       onClick={onHamburgerClick}
-      className="rounded md:hidden focus:outline-none focus:ring focus:ring-gray-500 focus:ring-opacity-50"
+      className={b('hamburger')}
     >
       <RiMenuLine
         className={`transition duration-100 ease h-8 w-8 ${
@@ -120,7 +140,7 @@ const filterAllItems = ({ argsArray, ...restArgs }: FilterItemsArgs) =>
       )
     : [];
 
-// main config
+// main nav definition
 const navConfig = {
   leftNav: { loggedIn: ['home', 'profile', 'drafts'], loggedOut: ['home'] },
   rightNav: {
@@ -191,21 +211,19 @@ const Navbar: React.FC = () => {
   const mobileNav = getAllNavLinks(args);
 
   return (
-    <div className="bg-gradient-to-r from-blue-300 to-blue-100">
+    <div className={b()}>
       {/* desktop navbar */}
-      <div className="flex justify-between h-14 px-4">
-        <div className="flex">
-          <div className="flex items-center gap-2">
+      <div className={b('desktop')}>
+        <div className={b('left-wrapper')}>
+          <div className={b('brand')}>
             <Link href={Routes.SITE.HOME}>
-              <a>
-                <FaCat className="h-10 w-10 text-violet-500" />
-                <span className="text-xl font-bold no-underline text-gray-800 hover:text-gray-600">
-                  NP Boilerplate
-                </span>
+              <a className={b('brand-link')}>
+                <FaCat className={b('logo')} />
+                <span className={b('brand-text')}>NP Boilerplate</span>
               </a>
             </Link>
           </div>
-          <nav className="hidden md:flex items-center space-x-6 h-full">{leftNav}</nav>
+          <nav className={b('left-nav')}>{leftNav}</nav>
         </div>
         {avatar}
         {rightNav}
@@ -213,9 +231,7 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* mobile menu */}
-      {mobileMenuOpen && (
-        <nav className="p-4 flex flex-col space-y-3 md:hidden">{mobileNav}</nav>
-      )}
+      {mobileMenuOpen && <nav className={b('mobile-nav')}>{mobileNav}</nav>}
     </div>
   );
 };

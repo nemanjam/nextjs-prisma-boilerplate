@@ -1,16 +1,61 @@
-$color: red;
+.navbar {
+  @apply bg-gradient-to-r from-blue-300 to-blue-100 whitespace-nowrap;
 
-.hello {
-  color: $color;
-  @apply bg-green-500;
+  &__desktop {
+    @apply flex justify-between h-14 px-4;
+  }
+
+  &__left-wrapper {
+    @apply flex gap-4;
+  }
+
+  &__brand {
+    @apply flex;
+  }
+
+  &__brand-link {
+    @apply flex items-center gap-2;
+  }
+
+  &__logo {
+    @apply h-10 w-10 text-violet-500;
+  }
+
+  &__brand-text {
+    @apply text-xl font-bold no-underline text-gray-800 hover:text-gray-600;
+  }
+
+  &__left-nav {
+    @apply hidden md:flex items-center gap-2;
+  }
+
+  &__mobile-nav {
+    @apply p-4 flex flex-col gap-2 md:hidden;
+  }
+
+  &__nav-link {
+    @apply font-semibold p-2 hover:bg-blue-400 hover:text-white text-center md:text-left;
+  }
+
+  &__avatar {
+    @apply h-12 w-12 object-cover;
+  }
+
+  &__just-avatar {
+    @apply h-24 w-24 object-cover mx-auto;
+  }
+
+  &__hamburger {
+    @apply rounded md:hidden focus:outline-none focus:ring focus:ring-gray-500 focus:ring-opacity-50;
+  }
 }
 
 /*
+  .center-text {
+    @apply inline-flex items-center h-full;
+  }
+
 .wrapper {
-  @apply py-4
-      border-b
-      border-solid
-      border-white-transparent-10;
 
   @screen lg {
     @apply border-0
