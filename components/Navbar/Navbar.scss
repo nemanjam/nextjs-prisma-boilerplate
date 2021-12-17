@@ -37,6 +37,10 @@
     @apply font-semibold p-2 hover:bg-blue-400 hover:text-white text-center md:text-left;
   }
 
+  &__nav-link--active {
+    @apply bg-gray-300;
+  }
+
   &__avatar {
     @apply h-12 w-12 object-cover;
   }

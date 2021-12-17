@@ -12,7 +12,7 @@ import Dropdown from 'components/Dropdown';
 import { useViewport } from 'components/hooks';
 
 const isActive: (router: NextRouter, pathname: string) => boolean = (router, pathname) =>
-  router.pathname === pathname;
+  router.asPath === pathname;
 
 interface ItemsArgs {
   router: NextRouter;
@@ -37,7 +37,7 @@ const getAllItems = ({
 }: ItemsArgs) => ({
   home: (
     <Link key="home" href={Routes.SITE.HOME}>
-      <a className={b('nav-link')} data-active={isActive(router, Routes.SITE.HOME)}>
+      <a className={b('nav-link', { active: isActive(router, Routes.SITE.HOME) })}>
         Home
       </a>
     </Link>
@@ -51,8 +51,9 @@ const getAllItems = ({
       }}
     >
       <a
-        className={b('nav-link')}
-        data-active={isActive(router, `/${session.user.username}`)}
+        className={b('nav-link', {
+          active: isActive(router, `/${session.user.username}/`),
+        })}
       >
         Profile
       </a>
@@ -60,14 +61,14 @@ const getAllItems = ({
   ),
   drafts: (
     <Link key="drafts" href={Routes.SITE.DRAFTS}>
-      <a className={b('nav-link')} data-active={isActive(router, Routes.SITE.DRAFTS)}>
+      <a className={b('nav-link', { active: isActive(router, Routes.SITE.DRAFTS) })}>
         My drafts
       </a>
     </Link>
   ),
   settings: (
     <Link key="settings" href={Routes.SITE.SETTINGS}>
-      <a className={b('nav-link')} data-active={isActive(router, Routes.SITE.SETTINGS)}>
+      <a className={b('nav-link', { active: isActive(router, Routes.SITE.SETTINGS) })}>
         Settings
       </a>
     </Link>
@@ -75,6 +76,7 @@ const getAllItems = ({
   logout: (
     <a
       key="logout"
+      href="#"
       onClick={(e) => {
         e.preventDefault();
         signOut();
