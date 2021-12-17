@@ -170,6 +170,7 @@ code --list-extensions
 - navbar, done
   - responsive, hamburger
   - avatar dropdown
+- update next and everything else, done
 
 ---
 
@@ -177,7 +178,6 @@ code --list-extensions
 - validation server, client, example [with-joi](https://github.com/vercel/next.js/tree/canary/examples/with-joi), [next-joi](https://github.com/codecoolture/next-joi)
 - logging
 - tests, next examples
-- update next and everything else
 - docker
 - ci cd, deploy
 - readme

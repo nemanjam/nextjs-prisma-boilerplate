@@ -59,10 +59,17 @@ const getAllItems = ({
       </a>
     </Link>
   ),
+  create: (
+    <Link key="create" href={Routes.SITE.CREATE}>
+      <a className={b('nav-link', { active: isActive(router, Routes.SITE.CREATE) })}>
+        Create
+      </a>
+    </Link>
+  ),
   drafts: (
     <Link key="drafts" href={Routes.SITE.DRAFTS}>
       <a className={b('nav-link', { active: isActive(router, Routes.SITE.DRAFTS) })}>
-        My drafts
+        Drafts
       </a>
     </Link>
   ),
@@ -144,7 +151,7 @@ const filterAllItems = ({ argsArray, ...restArgs }: FilterItemsArgs) =>
 
 // main nav definition
 const navConfig = {
-  leftNav: { loggedIn: ['home', 'profile', 'drafts'], loggedOut: ['home'] },
+  leftNav: { loggedIn: ['home', 'profile', 'create', 'drafts'], loggedOut: ['home'] },
   rightNav: {
     loggedIn: {
       desktop: ['settings', 'avatar', 'logout'],
@@ -213,7 +220,7 @@ const Navbar: React.FC = () => {
   const mobileNav = getAllNavLinks(args);
 
   return (
-    <div className={b()}>
+    <nav className={b()}>
       {/* desktop navbar */}
       <div className={b('desktop')}>
         <div className={b('left-wrapper')}>
@@ -225,16 +232,18 @@ const Navbar: React.FC = () => {
               </a>
             </Link>
           </div>
-          <nav className={b('left-nav')}>{leftNav}</nav>
+          <div className={b('left-nav')}>{leftNav}</div>
         </div>
-        {avatar}
-        {rightNav}
-        {hamburger}
+        <div className={b('right-nav')}>
+          {avatar}
+          {rightNav}
+          {hamburger}
+        </div>
       </div>
 
       {/* mobile menu */}
       {mobileMenuOpen && <nav className={b('mobile-nav')}>{mobileNav}</nav>}
-    </div>
+    </nav>
   );
 };
 

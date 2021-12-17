@@ -29,6 +29,10 @@
     @apply hidden md:flex items-center gap-2;
   }
 
+  &__right-nav {
+    @apply flex items-center gap-2;
+  }
+
   &__mobile-nav {
     @apply p-4 flex flex-col gap-2 md:hidden;
   }
