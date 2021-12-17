@@ -1,7 +1,36 @@
 .post {
-  @apply bg-gradient-to-r from-blue-300 to-blue-100 whitespace-nowrap;
+  @apply flex flex-col gap-4 p-4 border border-gray-200 shadow-md hover:bg-gray-50;
 
-  &__desktop {
-    @apply flex justify-between h-14 px-4;
+  &__header {
+    @apply flex gap-4;
+  }
+
+  &__left {
+    @apply shrink-0;
+  }
+
+  &__avatar {
+    @apply h-24 w-24 object-cover;
+  }
+
+  &__main {
+    @apply flex flex-col;
+  }
+
+  &__post-title {
+    @apply text-xl font-bold;
+  }
+
+  &__user-title {
+    @apply flex gap-2;
+  }
+
+  &__name {
+    @apply font-bold;
+  }
+
+  &__username,
+  &__post-created-at {
+    @apply text-gray-500;
   }
 }

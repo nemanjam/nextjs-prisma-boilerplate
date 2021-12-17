@@ -198,3 +198,4 @@ code --list-extensions
 - light, dark, orange, blue theme
 - soft delete for reseed, or logger
 - semantic html
+- Next.js Image config

@@ -1,4 +1,5 @@
 import { User } from 'next-auth';
+import { UserStr } from 'types/utils';
 
 export const uniqueString = (length: number) => {
   let result = '';
@@ -24,7 +25,7 @@ export const formatDate = (date = Date.now()) => {
 
 export const isBrowser = () => typeof window !== 'undefined';
 
-export const getAvatarPath = (user: User) => {
+export const getAvatarPath = (user: User | UserStr) => {
   return user.provider === 'credentials'
     ? `${process.env.NEXT_PUBLIC_AVATARS_PATH}${user.image || 'placeholder-avatar.jpg'}`
     : user.image;

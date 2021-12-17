@@ -16,7 +16,7 @@ const Home: React.FC<HomeProps> = ({ posts }) => {
         <h1>Public Feed</h1>
         <main>
           {posts.map((post) => (
-            <div key={post.id} className="post">
+            <div key={post.id} className="post1">
               <PostItem post={post} />
             </div>
           ))}
@@ -24,16 +24,17 @@ const Home: React.FC<HomeProps> = ({ posts }) => {
       </div>
 
       <style jsx>{`
-        .post {
+        .post1 {
           background: white;
           transition: box-shadow 0.1s ease-in;
+          margin: 0 32px;
         }
 
-        .post:hover {
+        .post1:hover {
           box-shadow: 1px 1px 3px #aaa;
         }
 
-        .post + .post {
+        .post1 + .post1 {
           margin-top: 2rem;
         }
       `}</style>
