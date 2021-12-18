@@ -1,13 +1,14 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import Layout from 'components/Layout';
-import PostItem, { PostWithAuthor } from 'components/PostItem';
+import PostItem from 'components/PostItem';
 import { useSession, getSession } from 'next-auth/react';
 import prisma from 'lib-server/prisma';
 import { datesToStrings } from 'utils';
+import { PostWithAuthorStr } from 'types';
 
 type DraftProps = {
-  posts: PostWithAuthor[];
+  posts: PostWithAuthorStr[];
 };
 
 const Drafts: React.FC<DraftProps> = ({ posts }) => {

@@ -1,18 +1,14 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { UserStr, PostStr } from 'types/utils';
 import Link from 'next/link';
 import moment from 'moment';
+import { PostWithAuthorStr } from 'types';
 import { Routes } from 'lib-client/constants';
 import { withBem } from 'utils/bem';
 import { getAvatarPath } from 'utils';
 
-export type PostWithAuthor = PostStr & {
-  author: UserStr;
-};
-
-export type PostItemProps = {
-  post: PostWithAuthor;
+type PostItemProps = {
+  post: PostWithAuthorStr;
 };
 
 const PostItem: React.FC<PostItemProps> = ({ post }) => {

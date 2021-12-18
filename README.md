@@ -201,3 +201,5 @@ code --list-extensions
 - faker content, reseed, clean files
 - post - hero image, tag, category
 - comments model
+- global styles button, links...
+- footer

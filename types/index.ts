@@ -7,3 +7,7 @@ export type WithStringDates<T> = Omit<T, 'createdAt' | 'updatedAt'> & {
 
 export type UserStr = WithStringDates<User>;
 export type PostStr = WithStringDates<Post>;
+
+export type PostWithAuthorStr = PostStr & {
+  author: UserStr;
+};

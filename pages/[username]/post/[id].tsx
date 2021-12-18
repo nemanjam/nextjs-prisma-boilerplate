@@ -1,36 +1,17 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import Layout from 'components/Layout';
-import Router from 'next/router';
-import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import axios from 'axios';
 import prisma from 'lib-server/prisma';
-import { Routes } from 'lib-client/constants';
 import { datesToStrings } from 'utils';
-import { PostItemProps } from 'components/PostItem';
+import { PostWithAuthorStr } from 'types';
 import { default as PostComponent } from 'views/Post';
 
-const publishOrDeletePost = async (
-  id: number,
-  action: 'publish' | 'delete'
-): Promise<void> => {
-  try {
-    switch (action) {
-      case 'publish':
-        await axios.patch(`${Routes.API.POSTS}${id}`, { published: true });
-        break;
-      case 'delete':
-        await axios.delete(`${Routes.API.POSTS}${id}`);
-        break;
-    }
-  } catch (error) {
-    console.error(error);
-  }
-  await Router.push(Routes.SITE.HOME);
+type PostProps = {
+  post: PostWithAuthorStr;
 };
 
-const Post: React.FC<PostItemProps> = ({ post }) => {
+const Post: React.FC<PostProps> = ({ post }) => {
   const { data: session, status } = useSession();
   const loading = status === 'loading';
 
@@ -39,60 +20,11 @@ const Post: React.FC<PostItemProps> = ({ post }) => {
   }
 
   const isOwner = session && session.user?.id === post.author?.id;
-  const title = `${post.title} ${post.published ? '' : '(Draft)'}`;
+  const isOwnerOrAdmin = isOwner || session?.user?.role === 'admin';
 
   return (
     <Layout>
-      <PostComponent post={post} />
-    </Layout>
-  );
-
-  return (
-    <Layout>
-      <div>
-        <h2>{title}</h2>
-        <small>
-          By
-          <Link
-            href={{
-              pathname: '/[username]',
-              query: { username: post.author.username },
-            }}
-          >
-            <a>{post.author.name}</a>
-          </Link>
-        </small>
-        <p>{post.content} </p>
-
-        {!post.published && isOwner && (
-          <button onClick={() => publishOrDeletePost(post.id, 'publish')}>Publish</button>
-        )}
-        {isOwner && (
-          <button onClick={() => publishOrDeletePost(post.id, 'delete')}>Delete</button>
-        )}
-      </div>
-
-      <style jsx>{`
-        .page {
-          background: white;
-          padding: 2rem;
-        }
-
-        .actions {
-          margin-top: 2rem;
-        }
-
-        button {
-          background: #ececec;
-          border: 0;
-          border-radius: 0.125rem;
-          padding: 1rem 2rem;
-        }
-
-        button + button {
-          margin-left: 1rem;
-        }
-      `}</style>
+      <PostComponent post={post} isOwner={isOwnerOrAdmin} />
     </Layout>
   );
 };
