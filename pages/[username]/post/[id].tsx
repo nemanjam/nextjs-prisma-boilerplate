@@ -4,12 +4,8 @@ import Layout from 'components/Layout';
 import { useSession } from 'next-auth/react';
 import prisma from 'lib-server/prisma';
 import { datesToStrings } from 'utils';
-import { default as PostComponent } from 'views/Post';
-import { PostWithAuthorStr } from 'types';
-
-export type PostProps = {
-  post: PostWithAuthorStr;
-};
+import { default as PostView } from 'views/Post';
+import { PostProps } from 'components/PostItem';
 
 const Post: React.FC<PostProps> = ({ post }) => {
   const { data: session, status } = useSession();
@@ -19,13 +15,9 @@ const Post: React.FC<PostProps> = ({ post }) => {
     return <div>Authenticating ...</div>;
   }
 
-  // in components or pages???
-  const isOwner = session && session.user?.id === post.author?.id;
-  const isAdmin = session?.user?.role === 'admin';
-
   return (
     <Layout>
-      <PostComponent post={post} showPublishDeleteButtons={isOwner || isAdmin} />
+      <PostView post={post} />
     </Layout>
   );
 };

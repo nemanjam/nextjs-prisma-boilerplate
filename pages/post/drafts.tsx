@@ -4,14 +4,10 @@ import Layout from 'components/Layout';
 import { useSession, getSession } from 'next-auth/react';
 import prisma from 'lib-server/prisma';
 import { datesToStrings } from 'utils';
-import { PostWithAuthorStr } from 'types';
 import { default as DraftsView } from 'views/Drafts';
+import { PostsProps } from 'components/PostItem';
 
-type DraftsProps = {
-  posts: PostWithAuthorStr[];
-};
-
-const Drafts: React.FC<DraftsProps> = ({ posts }) => {
+const Drafts: React.FC<PostsProps> = ({ posts }) => {
   const { data: session } = useSession();
 
   if (!session) {

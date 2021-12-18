@@ -1,12 +1,20 @@
 import Router from 'next/router';
+import { Session } from 'next-auth';
 import axios from 'axios';
 import { Routes } from 'lib-client/constants';
+import { PostWithAuthorStr } from 'types';
 
-// PostWithAuthorStr+ in:
-// pages/[username]/post/[id].tsx
-// components/PostItem/PostItem.tsx
-// PostWithAuthorStr[] in:
-// home, drafts
+// pages/[username]/post/[id].tsx - page
+// views/Post/Post.tsx - view
+// components/PostItem/PostItem.tsx - component
+export type PostProps = {
+  post: PostWithAuthorStr;
+};
+
+// home, drafts - pages
+export type PostsProps = {
+  posts: PostWithAuthorStr[];
+};
 
 export const publishOrDeletePost = async (
   id: number,
@@ -26,3 +34,7 @@ export const publishOrDeletePost = async (
   }
   await Router.push(Routes.SITE.HOME);
 };
+
+export const getIsPostOwner = (session: Session, post: PostWithAuthorStr) =>
+  session && session.user?.id === post.author?.id;
+export const getIsAdmin = (session: Session) => session?.user?.role === 'admin';

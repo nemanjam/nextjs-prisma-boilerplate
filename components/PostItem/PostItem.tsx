@@ -1,20 +1,22 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import moment from 'moment';
 import { Routes } from 'lib-client/constants';
 import { withBem } from 'utils/bem';
 import { getAvatarPath } from 'utils';
-import { PostWithAuthorStr } from 'types';
-import { publishOrDeletePost } from 'components/PostItem/PostReused';
+import {
+  PostProps,
+  publishOrDeletePost,
+  getIsAdmin,
+  getIsPostOwner,
+} from 'components/PostItem';
 
-export type PostItemProps = {
-  post: PostWithAuthorStr;
-  showPublishDeleteButtons: boolean;
-};
-
-const PostItem: React.FC<PostItemProps> = ({ post, showPublishDeleteButtons }) => {
+const PostItem: React.FC<PostProps> = ({ post }) => {
   const router = useRouter();
+  const { data: session } = useSession();
+
   const b = withBem('post-item');
 
   const { author } = post;
@@ -30,6 +32,8 @@ const PostItem: React.FC<PostItemProps> = ({ post, showPublishDeleteButtons }) =
     pathname: '/[username]',
     query: { username: author.username },
   };
+
+  const isOwnerOrAdmin = getIsPostOwner(session, post) || getIsAdmin(session);
 
   return (
     <article className={b()} onClick={handlePostClick}>
@@ -64,7 +68,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, showPublishDeleteButtons }) =
       {/* content */}
       <div className={b('content')}>{post.content}</div>
 
-      {'showPublishDeleteButtons && isOwner' && (
+      {isOwnerOrAdmin && (
         <div className={b('publish-delete')}>
           {!post.published && (
             <button onClick={() => publishOrDeletePost(post.id, 'publish')}>

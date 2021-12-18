@@ -1,17 +1,19 @@
 import React from 'react';
-import { PostWithAuthorStr } from 'types';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { withBem } from 'utils/bem';
 import { getAvatarPath } from 'utils';
 import moment from 'moment';
-import { publishOrDeletePost } from 'components/PostItem/PostReused';
+import {
+  PostProps,
+  getIsAdmin,
+  getIsPostOwner,
+  publishOrDeletePost,
+} from 'components/PostItem';
 
-type PostProps = {
-  post: PostWithAuthorStr;
-  showPublishDeleteButtons: boolean;
-};
+const Post: React.FC<PostProps> = ({ post }) => {
+  const { data: session } = useSession();
 
-const Post: React.FC<PostProps> = ({ post, showPublishDeleteButtons }) => {
   const b = withBem('post');
 
   const { author } = post;
@@ -22,6 +24,7 @@ const Post: React.FC<PostProps> = ({ post, showPublishDeleteButtons }) => {
   };
 
   const title = `${post.title} ${post.published ? '' : '(Draft)'}`;
+  const isOwnerOrAdmin = getIsPostOwner(session, post) || getIsAdmin(session);
 
   return (
     <article className={b()}>
@@ -31,7 +34,7 @@ const Post: React.FC<PostProps> = ({ post, showPublishDeleteButtons }) => {
           src="https://wilcity.com/wp-content/uploads/2020/03/39875853-header-wallpapers.jpg"
         />
 
-        {showPublishDeleteButtons && (
+        {isOwnerOrAdmin && (
           <div className={b('publish-delete')}>
             {!post.published && (
               <button onClick={() => publishOrDeletePost(post.id, 'publish')}>

@@ -154,6 +154,12 @@ code --list-extensions
 
 - [tutorial](https://blog.logrocket.com/developing-responsive-layouts-with-react-hooks/)
 
+### useSession
+
+- ok to use in components, it's from context
+
+---
+
 ### Todo
 
 - admin role - done, maybe type admin | user in prisma
