@@ -203,3 +203,4 @@ code --list-extensions
 - comments model
 - global styles button, links...
 - footer
+- drafts count in session or user state

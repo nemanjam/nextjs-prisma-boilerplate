@@ -33,4 +33,8 @@
   &__post-created-at {
     @apply text-gray-500;
   }
+
+  &__publish-delete {
+    @apply flex gap-4;
+  }
 }

@@ -1,39 +1,18 @@
 import React from 'react';
-import Router from 'next/router';
-import axios from 'axios';
 import { PostWithAuthorStr } from 'types';
-import { Routes } from 'lib-client/constants';
 import Link from 'next/link';
 import { withBem } from 'utils/bem';
 import { getAvatarPath } from 'utils';
 import moment from 'moment';
+import { publishOrDeletePost } from 'components/PostItem/PostReused';
 
 type PostProps = {
   post: PostWithAuthorStr;
-  isOwner: boolean;
+  showPublishDeleteButtons: boolean;
 };
 
-const Post: React.FC<PostProps> = ({ post, isOwner }) => {
+const Post: React.FC<PostProps> = ({ post, showPublishDeleteButtons }) => {
   const b = withBem('post');
-
-  const publishOrDeletePost = async (
-    id: number,
-    action: 'publish' | 'delete'
-  ): Promise<void> => {
-    try {
-      switch (action) {
-        case 'publish':
-          await axios.patch(`${Routes.API.POSTS}${id}`, { published: true });
-          break;
-        case 'delete':
-          await axios.delete(`${Routes.API.POSTS}${id}`);
-          break;
-      }
-    } catch (error) {
-      console.error(error);
-    }
-    await Router.push(Routes.SITE.HOME);
-  };
 
   const { author } = post;
 
@@ -52,9 +31,9 @@ const Post: React.FC<PostProps> = ({ post, isOwner }) => {
           src="https://wilcity.com/wp-content/uploads/2020/03/39875853-header-wallpapers.jpg"
         />
 
-        {'isOwner' && (
+        {showPublishDeleteButtons && (
           <div className={b('publish-delete')}>
-            {'!post.published ' && (
+            {!post.published && (
               <button onClick={() => publishOrDeletePost(post.id, 'publish')}>
                 Publish
               </button>

@@ -2,16 +2,18 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import moment from 'moment';
-import { PostWithAuthorStr } from 'types';
 import { Routes } from 'lib-client/constants';
 import { withBem } from 'utils/bem';
 import { getAvatarPath } from 'utils';
+import { PostWithAuthorStr } from 'types';
+import { publishOrDeletePost } from 'components/PostItem/PostReused';
 
-type PostItemProps = {
+export type PostItemProps = {
   post: PostWithAuthorStr;
+  showPublishDeleteButtons: boolean;
 };
 
-const PostItem: React.FC<PostItemProps> = ({ post }) => {
+const PostItem: React.FC<PostItemProps> = ({ post, showPublishDeleteButtons }) => {
   const router = useRouter();
   const b = withBem('post-item');
 
@@ -61,6 +63,17 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
 
       {/* content */}
       <div className={b('content')}>{post.content}</div>
+
+      {'showPublishDeleteButtons && isOwner' && (
+        <div className={b('publish-delete')}>
+          {!post.published && (
+            <button onClick={() => publishOrDeletePost(post.id, 'publish')}>
+              Publish
+            </button>
+          )}
+          <button onClick={() => publishOrDeletePost(post.id, 'delete')}>Delete</button>
+        </div>
+      )}
     </article>
   );
 };

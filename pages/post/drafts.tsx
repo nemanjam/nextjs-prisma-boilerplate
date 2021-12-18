@@ -1,17 +1,17 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import Layout from 'components/Layout';
-import PostItem from 'components/PostItem';
 import { useSession, getSession } from 'next-auth/react';
 import prisma from 'lib-server/prisma';
 import { datesToStrings } from 'utils';
 import { PostWithAuthorStr } from 'types';
+import { default as DraftsView } from 'views/Drafts';
 
-type DraftProps = {
+type DraftsProps = {
   posts: PostWithAuthorStr[];
 };
 
-const Drafts: React.FC<DraftProps> = ({ posts }) => {
+const Drafts: React.FC<DraftsProps> = ({ posts }) => {
   const { data: session } = useSession();
 
   if (!session) {
@@ -25,31 +25,7 @@ const Drafts: React.FC<DraftProps> = ({ posts }) => {
 
   return (
     <Layout>
-      <div className="page">
-        <h1>My Drafts</h1>
-        <main>
-          {posts.map((post) => (
-            <div key={post.id} className="post">
-              <PostItem post={post} />
-            </div>
-          ))}
-        </main>
-      </div>
-
-      <style jsx>{`
-        .post {
-          background: white;
-          transition: box-shadow 0.1s ease-in;
-        }
-
-        .post:hover {
-          box-shadow: 1px 1px 3px #aaa;
-        }
-
-        .post + .post {
-          margin-top: 2rem;
-        }
-      `}</style>
+      <DraftsView posts={posts} />
     </Layout>
   );
 };

@@ -1,12 +1,13 @@
 import React from 'react';
 import { GetStaticProps } from 'next';
 import Layout from 'components/Layout';
-import PostItem, { PostWithAuthor } from 'components/PostItem';
+import PostItem from 'components/PostItem';
+import { PostWithAuthorStr } from 'types';
 import prisma from 'lib-server/prisma';
 import { datesToStrings } from 'utils';
 
 type HomeProps = {
-  posts: PostWithAuthor[];
+  posts: PostWithAuthorStr[];
 };
 
 const Home: React.FC<HomeProps> = ({ posts }) => {
