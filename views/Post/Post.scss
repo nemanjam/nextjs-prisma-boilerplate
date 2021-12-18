@@ -1,0 +1,7 @@
+.post {
+  @apply flex flex-col gap-4 p-4 border border-gray-200 shadow-md hover:bg-gray-50;
+
+  &__header {
+    @apply flex gap-4;
+  }
+}

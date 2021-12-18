@@ -1,15 +1,10 @@
 import React from 'react';
-import { GetServerSideProps } from 'next';
-import Layout from 'components/Layout';
 import Router from 'next/router';
-import Link from 'next/link';
-import { useSession } from 'next-auth/react';
 import axios from 'axios';
-import prisma from 'lib-server/prisma';
-import { Routes } from 'lib-client/constants';
-import { datesToStrings } from 'utils';
 import { PostItemProps } from 'components/PostItem';
-import { default as PostComponent } from 'views/Post';
+import { useSession } from 'next-auth/react';
+import { Routes } from 'lib-client/constants';
+import Link from 'next/link';
 
 const publishOrDeletePost = async (
   id: number,
@@ -42,14 +37,8 @@ const Post: React.FC<PostItemProps> = ({ post }) => {
   const title = `${post.title} ${post.published ? '' : '(Draft)'}`;
 
   return (
-    <Layout>
-      <PostComponent post={post} />
-    </Layout>
-  );
-
-  return (
-    <Layout>
-      <div>
+    <div>
+      <article>
         <h2>{title}</h2>
         <small>
           By
@@ -70,7 +59,7 @@ const Post: React.FC<PostItemProps> = ({ post }) => {
         {isOwner && (
           <button onClick={() => publishOrDeletePost(post.id, 'delete')}>Delete</button>
         )}
-      </div>
+      </article>
 
       <style jsx>{`
         .page {
@@ -93,29 +82,8 @@ const Post: React.FC<PostItemProps> = ({ post }) => {
           margin-left: 1rem;
         }
       `}</style>
-    </Layout>
+    </div>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = await prisma.post.findUnique({
-    where: {
-      id: Number(params?.id) || -1,
-    },
-    include: {
-      author: true,
-    },
-  });
-
-  if (!post) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: { post: datesToStrings({ ...post, author: datesToStrings(post.author) }) },
-  };
 };
 
 export default Post;

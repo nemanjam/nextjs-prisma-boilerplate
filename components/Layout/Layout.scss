@@ -5,6 +5,6 @@ $color2: pink;
   @apply bg-green-200;
 
   &__content {
-    @apply bg-pink-200;
+    @apply container mx-auto px-4 mt-14 bg-pink-200;
   }
 }

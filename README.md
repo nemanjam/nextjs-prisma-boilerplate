@@ -187,7 +187,6 @@ code --list-extensions
 - Header component
 - fix remaining forms
 - react query, redux toolkit, redux toolkit query
-- faker reseed
 - \_document.tsx
 - redux toolkit vercel example
 - pagination
@@ -199,3 +198,6 @@ code --list-extensions
 - soft delete for reseed, or logger
 - semantic html
 - Next.js Image config
+- faker content, reseed, clean files
+- post - hero image, tag, category
+- comments model

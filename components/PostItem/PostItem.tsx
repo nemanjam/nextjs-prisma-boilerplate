@@ -17,7 +17,7 @@ export type PostItemProps = {
 
 const PostItem: React.FC<PostItemProps> = ({ post }) => {
   const router = useRouter();
-  const b = withBem('post');
+  const b = withBem('post-item');
 
   const { author } = post;
 
