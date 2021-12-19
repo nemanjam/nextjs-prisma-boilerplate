@@ -13,6 +13,7 @@ const unlink = promisify(fs.unlink);
 
 const prisma = new PrismaClient();
 const password = hashSync('123', 10);
+const numberOfUsers = 4;
 
 const createPosts = (n: number) => {
   return Array.from(Array(n).keys()).map(() => ({
@@ -61,29 +62,26 @@ const deleteAllAvatars = async () => {
 };
 
 const deleteAllTables = () => {
-  const propertyNames = Object.getOwnPropertyNames(prisma);
-  const modelNames = propertyNames.filter(
-    (propertyName) => !propertyName.startsWith('_')
-  );
-  return Promise.all(
-    modelNames.map((model) => {
-      console.log('Deleting model: ', model);
-      prisma[model].deleteMany();
-    })
-  );
+  console.log('Deleting tables ...');
+  return Promise.all([
+    prisma.post.deleteMany(),
+    prisma.account.deleteMany(),
+    prisma.session.deleteMany(),
+    prisma.verificationToken.deleteMany(),
+    prisma.user.deleteMany(),
+  ]);
 };
 
 async function main() {
   console.log('Start seeding ...');
   await deleteAllTables();
-  // await deleteAllAvatars();
-  // const users = createUsers(4);
-  // console.log('users', users);
+  await deleteAllAvatars();
+  const users = createUsers(numberOfUsers);
 
-  // for (const data of users) {
-  //   const user = await prisma.user.create({ data });
-  //   console.log(`Created user with id: ${user.id}`);
-  // }
+  for (const data of users) {
+    const user = await prisma.user.create({ data });
+    console.log(`Created user with id: ${user.id}`);
+  }
   console.log('Seeding finished.');
 }
 
