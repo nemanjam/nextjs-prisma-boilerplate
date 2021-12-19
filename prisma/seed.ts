@@ -29,7 +29,7 @@ const userData: Prisma.UserCreateInput[] = [
     name: 'user1 name',
     username: 'user1',
     email: 'user1@email.com',
-    image: 'avatar1.jpg',
+    image: 'avatar3.jpg',
     password,
     bio,
     posts: {

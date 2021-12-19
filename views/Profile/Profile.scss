@@ -1,0 +1,33 @@
+.profile {
+  &__user-card {
+    @apply shadow-md;
+  }
+
+  &__hero-image {
+    @apply h-48 w-full;
+  }
+
+  &__user-info {
+    @apply px-4 pb-4;
+  }
+
+  &__name {
+    @apply font-bold text-2xl;
+  }
+
+  &__username {
+    @apply text-gray-500;
+  }
+
+  &__date {
+    @apply text-sm text-gray-500;
+  }
+
+  &__avatar {
+    @apply h-32 w-32 -mt-16 object-cover bg-white p-2;
+  }
+
+  &__list {
+    @apply flex flex-col gap-4;
+  }
+}

@@ -210,3 +210,4 @@ code --list-extensions
 - global styles button, links...
 - footer
 - drafts count in session or user state
+- icons in navbar items

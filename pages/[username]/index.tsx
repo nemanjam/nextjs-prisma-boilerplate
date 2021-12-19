@@ -1,10 +1,10 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
-import Layout from 'components/Layout';
 import prisma from 'lib-server/prisma';
-import PostItem from 'components/PostItem';
-import { UserStr, PostStr } from 'types/utils';
+import Layout from 'components/Layout';
+import { UserStr, PostStr } from 'types';
 import { datesToStrings } from 'utils';
+import { default as ProfileView } from 'views/Profile';
 
 type ProfileProps = {
   profile: UserStr;
@@ -14,32 +14,7 @@ type ProfileProps = {
 const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
   return (
     <Layout>
-      <div className="page">
-        <h1>Profile</h1>
-        <pre>{JSON.stringify(profile, null, 2)}</pre>
-        <main>
-          {posts.map((post) => (
-            <div key={post.id} className="post">
-              <PostItem post={{ ...post, author: profile }} />
-            </div>
-          ))}
-        </main>
-      </div>
-
-      <style jsx>{`
-        .post {
-          background: white;
-          transition: box-shadow 0.1s ease-in;
-        }
-
-        .post:hover {
-          box-shadow: 1px 1px 3px #aaa;
-        }
-
-        .post + .post {
-          margin-top: 2rem;
-        }
-      `}</style>
+      <ProfileView profile={profile} posts={posts} />
     </Layout>
   );
 };

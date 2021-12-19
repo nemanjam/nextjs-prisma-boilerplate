@@ -7,7 +7,7 @@ type DraftsProps = {
   posts: PostWithAuthorStr[];
 };
 
-const Post: React.FC<DraftsProps> = ({ posts }) => {
+const Drafts: React.FC<DraftsProps> = ({ posts }) => {
   const b = withBem('drafts');
 
   return (
@@ -15,11 +15,11 @@ const Post: React.FC<DraftsProps> = ({ posts }) => {
       <h1 className={b('title')}>My Drafts</h1>
       <main className={b('list')}>
         {posts.map((post) => (
-          <PostItem key={post.id} post={post} showPublishDeleteButtons />
+          <PostItem key={post.id} post={post} />
         ))}
       </main>
     </div>
   );
 };
 
-export default Post;
+export default Drafts;

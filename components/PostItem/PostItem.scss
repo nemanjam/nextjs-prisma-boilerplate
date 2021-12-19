@@ -22,16 +22,19 @@
   }
 
   &__user-title {
-    @apply flex gap-2;
+    @apply flex items-center gap-2;
   }
 
   &__name {
     @apply font-bold;
   }
 
-  &__username,
-  &__post-created-at {
+  &__username {
     @apply text-gray-500;
+  }
+
+  &__post-created-at {
+    @apply text-sm text-gray-500;
   }
 
   &__publish-delete {
