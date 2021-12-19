@@ -1,5 +1,5 @@
 import { User } from 'next-auth';
-import { UserStr } from 'types/utils';
+import { UserStr } from 'types';
 
 export const uniqueString = (length: number) => {
   let result = '';
@@ -50,4 +50,11 @@ export const datesToStrings = <T extends ObjectWithDates>(
     createdAt: _object.createdAt.toISOString(),
     updatedAt: _object.updatedAt.toISOString(),
   };
+};
+
+/**
+ * min, max included
+ */
+export const getRandomInteger = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };

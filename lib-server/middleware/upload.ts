@@ -1,10 +1,11 @@
 import multer from 'multer';
 import { formatDate } from 'utils';
 import { extname } from 'path';
+import { avatarsFolderAbsolutePath } from 'lib-server/constants';
 
 export const avatarUpload = multer({
   storage: multer.diskStorage({
-    destination: `${process.cwd()}/uploads/avatars`, // node process, root folder
+    destination: avatarsFolderAbsolutePath,
     filename: async (req, file, cb) => {
       const fileName = `${formatDate()}_${file.originalname}`;
       cb(null, fileName);

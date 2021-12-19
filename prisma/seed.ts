@@ -1,78 +1,89 @@
 import { PrismaClient, Prisma } from '@prisma/client';
 import { hashSync } from 'bcryptjs';
+import faker from 'faker';
+import fs from 'fs';
+import { promisify } from 'util';
+
+// not typescript, relative paths
+import { getRandomInteger } from '../utils';
+import { avatarsFolderAbsolutePath } from '../lib-server/constants';
+
+const readdir = promisify(fs.readdir);
+const unlink = promisify(fs.unlink);
 
 const prisma = new PrismaClient();
 const password = hashSync('123', 10);
-const bio = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod';
 
-const userData: Prisma.UserCreateInput[] = [
-  {
-    // assign Account to
-    name: 'user0 name',
-    username: 'user0',
-    email: 'user0@email.com',
-    image: 'avatar0.jpg',
+const createPosts = (n: number) => {
+  return Array.from(Array(n).keys()).map(() => ({
+    title: faker.lorem.sentence(),
+    content: faker.lorem.paragraphs(getRandomInteger(1, 3)),
+    published: true,
+  }));
+};
+
+const createUsers = (n: number): Prisma.UserCreateInput[] => {
+  return Array.from(Array(n).keys()).map((index) => ({
+    name: `user${index} name`,
+    username: `user${index}`,
+    email: `user${index}@email.com`,
+    image: `avatar${index % 4}.jpg`, // 0...3
     password,
-    bio,
-    role: 'admin',
+    bio: faker.lorem.sentences(3),
+    role: index === 0 ? 'admin' : 'user',
     posts: {
-      create: [
-        {
-          title: 'Join the Prisma Slack',
-          content: 'https://slack.prisma.io',
-          published: true,
-        },
-      ],
+      create: createPosts(getRandomInteger(3, 6)),
     },
-  },
-  {
-    name: 'user1 name',
-    username: 'user1',
-    email: 'user1@email.com',
-    image: 'avatar3.jpg',
-    password,
-    bio,
-    posts: {
-      create: [
-        {
-          title: 'Follow Prisma on Twitter',
-          content: 'https://www.twitter.com/prisma',
-          published: true,
-        },
-      ],
-    },
-  },
-  {
-    name: 'user2 name',
-    username: 'user2',
-    email: 'user2@email.com',
-    image: 'avatar2.jpg',
-    password,
-    bio,
-    posts: {
-      create: [
-        {
-          title: 'Ask a question about Prisma on GitHub',
-          content: 'https://www.github.com/prisma/prisma/discussions',
-          published: true,
-        },
-        {
-          title: 'Prisma on YouTube',
-          content: 'https://pris.ly/youtube',
-        },
-      ],
-    },
-  },
-];
+  }));
+};
+
+const deleteAllAvatars = async () => {
+  try {
+    const files = await readdir(avatarsFolderAbsolutePath);
+    const unlinkPromises = files.map((filename) => {
+      if (
+        ![
+          'placeholder-avatar.jpg',
+          'avatar0.jpg',
+          'avatar1.jpg',
+          'avatar2.jpg',
+          'avatar3.jpg',
+        ].includes(filename)
+      ) {
+        console.log('Deleting avatar: ', filename);
+        unlink(`${avatarsFolderAbsolutePath}${filename}`);
+      }
+    });
+    return Promise.all(unlinkPromises);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const deleteAllTables = () => {
+  const propertyNames = Object.getOwnPropertyNames(prisma);
+  const modelNames = propertyNames.filter(
+    (propertyName) => !propertyName.startsWith('_')
+  );
+  return Promise.all(
+    modelNames.map((model) => {
+      console.log('Deleting model: ', model);
+      prisma[model].deleteMany();
+    })
+  );
+};
 
 async function main() {
   console.log('Start seeding ...');
-  for (const u of userData) {
-    const user = await prisma.user.create({
-      data: u,
-    });
-    console.log(`Created user with id: ${user.id}`);
-  }
+  await deleteAllTables();
+  // await deleteAllAvatars();
+  // const users = createUsers(4);
+  // console.log('users', users);
+
+  // for (const data of users) {
+  //   const user = await prisma.user.create({ data });
+  //   console.log(`Created user with id: ${user.id}`);
+  // }
   console.log('Seeding finished.');
 }
 
