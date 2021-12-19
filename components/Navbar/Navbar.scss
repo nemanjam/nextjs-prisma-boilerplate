@@ -1,6 +1,6 @@
 .navbar {
-  @apply fixed top-0 left-0 right-0 z-10;
-  @apply bg-gradient-to-r from-blue-300 to-blue-100 whitespace-nowrap;
+  @apply sticky top-0 left-0 z-10;
+  @apply bg-gradient-to-r from-blue-300 to-blue-100 whitespace-nowrap shadow;
 
   &__desktop {
     @apply flex justify-between h-14 px-4;

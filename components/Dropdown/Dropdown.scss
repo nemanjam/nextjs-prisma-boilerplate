@@ -8,7 +8,7 @@
   }
 
   &__menu {
-    @apply absolute invisible opacity-0 top-14 right-0 w-64 bg-white rounded-lg shadow-md overflow-hidden;
+    @apply absolute invisible opacity-0 top-14 right-0 w-64 bg-white rounded-lg shadow-md overflow-hidden p-2;
     @apply transition-opacity ease-in duration-300;
   }
 
@@ -22,11 +22,11 @@
 
   &__list-item {
     & > * {
-      @apply block p-4 #{!important};
+      @apply block #{!important};
     }
 
     &:not(:last-child) {
-      @apply border-b-2 border-gray-400;
+      @apply border-b border-gray-200;
     }
   }
 }
