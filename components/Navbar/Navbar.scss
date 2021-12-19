@@ -1,9 +1,12 @@
+$navbar-height: 3.5rem;
+
 .navbar {
-  @apply sticky top-0 left-0 z-10;
-  @apply bg-gradient-to-r from-blue-300 to-blue-100 whitespace-nowrap shadow;
+  @apply sticky top-0 left-0;
+  @apply whitespace-nowrap shadow;
+  @apply bg-gradient-to-r from-indigo-500 to-sky-500;
 
   &__desktop {
-    @apply flex justify-between h-14 px-4;
+    @apply flex justify-between px-4 h-[#{$navbar-height}];
   }
 
   &__left-wrapper {
@@ -19,7 +22,7 @@
   }
 
   &__logo {
-    @apply h-10 w-10 text-violet-500;
+    @apply h-10 w-10 text-white;
   }
 
   &__brand-text {
@@ -58,13 +61,3 @@
     @apply rounded md:hidden focus:outline-none focus:ring focus:ring-gray-500 focus:ring-opacity-50;
   }
 }
-
-/*
-  .center-text {
-    @apply inline-flex items-center h-full;
-  }
-
-  @screen lg {
-    @apply border-0
-
-*/

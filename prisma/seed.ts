@@ -4,7 +4,7 @@ import faker from 'faker';
 import fs from 'fs';
 import { promisify } from 'util';
 
-// not typescript, relative paths
+// npx, not typescript, relative paths
 import { getRandomInteger } from '../utils';
 import { avatarsFolderAbsolutePath } from '../lib-server/constants';
 

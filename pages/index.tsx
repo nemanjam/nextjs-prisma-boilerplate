@@ -1,39 +1,15 @@
 import React from 'react';
 import { GetStaticProps } from 'next';
 import Layout from 'components/Layout';
-import PostItem, { PostsProps } from 'components/PostItem';
+import { PostsProps } from 'components/PostItem';
 import prisma from 'lib-server/prisma';
 import { datesToStrings } from 'utils';
+import { default as HomeView } from 'views/Home';
 
 const Home: React.FC<PostsProps> = ({ posts }) => {
   return (
     <Layout>
-      <div className="page">
-        <h1>Public Feed</h1>
-        <main>
-          {posts.map((post) => (
-            <div key={post.id} className="post1">
-              <PostItem post={post} />
-            </div>
-          ))}
-        </main>
-      </div>
-
-      <style jsx>{`
-        .post1 {
-          background: white;
-          transition: box-shadow 0.1s ease-in;
-          margin: 0 32px;
-        }
-
-        .post1:hover {
-          box-shadow: 1px 1px 3px #aaa;
-        }
-
-        .post1 + .post1 {
-          margin-top: 2rem;
-        }
-      `}</style>
+      <HomeView posts={posts} />
     </Layout>
   );
 };

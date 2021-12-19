@@ -1,11 +1,9 @@
-$color1: gray;
-$color2: pink;
-
 .layout {
-  @apply min-h-screen bg-green-200;
+  @apply min-h-screen bg-gray-400;
 
-  // navbar position sticky, top margin not needed
   &__content {
-    @apply container mx-auto  bg-pink-200;
+    @apply container max-w-4xl mx-auto bg-gray-300;
+    // stretch content too
+    @apply min-h-[calc(100vh-#{$navbar-height})];
   }
 }

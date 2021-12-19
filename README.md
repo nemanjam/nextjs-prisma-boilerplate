@@ -177,6 +177,7 @@ code --list-extensions
   - responsive, hamburger
   - avatar dropdown
 - update next and everything else, done
+- faker content, reseed, clean files, done
 
 ---
 
@@ -204,10 +205,10 @@ code --list-extensions
 - soft delete for reseed, or logger
 - semantic html
 - Next.js Image config
-- faker content, reseed, clean files
 - post - hero image, tag, category
 - comments model
 - global styles button, links...
 - footer
 - drafts count in session or user state
 - icons in navbar items
+- style forms, hero img upload

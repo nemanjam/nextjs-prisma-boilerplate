@@ -220,7 +220,7 @@ const Navbar: React.FC = () => {
   const mobileNav = getAllNavLinks(args);
 
   return (
-    <nav className={b()}>
+    <header className={b()}>
       {/* desktop navbar */}
       <div className={b('desktop')}>
         <div className={b('left-wrapper')}>
@@ -243,7 +243,7 @@ const Navbar: React.FC = () => {
 
       {/* mobile menu */}
       {mobileMenuOpen && <nav className={b('mobile-nav')}>{mobileNav}</nav>}
-    </nav>
+    </header>
   );
 };
 

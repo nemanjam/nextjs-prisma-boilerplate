@@ -25,13 +25,15 @@ const Post: React.FC<PostProps> = ({ post }) => {
 
   const title = `${post.title} ${post.published ? '' : '(Draft)'}`;
   const isOwnerOrAdmin = getIsPostOwner(session, post) || getIsAdmin(session);
+  const bgImage =
+    'https://wilcity.com/wp-content/uploads/2020/03/39875853-header-wallpapers.jpg';
 
   return (
     <article className={b()}>
       <div className={b('hero')}>
-        <img
+        <div
           className={b('hero-image')}
-          src="https://wilcity.com/wp-content/uploads/2020/03/39875853-header-wallpapers.jpg"
+          style={{ backgroundImage: `url('${bgImage}')` }}
         />
 
         {isOwnerOrAdmin && (
@@ -46,34 +48,36 @@ const Post: React.FC<PostProps> = ({ post }) => {
         )}
       </div>
 
-      <h2 className={b('title')}>{title}</h2>
-      {/* category, tags */}
+      <main className={b('post-body')}>
+        <h2 className={b('title')}>{title}</h2>
+        {/* category, tags */}
 
-      {/* user avatar, name, username, post date */}
-      <div className={b('author-card')}>
-        <Link href={authorHref}>
-          <a className={b('left')}>
-            <img className={b('avatar')} src={getAvatarPath(author)} />
-          </a>
-        </Link>
+        {/* user avatar, name, username, post date */}
+        <div className={b('author-card')}>
+          <Link href={authorHref}>
+            <a className={b('left')}>
+              <img className={b('avatar')} src={getAvatarPath(author)} />
+            </a>
+          </Link>
 
-        <div className={b('right')}>
-          <div className={b('author-info')}>
-            <Link href={authorHref}>
-              <a className={b('name')}>{author.name}</a>
-            </Link>
-            <Link href={authorHref}>
-              <a className={b('username')}>{` · @${author.username}`}</a>
-            </Link>
-          </div>
+          <div className={b('right')}>
+            <div className={b('author-info')}>
+              <Link href={authorHref}>
+                <a className={b('name')}>{author.name}</a>
+              </Link>
+              <Link href={authorHref}>
+                <a className={b('username')}>{` · @${author.username}`}</a>
+              </Link>
+            </div>
 
-          <div className={b('post-created-at')}>
-            {moment(post.createdAt).format('MMMM d, YYYY')}
+            <div className={b('post-created-at')}>
+              {moment(post.createdAt).format('MMMM d, YYYY')}
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className={b('content')}>{post.content}</div>
+        <div className={b('content')}>{post.content}</div>
+      </main>
     </article>
   );
 };

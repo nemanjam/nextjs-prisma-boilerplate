@@ -13,6 +13,10 @@
     @apply absolute right-4 bottom-2 inline-flex gap-4;
   }
 
+  &__post-body {
+    @apply p-4;
+  }
+
   &__title {
     @apply text-4xl font-bold;
   }

@@ -3,12 +3,12 @@ import { withBem } from 'utils/bem';
 import PostItem from 'components/PostItem';
 import { PostsProps } from 'components/PostItem';
 
-const Drafts: React.FC<PostsProps> = ({ posts }) => {
-  const b = withBem('drafts');
+const Home: React.FC<PostsProps> = ({ posts }) => {
+  const b = withBem('home');
 
   return (
     <div className={b()}>
-      <h1 className={b('title')}>My Drafts</h1>
+      <h1 className={b('title')}>Home</h1>
       <main className={b('list')}>
         {posts.map((post) => (
           <PostItem key={post.id} post={post} />
@@ -18,4 +18,4 @@ const Drafts: React.FC<PostsProps> = ({ posts }) => {
   );
 };
 
-export default Drafts;
+export default Home;
