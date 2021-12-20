@@ -1,12 +1,14 @@
-$navbar-height: 3.5rem;
-
 .navbar {
   @apply sticky top-0 left-0 z-10;
   @apply whitespace-nowrap;
   @apply bg-gradient-to-r from-indigo-500 to-sky-500;
 
+  &--mobile-menu-open {
+    @apply fixed right-0;
+  }
+
   &__desktop {
-    @apply flex justify-between px-4 h-[#{$navbar-height}];
+    @apply flex justify-between px-4 h-[var(--navbar-height)];
   }
 
   &__left-wrapper {
