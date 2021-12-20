@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { NextRouter, useRouter } from 'next/router';
 import { Session } from 'next-auth';
@@ -206,13 +206,6 @@ const Navbar: React.FC = () => {
   const { data: session, status } = useSession();
   const _onHamburgerClick = () => setMobileMenuOpen(!mobileMenuOpen);
 
-  useEffect(() => {
-    const style = document?.documentElement.style;
-    mobileMenuOpen
-      ? style?.setProperty('--layout-content-mt', 'var(--navbar-height)')
-      : style?.setProperty('--layout-content-mt', '0');
-  }, [mobileMenuOpen]);
-
   const args = {
     router,
     session,
@@ -227,7 +220,7 @@ const Navbar: React.FC = () => {
   const mobileNav = getAllNavLinks(args);
 
   return (
-    <header className={b(null, { 'mobile-menu-open': mobileMenuOpen })}>
+    <header className={b()}>
       {/* desktop navbar */}
       <div className={b('desktop')}>
         <div className={b('left-wrapper')}>

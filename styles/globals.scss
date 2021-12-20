@@ -5,8 +5,7 @@
 :root {
   --navbar-height: 3.5rem;
   --footer-height: 3.5rem;
-  --layout-content-mt: 0;
-  --layout-mobile-offset: 0;
+  --layout-content-pt: var(--navbar-height);
 }
 
 .react-icons {
