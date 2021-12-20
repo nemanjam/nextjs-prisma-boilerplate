@@ -1,22 +1,12 @@
 .post {
-  &__hero {
-    @apply relative w-full h-52;
-  }
-
-  &__hero-image {
-    @apply w-full h-full;
-  }
-
-  &__publish-delete {
-    @apply absolute right-4 bottom-2 inline-flex gap-4;
-  }
-
-  &__post-body {
-    @apply flex flex-col gap-4 p-4;
-  }
+  @apply flex flex-col gap-4 p-4;
 
   &__title {
     @apply text-4xl font-bold;
+  }
+
+  &__author {
+    @apply flex flex-col gap-4 xs:flex-row xs:justify-between;
   }
 
   &__author-card {
@@ -42,5 +32,9 @@
   &__username,
   &__post-created-at {
     @apply text-gray-500;
+  }
+
+  &__publish-delete {
+    @apply flex xs:justify-end gap-4;
   }
 }

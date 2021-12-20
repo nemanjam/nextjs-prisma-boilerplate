@@ -25,33 +25,13 @@ const Post: React.FC<PostProps> = ({ post }) => {
 
   const title = `${post.title} ${post.published ? '' : '(Draft)'}`;
   const isOwnerOrAdmin = getIsPostOwner(session, post) || getIsAdmin(session);
-  const bgImage =
-    'https://wilcity.com/wp-content/uploads/2020/03/39875853-header-wallpapers.jpg';
 
   return (
     <article className={b()}>
-      <div className={b('hero')}>
-        <div
-          className={b('hero-image')}
-          style={{ backgroundImage: `url('${bgImage}')` }}
-        />
+      <h2 className={b('title')}>{title}</h2>
+      {/* category, tags */}
 
-        {isOwnerOrAdmin && (
-          <div className={b('publish-delete')}>
-            {!post.published && (
-              <button onClick={() => publishOrDeletePost(post.id, 'publish')}>
-                Publish
-              </button>
-            )}
-            <button onClick={() => publishOrDeletePost(post.id, 'delete')}>Delete</button>
-          </div>
-        )}
-      </div>
-
-      <main className={b('post-body')}>
-        <h2 className={b('title')}>{title}</h2>
-        {/* category, tags */}
-
+      <div className={b('author')}>
         {/* user avatar, name, username, post date */}
         <div className={b('author-card')}>
           <Link href={authorHref}>
@@ -76,8 +56,23 @@ const Post: React.FC<PostProps> = ({ post }) => {
           </div>
         </div>
 
-        <div className={b('content')}>{post.content}</div>
-      </main>
+        <div className={b('buttons')}>
+          {isOwnerOrAdmin && (
+            <div className={b('publish-delete')}>
+              {!post.published && (
+                <button onClick={() => publishOrDeletePost(post.id, 'publish')}>
+                  Publish
+                </button>
+              )}
+              <button onClick={() => publishOrDeletePost(post.id, 'delete')}>
+                Delete
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className={b('content')}>{post.content}</div>
     </article>
   );
 };
