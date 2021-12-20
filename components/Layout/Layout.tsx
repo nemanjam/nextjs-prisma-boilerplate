@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
-import Navbar from 'components/Navbar';
 import { withBem } from 'utils/bem';
+import Navbar from 'components/Navbar';
+import Footer from 'components/Footer';
 
 type Props = {
   children: ReactNode;
@@ -13,6 +14,7 @@ const Layout: React.FC<Props> = ({ children }) => {
     <div className={b()}>
       <Navbar />
       <div className={b('content')}>{children}</div>
+      <Footer />
     </div>
   );
 };

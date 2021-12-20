@@ -1,0 +1,9 @@
+$footer-height: 3.5rem;
+
+.footer {
+  @apply flex justify-center items-center h-[#{$footer-height}] bg-gray-500;
+
+  &__content {
+    // @apply
+  }
+}

@@ -1,9 +1,10 @@
 .layout {
-  @apply min-h-screen bg-gray-400;
+  @apply relative min-h-screen bg-gray-400;
 
   &__content {
     @apply container max-w-4xl mx-auto bg-gray-300;
     // stretch content too
-    @apply min-h-[calc(100vh-#{$navbar-height})];
+    $content-offset: $navbar-height + $footer-height;
+    @apply min-h-[calc(100vh-#{$content-offset})];
   }
 }
