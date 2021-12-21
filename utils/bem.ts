@@ -9,3 +9,5 @@ export const b_ = B({
 });
 
 export const withBem = b_.with.bind(b_);
+
+export const getErrorClass = (value: unknown) => (value ? ' validation-error' : '');

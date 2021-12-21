@@ -11,3 +11,14 @@
 .react-icons {
   vertical-align: middle;
 }
+
+.validation-error {
+  & > input,
+  & > textarea {
+    @apply border border-red-600;
+  }
+
+  & > p {
+    @apply text-red-600 text-sm;
+  }
+}

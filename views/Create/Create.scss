@@ -1,0 +1,20 @@
+.create {
+  @apply flex flex-col gap-4 p-4;
+
+  &__title {
+    @apply text-2xl font-bold;
+  }
+
+  &__label {
+    @apply block;
+
+    & > input,
+    & > textarea {
+      @apply block w-full;
+    }
+  }
+
+  &__buttons {
+    @apply flex gap-2;
+  }
+}
