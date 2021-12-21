@@ -12,13 +12,12 @@
   vertical-align: middle;
 }
 
-.validation-error {
-  & > input,
-  & > textarea {
-    @apply border border-red-600;
-  }
+// styles for invalied form fields
+input.validation-error,
+textarea.validation-error {
+  @apply border border-red-600;
+}
 
-  & > p {
-    @apply text-red-600 text-sm;
-  }
+p.validation-error {
+  @apply text-red-600 text-sm;
 }

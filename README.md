@@ -225,3 +225,4 @@ code --list-extensions
 - drafts count in session or user state
 - icons in navbar items
 - style forms, hero img upload
+- settins form header dropzone, repeat password

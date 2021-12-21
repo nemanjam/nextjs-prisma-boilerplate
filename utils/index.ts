@@ -32,7 +32,7 @@ export const getAvatarPath = (user: User | UserStr) => {
   // can edit avatar, startsWith('https://')
 };
 
-export const getAvatarFullUrl = (user: User) => {
+export const getAvatarFullUrl = (user: User | UserStr) => {
   return `${process.env.NEXT_PUBLIC_BASE_URL}${getAvatarPath(user)}`;
 };
 

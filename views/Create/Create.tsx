@@ -31,17 +31,30 @@ const Create: React.FC = () => {
     <form className={b()} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={b('title')}>Create new draft</h1>
 
-      <label className={b('label') + getErrorClass(errors.title?.message)}>
-        <span>Title</span>
-        <input {...register('title')} autoFocus type="text" />
-        <p>{errors.title?.message}</p>
-      </label>
+      <div className={b('form-field')}>
+        <label htmlFor="title">Title</label>
+        <input
+          {...register('title')}
+          id="title"
+          autoFocus
+          type="text"
+          className={getErrorClass(errors.title?.message)}
+        />
+        <p className={getErrorClass(errors.title?.message)}>{errors.title?.message}</p>
+      </div>
 
-      <label className={b('label') + getErrorClass(errors.content?.message)}>
-        <span>Content</span>
-        <textarea {...register('content')} rows={8} />
-        <p>{errors.content?.message}</p>
-      </label>
+      <div className={b('form-field')}>
+        <label htmlFor="content">Content</label>
+        <textarea
+          {...register('content')}
+          id="content"
+          rows={8}
+          className={getErrorClass(errors.content?.message)}
+        />
+        <p className={getErrorClass(errors.content?.message)}>
+          {errors.content?.message}
+        </p>
+      </div>
 
       <div className={b('buttons')}>
         <button type="submit">Create</button>

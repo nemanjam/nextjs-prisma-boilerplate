@@ -1,0 +1,27 @@
+.settings {
+  @apply flex flex-col gap-4 p-4;
+
+  &__title {
+    @apply text-2xl font-bold;
+  }
+
+  &__form-field {
+    @apply flex flex-col;
+
+    &--input {
+      @apply max-w-xs;
+    }
+
+    &--avatar {
+      @apply self-start;
+    }
+
+    &--bio {
+      @apply max-w-xl;
+    }
+  }
+
+  &__buttons {
+    @apply max-w-md;
+  }
+}

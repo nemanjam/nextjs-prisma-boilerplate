@@ -5,13 +5,8 @@
     @apply text-2xl font-bold;
   }
 
-  &__label {
-    @apply block;
-
-    & > input,
-    & > textarea {
-      @apply block w-full;
-    }
+  &__form-field {
+    @apply flex flex-col;
   }
 
   &__buttons {
