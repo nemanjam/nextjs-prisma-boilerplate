@@ -31,11 +31,12 @@
 
 ### Create trusted certificate
 
-- install and run mkcert (instruction at the bottom) with [local-ssl-proxy](https://github.com/cameronhunter/local-ssl-proxy/)
-- install mkcert [easy way](https://www.howtoforge.com/how-to-create-locally-trusted-ssl-certificates-with-mkcert-on-ubuntu/)
+- install and run mkcert (instruction at the bottom) with [local-ssl-proxy](https://github.com/cameronhunter/local-ssl-proxy/) - not this, abanodoned
+- install mkcert [easy way](https://www.howtoforge.com/how-to-create-locally-trusted-ssl-certificates-with-mkcert-on-ubuntu/) - this
 - to point Node.js to the root certificate add `NODE_EXTRA_CA_CERTS` var permanently in `~/.profile` and log out/log in
 
 ```
+# add this in ~/.profile
 export NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem"
 ```
 
@@ -161,9 +162,12 @@ code --list-extensions
 ### Installation
 
 - yarn install
-- copy/make certs and certs folder
-- mkcert root certificate
-- copy env.local
+- certs
+  - install mkcert
+  - mkcert root certificate
+  - mkcert certificate for localhost, copy certs in certs folder
+  - add node env var in ~/.profile
+- copy env.example to env.local, google, fb, db
 - prisma migrate, seed
 - vs code extensions
 
