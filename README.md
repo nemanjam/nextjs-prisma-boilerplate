@@ -158,6 +158,15 @@ code --list-extensions
 
 - ok to use in components, it's from context
 
+### Installation
+
+- yarn install
+- copy/make certs and certs folder
+- mkcert root certificate
+- copy env.local
+- prisma migrate, seed
+- vs code extensions
+
 ---
 
 ### Todo
