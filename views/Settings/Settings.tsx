@@ -5,8 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { DropzoneOptions } from 'react-dropzone';
 import { Routes } from 'lib-client/constants';
 import { userUpdateSchema } from 'lib-server/validation';
-import { getAvatarFullUrl } from 'utils';
-import DropzoneAvatar from 'components/DropzoneAvatar';
+import { getAvatarFullUrl, getHeaderImageFullUrl } from 'utils';
+import DropzoneSingle from 'components/DropzoneSingle';
 import { UserStr } from 'types';
 import { getErrorClass, withBem } from 'utils/bem';
 
@@ -18,6 +18,7 @@ interface SettingsFormData {
   name: string;
   username: string;
   avatar: File;
+  header: File;
   bio: string;
   password: string;
 }
@@ -33,6 +34,7 @@ const Settings: React.FC<Props> = ({ user }) => {
       name: user.name,
       bio: user.bio,
       avatar: undefined,
+      header: undefined,
       password: '',
     },
   });
@@ -50,17 +52,23 @@ const Settings: React.FC<Props> = ({ user }) => {
   const { register, handleSubmit, formState, setValue } = methods;
   const { errors, dirtyFields } = formState;
 
-  const setDefaultAvatar = async (avatarUrl: string) => {
-    const response = await axios.get(avatarUrl, { responseType: 'blob' });
-    const avatarFile = new File([response.data], 'defaultAvatar');
-    setValue('avatar', avatarFile);
+  const setDefaultImage = async (image: 'avatar' | 'header', url: string) => {
+    try {
+      const response = await axios.get(url, { responseType: 'blob' });
+      const file = new File([response.data], `default-${image}`);
+      setValue(image, file);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // set initial value for avatar async
   useEffect(() => {
     if (user) {
-      const url = getAvatarFullUrl(user);
-      setDefaultAvatar(url);
+      const avatarUrl = getAvatarFullUrl(user);
+      const headerUrl = getHeaderImageFullUrl(user);
+      setDefaultImage('avatar', avatarUrl);
+      setDefaultImage('header', headerUrl);
     }
   }, [user]);
 
@@ -93,6 +101,17 @@ const Settings: React.FC<Props> = ({ user }) => {
       <form className={b()} onSubmit={handleSubmit(onSubmit)}>
         <h1 className={b('title')}>Settings</h1>
 
+        <div className={b('form-field', { header: true })}>
+          <DropzoneSingle
+            name="header"
+            label="Header"
+            dropzoneOptions={dropzoneOptions}
+          />
+          <p className={getErrorClass(errors.header?.message)}>
+            {errors.header?.message}
+          </p>
+        </div>
+
         <div className={b('form-field', { input: true })}>
           <label htmlFor="username">Username</label>
           <input
@@ -118,7 +137,7 @@ const Settings: React.FC<Props> = ({ user }) => {
         </div>
 
         <div className={b('form-field', { avatar: true })}>
-          <DropzoneAvatar
+          <DropzoneSingle
             name="avatar"
             label="Avatar"
             dropzoneOptions={dropzoneOptions}

@@ -3,7 +3,7 @@ import moment from 'moment';
 import { PostStr, UserStr } from 'types';
 import { withBem } from 'utils/bem';
 import PostItem from 'components/PostItem';
-import { getAvatarPath } from 'utils';
+import { getAvatarPath, getHeaderImagePath } from 'utils';
 
 type ProfileProps = {
   profile: UserStr;
@@ -17,8 +17,8 @@ const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
     <div className={b()}>
       <div className={b('user-card')}>
         <div
-          className={b('hero-image')}
-          style={{ backgroundImage: `url('${bgImage}')` }}
+          className={b('header-image')}
+          style={{ backgroundImage: `url('${getHeaderImagePath(profile)}')` }}
         />
         <div className={b('user-info')}>
           <img className={b('avatar')} src={getAvatarPath(profile)} />

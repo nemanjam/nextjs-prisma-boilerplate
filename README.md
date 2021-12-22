@@ -74,9 +74,10 @@ https://localhost:3001/api/auth/callback/google
   https://localhost:3001/api/auth/callback/facebook
   ```
 
-### Upload avatar
+### Upload avatar and header image
 
 - [tutorial](https://betterprogramming.pub/upload-files-to-next-js-with-api-routes-839ce9f28430)
+- upload multiple fields [upload.fields() example](https://stackoverflow.com/questions/36096805/uploading-multiple-files-with-multer-but-from-different-fields)
 
 ### Custom Https Express Typescript server
 

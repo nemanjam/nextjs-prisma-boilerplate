@@ -12,13 +12,13 @@ interface IFileInputProps
   dropzoneOptions?: DropzoneOptions;
 }
 
-const DropzoneAvatar: FC<IFileInputProps> = ({
+const DropzoneSingle: FC<IFileInputProps> = ({
   dropzoneOptions,
   name,
   label = name,
   ...rest
 }) => {
-  const b = withBem('dropzone-avatar');
+  const b = withBem('dropzone-single');
   const [hover, setHover] = useState(false);
 
   const { register, unregister, setValue, watch } = useFormContext();
@@ -79,4 +79,4 @@ const DropzoneAvatar: FC<IFileInputProps> = ({
   );
 };
 
-export default DropzoneAvatar;
+export default DropzoneSingle;

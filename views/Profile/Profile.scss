@@ -1,6 +1,6 @@
 .profile {
-  &__hero-image {
-    @apply h-48 w-full;
+  &__header-image {
+    @apply h-48 w-full bg-cover bg-center;
   }
 
   &__user-info {

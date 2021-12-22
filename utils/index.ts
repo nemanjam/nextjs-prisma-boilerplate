@@ -36,6 +36,16 @@ export const getAvatarFullUrl = (user: User | UserStr) => {
   return `${process.env.NEXT_PUBLIC_BASE_URL}${getAvatarPath(user)}`;
 };
 
+export const getHeaderImagePath = (user: User | UserStr) => {
+  return `${process.env.NEXT_PUBLIC_HEADERS_PATH}${
+    user.headerImage || 'placeholder-header.jpg'
+  }`;
+};
+
+export const getHeaderImageFullUrl = (user: User | UserStr) => {
+  return `${process.env.NEXT_PUBLIC_BASE_URL}${getHeaderImagePath(user)}`;
+};
+
 type ObjectWithDates = { createdAt: Date; updatedAt: Date };
 type ObjectWithStrings = {
   createdAt: string;

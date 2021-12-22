@@ -1,4 +1,4 @@
-.dropzone-avatar {
+.dropzone-single {
   &__preview {
     @apply relative bg-gray-200;
 
@@ -8,7 +8,7 @@
   }
 
   &__image {
-    @apply w-36 h-36 object-cover;
+    @apply h-36 w-full object-cover;
   }
 
   &__overlay {

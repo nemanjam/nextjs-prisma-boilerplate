@@ -8,6 +8,10 @@
   &__form-field {
     @apply flex flex-col;
 
+    &--header {
+      // @apply max-w-xs;
+    }
+
     &--input {
       @apply max-w-xs;
     }

@@ -3,13 +3,13 @@ import { getSession } from 'next-auth/react';
 import { hash } from 'bcryptjs';
 import { withValidation } from 'next-validations';
 import prisma from 'lib-server/prisma';
-import { avatarUpload } from 'lib-server/middleware/upload';
+import { profileImagesUpload } from 'lib-server/middleware/upload';
 import nc, { ncOptions } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
 import { userUpdateSchema } from 'lib-server/validation';
 
-type MulterRequest = NextApiRequest & { file: any };
+type MulterRequest = NextApiRequest & { files: any };
 
 const handler = nc(ncOptions);
 
@@ -21,10 +21,10 @@ const validateUserUpdate = withValidation({
 
 handler.patch(
   requireAuth,
-  avatarUpload,
+  profileImagesUpload,
   validateUserUpdate(),
   async (req: NextApiRequest, res: NextApiResponse) => {
-    const { query, body, file } = req as MulterRequest;
+    const { query, body, files } = req as MulterRequest;
     const id = query.id as string;
     const { name, username, password } = body; // email reconfirm...
 
@@ -38,7 +38,8 @@ handler.patch(
     const data = {
       ...(name && { name }),
       ...(username && { username }),
-      ...(file?.filename && { image: file.filename }),
+      ...(files?.avatar[0]?.path && { image: files.avatar[0].path }),
+      ...(files?.header[0]?.path && { headerImage: files.header[0].path }),
       ...(password && { password: await hash(password, 10) }),
     };
 

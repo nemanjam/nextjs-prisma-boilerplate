@@ -6,7 +6,10 @@ import { promisify } from 'util';
 
 // npx, not typescript, relative paths
 import { getRandomInteger } from '../utils';
-import { avatarsFolderAbsolutePath } from '../lib-server/constants';
+import {
+  avatarsFolderAbsolutePath,
+  headersFolderAbsolutePath,
+} from '../lib-server/constants';
 
 const readdir = promisify(fs.readdir);
 const unlink = promisify(fs.unlink);
@@ -61,6 +64,21 @@ const deleteAllAvatars = async () => {
   }
 };
 
+const deleteAllHeaderImages = async () => {
+  try {
+    const files = await readdir(headersFolderAbsolutePath);
+    const unlinkPromises = files.map((filename) => {
+      if (!['placeholder-header.jpg'].includes(filename)) {
+        console.log('Deleting header: ', filename);
+        unlink(`${headersFolderAbsolutePath}${filename}`);
+      }
+    });
+    return Promise.all(unlinkPromises);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const deleteAllTables = () => {
   console.log('Deleting tables ...');
   return Promise.all([
@@ -76,6 +94,8 @@ async function main() {
   console.log('Start seeding ...');
   await deleteAllTables();
   await deleteAllAvatars();
+  await deleteAllHeaderImages();
+
   const users = createUsers(numberOfUsers);
 
   for (const data of users) {

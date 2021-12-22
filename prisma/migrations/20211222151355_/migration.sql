@@ -20,6 +20,7 @@ CREATE TABLE "users" (
     "password" TEXT,
     "email_verified" DATETIME,
     "image" TEXT,
+    "header_image" TEXT,
     "bio" TEXT,
     "role" TEXT NOT NULL DEFAULT 'user',
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

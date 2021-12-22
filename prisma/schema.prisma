@@ -29,6 +29,7 @@ model User {
   password      String? 
   emailVerified DateTime? @map("email_verified")
   image         String?
+  headerImage   String?   @map("header_image")
   bio           String?
   role          String    @default("user") // user, admin
   accounts      Account[] // next-auth requires this scheme, user is in scheme too

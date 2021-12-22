@@ -11,3 +11,7 @@ uploads/avatars/*
 !uploads/avatars/avatar2.jpg
 !uploads/avatars/avatar3.jpg
 !uploads/avatars/placeholder-avatar.jpg
+
+!uploads/headers
+uploads/headers/*
+!uploads/headers/placeholder-header.jpg
