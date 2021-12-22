@@ -52,10 +52,10 @@ const Settings: React.FC<Props> = ({ user }) => {
   const { register, handleSubmit, formState, reset, getValues } = methods;
   const { errors, dirtyFields } = formState;
 
-  const getDefaultImageAsync = async (image: 'avatar' | 'header', url: string) => {
+  const getDefaultImageAsync = async (url: string) => {
     try {
       const response = await axios.get(url, { responseType: 'blob' });
-      const file = new File([response.data], `default-${image}`);
+      const file = new File([response.data], 'default-image');
       return file;
     } catch (error) {
       console.error(error);
@@ -67,8 +67,8 @@ const Settings: React.FC<Props> = ({ user }) => {
     const run = async (user: UserStr) => {
       const avatarUrl = getAvatarFullUrl(user);
       const headerUrl = getHeaderImageFullUrl(user);
-      const avatar = await getDefaultImageAsync('avatar', avatarUrl);
-      const header = await getDefaultImageAsync('header', headerUrl);
+      const avatar = await getDefaultImageAsync(avatarUrl);
+      const header = await getDefaultImageAsync(headerUrl);
 
       reset({
         ...getValues(),
