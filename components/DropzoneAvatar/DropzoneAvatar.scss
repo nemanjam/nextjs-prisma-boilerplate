@@ -1,0 +1,33 @@
+.dropzone-avatar {
+  &__preview {
+    @apply relative bg-gray-200;
+
+    &--active {
+      @apply bg-gray-400;
+    }
+  }
+
+  &__image {
+    @apply w-36 h-36 object-cover;
+  }
+
+  &__overlay {
+    @apply absolute top-0 left-0 flex justify-center items-center h-full w-full;
+    @apply bg-gray-200 bg-opacity-0;
+    @apply transition-all ease-in;
+
+    & > span {
+      @apply text-transparent font-bold text-center;
+      @apply transition-all ease-in;
+    }
+
+    // hover and style same transition
+    &--active {
+      @apply bg-opacity-30;
+
+      & > span {
+        @apply text-white;
+      }
+    }
+  }
+}

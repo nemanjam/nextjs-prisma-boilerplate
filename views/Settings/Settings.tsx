@@ -39,7 +39,7 @@ const Settings: React.FC<Props> = ({ user }) => {
 
   const dropzoneOptions: DropzoneOptions = {
     accept: 'image/png, image/jpg, image/jpeg',
-    noDrag: true,
+    noDrag: false,
     multiple: false,
     maxFiles: 1,
     // minSize: 10 * 1024, // sets undefined, not good...

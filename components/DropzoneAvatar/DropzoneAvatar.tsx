@@ -1,6 +1,7 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { DropzoneOptions, useDropzone } from 'react-dropzone';
 import { useFormContext } from 'react-hook-form';
+import { withBem } from 'utils/bem';
 
 interface IFileInputProps
   extends React.DetailedHTMLProps<
@@ -17,6 +18,9 @@ const DropzoneAvatar: FC<IFileInputProps> = ({
   label = name,
   ...rest
 }) => {
+  const b = withBem('dropzone-avatar');
+  const [hover, setHover] = useState(false);
+
   const { register, unregister, setValue, watch } = useFormContext();
   const file: File = watch(name);
 
@@ -41,17 +45,28 @@ const DropzoneAvatar: FC<IFileInputProps> = ({
 
   return (
     <>
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name} className={b('label')}>
+        {label}
+      </label>
       <div {...getRootProps()}>
         <input {...rest} id={name} name={name} {...getInputProps()} />
 
-        <div className={isDragActive ? 'bg-gray-400' : 'bg-gray-200'}>
+        <div
+          className={b('preview', { active: isDragActive })}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        >
           {file && (
-            <img
-              src={URL.createObjectURL(file)}
-              alt={file.name}
-              style={{ width: '100px', height: '100px', objectFit: 'cover' }}
-            />
+            <>
+              <img
+                src={URL.createObjectURL(file)}
+                alt={file.name}
+                className={b('image')}
+              />
+              <div className={b('overlay', { active: isDragActive || hover })}>
+                <span>{isDragActive ? 'Drop here' : 'Click or drag&drop'}</span>
+              </div>
+            </>
           )}
         </div>
       </div>
