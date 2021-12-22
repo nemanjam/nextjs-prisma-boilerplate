@@ -43,6 +43,8 @@ const DropzoneAvatar: FC<IFileInputProps> = ({
     };
   }, [register, unregister, name]);
 
+  // do hover in react instead css so both drag and hover can have same styles
+
   return (
     <>
       <label htmlFor={name} className={b('label')}>
