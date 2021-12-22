@@ -10,6 +10,7 @@ import {
   getIsPostOwner,
   publishOrDeletePost,
 } from 'components/PostItem';
+import { mommentFormats } from '@lib-server/constants';
 
 const Post: React.FC<PostProps> = ({ post }) => {
   const { data: session } = useSession();
@@ -51,7 +52,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
             </div>
 
             <div className={b('post-created-at')}>
-              {moment(post.createdAt).format('MMMM d, YYYY')}
+              {moment(post.createdAt).format(mommentFormats.dateForUsersAndPosts)}
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { PostStr, UserStr } from 'types';
 import { withBem } from 'utils/bem';
 import PostItem from 'components/PostItem';
 import { getAvatarPath, getHeaderImagePath } from 'utils';
+import { mommentFormats } from '@lib-server/constants';
 
 type ProfileProps = {
   profile: UserStr;
@@ -12,7 +13,7 @@ type ProfileProps = {
 
 const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
   const b = withBem('profile');
-  const bgImage = 'https://n2.rs/wp-content/uploads/2019/01/header-banner.jpg';
+
   return (
     <div className={b()}>
       <div className={b('user-card')}>
@@ -26,7 +27,7 @@ const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
           <p className={b('username')}>{profile.username}</p>
           <p className={b('bio')}>{profile.bio}</p>
           <p className={b('date')}>{`Joined ${moment(profile.createdAt).format(
-            'MMMM d, YYYY'
+            mommentFormats.dateForUsersAndPosts
           )}`}</p>
           {/* count messages, comments, followers */}
         </div>

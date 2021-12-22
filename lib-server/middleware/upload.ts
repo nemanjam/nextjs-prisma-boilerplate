@@ -4,7 +4,9 @@ import { extname } from 'path';
 import {
   avatarsFolderAbsolutePath,
   headersFolderAbsolutePath,
+  mommentFormats,
 } from 'lib-server/constants';
+import moment from 'moment';
 
 export const profileImagesUpload = multer({
   storage: multer.diskStorage({
@@ -16,7 +18,9 @@ export const profileImagesUpload = multer({
       }
     },
     filename: async (req, file, cb) => {
-      const fileName = `${formatDate()}_${file.originalname}`;
+      const fileName = `${moment().format(mommentFormats.dateTimeForFiles)}__${
+        file.originalname
+      }`;
       cb(null, fileName);
     },
   }),

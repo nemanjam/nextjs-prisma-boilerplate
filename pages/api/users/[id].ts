@@ -38,8 +38,8 @@ handler.patch(
     const data = {
       ...(name && { name }),
       ...(username && { username }),
-      ...(files?.avatar[0]?.path && { image: files.avatar[0].path }),
-      ...(files?.header[0]?.path && { headerImage: files.header[0].path }),
+      ...(files?.avatar?.length > 0 && { image: files.avatar[0].filename }),
+      ...(files?.header?.length > 0 && { headerImage: files.header[0].filename }),
       ...(password && { password: await hash(password, 10) }),
     };
 
