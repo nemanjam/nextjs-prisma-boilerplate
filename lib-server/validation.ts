@@ -36,7 +36,7 @@ export const userUpdateSchema = z.object({
     : z.any(),
   header: isBrowser()
     ? z.instanceof(File).refine((file) => file.size <= 1024 * 1024 * 2, {
-        message: 'Header size must be less than 2MB.',
+        message: 'Header image size must be less than 2MB.',
       })
     : z.any(),
 });

@@ -62,7 +62,7 @@ const Settings: React.FC<Props> = ({ user }) => {
     }
   };
 
-  // set initial value for avatar async
+  // set initial value for avatar, header async
   useEffect(() => {
     if (user) {
       const avatarUrl = getAvatarFullUrl(user);
@@ -73,6 +73,8 @@ const Settings: React.FC<Props> = ({ user }) => {
   }, [user]);
 
   const onSubmit = async (data: SettingsFormData) => {
+    if (Object.keys(dirtyFields).length === 0) return;
+
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
       // send only dirty fileds
@@ -105,6 +107,7 @@ const Settings: React.FC<Props> = ({ user }) => {
           <DropzoneSingle
             name="header"
             label="Header"
+            imageClassName="max-h-44"
             dropzoneOptions={dropzoneOptions}
           />
           <p className={getErrorClass(errors.header?.message)}>

@@ -8,14 +8,16 @@ interface IFileInputProps
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   > {
-  label?: string;
+  label: string;
   dropzoneOptions?: DropzoneOptions;
+  imageClassName?: string;
 }
 
 const DropzoneSingle: FC<IFileInputProps> = ({
   dropzoneOptions,
   name,
-  label = name,
+  label,
+  imageClassName = 'h-36',
   ...rest
 }) => {
   const b = withBem('dropzone-single');
@@ -63,12 +65,12 @@ const DropzoneSingle: FC<IFileInputProps> = ({
               <img
                 src={URL.createObjectURL(file)}
                 alt={file.name}
-                className={b('image')}
+                className={b('image') + ` ${imageClassName}`}
               />
               <div className={b('overlay', { active: isDragActive || hover })}>
                 <span>
                   {isDragActive && 'Drop here'}
-                  {hover && 'Click or \n drag&drop'}
+                  {hover && 'Click or \n drag & drop'}
                 </span>
               </div>
             </>
