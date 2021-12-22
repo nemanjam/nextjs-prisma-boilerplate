@@ -26,7 +26,11 @@ const PostItem: React.FC<PostProps> = ({ post }) => {
     query: { username: author.username, id: post.id },
   };
 
-  const handlePostClick = () => router.push(postHref);
+  // maybe remove it
+  const handlePostClick = (event: React.MouseEvent) => {
+    const isInsideOfLink = (event.target as HTMLElement).closest('a');
+    if (!isInsideOfLink) router.push(postHref);
+  };
 
   const authorHref = {
     pathname: '/[username]',
@@ -49,7 +53,11 @@ const PostItem: React.FC<PostProps> = ({ post }) => {
 
         {/* title */}
         <div className={b('right')}>
-          <h4 className={b('post-title')}>{post.title}</h4>
+          <Link href={postHref}>
+            <a>
+              <h4 className={b('post-title')}>{post.title}</h4>
+            </a>
+          </Link>
 
           <div className={b('user-title')}>
             <Link href={authorHref}>
@@ -58,9 +66,9 @@ const PostItem: React.FC<PostProps> = ({ post }) => {
             <Link href={authorHref}>
               <a className={b('username')}>{author.username}</a>
             </Link>
-            <Link href={postHref}>
-              <a className={b('post-created-at')}>{moment(post.createdAt).fromNow()}</a>
-            </Link>
+            <span className={b('post-created-at')}>
+              {moment(post.createdAt).fromNow()}
+            </span>
           </div>
         </div>
       </div>
