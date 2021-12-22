@@ -17,7 +17,7 @@
     @apply transition-all ease-in;
 
     & > span {
-      @apply text-transparent font-bold text-center;
+      @apply text-transparent font-bold w-16 text-center whitespace-pre-line;
       @apply transition-all ease-in;
     }
 

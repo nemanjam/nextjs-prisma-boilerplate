@@ -64,7 +64,10 @@ const DropzoneAvatar: FC<IFileInputProps> = ({
                 className={b('image')}
               />
               <div className={b('overlay', { active: isDragActive || hover })}>
-                <span>{isDragActive ? 'Drop here' : 'Click or drag&drop'}</span>
+                <span>
+                  {isDragActive && 'Drop here'}
+                  {hover && 'Click or \n drag&drop'}
+                </span>
               </div>
             </>
           )}
