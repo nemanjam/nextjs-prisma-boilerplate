@@ -26,6 +26,6 @@
   }
 
   &__buttons {
-    @apply max-w-md;
+    @apply max-w-md flex gap-4;
   }
 }

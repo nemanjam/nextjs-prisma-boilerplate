@@ -1,8 +1,8 @@
 .layout {
-  @apply relative min-h-screen bg-gray-400;
+  @apply relative min-h-screen; // bg-gray-400;
 
   &__content {
-    @apply container max-w-4xl min-w-min mx-auto bg-gray-300;
+    @apply container max-w-4xl min-w-min mx-auto; // bg-gray-300;
     @apply min-h-[calc(100vh-var(--footer-height))] pt-[var(--layout-content-pt)];
   }
 }

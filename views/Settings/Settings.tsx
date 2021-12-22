@@ -49,14 +49,14 @@ const Settings: React.FC<Props> = ({ user }) => {
     // validator: ...
   };
 
-  const { register, handleSubmit, formState, setValue } = methods;
+  const { register, handleSubmit, formState, reset, getValues } = methods;
   const { errors, dirtyFields } = formState;
 
-  const setDefaultImage = async (image: 'avatar' | 'header', url: string) => {
+  const getDefaultImageAsync = async (image: 'avatar' | 'header', url: string) => {
     try {
       const response = await axios.get(url, { responseType: 'blob' });
       const file = new File([response.data], `default-${image}`);
-      setValue(image, file);
+      return file;
     } catch (error) {
       console.error(error);
     }
@@ -64,11 +64,21 @@ const Settings: React.FC<Props> = ({ user }) => {
 
   // set initial value for avatar, header async
   useEffect(() => {
-    if (user) {
+    const run = async (user: UserStr) => {
       const avatarUrl = getAvatarFullUrl(user);
       const headerUrl = getHeaderImageFullUrl(user);
-      setDefaultImage('avatar', avatarUrl);
-      setDefaultImage('header', headerUrl);
+      const avatar = await getDefaultImageAsync('avatar', avatarUrl);
+      const header = await getDefaultImageAsync('header', headerUrl);
+
+      reset({
+        ...getValues(),
+        avatar,
+        header,
+      } as any);
+    };
+
+    if (user) {
+      run(user);
     }
   }, [user]);
 
@@ -97,6 +107,8 @@ const Settings: React.FC<Props> = ({ user }) => {
       console.error(error);
     }
   };
+
+  if (!getValues('avatar') || !getValues('header')) return <div>Loading...</div>;
 
   return (
     <FormProvider {...methods}>
@@ -177,6 +189,7 @@ const Settings: React.FC<Props> = ({ user }) => {
 
         <div className={b('buttons')}>
           <button type="submit">Submit</button>
+          <button onClick={() => reset()}>Reset</button>
         </div>
       </form>
     </FormProvider>

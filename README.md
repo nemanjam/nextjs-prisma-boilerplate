@@ -172,6 +172,10 @@ code --list-extensions
 - prisma migrate, seed
 - vs code extensions
 
+### React hook form async default values and reset
+
+- github issue [example](https://github.com/react-hook-form/react-hook-form/issues/2492#issuecomment-771578524)
+
 ---
 
 ### Todo
