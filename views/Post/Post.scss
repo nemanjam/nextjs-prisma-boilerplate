@@ -29,9 +29,12 @@
     @apply font-bold;
   }
 
-  &__username,
-  &__post-created-at {
+  &__username {
     @apply text-gray-500;
+  }
+
+  &__post-created-at {
+    @apply text-sm text-gray-500;
   }
 
   &__publish-delete {

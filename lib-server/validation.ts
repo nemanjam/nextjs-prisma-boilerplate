@@ -14,14 +14,19 @@ export const userLoginSchema = z.object({
   password: z.string().min(passwordMin).max(passwordMax),
 });
 
-export const userRegisterSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(passwordMin).max(passwordMax),
-  // +
-  name: z.string().min(nameMin).max(nameMax),
-  username: z.string().min(usernameMin).max(usernameMax),
-  // add confirm password
-});
+export const userRegisterSchema = z
+  .object({
+    email: z.string().email(),
+    password: z.string().min(passwordMin).max(passwordMax),
+    // +
+    confirmPassword: z.string().optional().or(z.literal('')),
+    name: z.string().min(nameMin).max(nameMax),
+    username: z.string().min(usernameMin).max(usernameMax),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match.",
+    path: ['confirmPassword'],
+  });
 
 export const userUpdateSchema = z
   .object({

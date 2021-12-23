@@ -1,5 +1,5 @@
 import React from 'react';
-import { withBem } from 'utils/bem';
+import { getErrorClass, withBem } from 'utils/bem';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -53,15 +53,17 @@ const Auth: React.FC<Props> = ({ isRegisterForm = true, providers }) => {
               <div className={b('form-field')}>
                 <label htmlFor="name">Name</label>
                 <input id="name" type="text" {...register('name')} />
-                {errors.name && <p className="has-error">{errors.name.message}</p>}
+                <p className={getErrorClass(errors.name?.message)}>
+                  {errors.name?.message}
+                </p>
               </div>
 
               <div className={b('form-field')}>
                 <label htmlFor="username">Username</label>
                 <input id="username" type="text" {...register('username')} />
-                {errors.username && (
-                  <p className="has-error">{errors.username.message}</p>
-                )}
+                <p className={getErrorClass(errors.username?.message)}>
+                  {errors.username?.message}
+                </p>
               </div>
             </>
           )}
@@ -69,13 +71,17 @@ const Auth: React.FC<Props> = ({ isRegisterForm = true, providers }) => {
           <div className={b('form-field')}>
             <label htmlFor="email">Email</label>
             <input id="email" type="email" {...register('email')} />
-            {errors.email && <p className="has-error">{errors.email.message}</p>}
+            <p className={getErrorClass(errors.email?.message)}>
+              {errors.email?.message}
+            </p>
           </div>
 
           <div className={b('form-field')}>
             <label htmlFor="password">Password</label>
             <input id="password" type="password" {...register('password')} />
-            {errors.password && <p className="has-error">{errors.password.message}</p>}
+            <p className={getErrorClass(errors.password?.message)}>
+              {errors.password?.message}
+            </p>
           </div>
 
           {isRegisterForm && (
@@ -86,9 +92,9 @@ const Auth: React.FC<Props> = ({ isRegisterForm = true, providers }) => {
                 type="password"
                 {...register('confirmPassword')}
               />
-              {errors.confirmPassword && (
-                <p className="has-error">{errors.confirmPassword.message}</p>
-              )}
+              <p className={getErrorClass(errors.confirmPassword?.message)}>
+                {errors.confirmPassword?.message}
+              </p>
             </div>
           )}
 

@@ -4,7 +4,7 @@
   &__content {
     @apply container max-w-4xl min-w-min mx-auto; // bg-gray-300;
     @apply min-h-[calc(100vh-var(--footer-height))] pt-[calc(var(--layout-content-pt)+1rem)];
-    @apply px-2 sm:px-4 lg:px-0;
+    @apply px-2 sm:px-4 lg:px-0 pb-2 sm:pb-4;
 
     &--no-padding-top {
       @apply pt-[var(--layout-content-pt)];
