@@ -21,6 +21,7 @@ interface SettingsFormData {
   header: File;
   bio: string;
   password: string;
+  confirmPassword: string;
 }
 
 const Settings: React.FC<Props> = ({ user }) => {
@@ -36,6 +37,7 @@ const Settings: React.FC<Props> = ({ user }) => {
       avatar: undefined,
       header: undefined,
       password: '',
+      confirmPassword: '',
     },
   });
 
@@ -88,7 +90,7 @@ const Settings: React.FC<Props> = ({ user }) => {
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
       // send only dirty fileds
-      if (Object.keys(dirtyFields).includes(key)) {
+      if (Object.keys(dirtyFields).includes(key) && key !== 'confirmPassword') {
         formData.append(key, data[key]);
       }
     });
@@ -184,6 +186,19 @@ const Settings: React.FC<Props> = ({ user }) => {
           />
           <p className={getErrorClass(errors.password?.message)}>
             {errors.password?.message}
+          </p>
+        </div>
+
+        <div className={b('form-field', { input: true })}>
+          <label htmlFor="confirm-password">Confirm password</label>
+          <input
+            {...register('confirmPassword')}
+            id="confirm-password"
+            type="password"
+            className={getErrorClass(errors.confirmPassword?.message)}
+          />
+          <p className={getErrorClass(errors.confirmPassword?.message)}>
+            {errors.confirmPassword?.message}
           </p>
         </div>
 
