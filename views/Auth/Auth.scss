@@ -3,7 +3,7 @@
 
   &__content {
     @apply flex flex-col gap-4 p-4 rounded-md bg-gray-100;
-    @apply w-full max-w-xs md:max-w-sm mx-4 xs:mx-0;
+    @apply w-full max-w-xs xs:max-w-sm mx-4 xs:mx-0;
   }
 
   &__title {

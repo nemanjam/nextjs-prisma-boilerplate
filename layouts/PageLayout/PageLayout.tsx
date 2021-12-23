@@ -5,15 +5,16 @@ import Footer from 'components/Footer';
 
 type Props = {
   children: ReactNode;
+  noPaddingTop?: boolean;
 };
 
-const PageLayout: React.FC<Props> = ({ children }) => {
+const PageLayout: React.FC<Props> = ({ children, noPaddingTop }) => {
   const b = withBem('page-layout');
 
   return (
     <div className={b()}>
       <Navbar />
-      <main className={b('content')}>{children}</main>
+      <main className={b('content', { 'no-padding-top': noPaddingTop })}>{children}</main>
       <Footer />
     </div>
   );

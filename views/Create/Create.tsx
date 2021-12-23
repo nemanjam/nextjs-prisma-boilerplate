@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { Routes } from 'lib-client/constants';
 import { postCreateSchema } from 'lib-server/validation';
+import Button from 'components/Button';
 
 const Create: React.FC = () => {
   const router = useRouter();
@@ -57,7 +58,7 @@ const Create: React.FC = () => {
       </div>
 
       <div className={b('buttons')}>
-        <button type="submit">Create</button>
+        <Button type="submit">Create</Button>
         <span>or</span>
         <Link href={Routes.SITE.HOME}>
           <a className="back">Cancel</a>

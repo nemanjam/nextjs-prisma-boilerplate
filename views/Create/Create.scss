@@ -1,5 +1,5 @@
 .create {
-  @apply flex flex-col gap-4 p-4;
+  @apply flex flex-col gap-4;
 
   &__title {
     @apply text-2xl font-bold;
@@ -10,6 +10,6 @@
   }
 
   &__buttons {
-    @apply flex gap-2;
+    @apply flex gap-2 items-center;
   }
 }

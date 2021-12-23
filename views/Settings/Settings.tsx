@@ -9,6 +9,7 @@ import { getAvatarFullUrl, getHeaderImageFullUrl } from 'utils';
 import DropzoneSingle from 'components/DropzoneSingle';
 import { UserStr } from 'types';
 import { getErrorClass, withBem } from 'utils/bem';
+import Button from 'components/Button';
 
 type Props = {
   user: UserStr;
@@ -203,8 +204,10 @@ const Settings: React.FC<Props> = ({ user }) => {
         </div>
 
         <div className={b('buttons')}>
-          <button type="submit">Submit</button>
-          <button onClick={() => reset()}>Reset</button>
+          <Button type="submit">Submit</Button>
+          <Button variant="secondary" onClick={() => reset()}>
+            Reset
+          </Button>
         </div>
       </form>
     </FormProvider>

@@ -13,7 +13,7 @@ type ProfileProps = {
 
 const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
   return (
-    <PageLayout>
+    <PageLayout noPaddingTop>
       <ProfileView profile={profile} posts={posts} />
     </PageLayout>
   );

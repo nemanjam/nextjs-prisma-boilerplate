@@ -1,4 +1,8 @@
 .profile {
+  &__user-card {
+    @apply border-x border-gray-200;
+  }
+
   &__header-image {
     @apply h-48 w-full bg-cover bg-center;
   }

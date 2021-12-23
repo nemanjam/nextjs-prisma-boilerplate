@@ -16,7 +16,7 @@ const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
 
   return (
     <div className={b()}>
-      <div className={b('user-card')}>
+      <section className={b('user-card')}>
         <div
           className={b('header-image')}
           style={{ backgroundImage: `url('${getHeaderImagePath(profile)}')` }}
@@ -31,13 +31,13 @@ const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
           )}`}</p>
           {/* count messages, comments, followers */}
         </div>
-      </div>
+      </section>
 
-      <main className={b('list')}>
+      <section className={b('list')}>
         {posts.map((post) => (
           <PostItem key={post.id} post={{ ...post, author: profile }} />
         ))}
-      </main>
+      </section>
     </div>
   );
 };
