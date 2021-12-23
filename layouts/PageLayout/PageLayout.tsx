@@ -7,16 +7,16 @@ type Props = {
   children: ReactNode;
 };
 
-const Layout: React.FC<Props> = ({ children }) => {
-  const b = withBem('layout');
+const PageLayout: React.FC<Props> = ({ children }) => {
+  const b = withBem('page-layout');
 
   return (
     <div className={b()}>
       <Navbar />
-      <div className={b('content')}>{children}</div>
+      <main className={b('content')}>{children}</main>
       <Footer />
     </div>
   );
 };
 
-export default Layout;
+export default PageLayout;

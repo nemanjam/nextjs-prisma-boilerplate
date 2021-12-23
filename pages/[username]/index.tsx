@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import prisma from 'lib-server/prisma';
-import Layout from 'components/Layout';
+import PageLayout from 'layouts/PageLayout';
 import { UserStr, PostStr } from 'types';
 import { datesToStrings } from 'utils';
 import { default as ProfileView } from 'views/Profile';
@@ -13,9 +13,9 @@ type ProfileProps = {
 
 const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
   return (
-    <Layout>
+    <PageLayout>
       <ProfileView profile={profile} posts={posts} />
-    </Layout>
+    </PageLayout>
   );
 };
 

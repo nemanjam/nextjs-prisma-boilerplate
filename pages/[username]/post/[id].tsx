@@ -1,6 +1,6 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
-import Layout from 'components/Layout';
+import PageLayout from 'layouts/PageLayout';
 import { useSession } from 'next-auth/react';
 import prisma from 'lib-server/prisma';
 import { datesToStrings } from 'utils';
@@ -16,9 +16,9 @@ const Post: React.FC<PostProps> = ({ post }) => {
   }
 
   return (
-    <Layout>
+    <PageLayout>
       <PostView post={post} />
-    </Layout>
+    </PageLayout>
   );
 };
 

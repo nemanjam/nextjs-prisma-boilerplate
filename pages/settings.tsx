@@ -3,7 +3,7 @@ import { getSession } from 'next-auth/react';
 import prisma from 'lib-server/prisma';
 import { Routes } from 'lib-client/constants';
 import { datesToStrings } from 'utils';
-import Layout from 'components/Layout';
+import PageLayout from 'layouts/PageLayout';
 import { UserStr } from 'types';
 import { default as SettingsView } from 'views/Settings';
 
@@ -13,9 +13,9 @@ type Props = {
 
 const Settings: React.FC<Props> = ({ user }) => {
   return (
-    <Layout>
+    <PageLayout>
       <SettingsView user={user} />
-    </Layout>
+    </PageLayout>
   );
 };
 

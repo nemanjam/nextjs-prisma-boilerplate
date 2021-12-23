@@ -1,6 +1,6 @@
 import React from 'react';
 import { GetStaticProps } from 'next';
-import Layout from 'components/Layout';
+import PageLayout from 'layouts/PageLayout';
 import { PostsProps } from 'components/PostItem';
 import prisma from 'lib-server/prisma';
 import { datesToStrings } from 'utils';
@@ -8,9 +8,9 @@ import { default as HomeView } from 'views/Home';
 
 const Home: React.FC<PostsProps> = ({ posts }) => {
   return (
-    <Layout>
+    <PageLayout>
       <HomeView posts={posts} />
-    </Layout>
+    </PageLayout>
   );
 };
 

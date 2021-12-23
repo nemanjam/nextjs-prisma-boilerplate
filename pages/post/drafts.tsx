@@ -1,6 +1,6 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
-import Layout from 'components/Layout';
+import PageLayout from 'layouts/PageLayout';
 import { useSession, getSession } from 'next-auth/react';
 import prisma from 'lib-server/prisma';
 import { datesToStrings } from 'utils';
@@ -12,17 +12,17 @@ const Drafts: React.FC<PostsProps> = ({ posts }) => {
 
   if (!session) {
     return (
-      <Layout>
+      <PageLayout>
         <h1>My Drafts</h1>
         <div>You need to be authenticated to view this page.</div>
-      </Layout>
+      </PageLayout>
     );
   }
 
   return (
-    <Layout>
+    <PageLayout>
       <DraftsView posts={posts} />
-    </Layout>
+    </PageLayout>
   );
 };
 

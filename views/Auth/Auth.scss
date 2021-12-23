@@ -1,0 +1,11 @@
+.auth {
+  @apply flex flex-col gap-4;
+
+  &__form-field {
+    @apply flex flex-col;
+  }
+
+  &__title {
+    @apply text-2xl font-bold;
+  }
+}

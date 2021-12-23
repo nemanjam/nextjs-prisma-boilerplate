@@ -1,12 +1,12 @@
 import React from 'react';
-import Layout from 'components/Layout';
+import PageLayout from 'layouts/PageLayout';
 import { default as CreateView } from 'views/Create';
 
 const Create: React.FC = () => {
   return (
-    <Layout>
+    <PageLayout>
       <CreateView />
-    </Layout>
+    </PageLayout>
   );
 };
 

@@ -3,8 +3,9 @@ import { AppProps } from 'next/app';
 import { IconContext } from 'react-icons';
 
 import 'styles/globals.scss';
-import 'styles/components.scss';
+import 'styles/layouts.scss';
 import 'styles/views.scss';
+import 'styles/components.scss';
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   return (

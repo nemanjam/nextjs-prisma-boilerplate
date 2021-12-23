@@ -231,3 +231,5 @@ code --list-extensions
 - icons in navbar items
 - style forms, hero img upload
 - settins form header dropzone, repeat password
+- protected routes and 404 pages
+- typescript silent errors...
