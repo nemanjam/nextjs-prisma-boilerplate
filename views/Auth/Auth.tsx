@@ -6,6 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { userRegisterSchema, userLoginSchema } from 'lib-server/validation';
 import { Routes } from 'lib-client/constants';
 import { signIn, ClientSafeProvider } from 'next-auth/react';
+import Link from 'next/link';
+import Button from 'components/Button';
 
 type Props = {
   isRegisterForm?: boolean;
@@ -39,7 +41,7 @@ const Auth: React.FC<Props> = ({ isRegisterForm = true, providers }) => {
 
   return (
     <div className={b()}>
-      <main className={b('content')}>
+      <section className={b('content')}>
         <h1 className={b('title')}>{isRegisterForm ? 'Register' : 'Login'}</h1>
 
         <form
@@ -90,20 +92,54 @@ const Auth: React.FC<Props> = ({ isRegisterForm = true, providers }) => {
             </div>
           )}
 
-          <button type="submit">{isRegisterForm ? 'Register' : 'Login'}</button>
+          <Button variant="secondary" type="submit">
+            {isRegisterForm ? 'Register' : 'Login'}
+          </Button>
         </form>
 
-        {providers &&
-          Object.values(providers)
-            .filter((p) => p.type !== 'credentials')
-            .map((provider) => (
-              <div key={provider.name}>
-                <button onClick={() => signIn(provider.id)}>
-                  Login with {provider.name}
-                </button>
-              </div>
-            ))}
-      </main>
+        {providers && (
+          <div className={b('oauth-buttons')}>
+            {Object.values(providers)
+              .filter((p) => p.type !== 'credentials')
+              .map((provider) => (
+                <>
+                  {provider.name === 'Facebook' && (
+                    <Button key={provider.name} onClick={() => signIn(provider.id)}>
+                      Login with Facebook
+                    </Button>
+                  )}
+                  {provider.name === 'Google' && (
+                    <Button
+                      variant="danger"
+                      key={provider.name}
+                      onClick={() => signIn(provider.id)}
+                    >
+                      Login with Google
+                    </Button>
+                  )}
+                </>
+              ))}
+          </div>
+        )}
+
+        <div className={b('link')}>
+          {isRegisterForm ? (
+            <>
+              <span>Already have an account?</span>
+              <Link href={Routes.SITE.LOGIN}>
+                <a>Login</a>
+              </Link>
+            </>
+          ) : (
+            <>
+              <span>Don't have an account?</span>
+              <Link href={Routes.SITE.REGISTER}>
+                <a>Register</a>
+              </Link>
+            </>
+          )}
+        </div>
+      </section>
     </div>
   );
 };

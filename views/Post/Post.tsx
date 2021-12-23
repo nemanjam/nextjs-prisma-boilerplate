@@ -11,6 +11,7 @@ import {
   publishOrDeletePost,
 } from 'components/PostItem';
 import { mommentFormats } from '@lib-server/constants';
+import Button from 'components/Button';
 
 const Post: React.FC<PostProps> = ({ post }) => {
   const { data: session } = useSession();
@@ -61,13 +62,16 @@ const Post: React.FC<PostProps> = ({ post }) => {
           {isOwnerOrAdmin && (
             <div className={b('publish-delete')}>
               {!post.published && (
-                <button onClick={() => publishOrDeletePost(post.id, 'publish')}>
+                <Button onClick={() => publishOrDeletePost(post.id, 'publish')}>
                   Publish
-                </button>
+                </Button>
               )}
-              <button onClick={() => publishOrDeletePost(post.id, 'delete')}>
+              <Button
+                variant="danger"
+                onClick={() => publishOrDeletePost(post.id, 'delete')}
+              >
                 Delete
-              </button>
+              </Button>
             </div>
           )}
         </div>

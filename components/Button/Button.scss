@@ -1,0 +1,35 @@
+.button {
+  @apply focus:outline-none transition ease-in-out duration-200;
+
+  &--disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  &--pill {
+    @apply rounded-full;
+  }
+
+  &--size-sm {
+    @apply px-2 py-1 text-sm;
+  }
+
+  &--size-base {
+    @apply px-4 py-2;
+  }
+
+  &--size-lg {
+    @apply px-8 py-3 text-lg;
+  }
+
+  &--primary {
+    @apply bg-blue-500 hover:bg-blue-800 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-white;
+  }
+
+  &--secondary {
+    @apply bg-gray-200 hover:bg-gray-800 focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 text-gray-900 hover:text-white;
+  }
+
+  &--danger {
+    @apply bg-red-500 hover:bg-red-800 focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 text-white;
+  }
+}

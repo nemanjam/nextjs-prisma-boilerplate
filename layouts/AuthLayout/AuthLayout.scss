@@ -1,7 +1,7 @@
 .auth-layout {
-  @apply relative min-h-screen; // bg-gray-400;
+  @apply relative min-h-screen;
 
   &__content {
-    @apply container max-w-4xl min-w-min mx-auto; // bg-gray-300;
+    @apply container min-h-screen max-w-4xl min-w-fit mx-auto bg-gray-300;
   }
 }

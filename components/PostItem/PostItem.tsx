@@ -12,6 +12,7 @@ import {
   getIsAdmin,
   getIsPostOwner,
 } from 'components/PostItem';
+import Button from 'components/Button';
 
 const PostItem: React.FC<PostProps> = ({ post }) => {
   const router = useRouter();
@@ -79,11 +80,13 @@ const PostItem: React.FC<PostProps> = ({ post }) => {
       {isOwnerOrAdmin && (
         <div className={b('publish-delete')}>
           {!post.published && (
-            <button onClick={() => publishOrDeletePost(post.id, 'publish')}>
+            <Button onClick={() => publishOrDeletePost(post.id, 'publish')}>
               Publish
-            </button>
+            </Button>
           )}
-          <button onClick={() => publishOrDeletePost(post.id, 'delete')}>Delete</button>
+          <Button variant="danger" onClick={() => publishOrDeletePost(post.id, 'delete')}>
+            Delete
+          </Button>
         </div>
       )}
     </article>

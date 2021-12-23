@@ -1,11 +1,36 @@
 .auth {
-  @apply flex flex-col gap-4;
+  @apply min-h-[inherit] w-full flex justify-center items-center;
 
-  &__form-field {
-    @apply flex flex-col;
+  &__content {
+    @apply flex flex-col gap-4 p-4 rounded-md bg-gray-100;
+    @apply w-full max-w-xs md:max-w-sm mx-4 xs:mx-0;
   }
 
   &__title {
     @apply text-2xl font-bold;
+  }
+
+  &__form {
+    @apply flex flex-col gap-4;
+  }
+
+  &__form-field {
+    @apply flex flex-col;
+
+    & > input {
+      @apply w-full min-w-[200px];
+    }
+  }
+
+  &__oauth-buttons {
+    @apply flex flex-col gap-4;
+  }
+
+  &__link {
+    @apply text-sm;
+
+    & > span {
+      @apply mr-2;
+    }
   }
 }

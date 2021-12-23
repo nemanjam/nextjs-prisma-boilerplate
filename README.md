@@ -176,6 +176,10 @@ code --list-extensions
 
 - github issue [example](https://github.com/react-hook-form/react-hook-form/issues/2492#issuecomment-771578524)
 
+### Custom Tailwind React button
+
+- [tutorial](https://www.luckymedia.dev/blog/creating-a-reusable-button-component-with-react-and-tailwind)
+
 ---
 
 ### Todo
@@ -233,3 +237,4 @@ code --list-extensions
 - settins form header dropzone, repeat password
 - protected routes and 404 pages
 - typescript silent errors...
+- \_document.jsx
