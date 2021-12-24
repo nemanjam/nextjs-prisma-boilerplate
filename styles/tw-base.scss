@@ -1,0 +1,26 @@
+@layer base {
+  // todo, tags
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  a:link {
+    @apply text-blue-500;
+  }
+
+  a:visited {
+    @apply text-purple-700;
+  }
+
+  a:hover {
+    @apply text-blue-700 underline cursor-pointer;
+  }
+
+  a:active {
+    @apply text-red-600 underline;
+  }
+}

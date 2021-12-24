@@ -1,0 +1,10 @@
+@layer components {
+  // todo
+  .btn-blue {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+  }
+  // nav-link, post-link..., ne nego:
+  // link 	Component
+  // link-primary 	Utility
+  // link-neutral    Utility
+}
