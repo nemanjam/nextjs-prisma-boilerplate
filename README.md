@@ -180,6 +180,18 @@ code --list-extensions
 
 - [tutorial](https://www.luckymedia.dev/blog/creating-a-reusable-button-component-with-react-and-tailwind)
 
+### Expand commands in env variables, for mobile preview
+
+```
+# start.sh
+INTERFACE=wlp3s0
+WAN_IP=$(ip -4 addr show $INTERFACE | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+
+# then use WAN_IP in .env
+NEXTAUTH_URL=https://$WAN_IP:3001
+NEXT_PUBLIC_BASE_URL=https://$WAN_IP:3001/
+```
+
 ---
 
 ### Todo
