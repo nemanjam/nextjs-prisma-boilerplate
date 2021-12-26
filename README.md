@@ -172,6 +172,23 @@ code --list-extensions
 - prisma migrate, seed
 - vs code extensions
 
+### Run on Gitpod
+
+- port 3001 not exposed, run on http, not https
+
+```
+import { createServer } from 'http';
+const s = createServer(server).listen(port);
+s.address()
+```
+
+- fix auth url
+
+```
+NEXTAUTH_URL=https://3001-jade-gayal-p7d8xqgb.ws-eu25.gitpod.io
+NEXT_PUBLIC_BASE_URL=https://3001-jade-gayal-p7d8xqgb.ws-eu25.gitpod.io/
+```
+
 ### React hook form async default values and reset
 
 - github issue [example](https://github.com/react-hook-form/react-hook-form/issues/2492#issuecomment-771578524)
