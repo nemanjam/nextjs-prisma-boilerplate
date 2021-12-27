@@ -229,6 +229,16 @@ NEXT_PUBLIC_BASE_URL=https://$WAN_IP:3001/
 
 - youtube [tutorial](https://www.youtube.com/watch?v=sOnBG2wUm1s)
 
+### Load env variables in Next.js
+
+- must do this to prevent undefined env vars
+
+```
+import { loadEnvConfig } from '@next/env';
+const projectDir = process.cwd();
+loadEnvConfig(projectDir);
+```
+
 ---
 
 ### Todo
