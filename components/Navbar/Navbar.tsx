@@ -227,7 +227,7 @@ const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
   const { width } = useViewport();
-  const isMobile = width < 768;
+  const isMobile = width < 640;
 
   const { data: session, status } = useSession();
   const _onHamburgerClick = () => setMobileMenuOpen(!mobileMenuOpen);

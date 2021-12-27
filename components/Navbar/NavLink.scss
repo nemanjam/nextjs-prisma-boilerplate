@@ -1,9 +1,9 @@
 .navlink {
-  @apply flex items-center gap-2 justify-center md:justify-items-start;
+  @apply flex items-center gap-2 justify-center sm:justify-items-start;
   @apply font-semibold p-2 hover:bg-blue-400 hover:text-white;
 
   &__icon {
-    @apply text-2xl font-bold;
+    @apply text-2xl font-bold inline sm:hidden md:inline;
   }
 
   &__content {

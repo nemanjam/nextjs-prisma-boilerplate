@@ -28,7 +28,7 @@
   }
 
   &__left-nav {
-    @apply hidden md:flex items-center gap-2;
+    @apply hidden sm:flex items-center gap-2;
   }
 
   &__right-nav {
@@ -36,15 +36,7 @@
   }
 
   &__mobile-nav {
-    @apply p-4 flex flex-col gap-2 md:hidden;
-  }
-
-  &__nav-link {
-    @apply font-semibold p-2 hover:bg-blue-400 hover:text-white text-center md:text-left;
-  }
-
-  &__nav-link--active {
-    @apply bg-gray-300;
+    @apply p-4 flex flex-col gap-2 sm:hidden;
   }
 
   &__avatar {
@@ -56,6 +48,6 @@
   }
 
   &__hamburger {
-    @apply rounded md:hidden focus:outline-none focus:ring focus:ring-gray-500 focus:ring-opacity-50;
+    @apply rounded sm:hidden focus:outline-none focus:ring focus:ring-gray-500 focus:ring-opacity-50;
   }
 }
