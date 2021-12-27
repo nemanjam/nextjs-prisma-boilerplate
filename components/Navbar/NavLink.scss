@@ -1,0 +1,16 @@
+.navlink {
+  @apply flex items-center gap-2 justify-center md:justify-items-start;
+  @apply font-semibold p-2 hover:bg-blue-400 hover:text-white;
+
+  &__icon {
+    @apply text-2xl font-bold;
+  }
+
+  &__content {
+    @apply font-bold;
+  }
+
+  &--active {
+    @apply bg-blue-300;
+  }
+}

@@ -3,13 +3,22 @@ import Link from 'next/link';
 import { NextRouter, useRouter } from 'next/router';
 import { Session } from 'next-auth';
 import { signOut, useSession } from 'next-auth/react';
-import { FaCat } from 'react-icons/fa';
-import { RiMenuLine } from 'react-icons/ri';
 import { withBem } from 'utils/bem';
 import { Routes } from 'lib-client/constants';
 import { getAvatarPath } from 'utils';
 import Dropdown from 'components/Dropdown';
 import { useViewport } from 'components/hooks';
+import { NavLink } from 'components/Navbar';
+
+import { FaCat, FaRegUser } from 'react-icons/fa';
+import { AiOutlineHome, AiOutlineFileAdd, AiOutlineEdit } from 'react-icons/ai';
+import {
+  RiMenuLine,
+  RiLogoutBoxRLine,
+  RiLoginBoxLine,
+  RiAccountBoxLine,
+} from 'react-icons/ri';
+import { IoSettingsOutline } from 'react-icons/io5';
 
 const isActive: (router: NextRouter, pathname: string) => boolean = (router, pathname) =>
   router.asPath === pathname;
@@ -37,8 +46,10 @@ const getAllItems = ({
 }: ItemsArgs) => ({
   home: (
     <Link key="home" href={Routes.SITE.HOME}>
-      <a className={b('nav-link', { active: isActive(router, Routes.SITE.HOME) })}>
-        Home
+      <a>
+        <NavLink icon={<AiOutlineHome />} isActive={isActive(router, Routes.SITE.HOME)}>
+          Home
+        </NavLink>
       </a>
     </Link>
   ),
@@ -50,57 +61,72 @@ const getAllItems = ({
         query: { username: session.user.username },
       }}
     >
-      <a
-        className={b('nav-link', {
-          active: isActive(router, `/${session.user.username}/`),
-        })}
-      >
-        Profile
+      <a>
+        <NavLink
+          icon={<FaRegUser />}
+          isActive={isActive(router, `/${session.user.username}/`)}
+        >
+          Profile
+        </NavLink>
       </a>
     </Link>
   ),
   create: (
     <Link key="create" href={Routes.SITE.CREATE}>
-      <a className={b('nav-link', { active: isActive(router, Routes.SITE.CREATE) })}>
-        Create
+      <a>
+        <NavLink
+          icon={<AiOutlineFileAdd />}
+          isActive={isActive(router, Routes.SITE.CREATE)}
+        >
+          Create
+        </NavLink>
       </a>
     </Link>
   ),
   drafts: (
     <Link key="drafts" href={Routes.SITE.DRAFTS}>
-      <a className={b('nav-link', { active: isActive(router, Routes.SITE.DRAFTS) })}>
-        Drafts
+      <a>
+        <NavLink icon={<AiOutlineEdit />} isActive={isActive(router, Routes.SITE.DRAFTS)}>
+          Drafts
+        </NavLink>
       </a>
     </Link>
   ),
   settings: (
     <Link key="settings" href={Routes.SITE.SETTINGS}>
-      <a className={b('nav-link', { active: isActive(router, Routes.SITE.SETTINGS) })}>
-        Settings
+      <a>
+        <NavLink
+          icon={<IoSettingsOutline />}
+          isActive={isActive(router, Routes.SITE.SETTINGS)}
+        >
+          Settings
+        </NavLink>
       </a>
     </Link>
   ),
   logout: (
     <a
       key="logout"
-      href="!#"
       onClick={(e) => {
         e.preventDefault();
         signOut();
       }}
-      className={b('nav-link')}
     >
-      Log out
+      <NavLink icon={<RiLogoutBoxRLine />}>Log out</NavLink>
     </a>
   ),
   login: (
     <Link key="login" href={Routes.SITE.LOGIN}>
-      <a className={b('nav-link')}>Log in</a>
+      <a>
+        <NavLink icon={<RiLoginBoxLine />}>Log in</NavLink>
+      </a>
     </Link>
   ),
   register: (
     <Link key="register" href={Routes.SITE.REGISTER}>
-      <a className={b('nav-link')}>Register</a>
+      <a>
+        <NavLink icon={<RiAccountBoxLine />}>Register</NavLink>
+      </a>
     </Link>
   ),
   // prevent recursion
