@@ -189,6 +189,22 @@ NEXTAUTH_URL=https://3001-jade-gayal-p7d8xqgb.ws-eu25.gitpod.io
 NEXT_PUBLIC_BASE_URL=https://3001-jade-gayal-p7d8xqgb.ws-eu25.gitpod.io/
 ```
 
+### Run on Repl.it
+
+- install latest Node LTS in console
+
+```
+npm i node@16.13.1
+```
+
+- use http, same as Gitpod
+- set auth urls
+
+```
+NEXTAUTH_URL=https://nextjs-prisma-boilerplate.vkostunica.repl.co
+NEXT_PUBLIC_BASE_URL=https://nextjs-prisma-boilerplate.vkostunica.repl.co/
+```
+
 ### React hook form async default values and reset
 
 - github issue [example](https://github.com/react-hook-form/react-hook-form/issues/2492#issuecomment-771578524)
