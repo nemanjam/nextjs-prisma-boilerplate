@@ -225,6 +225,10 @@ NEXTAUTH_URL=https://$WAN_IP:3001
 NEXT_PUBLIC_BASE_URL=https://$WAN_IP:3001/
 ```
 
+### Custom fonts Tailwind
+
+- youtube [tutorial](https://www.youtube.com/watch?v=sOnBG2wUm1s)
+
 ---
 
 ### Todo
