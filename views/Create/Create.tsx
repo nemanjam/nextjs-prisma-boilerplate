@@ -61,7 +61,7 @@ const Create: React.FC = () => {
         <Button type="submit">Create</Button>
         <span>or</span>
         <Link href={Routes.SITE.HOME}>
-          <a className="back">Cancel</a>
+          <a className={b('cancel')}>Cancel</a>
         </Link>
       </div>
     </form>

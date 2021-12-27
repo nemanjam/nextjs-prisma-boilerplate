@@ -32,5 +32,9 @@
     & > span {
       @apply mr-2;
     }
+
+    & > a {
+      @apply link-primary;
+    }
   }
 }

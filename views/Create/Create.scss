@@ -8,4 +8,8 @@
   &__buttons {
     @apply flex gap-2 items-center;
   }
+
+  &__cancel {
+    @apply link-primary;
+  }
 }

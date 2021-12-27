@@ -16,4 +16,19 @@
       @apply text-inherit no-underline;
     }
   }
+
+  .link-primary {
+    &:link {
+      @apply text-blue-600;
+    }
+    &:visited {
+      @apply text-purple-600;
+    }
+    &:hover {
+      @apply text-blue-800 underline cursor-pointer;
+    }
+    &:active {
+      @apply text-red-600 underline;
+    }
+  }
 }

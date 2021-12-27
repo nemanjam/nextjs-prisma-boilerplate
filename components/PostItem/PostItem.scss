@@ -20,20 +20,16 @@
     @apply flex flex-col;
   }
 
-  &__post-title {
-    @apply link-neutral;
-  }
-
   &__user-title {
     @apply flex items-center gap-2;
   }
 
   &__name {
-    @apply link-neutral font-bold;
+    @apply font-bold;
   }
 
   &__username {
-    @apply link-neutral text-gray-500;
+    @apply text-gray-500;
   }
 
   &__post-created-at {
