@@ -21,7 +21,7 @@
   }
 
   &__post-title {
-    @apply text-xl font-bold;
+    @apply link-neutral;
   }
 
   &__user-title {
@@ -29,11 +29,11 @@
   }
 
   &__name {
-    @apply font-bold;
+    @apply link-neutral font-bold;
   }
 
   &__username {
-    @apply text-gray-500;
+    @apply link-neutral text-gray-500;
   }
 
   &__post-created-at {

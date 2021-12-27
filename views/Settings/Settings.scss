@@ -1,10 +1,6 @@
 .settings {
   @apply flex flex-col gap-4;
 
-  &__title {
-    @apply text-2xl font-bold;
-  }
-
   &__form-field {
     @apply flex flex-col;
 

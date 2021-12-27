@@ -1,10 +1,6 @@
 .post {
   @apply flex flex-col gap-4 p-4;
 
-  &__title {
-    @apply text-4xl font-bold;
-  }
-
   &__author {
     @apply flex flex-col gap-4 xs:flex-row xs:justify-between;
   }

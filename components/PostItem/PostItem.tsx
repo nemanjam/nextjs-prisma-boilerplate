@@ -55,8 +55,8 @@ const PostItem: React.FC<PostProps> = ({ post }) => {
         {/* title */}
         <div className={b('right')}>
           <Link href={postHref}>
-            <a>
-              <h4 className={b('post-title')}>{post.title}</h4>
+            <a className={b('post-title')}>
+              <h2>{post.title}</h2>
             </a>
           </Link>
 

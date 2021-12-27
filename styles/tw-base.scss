@@ -1,23 +1,23 @@
 @layer base {
   // todo, tags
   h1 {
-    @apply text-2xl;
+    @apply text-3xl font-bold;
   }
 
   h2 {
-    @apply text-xl;
+    @apply text-xl font-bold;
   }
 
   a:link {
-    @apply text-blue-500;
+    @apply text-blue-600;
   }
 
   a:visited {
-    @apply text-purple-700;
+    @apply text-purple-600;
   }
 
   a:hover {
-    @apply text-blue-700 underline cursor-pointer;
+    @apply text-blue-800 underline cursor-pointer;
   }
 
   a:active {

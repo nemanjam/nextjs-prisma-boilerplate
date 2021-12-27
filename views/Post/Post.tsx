@@ -30,7 +30,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
 
   return (
     <article className={b()}>
-      <h2 className={b('title')}>{title}</h2>
+      <h1 className={b('title')}>{title}</h1>
       {/* category, tags */}
 
       <div className={b('author')}>

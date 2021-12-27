@@ -23,7 +23,7 @@ const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
         />
         <div className={b('user-info')}>
           <img className={b('avatar')} src={getAvatarPath(profile)} />
-          <h2 className={b('name')}>{profile.name}</h2>
+          <h1 className={b('name')}>{profile.name}</h1>
           <p className={b('username')}>{profile.username}</p>
           <p className={b('bio')}>{profile.bio}</p>
           <p className={b('date')}>{`Joined ${moment(profile.createdAt).format(

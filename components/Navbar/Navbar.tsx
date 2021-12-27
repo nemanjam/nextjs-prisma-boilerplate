@@ -83,7 +83,7 @@ const getAllItems = ({
   logout: (
     <a
       key="logout"
-      href="#"
+      href="!#"
       onClick={(e) => {
         e.preventDefault();
         signOut();

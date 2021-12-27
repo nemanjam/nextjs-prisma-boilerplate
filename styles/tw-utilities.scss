@@ -7,4 +7,13 @@
   .filter-grayscale {
     filter: grayscale(100%);
   }
+
+  .link-neutral {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      @apply text-inherit no-underline;
+    }
+  }
 }
