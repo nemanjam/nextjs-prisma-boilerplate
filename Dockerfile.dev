@@ -1,0 +1,17 @@
+FROM node:16-alpine
+
+ENV NODE_ENV=development
+
+WORKDIR /app
+RUN apk add --no-cache libc6-compat
+
+COPY package.json yarn.lock ./
+RUN yarn install
+
+COPY . .
+
+EXPOSE 3001
+ENV PORT 3001
+
+CMD [ "yarn", "dev" ]
+

@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  nextjs-prisma:
+    container_name: nextjs-prisma
+    build:
+      dockerfile: .
+      target: development
+      args:
+        NODE_ENV: development
+
+    ports:
+      - '3001:3001'
+
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
+
+    env_file:
+      - .env.local
+# env vars build time???
