@@ -27,7 +27,7 @@ handler.post(
       data: {
         title,
         content,
-        author: { connect: { email: session!.user.email as string } },
+        author: { connect: { email: session.user.email as string } },
       },
     });
 

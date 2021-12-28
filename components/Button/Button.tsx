@@ -44,7 +44,7 @@ const Button: ForwardRefRenderFunction<unknown, Props> = (
     pill,
     disabled,
   };
-  const _className = !!className ? ` ${className}` : '';
+  const _className = className ? ` ${className}` : '';
 
   return (
     <Tag

@@ -2,7 +2,7 @@ import React from 'react';
 import { getErrorClass, withBem } from 'utils/bem';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
 import { userRegisterSchema, userLoginSchema } from 'lib-server/validation';
 import { Routes } from 'lib-client/constants';
 import { signIn, ClientSafeProvider } from 'next-auth/react';
@@ -138,7 +138,7 @@ const Auth: React.FC<Props> = ({ isRegisterForm = true, providers }) => {
             </>
           ) : (
             <>
-              <span>Don't have an account?</span>
+              <span>Don&apos;t have an account?</span>
               <Link href={Routes.SITE.REGISTER}>
                 <a>Register</a>
               </Link>

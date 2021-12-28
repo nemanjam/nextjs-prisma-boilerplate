@@ -3,7 +3,7 @@ import { getErrorClass, withBem } from 'utils/bem';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
 import axios from 'axios';
 import { Routes } from 'lib-client/constants';
 import { postCreateSchema } from 'lib-server/validation';

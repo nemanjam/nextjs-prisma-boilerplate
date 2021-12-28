@@ -42,7 +42,7 @@ handler.patch(
 
     if (!_post) throw new ApiError(`Post with id:${id} not found.`, 404);
 
-    if (session!.user.id !== _post.author!.id && session!.user.role !== 'admin')
+    if (session?.user.id !== _post.author.id && session?.user.role !== 'admin')
       throw new ApiError('Not authorized.', 401);
 
     const data = {
