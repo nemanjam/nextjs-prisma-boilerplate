@@ -102,6 +102,7 @@ https://localhost:3001/api/auth/callback/google
 ### React hook form
 
 - [docs](https://react-hook-form.com/advanced-usage)
+- async default values [issue](https://github.com/react-hook-form/react-hook-form/issues/2492#issuecomment-771578524)
 
 ### Dropzone
 
@@ -317,3 +318,4 @@ loadEnvConfig(projectDir);
 - \_document.jsx
 - on change tw-base.scss must restart, no intelisense for my utilities
 - themes
+- docker express maybe, github actions, remote containers
