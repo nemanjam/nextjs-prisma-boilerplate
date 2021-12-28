@@ -1,5 +1,4 @@
 import multer from 'multer';
-import { formatDate } from 'utils';
 import { extname } from 'path';
 import {
   avatarsFolderAbsolutePath,

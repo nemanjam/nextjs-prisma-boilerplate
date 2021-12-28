@@ -258,6 +258,10 @@ loadEnvConfig(projectDir);
 
 - docs [link](https://nextjs.org/docs/basic-features/environment-variables)
 
+### Custom typescript server production
+
+- [example](https://github.com/vercel/next.js/tree/canary/examples/custom-server-typescript)
+
 ---
 
 ### Todo

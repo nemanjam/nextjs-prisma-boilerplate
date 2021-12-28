@@ -2,16 +2,10 @@
   "compilerOptions": {
     "baseUrl": ".", // this handles the root
     "paths": {
-      "@lib-server/*": [
-        "lib-server/*"
-      ] // just placeholder for now
+      "@lib-server/*": ["lib-server/*"] // just placeholder for now
     },
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -25,14 +19,8 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
+  "exclude": ["node_modules", "notes"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "ts-node": {
     "compilerOptions": {
       "module": "commonjs"
