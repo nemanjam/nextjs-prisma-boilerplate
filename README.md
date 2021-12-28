@@ -87,15 +87,31 @@ https://localhost:3001/api/auth/callback/google
 
 ### Api Error handling
 
-...
+- Jonas Schmedtmann Udemy NodeJs tutorial [code](https://github.com/jonasschmedtmann/complete-node-bootcamp)
+- Toptal [tutorial](https://www.toptal.com/nodejs/node-js-error-handling)
+- productioncoder [youtube](https://www.youtube.com/watch?v=DyqVqaf1KnA) and [code](https://github.com/productioncoder/express-error-handling)
+- NextJs api middleware [example](https://jasonwatmore.com/post/2021/08/23/next-js-api-global-error-handler-example-tutorial) (not used)
+- [tutorial](https://sematext.com/blog/node-js-error-handling/)
 
 ### next-connect
 
-...
+- next-connect [example](https://github.com/hoangvvo/nextjs-mongodb-app)
+- youtube [tutorial](https://www.youtube.com/watch?v=TvCu_oK083U)
+- youtube [code](https://github.dev/bmvantunes/youtube-2020-july-next-api-routes-next-connect)
+
+### React hook form
+
+- [docs](https://react-hook-form.com/advanced-usage)
+
+### Dropzone
+
+- Dropzone with react hook form [tutorial](https://dev.to/vibhanshu909/how-to-use-react-dropzone-with-react-hook-form-1omc)
 
 ### Validation
 
-...
+- next-validations usage with next-connect [example](https://github.com/jellydn/next-validations/discussions/170)
+- React-hook-form [zodResolver](https://github.com/react-hook-form/resolvers)
+- [zod schema validator](https://github.com/colinhacks/zod)
 
 ### Prisma db reset, migrate, seed
 
@@ -261,6 +277,11 @@ loadEnvConfig(projectDir);
   - avatar dropdown
 - update next and everything else, done
 - faker content, reseed, clean files, done
+- settings form header dropzone, repeat password, done
+- style forms, hero img upload, done
+- icons in navbar items, done
+- global styles button, links...
+- footer
 
 ---
 
@@ -290,13 +311,9 @@ loadEnvConfig(projectDir);
 - Next.js Image config
 - post - hero image, tag, category
 - comments model
-- global styles button, links...
-- footer
 - drafts count in session or user state
-- icons in navbar items
-- style forms, hero img upload
-- settins form header dropzone, repeat password
 - protected routes and 404 pages
 - typescript silent errors...
 - \_document.jsx
 - on change tw-base.scss must restart, no intelisense for my utilities
+- themes
