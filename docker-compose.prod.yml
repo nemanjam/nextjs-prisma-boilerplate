@@ -7,3 +7,7 @@ services:
 
     ports:
       - '3001:3001'
+
+    # runtime secrets
+    env_file:
+      - .env.local

@@ -269,6 +269,9 @@ docker-compose -f docker-compose.dev.yml up -d
 
 ```
 
+- env vars Docker [docs](https://docs.docker.com/compose/environment-variables/)
+- env vars Next.js [docs](https://nextjs.org/docs/basic-features/environment-variables)
+
 ---
 
 ### Todo
