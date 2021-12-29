@@ -13,6 +13,8 @@
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "format": "prettier --write .",
     "test-all": "yarn lint && yarn type-check && yarn format",
+    "migrate": "prisma migrate dev --skip-seed",
+    "seed": "prisma db seed",
     "dev-docker": "docker-compose -f docker-compose.dev.yml up -d",
     "prod-docker": "docker-compose -f docker-compose.prod.yml up --env-file ./.env.production -d"
   },

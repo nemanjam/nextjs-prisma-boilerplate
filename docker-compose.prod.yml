@@ -4,10 +4,8 @@ services:
     container_name: nextjs-prisma-prod
     build:
       dockerfile: Dockerfile.prod
-
     ports:
       - '3001:3001'
-
     # forward secrets from host at runtime
     environment:
       - CONTAINER_VAR=${HOST_VAR}

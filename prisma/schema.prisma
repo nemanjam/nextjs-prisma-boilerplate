@@ -2,10 +2,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// env("DB_PROVIDER")
+// provider must be hardcoded here
+// https://github.com/prisma/prisma/issues/3834
+
 datasource db {
-  provider = "sqlite"
-  url      =  "file:./dev.db" 
-  // url    =  env("DATABASE_URL")
+  provider = "sqlite" 
+  url    =  env("DATABASE_URL")
 }
 
 model Post {

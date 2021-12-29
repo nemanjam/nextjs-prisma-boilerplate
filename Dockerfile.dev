@@ -13,5 +13,7 @@ COPY . .
 EXPOSE 3001
 ENV PORT 3001
 
+RUN npx prisma generate
+
 CMD [ "yarn", "dev" ]
 
