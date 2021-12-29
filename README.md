@@ -262,6 +262,13 @@ loadEnvConfig(projectDir);
 
 - [example](https://github.com/vercel/next.js/tree/canary/examples/custom-server-typescript)
 
+### Docker
+
+```
+docker-compose -f docker-compose.dev.yml up -d
+
+```
+
 ---
 
 ### Todo

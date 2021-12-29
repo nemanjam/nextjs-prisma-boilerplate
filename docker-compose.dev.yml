@@ -10,8 +10,12 @@ services:
 
     volumes:
       - ./:/app
-      - /app/node_modules
-      - /app/.next
+      - np-dev-node_modules:/app/node_modules
+      - np-dev-next:/app/.next
 
     env_file:
       - .env.local
+
+volumes:
+  np-dev-node_modules:
+  np-dev-next:
