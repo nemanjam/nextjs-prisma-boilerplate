@@ -264,13 +264,18 @@ loadEnvConfig(projectDir);
 
 ### Docker
 
-```
-docker-compose -f docker-compose.dev.yml up -d
+#### Dockerfile and docker-compose dev and prod
 
-```
+- production official Dockerfile [example](https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile)
+- production multistage Dockerfile [example](https://github.com/kachar/yadi/blob/main/web/next.js/Dockerfile)
+- dev and prod docker-compose, Dockerfile [example](https://gist.github.com/kennethnwc/efc81d448a6381f07fd42b4305f12f68)
+- dev Dockerfile and docker-compose [tutorial](https://dev.to/kumareth/next-js-docker-made-easy-2bok)
+
+#### Next.js and Docker env vars
 
 - env vars Docker [docs](https://docs.docker.com/compose/environment-variables/)
 - env vars Next.js [docs](https://nextjs.org/docs/basic-features/environment-variables)
+- buildtime, runtime Docker env vars [table](https://www.saltycrane.com/blog/2021/04/buildtime-vs-runtime-environment-variables-nextjs-docker/)
 
 ---
 

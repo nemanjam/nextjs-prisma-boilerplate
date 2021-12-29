@@ -8,6 +8,6 @@ services:
     ports:
       - '3001:3001'
 
-    # runtime secrets
-    env_file:
-      - .env.local
+    # forward secrets from host at runtime
+    environment:
+      - CONTAINER_VAR=${HOST_VAR}
