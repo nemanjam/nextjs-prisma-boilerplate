@@ -14,6 +14,7 @@ services:
       - np-dev-next:/app/.next
 
     env_file:
+      - .env.development
       - .env.local
 
 volumes:

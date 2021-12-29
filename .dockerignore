@@ -9,3 +9,5 @@ docker-compose.yml
 node_modules/
 README.md
 dist/
+# pass env vars through docker-compose
+.env*

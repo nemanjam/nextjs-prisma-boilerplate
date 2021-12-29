@@ -6,13 +6,15 @@
   "license": "MIT",
   "author": "",
   "scripts": {
-    "dev": "nodemon",
+    "dev": "NODE_ENV=development nodemon",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "NODE_ENV=production node dist/index.js",
     "type-check": "tsc --pretty --noEmit",
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "format": "prettier --write .",
-    "test-all": "yarn lint && yarn type-check && yarn format"
+    "test-all": "yarn lint && yarn type-check && yarn format",
+    "dev-docker": "docker-compose -f docker-compose.dev.yml up -d",
+    "prod-docker": "docker-compose -f docker-compose.prod.yml up --env-file ./.env.production -d"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.8.4",
