@@ -1,14 +1,26 @@
-FROM node:16-alpine
 
-ENV NODE_ENV development
+# pick image with git and bash
+ARG BASE=node:16-alpine
 
+# --------------------
+
+FROM ${BASE} AS dependencies
 WORKDIR /app
-RUN apk add --no-cache libc6-compat
 
 COPY package.json yarn.lock ./
 RUN yarn install
 
+# ---------------------
+
+FROM ${BASE} AS development
+WORKDIR /app
+
+ENV NODE_ENV development
+
+# copy source and node_modules separately
 COPY . .
+# node_modules is .dockerignored, this is from dependencies stage
+COPY --from=dependencies /app/node_modules ./node_modules
 
 EXPOSE 3001
 ENV PORT 3001
