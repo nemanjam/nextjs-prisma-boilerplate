@@ -3,6 +3,7 @@ services:
   nextjs-prisma:
     container_name: nextjs-prisma-prod
     build:
+      context: .
       dockerfile: Dockerfile.prod
     ports:
       - '3001:3001'

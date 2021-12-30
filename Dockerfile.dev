@@ -1,6 +1,7 @@
 
 # pick image with git and bash
-ARG BASE=node:16
+# ARG BASE=mcr.microsoft.com/vscode/devcontainers/javascript-node:0-16-bullseye
+ARG BASE=node:16-bullseye
 
 # --------------------
 
@@ -14,7 +15,6 @@ RUN yarn install
 
 FROM ${BASE} AS development
 WORKDIR /app
-
 ENV NODE_ENV development
 
 # copy source and node_modules separately
@@ -23,6 +23,9 @@ COPY . .
 # node_modules is .dockerignored on host
 # node_modules from dependencies stage
 COPY --from=dependencies /app/node_modules ./node_modules
+
+RUN chown -R node:node /app
+USER node
 
 EXPOSE 3001
 ENV PORT 3001

@@ -1,0 +1,24 @@
+
+# pick image with git and bash
+# ARG BASE=mcr.microsoft.com/vscode/devcontainers/javascript-node:0-16-bullseye
+ARG BASE=node:16-bullseye
+
+# --------------------
+
+FROM ${BASE} AS dependencies
+WORKDIR /app
+ENV NODE_ENV development
+
+COPY package.json yarn.lock ./
+RUN yarn config set unsafe-perm true \
+    && yarn install
+
+COPY . .
+
+EXPOSE 3001
+ENV PORT 3001
+
+RUN npx prisma generate
+
+CMD [ "yarn", "migrate-dev" ]
+
