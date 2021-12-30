@@ -13,10 +13,11 @@ services:
     env_file:
       - .env.development
       - .env.local
+    network_mode: service:postgres-db
 
-  postgres:
+  postgres-db:
     image: postgres:14-alpine
-    container_name: postgres-dev
+    container_name: postgres-db-dev
     restart: unless-stopped
     ports:
       - 5432:5432
