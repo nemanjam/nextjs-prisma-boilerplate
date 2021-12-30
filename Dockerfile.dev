@@ -18,8 +18,10 @@ WORKDIR /app
 ENV NODE_ENV development
 
 # copy source and node_modules separately
+# source from host
 COPY . .
-# node_modules is .dockerignored, this is from dependencies stage
+# node_modules is .dockerignored on host
+# node_modules from dependencies stage
 COPY --from=dependencies /app/node_modules ./node_modules
 
 EXPOSE 3001
