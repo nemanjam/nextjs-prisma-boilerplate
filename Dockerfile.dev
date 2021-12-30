@@ -1,6 +1,6 @@
 
 # pick image with git and bash
-ARG BASE=node:16-alpine
+ARG BASE=node:16
 
 # --------------------
 
@@ -29,5 +29,5 @@ ENV PORT 3001
 
 RUN npx prisma generate
 
-CMD [ "yarn", "dev" ]
+CMD [ "yarn", "migrate-dev" ]
 

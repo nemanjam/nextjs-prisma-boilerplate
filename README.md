@@ -59,7 +59,7 @@ https://localhost:3001/api/auth/callback/google
 
 ### Facebook auth
 
-- email must be different from Google auth\* - check db in callback
+- email must be different from Google auth - check db in callback
 - Just set these two:
 
   - Basic settings -> Site URL
