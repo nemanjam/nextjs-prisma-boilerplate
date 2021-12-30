@@ -3036,10 +3036,10 @@ next-connect@^0.11.0:
   dependencies:
     trouter "^3.1.0"
 
-next-validations@^0.1.10:
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/next-validations/-/next-validations-0.1.10.tgz#cf85144c1d298c24d95fadccb0ab60294030b5b7"
-  integrity sha512-97rgBPyoSoYfUpqorR2wDAe++hPFERudgmTVghqav6Ln1Ovqa+YtkYeFPVKmQtWwb8eAPIoEY+T85W/r2orG0Q==
+next-validations@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/next-validations/-/next-validations-0.1.11.tgz#fcc62dea5be8f9793d410de175f96e3fc1dac54d"
+  integrity sha512-rdyRgZ3f3jwhLigdi9MC5R74BvRpB3cewa8LVnMHDiDRnSThvX0CdZ5KHK4t/SgrIGaVXiXOQ59KtvBqjcm5pA==
 
 next@12.0.7:
   version "12.0.7"

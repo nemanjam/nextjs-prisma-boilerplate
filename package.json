@@ -36,7 +36,7 @@
     "next": "12.0.7",
     "next-auth": "4.0.6",
     "next-connect": "^0.11.0",
-    "next-validations": "^0.1.10",
+    "next-validations": "^0.1.11",
     "prisma": "^3.7.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
