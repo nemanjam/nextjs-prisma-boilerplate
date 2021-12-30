@@ -262,20 +262,36 @@ loadEnvConfig(projectDir);
 
 - [example](https://github.com/vercel/next.js/tree/canary/examples/custom-server-typescript)
 
-### Docker
+## Docker
 
-#### Dockerfile and docker-compose dev and prod
+### Dockerfile and docker-compose dev and prod
 
 - production official Dockerfile [example](https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile)
 - production multistage Dockerfile [example](https://github.com/kachar/yadi/blob/main/web/next.js/Dockerfile)
 - dev and prod docker-compose, Dockerfile [gist](https://gist.github.com/kennethnwc/efc81d448a6381f07fd42b4305f12f68)
 - dev Dockerfile and docker-compose [tutorial](https://dev.to/kumareth/next-js-docker-made-easy-2bok)
 
-#### Next.js and Docker env vars
+### Next.js and Docker env vars
 
 - env vars Docker [docs](https://docs.docker.com/compose/environment-variables/)
 - env vars Next.js [docs](https://nextjs.org/docs/basic-features/environment-variables)
 - buildtime, runtime Docker env vars [table](https://www.saltycrane.com/blog/2021/04/buildtime-vs-runtime-environment-variables-nextjs-docker/)
+
+### Prisma Docker
+
+- prisma migrate prod [tutorial](https://notiz.dev/blog/prisma-migrate-deploy-with-docker)
+- `"migrate-prod": "npx prisma migrate deploy",`
+- `CMD` instead of `RUN`
+
+- custom .env file (only for dev) [docs](https://www.prisma.io/docs/guides/development-environment/environment-variables/using-multiple-env-files)
+
+```
+# dotenv works in yarn script but not in bash
+
+"migrate": "dotenv -e .env.local -- npx prisma migrate dev --skip-seed",
+```
+
+- `npx prisma migrate deploy` must be executed on production at runtime, so `"prisma": "3.7.0"` must be in prod dependencies
 
 ---
 
