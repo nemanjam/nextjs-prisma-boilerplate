@@ -1,12 +1,12 @@
 import React from 'react';
-import { getErrorClass, withBem } from 'utils/bem';
+import { signIn, ClientSafeProvider } from 'next-auth/react';
+import Link from 'next/link';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { getErrorClass, withBem } from 'utils/bem';
 import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
 import { userRegisterSchema, userLoginSchema } from 'lib-server/validation';
 import { Routes } from 'lib-client/constants';
-import { signIn, ClientSafeProvider } from 'next-auth/react';
-import Link from 'next/link';
 import Button from 'components/Button';
 
 type Props = {

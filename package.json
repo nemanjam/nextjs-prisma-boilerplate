@@ -16,15 +16,17 @@
     "migrate-dev-local": "dotenv -e .env.local -- sh -c 'echo DATABASE_URL=$(printenv DATABASE_URL) && npx prisma migrate dev --skip-seed'",
     "studio": "dotenv -e .env.local -- sh -c 'echo DATABASE_URL=$(printenv DATABASE_URL) && npx prisma studio'",
     "migrate-dev": "npx prisma migrate dev --skip-seed",
-    "start-dev": "yarn migrate-dev && yarn seed && yarn dev",
     "reset-dev": "npx prisma reset dev --skip-seed",
+    "start-dev": "yarn migrate-dev && yarn seed && yarn dev",
     "migrate-prod": "npx prisma migrate deploy",
     "start-prod": "yarn migrate-prod && yarn seed && yarn start",
     "seed": "npx prisma db seed",
     "docker-build-dev": "docker build -f Dockerfile.dev -t next-prisma-dev .",
-    "docker-build-prod": "docker build -f Dockerfile.prod -t next-prisma-prod .",
-    "dc-dev": "docker-compose -f docker-compose.dev.yml --env-file ./.env.development up",
-    "dc-prod": "docker-compose -f docker-compose.prod.yml up --env-file ./.env.production -d"
+    "build-with-arg": "sh -c 'DATABASE_URL=${0} next build && tsc --project tsconfig.server.json'",
+    "docker-build-prod": "dotenv -e .env.local -- sh -c 'docker build -f Dockerfile.prod -t next-prisma-prod --build-arg ARG_DATABASE_URL=$(printenv DATABASE_URL) .'",
+    "dc-dev": "docker-compose -f docker-compose.dev.yml up",
+    "build-test-arg": "sh -c 'DATABASE_URL=${0} printenv DATABASE_URL'",
+    "dc-prod": "docker-compose -f docker-compose.prod.yml up -d"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.8.5",

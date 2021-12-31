@@ -313,6 +313,11 @@ volumes:
 - np-dev-next:/app/.next // and this
 ```
 
+### Next.js and Docker production build
+
+- Next.js build must connect to database to generate existing pages on Docker image BUILD time
+- use ARG `docker build --build-arg ARG_DATABASE_URL=...` to pass this temporary connection
+
 ---
 
 ### Todo

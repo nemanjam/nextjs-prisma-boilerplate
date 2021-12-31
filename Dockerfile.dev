@@ -20,9 +20,7 @@ ENV NODE_ENV development
 RUN printenv && whoami
 
 # volumes folders must be created and chowned before docker-compose creates them as root
-# /app exists already
-RUN mkdir /app/node_modules /app/.next
-RUN chown node:node /app /app/node_modules /app/.next
+# COPY creates .next and node_modules, no need for mkdir
 
 # copy source and node_modules separately
 # source from host

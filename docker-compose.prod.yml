@@ -10,4 +10,11 @@ services:
     # forward secrets from host at runtime
     environment:
       - CONTAINER_VAR=${HOST_VAR}
-# uploads, prisma volumes
+    # volumes: uploads, prisma
+    volumes:
+      - ./prisma:/app/prisma
+      - ./uploads:/app/uploads
+    env_file:
+      - .env.production
+      # for now
+      - .env.local
