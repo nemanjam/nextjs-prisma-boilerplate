@@ -295,6 +295,7 @@ loadEnvConfig(projectDir);
 - IMPORTANT: permissions - delete volumes, images and containers in Portainer everytime for Dockerfile and d-c.yml changes to take effect
 - solution: create volumes (/app, /app/node_modules, /app/.next) with current user:group (node:node), pass as ARGs or hardcode, dont mkdir /app
 - .next doesn't update on create post
+- run `id` to se uid, gid
 
 ```
 // prisma node_modules permission error

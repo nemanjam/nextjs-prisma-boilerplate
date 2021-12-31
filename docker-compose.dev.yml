@@ -2,13 +2,9 @@ version: '3.8'
 services:
   nextjs-prisma:
     container_name: nextjs-prisma-dev
-    user: '${UID}:${GID}'
     build:
       context: .
       dockerfile: Dockerfile.dev
-      args:
-        ARG_UID: ${UID}
-        ARG_GID: ${GID}
     ports:
       - '3001:3001'
     volumes:
