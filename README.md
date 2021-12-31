@@ -294,12 +294,19 @@ loadEnvConfig(projectDir);
 - `npx prisma migrate deploy` must be executed on production at runtime, so `"prisma": "3.7.0"` must be in prod dependencies
 - IMPORTANT: permissions - delete volumes, images and containers in Portainer everytime for Dockerfile and d-c.yml changes to take effect
 - solution: create volumes (/app, /app/node_modules, /app/.next) with current user:group (node:node), pass as ARGs or hardcode, dont mkdir /app
-- .next doesn't update on create post
+- just node:node in Dockerfile works fine
 - run `id` to se uid, gid
+- .next doesn't update on create post - outdated user in session and database, logout/in
+
+```
+// pages/post/drafts.tsx
+
+author: { id: session.user.id },
+```
 
 ```
 // prisma node_modules permission error
-// remove named volumes after each build
+// delete named volumes in Portainer after each Dockerfile change
 volumes:
 - ./:/app
 - np-dev-node_modules:/app/node_modules // this
