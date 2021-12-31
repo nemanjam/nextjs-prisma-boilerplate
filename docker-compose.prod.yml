@@ -10,3 +10,4 @@ services:
     # forward secrets from host at runtime
     environment:
       - CONTAINER_VAR=${HOST_VAR}
+# uploads, prisma volumes

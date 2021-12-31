@@ -92,6 +92,7 @@ const deleteAllTables = () => {
 
 async function main() {
   console.log('Start seeding ...');
+  console.log('DATABASE_URL:', process.env.DATABASE_URL);
   await deleteAllTables();
   await deleteAllAvatars();
   await deleteAllHeaderImages();

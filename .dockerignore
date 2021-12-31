@@ -2,13 +2,17 @@
 .gitignore
 **/.gitkeep
 **/.DS_Store
-.next/
 .dockerignore
-Dockerfile
-docker-compose.yml
-node_modules/
+Dockerfile*
+docker-compose*.yml
 README.md
-dist/
-# pass env vars through docker-compose
+
+# pass env vars through docker-compose 
+# or mount .env* in dev
 .env*
 prisma/db.dev
+dist/
+
+# named volumes
+.next/
+node_modules/
