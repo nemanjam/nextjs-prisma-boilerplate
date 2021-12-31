@@ -20,7 +20,7 @@
     "migrate-prod": "npx prisma migrate deploy",
     "start-prod": "yarn migrate-prod && yarn seed && yarn start",
     "seed": "npx prisma db seed",
-    "docker-dev": "docker-compose -f docker-compose.dev.yml up -d",
+    "docker-dev": "docker-compose -f docker-compose.dev.yml --env-file ./.env.development up",
     "docker-prod": "docker-compose -f docker-compose.prod.yml up --env-file ./.env.production -d"
   },
   "dependencies": {
