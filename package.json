@@ -15,6 +15,7 @@
     "test-all": "yarn lint && yarn type-check && yarn format",
     "migrate-dev-local": "dotenv -e .env.local -- npx prisma migrate dev --skip-seed && echo $DATABASE_URL",
     "migrate-dev": "npx prisma migrate dev --skip-seed",
+    "start-dev": "yarn migrate-dev && yarn seed && yarn dev",
     "reset-dev": "npx prisma reset dev --skip-seed",
     "migrate-prod": "npx prisma migrate deploy",
     "start-prod": "yarn migrate-prod && yarn seed && yarn start",

@@ -22,15 +22,15 @@ ENV NODE_ENV development
 COPY . .
 # node_modules is .dockerignored on host
 # node_modules from dependencies stage
-COPY --from=dependencies /app/node_modules ./node_modules
+COPY --from=dependencies --chown=node:node /app/node_modules ./node_modules
 
 RUN chown -R node:node /app
 USER node
 
+RUN npx prisma generate
+
 EXPOSE 3001
 ENV PORT 3001
 
-RUN npx prisma generate
-
-CMD [ "yarn", "migrate-dev" ]
+CMD [ "yarn", "start-dev" ]
 

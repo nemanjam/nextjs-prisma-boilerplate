@@ -293,6 +293,15 @@ loadEnvConfig(projectDir);
 
 - `npx prisma migrate deploy` must be executed on production at runtime, so `"prisma": "3.7.0"` must be in prod dependencies
 
+```
+// prisma node_modules permission error
+// remove named volumes after each build
+volumes:
+- ./:/app
+- np-dev-node_modules:/app/node_modules // this
+- np-dev-next:/app/.next // and this
+```
+
 ---
 
 ### Todo

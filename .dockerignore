@@ -11,3 +11,4 @@ README.md
 dist/
 # pass env vars through docker-compose
 .env*
+prisma/db.dev
