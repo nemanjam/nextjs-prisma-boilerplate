@@ -1,21 +1,22 @@
 version: '3.8'
 services:
-  nextjs-prisma:
+  nextjs-prisma-prod:
     container_name: nextjs-prisma-prod
     build:
       context: .
       dockerfile: Dockerfile.prod
       args:
-        - ARG_DATABASE_URL:${DATABASE_URL}
+        - ARG_DATABASE_URL=$DATABASE_URL
     ports:
       - '3001:3001'
     # forward secrets from host at runtime
-    environment:
-      - CONTAINER_VAR=${HOST_VAR}
+    # environment:
+    # - CONTAINER_VAR=$HOST_VAR
     # volumes: uploads, prisma
     volumes:
       - ./prisma:/app/prisma
       - ./uploads:/app/uploads
+    # runtime only
     env_file:
       - .env.production
       # for now

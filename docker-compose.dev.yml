@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  nextjs-prisma:
+  nextjs-prisma-dev:
     container_name: nextjs-prisma-dev
     build:
       context: .
@@ -18,7 +18,7 @@ services:
     #
 #     network_mode: service:postgres-db
 
-#   postgres-db:
+#   postgres-db-dev:
 #     image: postgres:14-alpine
 #     container_name: postgres-db-dev
 #     restart: unless-stopped

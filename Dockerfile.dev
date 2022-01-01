@@ -4,6 +4,7 @@
 ARG BASE=node:16-bullseye
 
 # --------------------
+# no ENV vars required buildtime
 
 FROM ${BASE} AS dependencies
 WORKDIR /app

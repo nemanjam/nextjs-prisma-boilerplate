@@ -318,6 +318,12 @@ volumes:
 - Next.js build must connect to database to generate existing pages on Docker image BUILD time
 - use ARG `docker build --build-arg ARG_DATABASE_URL=...` to pass this temporary connection
 
+- ENV ARG difference...
+- Docker [tutorial](https://vsupalov.com/docker-env-vars/)
+- Next.js and Docker [tutorial](https://www.saltycrane.com/blog/2021/04/buildtime-vs-runtime-environment-variables-nextjs-docker/)
+- `docker-compose.dev.yml` and `docker-compose.prod.yml` are same file for Docker, services must have different names, it will rebuild the same image
+- ts-node seed in production error
+
 ---
 
 ### Todo
