@@ -26,7 +26,8 @@
     "docker-build-prod": "dotenv -e .env.local -- sh -c 'docker build -f Dockerfile.prod -t next-prisma-prod --build-arg ARG_DATABASE_URL=$(printenv DATABASE_URL) .'",
     "dc-dev": "docker-compose -f docker-compose.dev.yml up",
     "build-test-arg": "sh -c 'DATABASE_URL=${0} printenv DATABASE_URL'",
-    "dc-prod": "docker-compose -f docker-compose.prod.yml up -d"
+    "dc-prod": "dotenv -e .env.local .env.production -- sh -c 'docker-compose -f docker-compose.prod.yml up'",
+    "test-script": "./scripts.sh function_1 'my arg 1' 'arg 2'"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.8.5",
