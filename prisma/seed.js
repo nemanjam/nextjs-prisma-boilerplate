@@ -94,15 +94,15 @@ const deleteAllHeaderImages = async () => {
   }
 };
 
-const deleteAllTables = () => {
+const deleteAllTables = async () => {
   console.log('Deleting tables ...');
-  return Promise.all([
-    prisma.post.deleteMany(),
-    prisma.account.deleteMany(),
-    prisma.session.deleteMany(),
-    prisma.verificationToken.deleteMany(),
-    prisma.user.deleteMany(),
-  ]);
+  // Promise.all([...]) has bug with sqlite
+  // https://github.com/prisma/prisma/issues/9562
+  await prisma.post.deleteMany();
+  await prisma.account.deleteMany();
+  await prisma.session.deleteMany();
+  await prisma.verificationToken.deleteMany();
+  await prisma.user.deleteMany();
 };
 
 async function main() {
