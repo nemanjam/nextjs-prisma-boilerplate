@@ -58,7 +58,7 @@ const getAllItems = ({
       key="profile"
       href={{
         pathname: '/[username]',
-        query: { username: session.user.username },
+        query: { username: session.user.username as string },
       }}
     >
       <a>

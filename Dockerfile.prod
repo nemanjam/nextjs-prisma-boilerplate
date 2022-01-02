@@ -29,12 +29,13 @@ ENV DATABASE_URL=$ARG_DATABASE_URL
 # debug
 RUN echo "ARG_DATABASE_URL=$ARG_DATABASE_URL"
 
-# generate needs source
-RUN npx prisma generate \
-    # build reads DATABASE_URL env
-    && yarn build \
+# prisma client is in prod dependencies
+# prisma generate needs only prod dependencies
+# build reads DATABASE_URL env, and needs dev dependencies
+RUN yarn build \
     && rm -rf node_modules \
-    && yarn install --production=true --frozen-lockfile --ignore-scripts --non-interactive --prefer-offline
+    && yarn install --production=true --frozen-lockfile --non-interactive --prefer-offline \
+    && npx prisma generate
 
 #------ target production
 
