@@ -6,12 +6,15 @@
 Dockerfile*
 docker-compose*.yml
 README.md
+certs/
 
 # pass env vars through docker-compose 
 # or mount .env* in dev
 .env*
-prisma/db.dev
 dist/
+
+# needed for sqlite
+# prisma/db.dev
 
 # named volumes
 .next/

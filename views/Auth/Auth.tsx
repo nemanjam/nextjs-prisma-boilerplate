@@ -9,6 +9,14 @@ import { userRegisterSchema, userLoginSchema } from 'lib-server/validation';
 import { Routes } from 'lib-client/constants';
 import Button from 'components/Button';
 
+interface AuthFormData {
+  email: string;
+  password: string;
+  confirmPassword?: string;
+  name?: string;
+  username?: string;
+}
+
 type Props = {
   isRegisterForm?: boolean;
   providers?: Record<string, ClientSafeProvider>;
@@ -17,21 +25,21 @@ type Props = {
 const Auth: React.FC<Props> = ({ isRegisterForm = true, providers }) => {
   const b = withBem('auth');
 
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState } = useForm<AuthFormData>({
     resolver: zodResolver(isRegisterForm ? userRegisterSchema : userLoginSchema),
   });
   const { errors } = formState;
 
   // axios post to /api/auth/callback/credentials
   // https://next-auth.js.org/configuration/pages#credentials-sign-in
-  const onSubmitLogin = async ({ email, password }) => {
+  const onSubmitLogin = async ({ email, password }: AuthFormData) => {
     await signIn('credentials', {
       email,
       password,
     });
   };
 
-  const onSubmitRegister = async ({ name, username, email, password }) => {
+  const onSubmitRegister = async ({ name, username, email, password }: AuthFormData) => {
     try {
       await axios.post(Routes.API.USERS, { name, username, email, password });
     } catch (error) {

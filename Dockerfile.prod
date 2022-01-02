@@ -33,12 +33,12 @@ ENV DATABASE_URL=$ARG_DATABASE_URL
 
 # debug
 RUN echo "ARG_DATABASE_URL=$ARG_DATABASE_URL"
+RUN ls prisma
 
+# npx prisma migrate deploy && npx prisma db seed - not needed
+# connect to existing db with data
 # build reads DATABASE_URL env, and needs dev dependencies
-RUN npx prisma migrate deploy \
-    && npx prisma db seed \
-    && yarn build \
-    && rm -rf node_modules
+RUN yarn build && rm -rf node_modules
 
 #------ target production
 

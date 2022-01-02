@@ -327,7 +327,10 @@ volumes:
 - migrate seed.ts to javascript so @types don't need to be in prod dependecies, and call it with node
 - `seed.js` is separate build context invoked with npx, can't import code from next.js app, env vars must be passed separately
 - prisma generate writes to node_modules, needed after both dev and prod dependecies
-- static site generation needs data from db, both prisma migrate deploy and seed are needed
+- static site generation needs data from db, both prisma migrate deploy and seed are needed - no?
+- better to connect to external db with data
+- prisma sqlite path is relative to schema file
+- this line is for typescript error in alpine in Dockerfile.prod `RUN apk add --no-cache libc6-compat`
 
 ---
 
