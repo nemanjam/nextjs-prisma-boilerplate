@@ -323,6 +323,9 @@ volumes:
 - Next.js and Docker [tutorial](https://www.saltycrane.com/blog/2021/04/buildtime-vs-runtime-environment-variables-nextjs-docker/)
 - `docker-compose.dev.yml` and `docker-compose.prod.yml` are same file for Docker, services must have different names, it will rebuild the same image
 - ts-node seed in production error
+- move prisma to production dependencies
+- migrate seed.ts to javascript so @types don't need to be in prod dependecies, and call it with node
+- `seed.js` is separate build context invoked with npx, can't import code from next.js app, env vars must be passed separately
 
 ---
 

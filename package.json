@@ -21,11 +21,11 @@
     "migrate-prod": "npx prisma migrate deploy",
     "start-prod": "yarn migrate-prod && yarn seed && yarn start",
     "seed": "npx prisma db seed",
+    "seed-local": "dotenv -e .env.local -- sh -c 'npx prisma db seed'",
     "docker-build-dev": "docker build -f Dockerfile.dev -t next-prisma-dev .",
-    "build-with-arg": "sh -c 'DATABASE_URL=${0} next build && tsc --project tsconfig.server.json'",
+    "dc-dev": "docker-compose -f docker-compose.dev.yml up",
     "docker-build-prod": "dotenv -e .env.local -- sh -c 'docker build -f Dockerfile.prod -t next-prisma-prod --build-arg ARG_DATABASE_URL=${DATABASE_URL} .'",
     "dc-build-prod": "dotenv -e .env.local -- sh -c 'docker-compose -f docker-compose.prod.yml build'",
-    "dc-dev": "docker-compose -f docker-compose.dev.yml up",
     "dc-prod": "docker-compose -f docker-compose.prod.yml up",
     "test-script": "./scripts.sh docker_compose_prod"
   },
@@ -77,10 +77,10 @@
     "stylelint-config-recommended-scss": "^5.0.2",
     "stylelint-scss": "^4.1.0",
     "tailwindcss": "^3.0.8",
-    "ts-node": "10.4.0",
+    "ts-node": "^10.4.0",
     "typescript": "4.5.4"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "node prisma/seed.js"
   }
 }

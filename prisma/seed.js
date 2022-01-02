@@ -1,39 +1,52 @@
-import { PrismaClient, Prisma } from '@prisma/client';
-import { hashSync } from 'bcryptjs';
-import faker from 'faker';
-import fs from 'fs';
-import { promisify } from 'util';
+// NOTE: this file must be in javascript, so seed can work in production
+// without dev dependencies
+// process.env.DATABASE_URL must be defined, not from client, but in schema
 
-// npx, not typescript, relative paths
-import { getRandomInteger } from '../utils';
-import {
-  avatarsFolderAbsolutePath,
-  headersFolderAbsolutePath,
-} from '../lib-server/constants';
+const { PrismaClient } = require('@prisma/client');
+const { hashSync } = require('bcryptjs');
+const { lorem } = require('faker');
+const { readdir, unlink } = require('fs');
+const { promisify } = require('util');
 
-const readdir = promisify(fs.readdir);
-const unlink = promisify(fs.unlink);
+// MUST redefine these, separate build context from next app
+// next.js env vars unavailable, must be set idependently, set fallback
+// /lib-server/constants
+const avatarsFolderAbsolutePath = `${process.cwd()}${
+  process.env.NEXT_PUBLIC_AVATARS_PATH || '/uploads/avatars/'
+}`;
+const headersFolderAbsolutePath = `${process.cwd()}${
+  process.env.NEXT_PUBLIC_HEADERS_PATH || '/uploads/headers/'
+}`;
+
+// /utils
+// min, max included
+const getRandomInteger = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+const _readdir = promisify(readdir);
+const _unlink = promisify(unlink);
 
 const prisma = new PrismaClient();
 const password = hashSync('123', 10);
 const numberOfUsers = 4;
 
-const createPosts = (n: number) => {
+const createPosts = (n) => {
   return Array.from(Array(n).keys()).map(() => ({
-    title: faker.lorem.sentence(),
-    content: faker.lorem.paragraphs(getRandomInteger(1, 3)),
+    title: lorem.sentence(),
+    content: lorem.paragraphs(getRandomInteger(1, 3)),
     published: true,
   }));
 };
 
-const createUsers = (n: number): Prisma.UserCreateInput[] => {
+const createUsers = (n) => {
   return Array.from(Array(n).keys()).map((index) => ({
     name: `user${index} name`,
     username: `user${index}`,
     email: `user${index}@email.com`,
     image: `avatar${index % 4}.jpg`, // 0...3
     password,
-    bio: faker.lorem.sentences(3),
+    bio: lorem.sentences(3),
     role: index === 0 ? 'admin' : 'user',
     posts: {
       create: createPosts(getRandomInteger(3, 6)),
@@ -42,8 +55,9 @@ const createUsers = (n: number): Prisma.UserCreateInput[] => {
 };
 
 const deleteAllAvatars = async () => {
+  console.log('Deleting avatars ... ');
   try {
-    const files = await readdir(avatarsFolderAbsolutePath);
+    const files = await _readdir(avatarsFolderAbsolutePath);
     const unlinkPromises = files.map((filename) => {
       if (
         ![
@@ -55,7 +69,7 @@ const deleteAllAvatars = async () => {
         ].includes(filename)
       ) {
         console.log('Deleting avatar: ', filename);
-        unlink(`${avatarsFolderAbsolutePath}${filename}`);
+        _unlink(`${avatarsFolderAbsolutePath}${filename}`);
       }
     });
     return Promise.all(unlinkPromises);
@@ -65,12 +79,13 @@ const deleteAllAvatars = async () => {
 };
 
 const deleteAllHeaderImages = async () => {
+  console.log('Deleting headers ... ');
   try {
-    const files = await readdir(headersFolderAbsolutePath);
+    const files = await _readdir(headersFolderAbsolutePath);
     const unlinkPromises = files.map((filename) => {
       if (!['placeholder-header.jpg'].includes(filename)) {
         console.log('Deleting header: ', filename);
-        unlink(`${headersFolderAbsolutePath}${filename}`);
+        _unlink(`${headersFolderAbsolutePath}${filename}`);
       }
     });
     return Promise.all(unlinkPromises);
@@ -93,6 +108,8 @@ const deleteAllTables = () => {
 async function main() {
   console.log('Start seeding ...');
   console.log('DATABASE_URL:', process.env.DATABASE_URL);
+  console.log('avatarsFolderAbsolutePath:', avatarsFolderAbsolutePath);
+
   await deleteAllTables();
   await deleteAllAvatars();
   await deleteAllHeaderImages();
