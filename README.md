@@ -326,6 +326,8 @@ volumes:
 - move prisma to production dependencies
 - migrate seed.ts to javascript so @types don't need to be in prod dependecies, and call it with node
 - `seed.js` is separate build context invoked with npx, can't import code from next.js app, env vars must be passed separately
+- prisma generate writes to node_modules, needed after both dev and prod dependecies
+- static site generation needs data from db, both prisma migrate deploy and seed are needed
 
 ---
 
@@ -389,3 +391,4 @@ volumes:
 - themes
 - docker express maybe, github actions, remote containers
 - prisma migrate in docker
+- seed is buggy?
