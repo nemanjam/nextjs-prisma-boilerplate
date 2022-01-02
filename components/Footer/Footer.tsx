@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { withBem } from 'utils/bem';
 
 const Footer: React.FC = () => {

@@ -19,7 +19,7 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "exclude": ["node_modules", "notes"],
+  "exclude": ["node_modules", "notes", "dist", ".next", "next.config.js"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "ts-node": {
     "compilerOptions": {
