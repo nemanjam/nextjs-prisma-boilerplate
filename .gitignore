@@ -4,6 +4,7 @@ prisma/dev.db
 .env.local
 certs/
 dist/
+/**/tsconfig.tsbuildinfo
 
 !uploads/avatars
 uploads/avatars/*

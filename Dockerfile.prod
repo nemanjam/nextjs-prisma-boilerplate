@@ -11,8 +11,13 @@ FROM ${BASE} AS dependencies
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+COPY prisma package.json yarn.lock ./
+RUN yarn install --production=true --frozen-lockfile \
+    && npx prisma generate \
+    && cp -R node_modules prod_node_modules \
+    && yarn install --production=false --frozen-lockfile \
+    && npx prisma generate \
+    && rm -rf prisma
     
 #------ target bulider
 
@@ -29,13 +34,11 @@ ENV DATABASE_URL=$ARG_DATABASE_URL
 # debug
 RUN echo "ARG_DATABASE_URL=$ARG_DATABASE_URL"
 
-# prisma client is in prod dependencies
-# prisma generate needs only prod dependencies
 # build reads DATABASE_URL env, and needs dev dependencies
-RUN yarn build \
-    && rm -rf node_modules \
-    && yarn install --production=true --frozen-lockfile --non-interactive --prefer-offline \
-    && npx prisma generate
+RUN npx prisma migrate deploy \
+    && npx prisma db seed \
+    && yarn build \
+    && rm -rf node_modules
 
 #------ target production
 
@@ -52,15 +55,13 @@ RUN adduser -S nextjs -u 1001
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
+COPY --from=dependencies /app/prod_node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/.next ./.next
 
 # writable folders
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /app/uploads ./uploads
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
-
-# next app
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 
 USER nextjs
 
