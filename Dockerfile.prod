@@ -61,8 +61,8 @@ WORKDIR /app
 
 ENV NODE_ENV production
 
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
+# RUN addgroup -g 1001 -S nodejs
+# RUN adduser -S nextjs -u 1001
 
 # You only need to copy next.config.js if you are NOT using the default configuration
 COPY --from=builder /app/next.config.js ./
@@ -73,11 +73,13 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/.next ./.next
 
 # writable folders
-COPY --from=builder --chown=nextjs:nodejs /app/uploads ./uploads
-COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
-RUN chmod 666 -R {prisma, uploads}
+COPY --from=builder /app/uploads ./uploads
+COPY --from=builder /app/prisma ./prisma
 
-USER nextjs
+RUN chmod 666 -R prisma uploads
+RUN chown -R node:node /app
+
+USER node
 
 EXPOSE 3001
 ENV PORT 3001
