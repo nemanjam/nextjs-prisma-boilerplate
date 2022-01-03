@@ -331,6 +331,17 @@ volumes:
 - better to connect to external db with data
 - prisma sqlite path is relative to schema file
 - this line is for typescript error in alpine in Dockerfile.prod `RUN apk add --no-cache libc6-compat`
+- `RUN openssl version` openssl not found, `node:16-alpine` has no openssl
+- debug prisma:
+
+```
+ENV DEBUG=prisma:client,prisma:engine
+prisma = new PrismaClient({
+  log: ['query', 'info', 'warn', 'error'],
+});
+```
+
+- MISTAKE: should be `COPY prisma ./prisma` for `prisma:client:fetcher Error: The table main.Post does not exist in the current database.`
 
 ---
 

@@ -2,14 +2,18 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// binaryTargets = ["debian-openssl-1.1.x"]
+
 // env("DB_PROVIDER")
 // provider must be hardcoded here
 // https://github.com/prisma/prisma/issues/3834
 
 datasource db {
   provider = "sqlite" 
-  url    =  env("DATABASE_URL")
+  url      =  env("DATABASE_URL")
 }
+
+// url    =  "file:./dev.db"
 
 model Post {
   id          Int     @id @default(autoincrement())
