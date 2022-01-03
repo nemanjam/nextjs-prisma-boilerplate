@@ -25,10 +25,10 @@ COPY prisma ./prisma
 ARG ARG_DATABASE_URL
 ENV DATABASE_URL=$ARG_DATABASE_URL
 
-RUN yarn install --production=false --frozen-lockfile \
+RUN yarn install --production=true --frozen-lockfile --ignore-scripts \
     && npx prisma generate \
     && cp -R node_modules prod_node_modules \
-    && yarn install --production=false --frozen-lockfile \
+    && yarn install --production=false --frozen-lockfile --prefer-offline \
     && npx prisma generate \
     && rm -rf prisma
     

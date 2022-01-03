@@ -357,8 +357,11 @@ docker run --rm -it \
 ```
 
 - shrink image size:
+
   - don't do `RUN chown -R node:node /app` - 700MB
   - only dist, . next and volumes - uploads, prisma
+
+- env vars not expanded in production?
 
 ---
 
