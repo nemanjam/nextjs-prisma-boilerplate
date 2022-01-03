@@ -18,18 +18,17 @@ FROM ${BASE} AS development
 WORKDIR /app
 ENV NODE_ENV development
 
-RUN printenv && whoami
-
 # volumes folders must be created and chowned before docker-compose creates them as root
+# create them during docker build, single chown -R node:node /app is fine
 # COPY creates .next and node_modules, no need for mkdir
 
 # copy source and node_modules separately
 # source from host
-COPY --chown=node:node . .
+COPY . .
 
 # node_modules is .dockerignored on host
 # node_modules from dependencies stage
-COPY --from=dependencies --chown=node:node /app/node_modules ./node_modules
+COPY --from=dependencies /app/node_modules ./node_modules
 RUN npx prisma generate
 
 RUN chown -R node:node /app

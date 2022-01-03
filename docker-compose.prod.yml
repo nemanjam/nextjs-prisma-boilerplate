@@ -9,14 +9,14 @@ services:
         - ARG_DATABASE_URL=$DATABASE_URL
     ports:
       - '3001:3001'
-    # command: sleep infinity
+    #command: sleep infinity
     # forward secrets from host at runtime
     # environment:
     # - CONTAINER_VAR=$HOST_VAR
     # volumes: uploads, prisma
     volumes:
       - ./uploads:/app/uploads
-      - ./prisma:/app/prisma
+      #- ./prisma:/app/prisma
     # runtime only
     env_file:
       - .env.production

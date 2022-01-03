@@ -342,6 +342,11 @@ prisma = new PrismaClient({
 ```
 
 - MISTAKE: should be `COPY prisma ./prisma` for `prisma:client:fetcher Error: The table main.Post does not exist in the current database.`
+- problem: can't access schema.prisma and dev.db sqlite write error in container (not in volume), solution: prisma folder must have x permsission to cd into folder and files rw, so 766, (666 doesn't work)
+
+```
+RUN chmod 766 -R prisma uploads
+```
 
 ---
 
@@ -405,4 +410,5 @@ prisma = new PrismaClient({
 - themes
 - docker express maybe, github actions, remote containers
 - prisma migrate in docker
-- seed is buggy?
+- problem: seed is buggy? solution: prisma 3 has bug with Promise.all([...]), use await, await, await...
+- `loadEnvConfig(projectDir, dev);` for undefined images in production `NEXT_PUBLIC_AVATARS_PATH...`
