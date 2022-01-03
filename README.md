@@ -348,6 +348,18 @@ prisma = new PrismaClient({
 RUN chmod 766 -R prisma uploads
 ```
 
+- debug size with dive
+
+```
+docker run --rm -it \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    wagoodman/dive:latest nextjs-prisma-boilerplate_nextjs-prisma-prod:latest
+```
+
+- shrink image size:
+  - don't do `RUN chown -R node:node /app` - 700MB
+  - only dist, . next and volumes - uploads, prisma
+
 ---
 
 ### Todo

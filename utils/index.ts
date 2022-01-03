@@ -56,31 +56,3 @@ export const datesToStrings = <T extends ObjectWithDates>(
 export const getRandomInteger = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
-
-export const printLoadedEnvVariables = () => {
-  const vars = {
-    NODE_ENV: process.env.NODE_ENV,
-    PROTOCOL: process.env.PROTOCOL,
-    HOSTNAME: process.env.HOSTNAME,
-    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
-    NEXT_PUBLIC_AVATARS_PATH: process.env.NEXT_PUBLIC_AVATARS_PATH,
-    NEXT_PUBLIC_HEADERS_PATH: process.env.NEXT_PUBLIC_HEADERS_PATH,
-    POSTGRES_USER: process.env.POSTGRES_USER,
-    POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
-    POSTGRES_DB: process.env.POSTGRES_DB,
-    DATABASE_URL: process.env.DATABASE_URL,
-    SECRET: process.env.SECRET,
-    FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
-    FACEBOOK_CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
-    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-  };
-
-  const str = JSON.stringify(vars, null, 2)
-    .replace(/(^\s+|{)/gm, '')
-    .replace(/(,|}|\s+$)/gm, '')
-    .replace(/"/gm, '');
-
-  console.log('Loaded env vars: ', str);
-};

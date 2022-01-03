@@ -45,7 +45,7 @@ ARG ARG_DATABASE_URL
 ENV DATABASE_URL=$ARG_DATABASE_URL
 
 # debug
-# RUN echo "DATABASE_URL_3=$DATABASE_URL"
+RUN echo "DATABASE_URL_3=$DATABASE_URL"
 # ENV DEBUG=*
 
 # npx prisma migrate deploy && npx prisma db seed - not needed
@@ -65,15 +65,14 @@ COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 COPY --from=dependencies /app/prod_node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/.next ./.next
+COPY --from=builder --chown=node:node /app/dist ./dist
+COPY --from=builder --chown=node:node /app/.next ./.next
 
 # writable folders
-COPY --from=builder /app/uploads ./uploads
-COPY --from=builder /app/prisma ./prisma
+COPY --from=builder --chown=node:node /app/uploads ./uploads
+COPY --from=builder --chown=node:node /app/prisma ./prisma
 
 RUN chmod 766 -R prisma uploads
-RUN chown -R node:node /app
 
 USER node
 
