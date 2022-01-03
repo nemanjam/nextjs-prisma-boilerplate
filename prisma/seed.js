@@ -8,6 +8,10 @@ const { lorem } = require('faker');
 const { readdir, unlink } = require('fs');
 const { promisify } = require('util');
 
+// const { loadEnvConfig } = require('@next/env');
+// const x = loadEnvConfig(process.cwd()); // returns vars for debug
+// console.log(x);
+
 // MUST redefine these, separate build context from next app
 // next.js env vars unavailable, must be set idependently, set fallback
 // /lib-server/constants
@@ -107,6 +111,8 @@ const deleteAllTables = async () => {
 
 async function main() {
   console.log('Start seeding ...');
+  return;
+
   console.log('DATABASE_URL:', process.env.DATABASE_URL);
   console.log('avatarsFolderAbsolutePath:', avatarsFolderAbsolutePath);
 
