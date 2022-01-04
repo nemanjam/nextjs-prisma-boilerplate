@@ -384,6 +384,10 @@ docker run --rm -it \
 - runtime vars `serverRuntimeConfig` (private, server), `publicRuntimeConfig` (public, client, server) [docs](https://nextjs.org/docs/api-reference/next.config.js/runtime-configuration)
 - tutorial [Youtube](https://www.youtube.com/watch?v=Mh9BJNfAVsM)
 
+### Named volumes permissions chown -R node:node
+
+- AFTER deleting container you have to DELETE VOLUME TOO
+
 ---
 
 ### Todo
