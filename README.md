@@ -362,6 +362,18 @@ docker run --rm -it \
   - only dist, . next and volumes - uploads, prisma
 
 - env vars not expanded in production?
+- disk usage node_modules
+
+```
+/app # du -sh ./node_modules/* | sort -nr | grep '\dM.*'
+123.8M  ./node_modules/@prisma
+95.6M   ./node_modules/@next
+59.3M   ./node_modules/prisma
+41.2M   ./node_modules/react-icons
+32.5M   ./node_modules/next
+17.1M   ./node_modules/faker
+5.0M    ./node_modules/moment
+```
 
 ---
 
