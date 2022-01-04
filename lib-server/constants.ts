@@ -1,4 +1,4 @@
-// node process, root folder
+// node process, root folder, package.json
 // must be defined or entire root folder will be deleted on seed
 // if env vars aren't defined
 export const avatarsFolderAbsolutePath = `${process.cwd()}${

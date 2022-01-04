@@ -7,20 +7,19 @@ const { hashSync } = require('bcryptjs');
 const { lorem } = require('faker');
 const { readdir, unlink } = require('fs');
 const { promisify } = require('util');
+const { loadEnvConfig } = require('@next/env');
 
-// const { loadEnvConfig } = require('@next/env');
-// const x = loadEnvConfig(process.cwd()); // returns vars for debug
-// console.log(x);
+const rootDirAbsolutePath = process.cwd();
+
+// load process.env.DATABASE_URL from .env.local
+loadEnvConfig(rootDirAbsolutePath);
 
 // MUST redefine these, separate build context from next app
 // next.js env vars unavailable, must be set idependently, set fallback
 // /lib-server/constants
-const avatarsFolderAbsolutePath = `${process.cwd()}${
-  process.env.NEXT_PUBLIC_AVATARS_PATH || '/uploads/avatars/'
-}`;
-const headersFolderAbsolutePath = `${process.cwd()}${
-  process.env.NEXT_PUBLIC_HEADERS_PATH || '/uploads/headers/'
-}`;
+// repeated in seed , next.config.js, docker volumes, Dockerfile.prod, folder structure
+const avatarsFolderAbsolutePath = `${rootDirAbsolutePath}${'/uploads/avatars/'}`;
+const headersFolderAbsolutePath = `${rootDirAbsolutePath}${'/uploads/headers/'}`;
 
 // /utils
 // min, max included
@@ -111,8 +110,6 @@ const deleteAllTables = async () => {
 
 async function main() {
   console.log('Start seeding ...');
-  return;
-
   console.log('DATABASE_URL:', process.env.DATABASE_URL);
   console.log('avatarsFolderAbsolutePath:', avatarsFolderAbsolutePath);
 

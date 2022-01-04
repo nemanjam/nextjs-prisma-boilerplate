@@ -375,6 +375,15 @@ docker run --rm -it \
 5.0M    ./node_modules/moment
 ```
 
+- add migration-seed container with prisma
+
+### Next.js buildtime, runtime env vars
+
+- .env.\* (development, production, local - secret, test) files [docs](https://nextjs.org/docs/basic-features/environment-variables)
+- buildtime vars, env key in `next.config.js` [docs](https://nextjs.org/docs/api-reference/next.config.js/environment-variables)
+- runtime vars `serverRuntimeConfig` (private, server), `publicRuntimeConfig` (public, client, server) [docs](https://nextjs.org/docs/api-reference/next.config.js/runtime-configuration)
+- tutorial [Youtube](https://www.youtube.com/watch?v=Mh9BJNfAVsM)
+
 ---
 
 ### Todo

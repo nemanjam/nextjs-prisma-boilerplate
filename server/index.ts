@@ -43,20 +43,28 @@ app.prepare().then(() => {
   printLoadedEnvVariables();
 });
 
+// this should be in logger
 // must be here, cannot import in production
 function printLoadedEnvVariables() {
   const vars = {
+    // buildime
+    NEXT_PUBLIC_AVATARS_PATH: process.env.NEXT_PUBLIC_AVATARS_PATH,
+    NEXT_PUBLIC_HEADERS_PATH: process.env.NEXT_PUBLIC_HEADERS_PATH,
+    // node
     NODE_ENV: process.env.NODE_ENV,
+    // .env
     PROTOCOL: process.env.PROTOCOL,
     HOSTNAME: process.env.HOSTNAME,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
-    NEXT_PUBLIC_AVATARS_PATH: process.env.NEXT_PUBLIC_AVATARS_PATH,
-    NEXT_PUBLIC_HEADERS_PATH: process.env.NEXT_PUBLIC_HEADERS_PATH,
+    // db
     POSTGRES_USER: process.env.POSTGRES_USER,
+    POSTGRES_HOSTNAME: process.env.POSTGRES_HOSTNAME,
+    POSTGRES_PORT: process.env.POSTGRES_PORT,
     POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
     POSTGRES_DB: process.env.POSTGRES_DB,
     DATABASE_URL: process.env.DATABASE_URL,
+    // private, server
     SECRET: process.env.SECRET,
     FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
     FACEBOOK_CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
@@ -64,10 +72,13 @@ function printLoadedEnvVariables() {
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   };
 
-  const str = JSON.stringify(vars, null, 2)
+  const fn = (_key: string, value: string) => (value === undefined ? null : value);
+  const str = JSON.stringify(vars, fn, 2);
+
+  const str1 = str
     .replace(/(^\s+|{)/gm, '')
     .replace(/(,|}|\s+$)/gm, '')
     .replace(/"/gm, '');
 
-  console.log('Loaded env vars: ', str);
+  console.log('Loaded env vars: ', str1);
 }

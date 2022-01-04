@@ -1,5 +1,6 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import NextAuth, { Session } from 'next-auth';
+import getConfig from 'next/config';
 import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -10,7 +11,9 @@ import { compare } from 'bcryptjs';
 import nc, { ncOptions } from 'lib-server/nc';
 import ApiError from 'lib-server/error';
 import { userLoginSchema } from 'lib-server/validation';
+import { Routes } from 'lib-client/constants';
 
+const { serverRuntimeConfig } = getConfig();
 const handler = nc(ncOptions);
 
 handler.use(
@@ -18,12 +21,12 @@ handler.use(
     NextAuth(req, res, {
       providers: [
         FacebookProvider({
-          clientId: process.env.FACEBOOK_CLIENT_ID,
-          clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+          clientId: serverRuntimeConfig.FACEBOOK_CLIENT_ID,
+          clientSecret: serverRuntimeConfig.FACEBOOK_CLIENT_SECRET,
         }),
         GoogleProvider({
-          clientId: process.env.GOOGLE_CLIENT_ID,
-          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          clientId: serverRuntimeConfig.GOOGLE_CLIENT_ID,
+          clientSecret: serverRuntimeConfig.GOOGLE_CLIENT_SECRET,
         }),
         CredentialsProvider({
           name: 'Credentials',
@@ -67,8 +70,8 @@ handler.use(
           return _session as Session;
         },
       },
-      secret: process.env.SECRET,
-      pages: { signIn: '/auth/login' },
+      secret: serverRuntimeConfig.SECRET,
+      pages: { signIn: Routes.SITE.LOGIN },
       adapter: PrismaAdapter(prisma),
       debug: false,
     })

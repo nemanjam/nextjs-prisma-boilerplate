@@ -13,10 +13,24 @@ module.exports = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
-  // typescript: {
-  //   ignoreBuildErrors: true,
-  // },
-  // eslint: {
-  //   ignoreDuringBuilds: true,
-  // },
+  // buildtime, must provide buildtime in Dockerfile or hardcode
+  env: {
+    // repeated in folder structure, static folder, seed
+    // next.config.js, docker volumes prod, Dockerfile.prod
+    NEXT_PUBLIC_AVATARS_PATH: '/uploads/avatars/',
+    NEXT_PUBLIC_HEADERS_PATH: '/uploads/headers/',
+  },
+  // runtime, server, private
+  serverRuntimeConfig: {
+    // just forward entire env.local, useless
+    // only used in [...nextauth]
+    SECRET: process.env.SECRET,
+    FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
+    FACEBOOK_CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+  },
+  // runtime, server, ssr client, public, don't need to recompile app
+  // server and getServersideProps pages/components
+  publicRuntimeConfig: {},
 };
