@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { DropzoneOptions } from 'react-dropzone';
 import { Routes } from 'lib-client/constants';
 import { userUpdateSchema } from 'lib-server/validation';
-import { getAvatarFullUrl, getHeaderImageFullUrl } from 'utils';
+import { getAvatarPath, getHeaderImagePath } from 'utils';
 import DropzoneSingle from 'components/DropzoneSingle';
 import { UserStr } from 'types';
 import { getErrorClass, withBem } from 'utils/bem';
@@ -57,6 +57,7 @@ const Settings: React.FC<Props> = ({ user }) => {
 
   const getDefaultImageAsync = async (url: string) => {
     try {
+      // works with relative path
       const response = await axios.get(url, { responseType: 'blob' });
       const file = new File([response.data], 'default-image');
       return file;
@@ -68,8 +69,8 @@ const Settings: React.FC<Props> = ({ user }) => {
   // set initial value for avatar, header async
   useEffect(() => {
     const run = async (user: UserStr) => {
-      const avatarUrl = getAvatarFullUrl(user);
-      const headerUrl = getHeaderImageFullUrl(user);
+      const avatarUrl = getAvatarPath(user);
+      const headerUrl = getHeaderImagePath(user);
       const avatar = await getDefaultImageAsync(avatarUrl);
       const header = await getDefaultImageAsync(headerUrl);
 

@@ -19,10 +19,12 @@ module.exports = {
     // next.config.js, docker volumes prod, Dockerfile.prod
     NEXT_PUBLIC_AVATARS_PATH: '/uploads/avatars/',
     NEXT_PUBLIC_HEADERS_PATH: '/uploads/headers/',
+    // not used anywhere, just rename it
+    NEXT_PUBLIC_BASE_URL: `${process.env.NEXTAUTH_URL}/`,
   },
   // runtime, server, private
   serverRuntimeConfig: {
-    // just forward entire env.local, useless
+    // just forward entire env.local
     // only used in [...nextauth]
     SECRET: process.env.SECRET,
     FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,

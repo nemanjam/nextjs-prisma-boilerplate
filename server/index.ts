@@ -40,7 +40,7 @@ app.prepare().then(() => {
     }://${process.env.HOSTNAME}:${port} as ${dev ? 'development' : process.env.NODE_ENV}`
   );
 
-  printLoadedEnvVariables();
+  // printLoadedEnvVariables();
 });
 
 // this should be in logger
