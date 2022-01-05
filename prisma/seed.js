@@ -49,6 +49,7 @@ const createUsers = (n) => {
     email: `user${index}@email.com`,
     // undefined for placeholder, prisma converts it to null
     image: index === 3 ? undefined : `avatar${index % 4}.jpg`, // 0...3
+    headerImage: index === 3 ? undefined : `header${index % 4}.jpg`,
     password,
     bio: lorem.sentences(3),
     role: index === 0 ? 'admin' : 'user',
@@ -87,7 +88,16 @@ const deleteAllHeaderImages = async () => {
   try {
     const files = await _readdir(headersFolderAbsolutePath);
     const unlinkPromises = files.map((filename) => {
-      if (!['placeholder-header.jpg'].includes(filename)) {
+      if (
+        ![
+          'placeholder-header.jpg',
+          'header0.jpg',
+          'header1.jpg',
+          'header2.jpg',
+          'header3.jpg',
+          'header4.jpg',
+        ].includes(filename)
+      ) {
         console.log('Deleting header: ', filename);
         _unlink(`${headersFolderAbsolutePath}${filename}`);
       }

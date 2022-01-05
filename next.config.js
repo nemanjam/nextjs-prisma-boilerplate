@@ -16,7 +16,7 @@ module.exports = {
   // buildtime, must provide buildtime in Dockerfile or hardcode
   env: {
     // repeated in folder structure, static folder, seed
-    // next.config.js, docker volumes prod, Dockerfile.prod
+    // next.config.js, docker volumes prod, Dockerfile.prod, gitignore
     // rename to single uploads var
     NEXT_PUBLIC_AVATARS_PATH: '/uploads/avatars/',
     NEXT_PUBLIC_HEADERS_PATH: '/uploads/headers/',
