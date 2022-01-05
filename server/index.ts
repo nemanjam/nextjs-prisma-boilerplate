@@ -3,6 +3,7 @@ import { createServer } from 'https';
 import { createServer as createServerHttp } from 'http';
 import fs from 'fs';
 import next from 'next';
+import getConfig from 'next/config';
 
 // no need for this, maybe in seed
 // loadEnvConfig(process.cwd()); // returns vars for debug
@@ -40,36 +41,39 @@ app.prepare().then(() => {
     }://${process.env.HOSTNAME}:${port} as ${dev ? 'development' : process.env.NODE_ENV}`
   );
 
-  // printLoadedEnvVariables();
+  printLoadedEnvVariables();
 });
 
 // this should be in logger
 // must be here, cannot import in production
 function printLoadedEnvVariables() {
+  const { serverRuntimeConfig } = getConfig();
+  const seprator = '--------------';
+
   const vars = {
-    // buildime
+    '-node': seprator,
+    NODE_ENV: process.env.NODE_ENV,
+    'env-buildime': seprator,
     NEXT_PUBLIC_AVATARS_PATH: process.env.NEXT_PUBLIC_AVATARS_PATH,
     NEXT_PUBLIC_HEADERS_PATH: process.env.NEXT_PUBLIC_HEADERS_PATH,
-    // node
-    NODE_ENV: process.env.NODE_ENV,
-    // .env
+    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+    '.env': seprator,
     PROTOCOL: process.env.PROTOCOL,
     HOSTNAME: process.env.HOSTNAME,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
-    // db
+    '.env.local-db': seprator,
     POSTGRES_USER: process.env.POSTGRES_USER,
     POSTGRES_HOSTNAME: process.env.POSTGRES_HOSTNAME,
     POSTGRES_PORT: process.env.POSTGRES_PORT,
     POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
     POSTGRES_DB: process.env.POSTGRES_DB,
     DATABASE_URL: process.env.DATABASE_URL,
-    // private, server
-    SECRET: process.env.SECRET,
-    FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
-    FACEBOOK_CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
-    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    '-serverRuntimeConfig': seprator,
+    SECRET: serverRuntimeConfig.SECRET,
+    FACEBOOK_CLIENT_ID: serverRuntimeConfig.FACEBOOK_CLIENT_ID,
+    FACEBOOK_CLIENT_SECRET: serverRuntimeConfig.FACEBOOK_CLIENT_SECRET,
+    GOOGLE_CLIENT_ID: serverRuntimeConfig.GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET: serverRuntimeConfig.GOOGLE_CLIENT_SECRET,
   };
 
   const fn = (_key: string, value: string) => (value === undefined ? null : value);

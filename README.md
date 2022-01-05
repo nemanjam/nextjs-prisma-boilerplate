@@ -411,8 +411,9 @@ docker run --rm -it \
 - settings form header dropzone, repeat password, done
 - style forms, hero img upload, done
 - icons in navbar items, done
-- global styles button, links...
-- footer
+- global styles button, links..., done
+- footer, done
+- problem: seed is buggy? solution: prisma 3 has bug with Promise.all([...]), use await, await, await..., done
 
 ---
 
@@ -449,6 +450,5 @@ docker run --rm -it \
 - on change tw-base.scss must restart, no intelisense for my utilities
 - themes
 - docker express maybe, github actions, remote containers
-- prisma migrate in docker
-- problem: seed is buggy? solution: prisma 3 has bug with Promise.all([...]), use await, await, await...
-- `loadEnvConfig(projectDir, dev);` for undefined images in production `NEXT_PUBLIC_AVATARS_PATH...`
+- prisma migrate in docker, move prisma to devDependencies
+- where to place and call printLoadedEnvVariables() ?
