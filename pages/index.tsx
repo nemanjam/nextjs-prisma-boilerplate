@@ -1,5 +1,5 @@
 import React from 'react';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import PageLayout from 'layouts/PageLayout';
 import { PostsProps } from 'components/PostItem';
 import prisma from 'lib-server/prisma';
@@ -14,7 +14,7 @@ const Home: React.FC<PostsProps> = ({ posts }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   let _posts = await prisma.post.findMany({
     where: {
       published: true,

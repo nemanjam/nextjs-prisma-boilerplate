@@ -47,7 +47,8 @@ const createUsers = (n) => {
     name: `user${index} name`,
     username: `user${index}`,
     email: `user${index}@email.com`,
-    image: `avatar${index % 4}.jpg`, // 0...3
+    // undefined for placeholder, prisma converts it to null
+    image: index === 3 ? undefined : `avatar${index % 4}.jpg`, // 0...3
     password,
     bio: lorem.sentences(3),
     role: index === 0 ? 'admin' : 'user',

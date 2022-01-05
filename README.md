@@ -388,6 +388,10 @@ docker run --rm -it \
 
 - AFTER deleting container you have to DELETE VOLUME TOO
 
+### DATABASE_URL Docker buildtime
+
+- wherever you replace getServerSideProps with getStaticProps it will read db buildtime and precompile page with data, you can switch getServerSideProps and getStaticProps to test
+
 ---
 
 ### Todo
