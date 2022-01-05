@@ -460,3 +460,4 @@ docker run --rm -it \
 - docker express maybe, github actions, remote containers
 - prisma migrate in docker, move prisma to devDependencies
 - where to place and call printLoadedEnvVariables() ?
+- nginx container reverse proxy
