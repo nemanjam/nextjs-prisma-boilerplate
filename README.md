@@ -390,7 +390,9 @@ docker run --rm -it \
 
 ### DATABASE_URL Docker buildtime
 
-- wherever you replace getServerSideProps with getStaticProps it will read db buildtime and precompile page with data, you can switch getServerSideProps and getStaticProps to test
+- wherever you replace getServerSideProps with getStaticProps it will read db buildtime and precompile page with data from db, you can switch getServerSideProps and getStaticProps to test
+
+### Remote containers VS Code
 
 ---
 
