@@ -5,9 +5,6 @@ import fs from 'fs';
 import next from 'next';
 import getConfig from 'next/config';
 
-// no need for this, maybe in seed
-// loadEnvConfig(process.cwd()); // returns vars for debug
-
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();

@@ -1,5 +1,5 @@
 {
-  "name": "hello-next",
+  "name": "nextjs-prisma-boilerplate",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -25,7 +25,7 @@
     "dc-dev": "docker-compose -f docker-compose.dev.yml up",
     "docker-build-prod": "dotenv -e .env.local -- sh -c 'docker build -f Dockerfile.prod -t next-prisma-prod --build-arg ARG_DATABASE_URL=${DATABASE_URL} .'",
     "dc-build-prod": "dotenv -e .env.local -- sh -c 'docker-compose -f docker-compose.prod.yml build'",
-    "dc-prod": "dotenv -e .env.local -- sh -c 'docker-compose -f docker-compose.prod.yml up'",
+    "dc-prod": "docker-compose -f docker-compose.prod.yml up",
     "test-script": "./scripts.sh docker_compose_prod"
   },
   "dependencies": {
