@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
+      # db needed for static site generation - getStaticProps
       args:
         - ARG_DATABASE_URL=$DATABASE_URL
     ports:
