@@ -1,0 +1,46 @@
+// Update the VARIANT arg in docker-compose.yml to pick a Node.js version
+{
+  "name": "Next.js Prisma Boilerplate",
+  "dockerComposeFile": "../docker-compose.dev.yml",
+  "service": "nextjs-prisma-dev",
+  // Dockerfile workdir
+  "workspaceFolder": "/app",
+
+  // Set *default* container specific settings.json values on container create.
+  "settings": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+      // Run Stylelint fix when you save the file
+      "source.fixAll.stylelint": true
+    },
+    // Add those two lines:
+    "editor.formatOnSave": true, // Tell VSCode to format files on save
+    "editor.defaultFormatter": "esbenp.prettier-vscode", // Tell VSCode to use Prettier as default file formatter
+    // Recommended config for the extension
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false,
+    "typescript.tsdk": "node_modules/typescript/lib"
+  },
+
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": [
+    "dsznajder.es7-react-js-snippets",
+    "esbenp.prettier-vscode",
+    "Prisma.prisma",
+    "bradlc.vscode-tailwindcss",
+    "stylelint.vscode-stylelint",
+    "csstools.postcss"
+  ],
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // don't forward 3001, already fowarded in docker-compose.dev.yml
+  //"forwardPorts": [3001, 5432],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": "yarn install",
+
+  // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "node",
+  "shutdownAction": "stopCompose"
+}

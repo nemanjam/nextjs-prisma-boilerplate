@@ -5,6 +5,7 @@
     "Prisma.prisma",
     "bradlc.vscode-tailwindcss",
     "stylelint.vscode-stylelint",
-    "csstools.postcss"
+    "csstools.postcss",
+    "ms-vscode-remote.remote-containers"
   ]
 }
