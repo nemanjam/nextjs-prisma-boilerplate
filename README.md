@@ -394,6 +394,8 @@ docker run --rm -it \
 
 ### Remote containers VS Code
 
+- port forward in devcontainer.json only needed with Dockerfile, already defined in docker-compose.yml
+
 ---
 
 ### Todo

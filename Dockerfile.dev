@@ -38,7 +38,8 @@ RUN chown -R node:node node_modules/.prisma
 
 USER node
 
-RUN ls -la node_modules/.prisma/client
+# debug
+# RUN ls -la node_modules/.prisma/client
 
 EXPOSE 3001
 ENV PORT 3001

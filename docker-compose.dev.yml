@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    # command: sleep infinity
+    command: sleep infinity
     ports:
       - '3001:3001'
     volumes:

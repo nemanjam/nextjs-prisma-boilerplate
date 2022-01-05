@@ -34,7 +34,8 @@
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  // don't forward 3001, already fowarded in docker-compose.dev.yml
+  // don't forward 3001, already forwarded in docker-compose.dev.yml
+  // only needed with Dockerfile
   //"forwardPorts": [3001, 5432],
 
   // Use 'postCreateCommand' to run commands after the container is created.
