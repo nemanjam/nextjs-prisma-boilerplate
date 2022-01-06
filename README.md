@@ -396,6 +396,12 @@ docker run --rm -it \
 
 - port forward in devcontainer.json only needed with Dockerfile, already defined in docker-compose.yml
 
+### Traefik reverse proxy
+
+- blog [tutorial](https://www.alexhyett.com/traefik-vs-nginx-docker-raspberry-pi) and Github [repo](https://github.com/alexhyett/traefik-vs-nginx-docker)
+- Digital ocean [tutorial](https://www.digitalocean.com/community/tutorials/how-to-use-traefik-v2-as-a-reverse-proxy-for-docker-containers-on-ubuntu-20-04)
+- Hashnode [tutorial](https://rafrasenberg.hashnode.dev/docker-container-management-with-traefik-v2-and-portainer) and Github [repo](https://github.com/rafrasenberg/docker-traefik-portainer)
+
 ---
 
 ### Todo
