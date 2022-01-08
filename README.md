@@ -420,7 +420,7 @@ docker-compose -f docker-compose.prod.yml build
 
 # ---
 
-export HOSTNAME="nextjs-prisma-boilerplate.localhost3000.live"
+export HOSTNAME="localhost3000.live"
 echo $HOSTNAME
 
 docker-compose -f docker-compose.prod.yml up
