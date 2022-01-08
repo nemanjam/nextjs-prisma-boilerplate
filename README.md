@@ -402,6 +402,41 @@ docker run --rm -it \
 - Digital ocean [tutorial](https://www.digitalocean.com/community/tutorials/how-to-use-traefik-v2-as-a-reverse-proxy-for-docker-containers-on-ubuntu-20-04)
 - Hashnode [tutorial](https://rafrasenberg.hashnode.dev/docker-container-management-with-traefik-v2-and-portainer) and Github [repo](https://github.com/rafrasenberg/docker-traefik-portainer)
 
+### Traefik deploy production
+
+```bash
+scp ./.env.local ubuntu@amd1:/home/ubuntu/traefik-proxy/apps/nextjs-prisma-boilerplate
+
+scp ./prisma/dev.db ubuntu@amd1:/home/ubuntu/traefik-proxy/apps/nextjs-prisma-boilerplate/prisma
+
+chmod 777 prisma/dev.db
+```
+
+```bash
+export DATABASE_URL="file:./dev.db"
+echo $DATABASE_URL
+
+docker-compose -f docker-compose.prod.yml build
+
+# ---
+
+export HOSTNAME="nextjs-prisma-boilerplate.localhost3000.live"
+echo $HOSTNAME
+
+docker-compose -f docker-compose.prod.yml up
+
+```
+
+- `env_file` inserts into container, not in docker-compose.yml, those are from host (HOSTNAME)
+
+```yml
+env_file:
+  - .env.production
+  - .env.local
+    labels:
+      - 'traefik.http.routers.nextjs-prisma-secure.rule=Host(`nextjs-prisma-boilerplate.${HOSTNAME}`)'
+```
+
 ---
 
 ### Todo
