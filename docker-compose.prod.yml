@@ -8,8 +8,8 @@ services:
       # db needed for static site generation - getStaticProps
       args:
         - ARG_DATABASE_URL=$DATABASE_URL
-    ports:
-      - '3001:3001'
+    # ports:
+    #   - '3001:3001'
     #command: sleep infinity
     # forward secrets from host at runtime
     # environment:
@@ -17,9 +17,22 @@ services:
     # volumes: uploads, prisma
     volumes:
       - ./uploads:/app/uploads
-      #- ./prisma:/app/prisma
+      - ./prisma:/app/prisma
     # runtime only
     env_file:
       - .env.production
       # for now
       - .env.local
+    # ------------------ traefik deployment
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.nextjs-prisma-secure.rule=Host(`nextjs-prisma-boilerplate.${HOSTNAME}`)'
+      - 'traefik.http.routers.nextjs-prisma-secure.entrypoints=websecure'
+      - 'traefik.http.routers.nextjs-prisma-secure.service=nextjs-prisma'
+      - 'traefik.http.services.nextjs-prisma.loadbalancer.server.port=3001'
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
