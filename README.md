@@ -404,12 +404,17 @@ docker run --rm -it \
 
 ### Traefik deploy production
 
+- problem: cannot write to sqlite db, solution: `chmod a+rw prisma prisma/dev.db`, both folder and db file
+- `chmod 777 -R prisma` - error, can't read schema.prisma
+
 ```bash
 scp ./.env.local ubuntu@amd1:/home/ubuntu/traefik-proxy/apps/nextjs-prisma-boilerplate
 
 scp ./prisma/dev.db ubuntu@amd1:/home/ubuntu/traefik-proxy/apps/nextjs-prisma-boilerplate/prisma
 
-chmod 777 prisma/dev.db
+# to prisma folder itself non-recursively too
+# only these two, not schema or folder recursively
+chmod 777 prisma prisma/dev.db
 ```
 
 ```bash
@@ -423,7 +428,9 @@ docker-compose -f docker-compose.prod.yml build
 export HOSTNAME="localhost3000.live"
 echo $HOSTNAME
 
-docker-compose -f docker-compose.prod.yml up
+docker-compose -f docker-compose.prod.yml up -d
+
+docker-compose -f docker-compose.prod.yml down
 
 ```
 
@@ -433,9 +440,11 @@ docker-compose -f docker-compose.prod.yml up
 env_file:
   - .env.production
   - .env.local
-    labels:
-      - 'traefik.http.routers.nextjs-prisma-secure.rule=Host(`nextjs-prisma-boilerplate.${HOSTNAME}`)'
+labels:
+  - 'traefik.http.routers.nextjs-prisma-secure.rule=Host(`nextjs-prisma-boilerplate.${HOSTNAME}`)'
 ```
+
+- set env vars on host permanently?
 
 ---
 
