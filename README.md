@@ -406,6 +406,7 @@ docker run --rm -it \
 
 - problem: cannot write to sqlite db, solution: `chmod a+rw prisma prisma/dev.db`, both folder and db file
 - `chmod 777 -R prisma` - error, can't read schema.prisma
+- but add `chmod a+rw -R uploads` for uploads folder
 
 ```bash
 scp ./.env.local ubuntu@amd1:/home/ubuntu/traefik-proxy/apps/nextjs-prisma-boilerplate
