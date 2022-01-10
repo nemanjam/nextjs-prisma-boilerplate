@@ -15,21 +15,28 @@ services:
     env_file:
       - .env.development
       - .env.local
-    #
-    #
-#     network_mode: service:postgres-db
+    depends_on:
+      - postgres-db-dev
+    networks:
+      - internal
 
-#   postgres-db-dev:
-#     image: postgres:14-alpine
-#     container_name: postgres-db-dev
-#     restart: unless-stopped
-#     ports:
-#       - 5432:5432
-#     env_file:
-#       - .env.local
-#     volumes:
-#       - ./prisma/pg-data:/var/lib/postgresql/data
+  postgres-db-dev:
+    image: postgres:14-alpine
+    container_name: postgres-db-dev
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    env_file:
+      - .env.local
+    volumes:
+      - ./prisma/pg-data:/var/lib/postgresql/data
+    networks:
+      - internal
 
 volumes:
   np-dev-node_modules:
   np-dev-next:
+
+networks:
+  internal:
+    external: false

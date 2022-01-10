@@ -26,13 +26,39 @@ services:
     # ------------------ traefik deployment
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.nextjs-prisma-secure.rule=Host(`nextjs-prisma-boilerplate.${HOSTNAME}`)'
+      - 'traefik.http.routers.nextjs-prisma-secure.rule=Host(`${HOSTNAME}`)'
       - 'traefik.http.routers.nextjs-prisma-secure.entrypoints=websecure'
       - 'traefik.http.routers.nextjs-prisma-secure.service=nextjs-prisma'
       - 'traefik.http.services.nextjs-prisma.loadbalancer.server.port=3001'
+    depends_on:
+      - postgres-db-prod
     networks:
       - proxy
+      - internal
+
+  postgres-db-prod:
+    image: postgres:14-alpine
+    container_name: postgres-db-prod
+    restart: unless-stopped
+    # expose directly, open firewall
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./prisma/pg-data:/var/lib/postgresql/data
+    # instead of env_file
+    # environment:
+    #   POSTGRES_USER: user
+    #   POSTGRES_PASSWORD: pass
+    #   POSTGRES_DB: db
+    env_file:
+      - .env.local
+    labels:
+      - 'traefik.enable=false'
+    networks:
+      - internal
 
 networks:
   proxy:
     external: true
+  internal:
+    external: false
