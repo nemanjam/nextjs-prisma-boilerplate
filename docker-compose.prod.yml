@@ -40,7 +40,7 @@ services:
     image: postgres:14-alpine
     container_name: postgres-db-prod
     restart: unless-stopped
-    # expose directly, open firewall
+    # expose directly
     ports:
       - '5432:5432'
     volumes:
@@ -52,10 +52,15 @@ services:
     #   POSTGRES_DB: db
     env_file:
       - .env.local
-    labels:
-      - 'traefik.enable=false'
     networks:
+      - proxy
       - internal
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.postgres-secure.rule=Host(`postgres-${HOSTNAME}`)'
+      - 'traefik.http.routers.postgres-secure.entrypoints=websecure'
+      - 'traefik.http.routers.postgres-secure.service=postgres'
+      - 'traefik.http.services.postgres.loadbalancer.server.port=5432'
 
 networks:
   proxy:

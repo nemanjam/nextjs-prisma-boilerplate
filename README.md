@@ -520,6 +520,6 @@ labels:
 - on change tw-base.scss must restart, no intelisense for my utilities
 - themes
 - docker express maybe, github actions, remote containers
-- prisma migrate in docker, move prisma to devDependencies
 - where to place and call printLoadedEnvVariables() ?
 - nginx container reverse proxy
+- add prisma migration container, move prisma to devDependencies
