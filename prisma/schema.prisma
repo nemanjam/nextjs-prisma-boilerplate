@@ -9,10 +9,11 @@ generator client {
 // https://github.com/prisma/prisma/issues/3834
 
 datasource db {
-  provider = "sqlite" 
+  provider = "postgres" 
   url      =  env("DATABASE_URL")
 }
 
+// provider = "sqlite" 
 // url    =  "file:./dev.db"
 
 model Post {
@@ -25,6 +26,8 @@ model Post {
   createdAt   DateTime  @default(now()) @map(name: "created_at")
   updatedAt   DateTime  @updatedAt @map(name: "updated_at")
   // hero image, tag, category, comments
+
+  @@map("posts")
 }
 
 model User {
