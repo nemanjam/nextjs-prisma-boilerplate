@@ -15,6 +15,7 @@ dist/
 
 # needed for sqlite
 # prisma/db.dev
+prisma/pg-data/
 
 # named volumes
 .next/
