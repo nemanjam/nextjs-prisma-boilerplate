@@ -457,6 +457,14 @@ labels:
 ### Postgres
 
 - set env vars Oracle?
+- allow remote connections [tutorial](https://docs.cloudera.com/HDPDocuments/HDF3/HDF-3.5.2/installing-hdf/content/configure_postgres_to_allow_remote_connections.html) and [volume paths](https://stackoverflow.com/questions/67172400/how-to-launch-a-postgres-docker-container-with-valid-initial-setting)
+
+```yml
+volumes:
+  - ./prisma/pg-data:/var/lib/postgresql/data
+  - ./prisma/pg-config/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
+# - ./prisma/pg-config/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+```
 
 ---
 

@@ -45,6 +45,9 @@ services:
       - '5432:5432'
     volumes:
       - ./prisma/pg-data:/var/lib/postgresql/data
+      - ./prisma/pg-config/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
+    # - ./prisma/pg-config/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+
     # instead of env_file
     # environment:
     #   POSTGRES_USER: user
