@@ -48,7 +48,7 @@ ARG ARG_DATABASE_URL
 ENV DATABASE_URL=$ARG_DATABASE_URL
 
 # debug
-RUN echo "DATABASE_URL_3=$DATABASE_URL"
+RUN echo "DATABASE_URL=$DATABASE_URL"
 # ENV DEBUG=*
 
 # npx prisma migrate deploy && npx prisma db seed - not needed

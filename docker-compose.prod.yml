@@ -2,12 +2,14 @@ version: '3.8'
 services:
   nextjs-prisma-prod:
     container_name: nextjs-prisma-prod
+    # image: nextjs-prisma-prod:latest
     build:
       context: .
       dockerfile: Dockerfile.prod
       # db needed for static site generation - getStaticProps
       args:
         - ARG_DATABASE_URL=$DATABASE_URL
+
     # ports:
     #   - '3001:3001'
     #command: sleep infinity

@@ -23,10 +23,10 @@
     "docker-build-dev": "docker build -f Dockerfile.dev -t nextjs-prisma-dev .",
     "dc-build-dev": "docker-compose -f docker-compose.dev.yml nextjs-prisma-dev build",
     "dc-dev": "docker-compose -f docker-compose.dev.yml up",
-    "docker-build-prod": "docker build -f Dockerfile.prod -t nextjs-prisma-prod --env-file=.env.local --build-arg ARG_DATABASE_URL=${DATABASE_URL} .",
+    "docker-build-prod": "dotenv -e .env.local -- sh -c 'docker build -f Dockerfile.prod -t nextjs-prisma-prod --build-arg ARG_DATABASE_URL=${DATABASE_URL} .'",
     "dc-build-prod": "docker-compose -f docker-compose.prod.yml nextjs-prisma-prod --env-file=.env.local build",
     "dc-prod": "docker-compose -f docker-compose.prod.yml up",
-    "test-script": "./scripts.sh docker_compose_prod"
+    "test-script": "dotenv -e .env.local -- sh -c 'echo $DATABASE_URL'"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.8.5",

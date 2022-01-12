@@ -466,6 +466,12 @@ volumes:
 # - ./prisma/pg-config/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
 ```
 
+- needed to build with local database
+
+```bash
+sudo chown -R $USER ./prisma/pg-data
+```
+
 ---
 
 ### Todo
