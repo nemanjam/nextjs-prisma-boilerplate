@@ -30,9 +30,9 @@ services:
       - ./prisma/pg-data:/var/lib/postgresql/data
     # instead of env_file
     # environment:
-    #   POSTGRES_USER: $POSTGRES_USER
-    #   POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-    #   POSTGRES_DB: $POSTGRES_DB
+    #   POSTGRES_USER=$POSTGRES_USER
+    #   POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+    #   POSTGRES_DB=$POSTGRES_DB
     env_file:
       - .env.local
     networks:
