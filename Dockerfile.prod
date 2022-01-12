@@ -32,7 +32,8 @@ RUN yarn install --production=true --frozen-lockfile --ignore-scripts \
     && rm -f package-lock.json \
     && yarn install --production=false --prefer-offline \
     && npx prisma generate \
-    && rm -rf prisma
+    && rm -rf prisma \
+    && yarn cache clean
     
 #------ target bulider
 

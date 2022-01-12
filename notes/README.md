@@ -265,3 +265,7 @@ datasource db {
 - Share your feedback in the [`prisma2`](https://prisma.slack.com/messages/CKQTGR6T0/) channel on the [Prisma Slack](https://slack.prisma.io/)
 - Create issues and ask questions on [GitHub](https://github.com/prisma/prisma/)
 - Watch our biweekly "What's new in Prisma" livestreams on [Youtube](https://www.youtube.com/channel/UCptAHlN1gdwD89tFM3ENb6w)
+
+## Example db_url
+
+postgres://lrquamrkysbd:60525f430d73fee17b1f2826e3be7a837bd04711d6ca3b7e7@ec2-107-236-219.compute-1.amazonaws.com:5432/d5u6ptgdlh
