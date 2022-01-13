@@ -472,9 +472,47 @@ volumes:
 sudo chown -R $USER ./prisma/pg-data
 ```
 
-# Adminer custom port
+### Postgres allow remote connections
 
-- set e.g. `localhost:5432` in the server field
+#### expose Postgres directly without Traefik (can't route TCP to subdomains, only IPs, layer4)
+
+- set custom location for `postgresql.conf` (remove it from `/var/lib/postgresql/data`)
+- can't mount conf files in `/var/lib/postgresql/data`, folder not empty error
+- change port to `5433`
+
+```yml
+command: postgres -p 5433 -c config_file=/etc/postgresql.conf
+```
+
+- set custom location for `pg_hba.conf` in `postgresql.conf`
+
+```bash
+hba_file = '/etc/pg_hba.conf'
+```
+
+- allow remote connections in `pg_hba.conf`
+- [tutorial](https://docs.cloudera.com/HDPDocuments/HDF3/HDF-3.5.2/installing-hdf/content/configure_postgres_to_allow_remote_connections.html)
+
+```bash
+# IPv4 local connections:
+host    all             all             0.0.0.0/0               trust
+
+# IPv6 local connections:
+host    all             all             ::/0                    trust
+```
+
+- mount data and config files
+
+```yml
+volumes:
+  - ./pg-data:/var/lib/postgresql/data
+  - ./pg-config/postgresql.conf:/etc/postgresql.conf
+  - ./pg-config/pg_hba.conf:/etc/pg_hba.conf
+```
+
+### Adminer custom port
+
+- set e.g. `localhost:5433` in the server field
 
 ---
 
