@@ -472,6 +472,10 @@ volumes:
 sudo chown -R $USER ./prisma/pg-data
 ```
 
+# Adminer custom port
+
+- set e.g. `localhost:5432` in the server field
+
 ---
 
 ### Todo
