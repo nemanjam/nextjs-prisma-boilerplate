@@ -517,6 +517,11 @@ volumes:
 ### NEXTAUTH_URL required at build time
 
 - or error: login redirect to http:$protocol
+- in `server.ts` log:
+
+```
+NEXTAUTH_URL: $PROTOCOL://$HOSTNAME,
+```
 
 ---
 
