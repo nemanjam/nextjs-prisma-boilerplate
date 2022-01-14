@@ -514,6 +514,10 @@ volumes:
 
 - set e.g. `localhost:5433` in the server field
 
+### NEXTAUTH_URL required at build time
+
+- or error: login redirect to http:$protocol
+
 ---
 
 ### Todo

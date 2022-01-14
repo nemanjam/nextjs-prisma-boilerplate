@@ -47,8 +47,12 @@ COPY --from=dependencies /app/node_modules ./node_modules
 ARG ARG_DATABASE_URL
 ENV DATABASE_URL=$ARG_DATABASE_URL
 
+# NEXTAUTH_URL required at build time
+ARG ARG_NEXTAUTH_URL
+ENV NEXTAUTH_URL=$ARG_NEXTAUTH_URL
+
 # debug
-RUN echo "DATABASE_URL=$DATABASE_URL"
+RUN echo "DATABASE_URL=$DATABASE_URL, NEXTAUTH_URL=$NEXTAUTH_URL"
 # ENV DEBUG=*
 
 # npx prisma migrate deploy && npx prisma db seed - not needed

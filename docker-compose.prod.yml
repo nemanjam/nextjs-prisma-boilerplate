@@ -9,6 +9,7 @@ services:
       # db needed for static site generation - getStaticProps
       args:
         - ARG_DATABASE_URL=$DATABASE_URL
+        - ARG_NEXTAUTH_URL=$NEXTAUTH_URL
 
     # ports:
     #   - '3001:3001'
