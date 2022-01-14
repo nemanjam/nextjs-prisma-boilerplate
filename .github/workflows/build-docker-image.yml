@@ -36,8 +36,8 @@ jobs:
           file: ./Dockerfile.prod
           build-args: ARG_DATABASE_URL=${{ secrets.NPB_DATABASE_URL}}
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/nextjs-prisma-boilerplate:latest
-          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/nextjs-prisma-boilerplate:buildcache
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-prisma-boilerplate:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/nextjs-prisma-boilerplate:buildcache
           cache-to: type=inline
 
       - name: Image digest
