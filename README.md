@@ -534,6 +534,7 @@ build-args: |
 - to reflect NEXTAUTH_URL in `.env.production` change you must rebuild container
 
 - NEXTAUTH_URL different values at build and runtime???
+- docker-compose up with force pull latest image?
 
 ---
 
