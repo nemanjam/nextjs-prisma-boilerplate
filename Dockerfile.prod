@@ -52,7 +52,9 @@ ARG ARG_NEXTAUTH_URL
 ENV NEXTAUTH_URL=$ARG_NEXTAUTH_URL
 
 # debug
-RUN echo "DATABASE_URL=$DATABASE_URL, NEXTAUTH_URL=$NEXTAUTH_URL"
+RUN echo "DATABASE_URL=$DATABASE_URL"
+RUN echo "NEXTAUTH_URL=$NEXTAUTH_URL"
+
 # ENV DEBUG=*
 
 # npx prisma migrate deploy && npx prisma db seed - not needed
