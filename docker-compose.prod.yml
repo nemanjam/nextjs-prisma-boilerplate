@@ -25,8 +25,8 @@ services:
       - 'traefik.enable=true'
       - 'traefik.http.routers.nextjs-prisma-secure.rule=Host(`${HOSTNAME}`)'
       - 'traefik.http.routers.nextjs-prisma-secure.entrypoints=websecure'
-      - 'traefik.http.routers.nextjs-prisma-secure.service=nextjs-prisma'
-      - 'traefik.http.services.nextjs-prisma.loadbalancer.server.port=3001'
+      - 'traefik.http.routers.nextjs-prisma-secure.service=nextjs-prisma-svc'
+      - 'traefik.http.services.nextjs-prisma-svc.loadbalancer.server.port=3001'
     depends_on:
       - postgres-db-prod
     networks:
@@ -41,6 +41,7 @@ services:
       - '5432:5432'
     volumes:
       - ./prisma/pg-data:/var/lib/postgresql/data
+    # internal only for now
     # - ./prisma/pg-config/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
     # - ./prisma/pg-config/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
 
@@ -52,6 +53,7 @@ services:
     env_file:
       - .env.local
     networks:
+      - proxy
       - internal
 
 networks:
