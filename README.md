@@ -523,6 +523,18 @@ volumes:
 NEXTAUTH_URL: $PROTOCOL://$HOSTNAME,
 ```
 
+- pass `build-args:` in Github Actions, must use double quotes, single quotes fail
+
+```
+build-args: |
+  "ARG_DATABASE_URL=${{ secrets.NPB_DATABASE_URL }}"
+  "ARG_NEXTAUTH_URL=${{ secrets.NPB_NEXTAUTH_URL }}"
+```
+
+- to reflect NEXTAUTH_URL in `.env.production` change you must rebuild container
+
+- NEXTAUTH_URL different values at build and runtime???
+
 ---
 
 ### Todo
