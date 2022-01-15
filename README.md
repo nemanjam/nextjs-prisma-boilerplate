@@ -576,21 +576,22 @@ build-args: |
 - global styles button, links..., done
 - footer, done
 - problem: seed is buggy? solution: prisma 3 has bug with Promise.all([...]), use await, await, await..., done
+- traefik container reverse proxy, done
+- fix remaining forms, done
+- sqlite to postgres, done
+- dev, prod remove express https, done
+- docker, done
+- validation server, client, example [with-joi](https://github.com/vercel/next.js/tree/canary/examples/with-joi), [next-joi](https://github.com/codecoolture/next-joi), done with zod
+- extract styles, tailwind, next examples, done
 
 ---
 
-- extract styles, tailwind, next examples
-- validation server, client, example [with-joi](https://github.com/vercel/next.js/tree/canary/examples/with-joi), [next-joi](https://github.com/codecoolture/next-joi)
 - logging
 - tests, next examples
-- docker
 - ci cd, deploy
 - readme
-- dev, prod remove express https
-- sqlite to postgres
 - tailwind and root font-size 10px 1rem, global and component styles
 - Header component
-- fix remaining forms
 - react query, redux toolkit, redux toolkit query
 - \_document.tsx
 - redux toolkit vercel example
@@ -598,7 +599,6 @@ build-args: |
 - update readme before forget...
 - refetch session after user is edited
 - try catch to prisma calls getServerSideProps...
-- comment model
 - light, dark, orange, blue theme
 - soft delete for reseed, or logger
 - semantic html
@@ -608,11 +608,11 @@ build-args: |
 - drafts count in session or user state
 - protected routes and 404 pages
 - typescript silent errors...
-- \_document.jsx
 - on change tw-base.scss must restart, no intelisense for my utilities
 - themes
 - docker express maybe, github actions, remote containers
 - where to place and call printLoadedEnvVariables() ?
-- nginx container reverse proxy
 - add prisma migration container, move prisma to devDependencies
 - next.js multiple build contexts
+- heroku docker
+- update traefik-proxy readme
