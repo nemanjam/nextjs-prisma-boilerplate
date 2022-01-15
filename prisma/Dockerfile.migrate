@@ -1,0 +1,24 @@
+
+ARG BASE=node:16-alpine
+
+FROM ${BASE}
+
+RUN apk update \
+	&& apk add --no-cache openssl \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& rm -rf /var/cache/apk/*
+
+RUN openssl version
+
+WORKDIR /app
+
+# prisma folder mounted as volume
+COPY package.json ./
+
+RUN yarn config set unsafe-perm true \
+    && yarn install \
+    && yarn cache clean
+
+# we need volume and database url to perform migration
+# do nothing, overriden in docker-compose
+CMD ["node", "-v"]

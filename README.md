@@ -364,7 +364,7 @@ docker run --rm -it \
 - env vars not expanded in production?
 - disk usage node_modules
 
-```
+```bash
 /app # du -sh ./node_modules/* | sort -nr | grep '\dM.*'
 123.8M  ./node_modules/@prisma
 95.6M   ./node_modules/@next
@@ -373,6 +373,20 @@ docker run --rm -it \
 32.5M   ./node_modules/next
 17.1M   ./node_modules/faker
 5.0M    ./node_modules/moment
+```
+
+```
+yarn add prisma
+du -hs node_modules
+133M	node_modules
+---
+yarn add @prisma/client
+du -hs node_modules
+143M	node_modules
+---
+yarn add prisma @prisma/client
+du -hs node_modules
+143M	node_modules
 ```
 
 - add migration-seed container with prisma
@@ -601,3 +615,4 @@ build-args: |
 - where to place and call printLoadedEnvVariables() ?
 - nginx container reverse proxy
 - add prisma migration container, move prisma to devDependencies
+- next.js multiple build contexts

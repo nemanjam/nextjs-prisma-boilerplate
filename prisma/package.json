@@ -1,0 +1,20 @@
+{
+  "name": "prisma-migrate",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "author": "",
+  "scripts": {
+    "migrate": "npx prisma migrate deploy",
+    "seed": "npx prisma db seed"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.8.1",
+    "prisma": "^3.8.1"
+  },
+  "devDependencies": {},
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  }
+}
