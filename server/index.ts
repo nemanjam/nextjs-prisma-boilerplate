@@ -50,6 +50,7 @@ function printLoadedEnvVariables() {
   const vars = {
     '-node': seprator,
     NODE_ENV: process.env.NODE_ENV,
+    PORT: process.env.PORT,
     'env-buildime': seprator,
     NEXT_PUBLIC_AVATARS_PATH: process.env.NEXT_PUBLIC_AVATARS_PATH,
     NEXT_PUBLIC_HEADERS_PATH: process.env.NEXT_PUBLIC_HEADERS_PATH,

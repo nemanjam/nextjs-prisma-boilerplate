@@ -550,6 +550,11 @@ build-args: |
 - NEXTAUTH_URL different values at build and runtime???
 - docker-compose up with force pull latest image?
 
+### Heroku Docker
+
+- port must not be hardcoded in Dockerfile
+- upload volume can't work
+
 ---
 
 ### Todo
