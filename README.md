@@ -621,3 +621,4 @@ build-args: |
 - next.js multiple build contexts, next.js app, server.ts and seed.js
 - heroku docker
 - update traefik-proxy readme
+- pagination with react query
