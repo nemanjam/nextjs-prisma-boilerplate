@@ -618,6 +618,6 @@ build-args: |
 - docker express maybe, github actions, remote containers
 - where to place and call printLoadedEnvVariables() ?
 - add prisma migration container, move prisma to devDependencies
-- next.js multiple build contexts
+- next.js multiple build contexts, next.js app, server.ts and seed.js
 - heroku docker
 - update traefik-proxy readme
