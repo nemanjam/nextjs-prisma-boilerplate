@@ -11,3 +11,7 @@ export type PostStr = WithStringDates<Post>;
 export type PostWithAuthorStr = PostStr & {
   author: UserStr;
 };
+
+export type PostWithAuthor = Post & {
+  author: User;
+};

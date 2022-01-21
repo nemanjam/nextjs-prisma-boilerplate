@@ -555,6 +555,29 @@ build-args: |
 - port must not be hardcoded in Dockerfile
 - upload volume can't work
 
+### React Snipets
+
+- Github [readme](https://github.com/dsznajder/vscode-react-javascript-snippets/blob/HEAD/docs/Snippets.md)
+
+```js
+nfn→ const functionName = (params) => { }
+---
+rafce
+
+import React from 'react';
+
+const $1 = () => {
+  return <div>$0</div>;
+};
+
+export default $1;
+
+```
+
+### React Query
+
+- pages are just for routing, views are real pages with fetching
+
 ---
 
 ### Todo

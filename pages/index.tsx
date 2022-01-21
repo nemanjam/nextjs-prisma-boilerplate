@@ -2,9 +2,9 @@ import React from 'react';
 import { GetServerSideProps } from 'next';
 import PageLayout from 'layouts/PageLayout';
 import { PostsProps } from 'components/PostItem';
-import prisma from 'lib-server/prisma';
+import { getPostsWithAuthor } from 'pages/api/posts';
 import { datesToStrings } from 'utils';
-import { default as HomeView } from 'views/Home';
+import HomeView from 'views/Home';
 
 const Home: React.FC<PostsProps> = ({ posts }) => {
   return (
@@ -15,16 +15,7 @@ const Home: React.FC<PostsProps> = ({ posts }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  let _posts = await prisma.post.findMany({
-    where: {
-      published: true,
-    },
-    include: {
-      author: true,
-    },
-  });
-
-  _posts = _posts?.length > 0 ? _posts : [];
+  const _posts = await getPostsWithAuthor();
 
   const posts = _posts.map(({ author, ...post }) =>
     datesToStrings({ ...post, author: datesToStrings(author) })
