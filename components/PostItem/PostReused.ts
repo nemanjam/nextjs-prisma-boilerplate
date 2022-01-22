@@ -2,13 +2,13 @@ import Router from 'next/router';
 import { Session } from 'next-auth';
 import axios from 'axios';
 import { Routes } from 'lib-client/constants';
-import { PostWithAuthorStr } from 'types';
+import { PostWithAuthorStr, PostWithAuthor } from 'types';
 
 // pages/[username]/post/[id].tsx - page
 // views/Post/Post.tsx - view
 // components/PostItem/PostItem.tsx - component
 export type PostProps = {
-  post: PostWithAuthorStr;
+  post: PostWithAuthorStr | PostWithAuthor;
 };
 
 // home, drafts - pages

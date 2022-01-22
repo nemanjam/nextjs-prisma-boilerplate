@@ -1,15 +1,14 @@
 import React from 'react';
 import { withBem } from 'utils/bem';
 import PostItem from 'components/PostItem';
-import { PostsProps } from 'components/PostItem';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 
-const Home: React.FC<PostsProps> = ({ posts }) => {
+const Home: React.FC = () => {
   const b = withBem('home');
 
-  const { data, isLoading } = usePosts();
+  const { data: posts, isLoading } = usePosts();
 
-  console.log('data', data);
+  if (isLoading) return <h2>Loading...</h2>;
 
   return (
     <div className={b()}>

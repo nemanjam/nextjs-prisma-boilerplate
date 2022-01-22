@@ -1,29 +1,27 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
+import { dehydrate, QueryClient } from 'react-query';
 import PageLayout from 'layouts/PageLayout';
-import { PostsProps } from 'components/PostItem';
 import { getPostsWithAuthor } from 'pages/api/posts';
-import { datesToStrings } from 'utils';
 import HomeView from 'views/Home';
+import QueryKeys from 'lib-client/react-query/queryKeys';
 
-const Home: React.FC<PostsProps> = ({ posts }) => {
+const Home: React.FC = () => {
   return (
     <PageLayout>
-      <HomeView posts={posts} />
+      {/* now posts are passed via context and React Query cache */}
+      <HomeView />
     </PageLayout>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const _posts = await getPostsWithAuthor();
-
-  const posts = _posts.map(({ author, ...post }) =>
-    datesToStrings({ ...post, author: datesToStrings(author) })
-  );
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(QueryKeys.POSTS, getPostsWithAuthor);
 
   return {
     props: {
-      posts,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };

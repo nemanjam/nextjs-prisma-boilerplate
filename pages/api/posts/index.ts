@@ -26,8 +26,8 @@ export const getPostsWithAuthor = async (): Promise<PostWithAuthor[]> => {
     },
   });
 
-  posts = posts?.length > 0 ? posts : [];
-  return posts; // fix type
+  posts = Array.isArray(posts) ? posts : [];
+  return posts;
 };
 
 // add pagination

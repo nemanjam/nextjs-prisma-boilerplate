@@ -53,6 +53,7 @@
     "react-icons": "^4.3.1",
     "react-query": "^3.34.8",
     "sass": "^1.49.0",
+    "superjson": "^1.8.0",
     "zod": "^3.11.6"
   },
   "devDependencies": {
@@ -68,6 +69,7 @@
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
     "autoprefixer": "^10.4.2",
+    "babel-plugin-superjson-next": "^0.4.2",
     "dotenv-cli": "^4.1.1",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
