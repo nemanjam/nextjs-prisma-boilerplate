@@ -32,7 +32,8 @@ export type GetPostsQueryParams = {
   // maybe sort key and direction
 };
 
-const DEFAULT_LIMIT = 10;
+// defined in a single place, only here
+const DEFAULT_LIMIT = 3;
 
 // fn reused in getServerSideProps
 export const getPostsWithAuthor = async (

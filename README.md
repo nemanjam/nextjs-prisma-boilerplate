@@ -670,3 +670,4 @@ export default $1;
 - pagination with prisma and react query
 - type all request and response objects
 - add search posts field
+- create docs folder with mds

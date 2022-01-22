@@ -13,7 +13,6 @@ const getPosts = async (page: number) => {
     {
       params: {
         page,
-        limit: 10,
       },
     }
   );

@@ -1,0 +1,9 @@
+.pagination {
+  &__list {
+    @apply inline-flex gap-2;
+
+    &--fetching {
+      @apply bg-red-200;
+    }
+  }
+}

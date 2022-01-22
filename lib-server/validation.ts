@@ -69,17 +69,15 @@ export const postUpdateSchema = z.object({
   published: z.boolean().optional(),
 });
 
+// query params numbers are strings, parse them before validating
+const stringToNumber = (numberStr: string): number | void => {
+  return numberStr ? parseInt(z.string().parse(numberStr), 10) : undefined;
+};
+
 const maxLimit = 100;
 
 export const postsGetSchema = z.object({
   searchTerm: z.string().optional().or(z.literal('')),
-  page: z.preprocess(
-    (numberStr) => parseInt(z.string().parse(numberStr), 10),
-    z.number().min(1)
-  ),
-  // query params numbers are strings, parse them before validating
-  limit: z.preprocess(
-    (numberStr) => parseInt(z.string().parse(numberStr), 10),
-    z.number().min(1).max(maxLimit)
-  ),
+  page: z.preprocess(stringToNumber, z.number().min(1).optional()),
+  limit: z.preprocess(stringToNumber, z.number().min(1).max(maxLimit).optional()),
 });

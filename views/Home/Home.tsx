@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { withBem } from 'utils/bem';
 import PostItem from 'components/PostItem';
+import Pagination from 'components/Pagination';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 
 const Home: React.FC = () => {
@@ -15,26 +16,20 @@ const Home: React.FC = () => {
     <div className={b()}>
       <h1 className={b('title')}>Home</h1>
 
-      <div className={b('pagination')}>
-        <button
-          onClick={() => setPage((oldPage) => Math.max(oldPage - 1, 1))}
-          disabled={page === 0}
-        >
-          Previous Page
-        </button>
-        <span>Current Page: {page}</span>
-        <button
-          onClick={() => {
-            if (!isPreviousData && data.pagination.hasMore) {
-              setPage((oldPage) => oldPage + 1);
-            }
-          }}
-          disabled={isPreviousData || !data?.pagination.hasMore}
-        >
-          Next Page
-        </button>
-        {isFetching && <span> Loading...</span>}
-      </div>
+      <Pagination
+        onPreviousClick={() => setPage((oldPage) => Math.max(oldPage - 1, 1))}
+        onNextClick={() => {
+          if (!isPreviousData && data.pagination.hasMore) {
+            setPage((oldPage) => oldPage + 1);
+          }
+        }}
+        setPage={setPage}
+        isPreviousDisabled={page === 1}
+        isNextDisabled={isPreviousData || !data?.pagination.hasMore}
+        currentPage={page}
+        pagesCount={data?.pagination.pagesCount}
+        isFetching={isFetching}
+      />
 
       <div className={b('list')}>
         {data.items.map((post) => (
