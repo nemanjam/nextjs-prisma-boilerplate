@@ -68,3 +68,11 @@ export const postUpdateSchema = z.object({
   // +
   published: z.boolean().optional(),
 });
+
+const maxLimit = 100;
+
+export const postsGetSchema = z.object({
+  page: z.number().min(1),
+  limit: z.number().min(1).max(maxLimit),
+  searchTerm: z.string().optional().or(z.literal('')),
+});
