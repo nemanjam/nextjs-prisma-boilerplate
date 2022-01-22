@@ -26,7 +26,7 @@ model Post {
   authorId    String?
   createdAt   DateTime  @default(now()) @map(name: "created_at")
   updatedAt   DateTime  @updatedAt @map(name: "updated_at")
-  // hero image, tag, category, comments
+  // hero image, tag, category, comments, likes
 
   @@map("posts")
 }

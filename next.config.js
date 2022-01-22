@@ -20,8 +20,9 @@ module.exports = {
     // rename to single uploads var
     NEXT_PUBLIC_AVATARS_PATH: '/uploads/avatars/',
     NEXT_PUBLIC_HEADERS_PATH: '/uploads/headers/',
-    // not used anywhere, just rename it
+    // used in axios instance, just rename it
     NEXT_PUBLIC_BASE_URL: `${process.env.NEXTAUTH_URL}/`,
+    NEXT_PUBLIC_POSTS_PER_PAGE: 5,
   },
   // runtime, server, private
   serverRuntimeConfig: {

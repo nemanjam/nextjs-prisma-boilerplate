@@ -32,8 +32,7 @@ export type GetPostsQueryParams = {
   // maybe sort key and direction
 };
 
-// defined in a single place, only here
-const DEFAULT_LIMIT = 3;
+const defaultLimit = parseInt(process.env.NEXT_PUBLIC_POSTS_PER_PAGE);
 
 // fn reused in getServerSideProps
 export const getPostsWithAuthor = async (
@@ -42,7 +41,7 @@ export const getPostsWithAuthor = async (
   const validationResult = postsGetSchema.safeParse(query);
   if (!validationResult.success) return; // throw 404 in getServerSideProps
 
-  const { page = 1, limit = DEFAULT_LIMIT, searchTerm } = validationResult.data;
+  const { page = 1, limit = defaultLimit, searchTerm } = validationResult.data;
 
   const where = {
     where: {
