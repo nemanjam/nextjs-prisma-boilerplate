@@ -583,6 +583,24 @@ export default $1;
 - use `babel-plugin-superjson-next` and `superjson-next` [Readme](https://github.com/blitz-js/superjson#using-with-nextjs)
 - make sure it's `.babelrc` with `.`
 
+### Pagination Prisma
+
+- offset - for small number, must select previos, can jump to page, can sort on any field
+- cursor - for infinite scroll facebook timeline, can handle large number, needs one sorted field, can't jump to page
+- offset and cursor-based pagination [prisma docs](https://www.prisma.io/docs/concepts/components/prisma-client/pagination) and [tutorial](https://medium.com/@smallbee/super-fast-offset-pagination-with-prisma2-21db93e5cc90)
+- Prisma code [example](https://dnlytras.com/snippets/searchable-paginated-endpoint-prisma/)
+
+### Pagination React Query
+
+- `keepPreviousData` and `useQuery` is v3, `usePaginatedQuery` is v2
+- official [example](https://github.dev/tannerlinsley/react-query)
+- Udemy [example](https://github.dev/bonnie/udemy-REACT-QUERY)
+
+### Prisma Postgres full text search
+
+- text search, `search` prop [docs](https://www.prisma.io/docs/concepts/components/prisma-client/full-text-search)
+- filtering `AND, OR, where, contains` [docs](https://www.prisma.io/docs/concepts/components/prisma-client/filtering-and-sorting)
+
 ---
 
 ### Todo
@@ -651,3 +669,4 @@ export default $1;
 - update traefik-proxy readme
 - pagination with prisma and react query
 - type all request and response objects
+- add search posts field
