@@ -5,7 +5,7 @@ import nc, { ncOptions } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
 import { getSession } from 'next-auth/react';
 import { postCreateSchema, postsGetSchema } from 'lib-server/validation';
-import { PostWithAuthor } from 'types';
+import { PostWithAuthor, PaginatedResponse } from 'types';
 
 const handler = nc(ncOptions);
 
@@ -29,6 +29,7 @@ export type GetPostsQueryParams = {
   page?: number;
   limit?: number;
   searchTerm?: string;
+  // maybe sort key and direction
 };
 
 const DEFAULT_LIMIT = 10;
@@ -36,9 +37,9 @@ const DEFAULT_LIMIT = 10;
 // fn reused in getServerSideProps
 export const getPostsWithAuthor = async (
   query: QueryParamsType
-): Promise<PostWithAuthor[]> => {
+): Promise<PaginatedResponse<PostWithAuthor>> => {
   const validationResult = postsGetSchema.safeParse(query);
-  if (!validationResult.success) return []; // throw 404 in getServerSideProps
+  if (!validationResult.success) return; // throw 404 in getServerSideProps
 
   const { page = 1, limit = DEFAULT_LIMIT, searchTerm } = validationResult.data;
 
@@ -67,29 +68,36 @@ export const getPostsWithAuthor = async (
     include: {
       author: true,
     },
+    orderBy: {
+      updatedAt: 'desc',
+    },
   });
 
   posts = Array.isArray(posts) ? posts : [];
 
-  const response = {
-    posts,
+  const result = {
+    items: posts,
     pagination: {
       total: totalCount,
-      pageCount: Math.ceil(totalCount / limit),
+      pagesCount: Math.ceil(totalCount / limit),
       currentPage: page,
       perPage: limit,
-      from: (page - 1) * limit + 1,
+      from: (page - 1) * limit + 1, // from item
       to: (page - 1) * limit + posts.length,
+      hasMore: page < Math.ceil(totalCount / limit),
     },
   };
 
-  return response;
+  // Math.ceil(1.4) = 2
+  // 23 1..10, 11..20, 21..23
+
+  return result;
 };
 
 // add pagination
 handler.get(validatePostsGet(), async (req: NextApiRequest, res: NextApiResponse) => {
-  const posts = await getPostsWithAuthor(req.query);
-  res.status(200).json({ posts });
+  const response = await getPostsWithAuthor(req.query);
+  res.status(200).json(response);
 });
 
 handler.post(

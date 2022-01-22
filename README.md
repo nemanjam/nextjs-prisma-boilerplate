@@ -649,4 +649,5 @@ export default $1;
 - next.js multiple build contexts, next.js app, server.ts and seed.js
 - heroku docker
 - update traefik-proxy readme
-- pagination with react query
+- pagination with prisma and react query
+- type all request and response objects

@@ -72,7 +72,14 @@ export const postUpdateSchema = z.object({
 const maxLimit = 100;
 
 export const postsGetSchema = z.object({
-  page: z.number().min(1),
-  limit: z.number().min(1).max(maxLimit),
   searchTerm: z.string().optional().or(z.literal('')),
+  page: z.preprocess(
+    (numberStr) => parseInt(z.string().parse(numberStr), 10),
+    z.number().min(1)
+  ),
+  // query params numbers are strings, parse them before validating
+  limit: z.preprocess(
+    (numberStr) => parseInt(z.string().parse(numberStr), 10),
+    z.number().min(1).max(maxLimit)
+  ),
 });

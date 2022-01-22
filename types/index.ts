@@ -15,3 +15,18 @@ export type PostWithAuthorStr = PostStr & {
 export type PostWithAuthor = Post & {
   author: User;
 };
+
+export type PaginatedResponse<T> = {
+  items: T[];
+  pagination: {
+    total: number;
+    pagesCount: number;
+    currentPage: number;
+    perPage: number;
+    from: number;
+    to: number;
+    hasMore: boolean;
+  };
+};
+
+// type all request and response objects
