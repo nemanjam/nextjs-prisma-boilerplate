@@ -25,11 +25,17 @@ type QueryParamsType = {
   [key: string]: string | string[];
 };
 
+type SortDirectionType = 'asc' | 'desc';
+type SortFieldType = 'updatedAt' | 'title' | 'name';
+
+// type not used
 export type GetPostsQueryParams = {
   page?: number;
   limit?: number;
+  username?: string;
   searchTerm?: string;
-  // maybe sort key and direction
+  sortField?: SortFieldType;
+  sortDirection?: SortDirectionType;
 };
 
 const defaultLimit = parseInt(process.env.NEXT_PUBLIC_POSTS_PER_PAGE);
@@ -41,20 +47,35 @@ export const getPostsWithAuthor = async (
   const validationResult = postsGetSchema.safeParse(query);
   if (!validationResult.success) return; // throw 404 in getServerSideProps
 
-  const { page = 1, limit = defaultLimit, searchTerm } = validationResult.data;
+  const {
+    page = 1,
+    limit = defaultLimit,
+    searchTerm,
+    username,
+    sortField = 'updatedAt',
+    sortDirection: _sortDirection,
+  } = validationResult.data;
 
+  // default sortDirection
+  const sortDirection = _sortDirection
+    ? (_sortDirection as SortDirectionType)
+    : sortField === 'updatedAt'
+    ? 'desc'
+    : 'asc';
+
+  if (username) {
+    const user = await prisma.user.findUnique({ where: { username } });
+    if (!user) return; // throw 404
+  }
+
+  // for count
   const where = {
     where: {
       published: true,
-      ...(searchTerm && {
-        OR: [
-          { title: { search: searchTerm } },
-          {
-            author: {
-              name: { search: searchTerm },
-            },
-          },
-        ],
+      ...(username && {
+        author: {
+          username,
+        },
       }),
     },
   };
@@ -68,8 +89,26 @@ export const getPostsWithAuthor = async (
     include: {
       author: true,
     },
+    // sort and text search
     orderBy: {
-      updatedAt: 'desc',
+      ...(sortField === 'updatedAt' && { updatedAt: sortDirection }),
+      ...(sortField === 'title' && {
+        _relevance: {
+          fields: ['title'],
+          search: searchTerm,
+          sort: sortDirection,
+        },
+      }),
+      ...(!username &&
+        sortField === 'name' && {
+          author: {
+            _relevance: {
+              fields: ['name'],
+              search: searchTerm,
+              sort: sortDirection,
+            },
+          },
+        }),
     },
   });
 

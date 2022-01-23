@@ -77,7 +77,21 @@ const stringToNumber = (numberStr: string): number | void => {
 const maxLimit = 100;
 
 export const postsGetSchema = z.object({
-  searchTerm: z.string().optional().or(z.literal('')),
   page: z.preprocess(stringToNumber, z.number().min(1).optional()),
   limit: z.preprocess(stringToNumber, z.number().min(1).max(maxLimit).optional()),
+  searchTerm: z.string().optional().or(z.literal('')),
+  username: z.string().optional().or(z.literal('')),
+  sortField: z
+    .string()
+    .optional()
+    .or(z.literal(''))
+    .or(z.literal('updatedAt'))
+    .or(z.literal('title'))
+    .or(z.literal('name')),
+  sortDirection: z
+    .string()
+    .optional()
+    .or(z.literal(''))
+    .or(z.literal('asc'))
+    .or(z.literal('desc')),
 });

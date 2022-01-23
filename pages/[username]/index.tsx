@@ -4,7 +4,7 @@ import prisma from 'lib-server/prisma';
 import PageLayout from 'layouts/PageLayout';
 import { UserStr, PostStr } from 'types';
 import { datesToStrings } from 'utils';
-import { default as ProfileView } from 'views/Profile';
+import ProfileView from 'views/Profile';
 
 type ProfileProps = {
   profile: UserStr;
