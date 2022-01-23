@@ -672,3 +672,5 @@ export default $1;
 - add search posts field
 - create docs folder with mds
 - group pagination items
+- full text search posts
+- request, response types

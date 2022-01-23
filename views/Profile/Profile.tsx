@@ -16,7 +16,10 @@ const Profile: React.FC<ProfileProps> = ({ profile }) => {
   const b = withBem('profile');
 
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, isPreviousData } = usePosts(page);
+  const { data, isLoading, isFetching, isPreviousData } = usePosts({
+    page,
+    username: profile.username,
+  });
 
   if (isLoading) return <h2>Loading...</h2>;
 
@@ -40,6 +43,7 @@ const Profile: React.FC<ProfileProps> = ({ profile }) => {
       </section>
 
       <Pagination
+        align="right"
         onPreviousClick={() => setPage((oldPage) => Math.max(oldPage - 1, 1))}
         onNextClick={() => {
           if (!isPreviousData && data.pagination.hasMore) {

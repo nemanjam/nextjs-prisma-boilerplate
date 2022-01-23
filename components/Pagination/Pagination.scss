@@ -1,6 +1,10 @@
 .pagination {
   @apply flex flex-col gap-2;
 
+  &--right {
+    @apply items-end;
+  }
+
   &__help-text {
     @apply inline-flex gap-2;
   }

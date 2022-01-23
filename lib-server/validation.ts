@@ -11,8 +11,8 @@ const passwordMin = 3,
 
 export const userGetSchema = z
   .object({
-    email: z.string().email(),
-    username: z.string().min(usernameMin).max(usernameMax),
+    email: z.string().email().optional().or(z.literal('')),
+    username: z.string().min(usernameMin).max(usernameMax).optional().or(z.literal('')),
   })
   .refine(
     (data) => data.email || data.username, // false triggers message

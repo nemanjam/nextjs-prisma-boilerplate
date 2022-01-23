@@ -8,7 +8,7 @@ const Home: React.FC = () => {
   const b = withBem('home');
 
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, isPreviousData } = usePosts(page);
+  const { data, isLoading, isFetching, isPreviousData } = usePosts({ page });
 
   if (isLoading) return <h2>Loading...</h2>;
 

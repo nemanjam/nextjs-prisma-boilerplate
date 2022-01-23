@@ -15,6 +15,7 @@ type Props = {
   from?: number;
   to?: number;
   total?: number;
+  align?: 'left' | 'right';
 };
 
 const Pagination: FC<Props> = ({
@@ -29,12 +30,15 @@ const Pagination: FC<Props> = ({
   from,
   to,
   total,
+  align = 'left',
 }) => {
   const b = withBem('pagination');
 
+  const fetching = isFetching && <span className={b('text')}>Fetching...</span>;
   return (
-    <nav className={b()}>
+    <nav className={b(null, { right: align === 'right' })}>
       <span className={b('help-text')}>
+        {align === 'right' && fetching}
         <span className={b('text')}>Showing</span>
         <span className={b('number')}>{from}</span>
         <span className={b('text')}>to</span>
@@ -42,7 +46,7 @@ const Pagination: FC<Props> = ({
         <span className={b('text')}>of</span>
         <span className={b('number')}>{total}</span>
         <span className={b('text')}>Items</span>
-        {isFetching && <span className={b('text')}>Fetching...</span>}
+        {align !== 'right' && fetching}
       </span>
 
       <ul className={b('list')}>

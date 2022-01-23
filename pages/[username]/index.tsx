@@ -22,11 +22,13 @@ const Profile: React.FC<ProfileProps> = ({ profile }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const _profile = await getUserByUsernameOrEmail(params);
+
   if (!_profile) {
     return {
       notFound: true,
     };
   }
+
   const { password, ...profile } = _profile;
   const query = { username: profile.username };
 

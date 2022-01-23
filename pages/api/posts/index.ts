@@ -24,9 +24,9 @@ const validatePostsGet = withValidation({
 type SortDirectionType = 'asc' | 'desc';
 type SortFieldType = 'updatedAt' | 'title' | 'name';
 
-// type not used
+// used on client only, in usePosts
 export type GetPostsQueryParams = {
-  page?: number;
+  page: number;
   limit?: number;
   username?: string;
   searchTerm?: string;
