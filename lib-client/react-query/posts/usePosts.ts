@@ -24,6 +24,7 @@ const usePosts = (page: number) => {
 
   const query = useQuery([QueryKeys.POSTS, page], () => getPosts(page), {
     keepPreviousData: true,
+    staleTime: 5000,
   });
 
   const hasMore = query.data?.pagination.hasMore;

@@ -12,6 +12,9 @@ type Props = {
   currentPage?: number;
   pagesCount?: number;
   isFetching?: boolean;
+  from?: number;
+  to?: number;
+  total?: number;
 };
 
 const Pagination: FC<Props> = ({
@@ -23,12 +26,26 @@ const Pagination: FC<Props> = ({
   currentPage,
   pagesCount,
   isFetching,
+  from,
+  to,
+  total,
 }) => {
   const b = withBem('pagination');
 
   return (
     <nav className={b()}>
-      <ul className={b('list', { fetching: isFetching })}>
+      <span className={b('help-text')}>
+        <span className={b('text')}>Showing</span>
+        <span className={b('number')}>{from}</span>
+        <span className={b('text')}>to</span>
+        <span className={b('number')}>{to}</span>
+        <span className={b('text')}>of</span>
+        <span className={b('number')}>{total}</span>
+        <span className={b('text')}>Items</span>
+        {isFetching && <span className={b('text')}>Fetching...</span>}
+      </span>
+
+      <ul className={b('list')}>
         <li>
           <Button
             onClick={onPreviousClick}

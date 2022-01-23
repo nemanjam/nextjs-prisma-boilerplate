@@ -27,8 +27,11 @@ const Home: React.FC = () => {
         isPreviousDisabled={page === 1}
         isNextDisabled={isPreviousData || !data?.pagination.hasMore}
         currentPage={page}
-        pagesCount={data?.pagination.pagesCount}
+        pagesCount={data.pagination.pagesCount}
         isFetching={isFetching}
+        from={data.pagination.from}
+        to={data.pagination.to}
+        total={data.pagination.total}
       />
 
       <div className={b('list')}>

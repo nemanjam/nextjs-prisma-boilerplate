@@ -671,3 +671,4 @@ export default $1;
 - type all request and response objects
 - add search posts field
 - create docs folder with mds
+- group pagination items
