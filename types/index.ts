@@ -29,4 +29,8 @@ export type PaginatedResponse<T> = {
   };
 };
 
+export type QueryParamsType = {
+  [key: string]: string | string[];
+};
+
 // type all request and response objects

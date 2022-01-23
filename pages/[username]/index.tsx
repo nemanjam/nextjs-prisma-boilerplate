@@ -1,54 +1,41 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
-import prisma from 'lib-server/prisma';
 import PageLayout from 'layouts/PageLayout';
-import { UserStr, PostStr } from 'types';
-import { datesToStrings } from 'utils';
+import { QueryClient } from 'react-query';
 import ProfileView from 'views/Profile';
+import { getUserByUsernameOrEmail } from 'pages/api/users';
+import { getPostsWithAuthor } from 'pages/api/posts';
+import { User } from '@prisma/client';
+import QueryKeys from 'lib-client/react-query/queryKeys';
 
 type ProfileProps = {
-  profile: UserStr;
-  posts: PostStr[];
+  profile: User;
 };
 
-const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
+const Profile: React.FC<ProfileProps> = ({ profile }) => {
   return (
     <PageLayout noPaddingTop>
-      <ProfileView profile={profile} posts={posts} />
+      <ProfileView profile={profile} />
     </PageLayout>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  // validate first
-  const user = await prisma.user.findUnique({
-    where: {
-      username: params?.username as string,
-    },
-    include: {
-      posts: {
-        where: {
-          published: true,
-        },
-        orderBy: {
-          updatedAt: 'desc',
-        },
-      },
-    },
-  });
-
-  if (!user) {
+  const _profile = await getUserByUsernameOrEmail(params);
+  if (!_profile) {
     return {
       notFound: true,
     };
   }
+  const { password, ...profile } = _profile;
+  const query = { username: profile.username };
 
-  const { posts, password, ...profile } = user;
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(QueryKeys.POSTS, () => getPostsWithAuthor(query));
 
   return {
     props: {
-      profile: datesToStrings(profile),
-      posts: posts.map((post) => datesToStrings(post)),
+      profile,
     },
   };
 };

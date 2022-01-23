@@ -5,7 +5,7 @@ import nc, { ncOptions } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
 import { getSession } from 'next-auth/react';
 import { postCreateSchema, postsGetSchema } from 'lib-server/validation';
-import { PostWithAuthor, PaginatedResponse } from 'types';
+import { PostWithAuthor, PaginatedResponse, QueryParamsType } from 'types';
 
 const handler = nc(ncOptions);
 
@@ -20,10 +20,6 @@ const validatePostsGet = withValidation({
   type: 'Zod',
   mode: 'query',
 });
-
-type QueryParamsType = {
-  [key: string]: string | string[];
-};
 
 type SortDirectionType = 'asc' | 'desc';
 type SortFieldType = 'updatedAt' | 'title' | 'name';
@@ -133,10 +129,9 @@ export const getPostsWithAuthor = async (
   return result;
 };
 
-// add pagination
 handler.get(validatePostsGet(), async (req: NextApiRequest, res: NextApiResponse) => {
-  const response = await getPostsWithAuthor(req.query);
-  res.status(200).json(response);
+  const posts = await getPostsWithAuthor(req.query);
+  res.status(200).json(posts);
 });
 
 handler.post(

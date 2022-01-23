@@ -34,11 +34,11 @@ const Home: React.FC = () => {
         total={data.pagination.total}
       />
 
-      <div className={b('list')}>
+      <section className={b('list')}>
         {data.items.map((post) => (
           <PostItem key={post.id} post={post} />
         ))}
-      </div>
+      </section>
     </div>
   );
 };

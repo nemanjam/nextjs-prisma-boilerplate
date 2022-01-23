@@ -12,6 +12,7 @@ import { userUpdateSchema } from 'lib-server/validation';
 type MulterRequest = NextApiRequest & { files: any };
 
 const handler = nc(ncOptions);
+const getId = (req: NextApiRequest) => req.query.id as string;
 
 const validateUserUpdate = withValidation({
   schema: userUpdateSchema,
@@ -19,13 +20,20 @@ const validateUserUpdate = withValidation({
   mode: 'body',
 });
 
+// GET /api/users/:id
+// for me query
+handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
+  const user = await prisma.user.findUnique({ where: { id: getId(req) } });
+  res.status(200).json({ user });
+});
+
 handler.patch(
   requireAuth,
   profileImagesUpload,
   validateUserUpdate(),
   async (req: NextApiRequest, res: NextApiResponse) => {
-    const { query, body, files } = req as MulterRequest;
-    const id = query.id as string;
+    const { body, files } = req as MulterRequest;
+    const id = getId(req);
     const { name, username, password } = body; // email reconfirm...
 
     const session = await getSession({ req });

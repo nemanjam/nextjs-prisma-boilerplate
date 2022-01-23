@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
-import { PostStr, UserStr } from 'types';
 import { withBem } from 'utils/bem';
 import PostItem from 'components/PostItem';
 import { getAvatarPath, getHeaderImagePath } from 'utils';
 import { mommentFormats } from '@lib-server/constants';
+import { User } from '@prisma/client';
+import { usePosts } from 'lib-client/react-query/posts/usePosts';
+import Pagination from 'components/Pagination';
 
 type ProfileProps = {
-  profile: UserStr;
-  posts: PostStr[];
+  profile: User;
 };
 
-const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
+const Profile: React.FC<ProfileProps> = ({ profile }) => {
   const b = withBem('profile');
+
+  const [page, setPage] = useState(1);
+  const { data, isLoading, isFetching, isPreviousData } = usePosts(page);
+
+  if (isLoading) return <h2>Loading...</h2>;
 
   return (
     <div className={b()}>
@@ -33,9 +39,27 @@ const Profile: React.FC<ProfileProps> = ({ profile, posts }) => {
         </div>
       </section>
 
+      <Pagination
+        onPreviousClick={() => setPage((oldPage) => Math.max(oldPage - 1, 1))}
+        onNextClick={() => {
+          if (!isPreviousData && data.pagination.hasMore) {
+            setPage((oldPage) => oldPage + 1);
+          }
+        }}
+        setPage={setPage}
+        isPreviousDisabled={page === 1}
+        isNextDisabled={isPreviousData || !data?.pagination.hasMore}
+        currentPage={page}
+        pagesCount={data.pagination.pagesCount}
+        isFetching={isFetching}
+        from={data.pagination.from}
+        to={data.pagination.to}
+        total={data.pagination.total}
+      />
+
       <section className={b('list')}>
-        {posts.map((post) => (
-          <PostItem key={post.id} post={{ ...post, author: profile }} />
+        {data.items.map((post) => (
+          <PostItem key={post.id} post={post} />
         ))}
       </section>
     </div>

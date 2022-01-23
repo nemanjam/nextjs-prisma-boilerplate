@@ -9,6 +9,16 @@ const passwordMin = 3,
   usernameMax = 15,
   bioMax = 200;
 
+export const userGetSchema = z
+  .object({
+    email: z.string().email(),
+    username: z.string().min(usernameMin).max(usernameMax),
+  })
+  .refine(
+    (data) => data.email || data.username, // false triggers message
+    'Either email or username should be filled in.'
+  );
+
 export const userLoginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(passwordMin).max(passwordMax),
