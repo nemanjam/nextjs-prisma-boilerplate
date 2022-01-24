@@ -3,12 +3,15 @@ import { withBem } from 'utils/bem';
 import PostItem from 'components/PostItem';
 import Pagination from 'components/Pagination';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
+import QueryKeys from 'lib-client/react-query/queryKeys';
 
 const Home: React.FC = () => {
   const b = withBem('home');
 
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, isPreviousData } = usePosts({ page });
+  const { data, isLoading, isFetching, isPreviousData } = usePosts(QueryKeys.POSTS_HOME, {
+    page,
+  });
 
   if (isLoading) return <h2>Loading...</h2>;
 

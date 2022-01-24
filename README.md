@@ -676,3 +676,5 @@ export default $1;
 - request, response types
 - me query, only userId and email in session
 - throw 404 from zod api...
+- error path, db function, getServerSideProps,api endpoint
+- query key in getServerSidePropa and useQuery and type it

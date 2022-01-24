@@ -17,7 +17,7 @@ const Home: React.FC = () => {
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(QueryKeys.POSTS, () => getPostsWithAuthor(query));
+  await queryClient.prefetchQuery(QueryKeys.POSTS_HOME, () => getPostsWithAuthor(query));
 
   return {
     props: {

@@ -28,10 +28,13 @@ type SortFieldType = 'updatedAt' | 'title' | 'name';
 export type GetPostsQueryParams = {
   page: number;
   limit?: number;
+  userId?: string;
+  email?: string;
   username?: string;
   searchTerm?: string;
   sortField?: SortFieldType;
   sortDirection?: SortDirectionType;
+  published?: boolean;
 };
 
 const defaultLimit = parseInt(process.env.NEXT_PUBLIC_POSTS_PER_PAGE);
@@ -47,9 +50,12 @@ export const getPostsWithAuthor = async (
     page = 1,
     limit = defaultLimit,
     searchTerm,
+    userId,
+    email,
     username,
     sortField = 'updatedAt',
     sortDirection: _sortDirection,
+    published = true,
   } = validationResult.data;
 
   // default sortDirection
@@ -67,10 +73,20 @@ export const getPostsWithAuthor = async (
   // for count
   const where = {
     where: {
-      published: true,
+      published,
       ...(username && {
         author: {
-          username,
+          OR: [
+            {
+              id: userId,
+            },
+            {
+              email,
+            },
+            {
+              username,
+            },
+          ],
         },
       }),
     },

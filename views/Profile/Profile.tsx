@@ -7,6 +7,7 @@ import { mommentFormats } from '@lib-server/constants';
 import { User } from '@prisma/client';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import Pagination from 'components/Pagination';
+import QueryKeys from 'lib-client/react-query/queryKeys';
 
 type ProfileProps = {
   profile: User;
@@ -16,10 +17,13 @@ const Profile: React.FC<ProfileProps> = ({ profile }) => {
   const b = withBem('profile');
 
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, isPreviousData } = usePosts({
-    page,
-    username: profile.username,
-  });
+  const { data, isLoading, isFetching, isPreviousData } = usePosts(
+    QueryKeys.POSTS_PROFILE,
+    {
+      page,
+      username: profile.username,
+    }
+  );
 
   if (isLoading) return <h2>Loading...</h2>;
 

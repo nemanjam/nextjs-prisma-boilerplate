@@ -6,6 +6,9 @@ import prisma from 'lib-server/prisma';
 import { datesToStrings } from 'utils';
 import { default as DraftsView } from 'views/Drafts';
 import { PostsProps } from 'components/PostItem';
+import { dehydrate, QueryClient } from 'react-query';
+import QueryKeys from 'lib-client/react-query/queryKeys';
+import { getPostsWithAuthor } from 'pages/api/posts';
 
 const Drafts: React.FC<PostsProps> = ({ posts }) => {
   const { data: session } = useSession();
@@ -35,24 +38,20 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     return { props: { posts: [] } };
   }
 
-  let _posts = await prisma.post.findMany({
-    where: {
-      author: { id: session.user.id },
-      published: false,
-    },
-    include: {
-      author: true,
-    },
-  });
+  const query = {
+    userId: session.user.id,
+    published: 'false', // query string
+  };
 
-  _posts = _posts?.length > 0 ? _posts : [];
-
-  const posts = _posts.map(({ author, ...post }) =>
-    datesToStrings({ ...post, author: datesToStrings(author) })
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(QueryKeys.POSTS_DRAFTS, () =>
+    getPostsWithAuthor(query)
   );
 
   return {
-    props: { posts },
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
   };
 };
 
