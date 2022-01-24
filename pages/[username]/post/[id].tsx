@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { GetServerSideProps } from 'next';
 import PageLayout from 'layouts/PageLayout';
 import { useSession } from 'next-auth/react';
-import prisma from 'lib-server/prisma';
-import { datesToStrings } from 'utils';
-import { default as PostView } from 'views/Post';
+import PostView from 'views/Post';
 import { PostProps } from 'components/PostItem';
+import { getPostWithAuthorById } from 'pages/api/posts/[id]';
 
-const Post: React.FC<PostProps> = ({ post }) => {
+const Post: FC<PostProps> = ({ post }) => {
   const { data: session, status } = useSession();
   const loading = status === 'loading';
 
@@ -23,14 +22,8 @@ const Post: React.FC<PostProps> = ({ post }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = await prisma.post.findUnique({
-    where: {
-      id: Number(params?.id) || -1,
-    },
-    include: {
-      author: true,
-    },
-  });
+  // try catch...
+  const post = await getPostWithAuthorById(Number(params?.id));
 
   if (!post) {
     return {
@@ -39,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 
   return {
-    props: { post: datesToStrings({ ...post, author: datesToStrings(post.author) }) },
+    props: { post },
   };
 };
 

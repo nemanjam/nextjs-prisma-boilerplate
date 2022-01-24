@@ -674,3 +674,5 @@ export default $1;
 - group pagination items
 - full text search posts
 - request, response types
+- me query, only userId and email in session
+- throw 404 from zod api...

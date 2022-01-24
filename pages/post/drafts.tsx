@@ -26,6 +26,7 @@ const Drafts: React.FC<PostsProps> = ({ posts }) => {
   );
 };
 
+// can have pagination
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
 

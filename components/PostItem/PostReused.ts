@@ -8,7 +8,7 @@ import { PostWithAuthorStr, PostWithAuthor } from 'types';
 // views/Post/Post.tsx - view
 // components/PostItem/PostItem.tsx - component
 export type PostProps = {
-  post: PostWithAuthorStr | PostWithAuthor;
+  post: PostWithAuthor;
 };
 
 // home, drafts - pages
@@ -35,6 +35,6 @@ export const publishOrDeletePost = async (
   await Router.push(Routes.SITE.HOME);
 };
 
-export const getIsPostOwner = (session: Session, post: PostWithAuthorStr) =>
+export const getIsPostOwner = (session: Session, post: PostWithAuthor) =>
   session && session.user?.id === post.author?.id;
 export const getIsAdmin = (session: Session) => session?.user?.role === 'admin';

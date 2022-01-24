@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { withBem } from 'utils/bem';
@@ -13,7 +13,7 @@ import {
 import { mommentFormats } from '@lib-server/constants';
 import Button from 'components/Button';
 
-const Post: React.FC<PostProps> = ({ post }) => {
+const Post: FC<PostProps> = ({ post }) => {
   const { data: session } = useSession();
 
   const b = withBem('post');

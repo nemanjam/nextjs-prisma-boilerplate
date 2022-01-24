@@ -6,6 +6,7 @@ import prisma from 'lib-server/prisma';
 import { requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
 import { postUpdateSchema } from 'lib-server/validation';
+import { PostWithAuthor } from 'types';
 
 const handler = nc(ncOptions);
 const getId = (req: NextApiRequest) => Number(req.query.id as string);
@@ -16,10 +17,27 @@ const validatePostUpdate = withValidation({
   mode: 'body',
 });
 
+export const getPostWithAuthorById = async (id: number): Promise<PostWithAuthor> => {
+  // returns null for not found
+  const post = await prisma.post.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      author: true,
+    },
+  });
+  // don't throw from function but from api, it will be unhandled
+  return post;
+};
+
 // GET, PATCH, DELETE /api/post/:id
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
-  const post = await prisma.post.findUnique({ where: { id: getId(req) } });
+  const post = await getPostWithAuthorById(getId(req));
+
+  if (!post) throw new ApiError(`Post not found.`, 404);
+
   res.status(200).json({ post });
 });
 
