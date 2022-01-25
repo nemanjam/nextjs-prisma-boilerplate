@@ -72,15 +72,21 @@ handler.patch(
     const post = await prisma.post.update({
       where: { id },
       data,
+      include: {
+        author: true,
+      },
     });
 
-    res.status(200).json({ post });
+    res.status(200).json(post);
   }
 );
 
 handler.delete(requireAuth, async (req: NextApiRequest, res: NextApiResponse) => {
   const post = await prisma.post.delete({
     where: { id: getId(req) },
+    include: {
+      author: true,
+    },
   });
 
   res.status(204).json({ post });

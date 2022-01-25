@@ -578,6 +578,10 @@ export default $1;
 
 - pages are just for routing, views are real pages with fetching
 
+```
+await Promise.all([invalidateQueries(...), invalidateQueries(...)])
+```
+
 ### Serialize Dates in getServerSideProps solved
 
 - use `babel-plugin-superjson-next` and `superjson-next` [Readme](https://github.com/blitz-js/superjson#using-with-nextjs)

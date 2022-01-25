@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
@@ -6,19 +6,18 @@ import moment from 'moment';
 import { Routes } from 'lib-client/constants';
 import { withBem } from 'utils/bem';
 import { getAvatarPath } from 'utils';
-import {
-  PostProps,
-  publishOrDeletePost,
-  getIsAdmin,
-  getIsPostOwner,
-} from 'components/PostItem';
+import { PostProps, getIsAdmin, getIsPostOwner } from 'components/PostItem';
 import Button from 'components/Button';
+import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
+import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
 
-const PostItem: React.FC<PostProps> = ({ post }) => {
+const PostItem: FC<PostProps> = ({ post }) => {
   const router = useRouter();
   const { data: session } = useSession();
-
   const b = withBem('post-item');
+
+  const { mutate: updatePost, ...restUpdate } = useUpdatePost();
+  const { mutate: deletePost, ...restDelete } = useDeletePost();
 
   const { author } = post;
 
@@ -42,6 +41,14 @@ const PostItem: React.FC<PostProps> = ({ post }) => {
 
   return (
     <article className={b()} onClick={handlePostClick}>
+      {restUpdate.isError && (
+        <div className="alert-error">{restUpdate.error.message}</div>
+      )}
+
+      {restDelete.isError && (
+        <div className="alert-error">{restDelete.error.message}</div>
+      )}
+
       <div className={b('header')}>
         {/* avatar */}
         <div className={b('left')}>
@@ -80,12 +87,12 @@ const PostItem: React.FC<PostProps> = ({ post }) => {
       {isOwnerOrAdmin && (
         <div className={b('publish-delete')}>
           {!post.published && (
-            <Button onClick={() => publishOrDeletePost(post.id, 'publish')}>
-              Publish
+            <Button onClick={() => updatePost({ id: post.id, published: true })}>
+              {!restUpdate.isLoading ? 'Publish' : 'Submiting...'}
             </Button>
           )}
-          <Button variant="danger" onClick={() => publishOrDeletePost(post.id, 'delete')}>
-            Delete
+          <Button variant="danger" onClick={() => deletePost(post.id)}>
+            {!restDelete.isLoading ? 'Delete' : 'Deleting...'}
           </Button>
         </div>
       )}

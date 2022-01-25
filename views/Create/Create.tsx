@@ -14,10 +14,10 @@ import {
 const Create: React.FC = () => {
   const b = withBem('create');
 
-  const { mutate: createUser, isLoading, isError, error } = useCreatePost();
+  const { mutate: createPost, isLoading, isError, error } = useCreatePost();
 
   const onSubmit = async ({ title, content }: PostCreateType) => {
-    createUser({ title, content });
+    createPost({ title, content });
   };
 
   const { register, handleSubmit, formState } = useForm({
