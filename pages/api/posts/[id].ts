@@ -89,7 +89,7 @@ handler.delete(requireAuth, async (req: NextApiRequest, res: NextApiResponse) =>
     },
   });
 
-  res.status(204).json({ post });
+  res.status(204).json(post);
 });
 
 export default handler;
