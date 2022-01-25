@@ -20,19 +20,25 @@ export const usePosts = (queryKey: QueryKeysType, params: GetPostsQueryParams) =
   const queryClient = useQueryClient();
   const { page, username } = params;
 
-  const _queryKey = [queryKey, username, page].filter((item) => item || item === 0);
+  const filterEmpty = (queryKey: Array<unknown>) => {
+    return queryKey.filter((item) => item || item === 0);
+  };
 
-  const query = useQuery(_queryKey, () => getPosts(params), {
-    keepPreviousData: true,
-    staleTime: 5000,
-  });
+  const query = useQuery(
+    filterEmpty([queryKey, username, page]),
+    () => getPosts(params),
+    {
+      keepPreviousData: true,
+      staleTime: 5000,
+    }
+  );
 
   const hasMore = query.data?.pagination.hasMore;
 
   // prefetch next page
   useEffect(() => {
     if (hasMore) {
-      queryClient.prefetchQuery(['projects', page + 1], () =>
+      queryClient.prefetchQuery(filterEmpty([queryKey, username, page + 1]), () =>
         getPosts({ ...params, page: page + 1 })
       );
     }

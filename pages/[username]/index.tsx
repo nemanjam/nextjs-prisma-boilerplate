@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import PageLayout from 'layouts/PageLayout';
-import { QueryClient } from 'react-query';
+import { dehydrate, QueryClient } from 'react-query';
 import ProfileView from 'views/Profile';
 import { getUserByUsernameOrEmail } from 'pages/api/users';
 import { getPostsWithAuthor } from 'pages/api/posts';
@@ -40,6 +40,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   return {
     props: {
       profile,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };

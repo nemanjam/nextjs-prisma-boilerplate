@@ -2,20 +2,22 @@ import React, { FC } from 'react';
 import { GetServerSideProps } from 'next';
 import PageLayout from 'layouts/PageLayout';
 import PostView from 'views/Post';
-import { PostProps } from 'components/PostItem';
 import { getPostWithAuthorById } from 'pages/api/posts/[id]';
+import { dehydrate, QueryClient } from 'react-query';
+import QueryKeys from 'lib-client/react-query/queryKeys';
 
-const Post: FC<PostProps> = ({ post }) => {
+const Post: FC = () => {
   return (
     <PageLayout>
-      <PostView post={post} />
+      <PostView />
     </PageLayout>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const id = Number(params?.id);
   // try catch...
-  const post = await getPostWithAuthorById(Number(params?.id));
+  const post = await getPostWithAuthorById(id);
 
   if (!post) {
     return {
@@ -23,8 +25,13 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     };
   }
 
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery([QueryKeys.POST, id], () => post);
+
   return {
-    props: { post },
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
   };
 };
 

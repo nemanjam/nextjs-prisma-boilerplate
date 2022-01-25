@@ -2,25 +2,31 @@ import React, { FC } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { withBem } from 'utils/bem';
-import { getAvatarPath } from 'utils';
 import moment from 'moment';
-import {
-  PostProps,
-  getIsAdmin,
-  getIsPostOwner,
-  publishOrDeletePost,
-} from 'components/PostItem';
+import { useRouter } from 'next/router';
+import { getIsAdmin, getIsPostOwner } from 'components/PostItem';
+import { getAvatarPath } from 'utils';
 import { mommentFormats } from '@lib-server/constants';
 import Button from 'components/Button';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
+import { usePost } from 'lib-client/react-query/posts/usePost';
+import { Routes } from 'lib-client/constants';
 
-const Post: FC<PostProps> = ({ post }) => {
-  const { data: session } = useSession();
+const Post: FC = () => {
   const b = withBem('post');
 
+  const { data: session } = useSession();
+  const router = useRouter();
+  const id = Number(router.query?.id);
+
+  // redirect on delete
+  const { data: post, isLoading, isFetching } = usePost(id);
+
+  if (isLoading) return <h2>Loading...</h2>;
+
   const { mutate: updatePost, ...restUpdate } = useUpdatePost();
-  const { mutate: deletePost, ...restDelete } = useDeletePost();
+  const { mutateAsync: deletePost, ...restDelete } = useDeletePost();
 
   const { author } = post;
 
@@ -78,7 +84,13 @@ const Post: FC<PostProps> = ({ post }) => {
                   {!restUpdate.isLoading ? 'Publish' : 'Submiting...'}
                 </Button>
               )}
-              <Button variant="danger" onClick={() => deletePost(post.id)}>
+              <Button
+                variant="danger"
+                onClick={async () => {
+                  await deletePost(post.id);
+                  await router.push(Routes.SITE.HOME);
+                }}
+              >
                 {!restDelete.isLoading ? 'Delete' : 'Deleting...'}
               </Button>
             </div>

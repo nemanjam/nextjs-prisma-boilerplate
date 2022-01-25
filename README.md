@@ -683,3 +683,4 @@ await Promise.all([invalidateQueries(...), invalidateQueries(...)])
 - throw 404 from zod api...
 - error path, db function, getServerSideProps, api endpoint
 - mutations
+- handle errors in getServerSideProps
