@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { withBem } from 'utils/bem';
-import _ from 'lodash';
 import Button from 'components/Button';
 
 type Props = {
@@ -35,6 +34,7 @@ const Pagination: FC<Props> = ({
   const b = withBem('pagination');
 
   const fetching = isFetching && <span className={b('text')}>Fetching...</span>;
+
   return (
     <nav className={b(null, { right: align === 'right' })}>
       <span className={b('help-text')}>
@@ -60,16 +60,18 @@ const Pagination: FC<Props> = ({
           </Button>
         </li>
 
-        {_.range(1, pagesCount + 1).map((index) => (
-          <li key={index}>
-            <Button
-              onClick={() => setPage(index)}
-              variant={currentPage === index ? 'primary' : 'transparent'}
-            >
-              {index}
-            </Button>
-          </li>
-        ))}
+        {Array.from(Array(pagesCount).keys()) // range 1..9
+          .map((_val, i) => i + 1)
+          .map((index) => (
+            <li key={index}>
+              <Button
+                onClick={() => setPage(index)}
+                variant={currentPage === index ? 'primary' : 'transparent'}
+              >
+                {index}
+              </Button>
+            </li>
+          ))}
 
         <li>
           <Button onClick={onNextClick} disabled={isNextDisabled} variant="transparent">
