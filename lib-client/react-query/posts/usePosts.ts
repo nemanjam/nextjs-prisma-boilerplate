@@ -16,7 +16,7 @@ const getPosts = async (params: GetPostsQueryParams) => {
   return data;
 };
 
-const usePosts = (queryKey: QueryKeysType, params: GetPostsQueryParams) => {
+export const usePosts = (queryKey: QueryKeysType, params: GetPostsQueryParams) => {
   const queryClient = useQueryClient();
   const { page, username } = params;
 
@@ -40,5 +40,3 @@ const usePosts = (queryKey: QueryKeysType, params: GetPostsQueryParams) => {
 
   return query;
 };
-
-export { usePosts };

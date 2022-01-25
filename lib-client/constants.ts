@@ -12,4 +12,4 @@ export const Routes = {
     POSTS: '/api/posts/',
     USERS: '/api/users/',
   },
-};
+} as const;

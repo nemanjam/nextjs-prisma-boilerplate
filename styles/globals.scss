@@ -25,3 +25,7 @@ textarea.validation-error {
 p.validation-error {
   @apply text-red-600 text-sm;
 }
+
+div.alert-error {
+  @apply p-2 text-red-600 bg-red-200 border border-red-600;
+}

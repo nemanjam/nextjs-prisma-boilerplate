@@ -634,6 +634,7 @@ export default $1;
 - docker, done
 - validation server, client, example [with-joi](https://github.com/vercel/next.js/tree/canary/examples/with-joi), [next-joi](https://github.com/codecoolture/next-joi), done with zod
 - extract styles, tailwind, next examples, done
+- query key in getServerSidePropa and useQuery and type it, done
 
 ---
 
@@ -676,5 +677,5 @@ export default $1;
 - request, response types
 - me query, only userId and email in session
 - throw 404 from zod api...
-- error path, db function, getServerSideProps,api endpoint
-- query key in getServerSidePropa and useQuery and type it
+- error path, db function, getServerSideProps, api endpoint
+- mutations
