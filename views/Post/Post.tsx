@@ -91,7 +91,7 @@ const Post: FC = () => {
                   await router.push(Routes.SITE.HOME);
                 }}
               >
-                {!restDelete.isLoading ? 'Delete' : 'Deleting...'}
+                {!restDelete.isLoading || isFetching ? 'Delete' : 'Deleting...'}
               </Button>
             </div>
           )}

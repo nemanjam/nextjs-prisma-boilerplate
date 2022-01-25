@@ -87,11 +87,22 @@ const PostItem: FC<PostProps> = ({ post }) => {
       {isOwnerOrAdmin && (
         <div className={b('publish-delete')}>
           {!post.published && (
-            <Button onClick={() => updatePost({ id: post.id, published: true })}>
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                updatePost({ id: post.id, published: true });
+              }}
+            >
               {!restUpdate.isLoading ? 'Publish' : 'Submiting...'}
             </Button>
           )}
-          <Button variant="danger" onClick={() => deletePost(post.id)}>
+          <Button
+            variant="danger"
+            onClick={(e) => {
+              e.stopPropagation();
+              deletePost(post.id);
+            }}
+          >
             {!restDelete.isLoading ? 'Delete' : 'Deleting...'}
           </Button>
         </div>

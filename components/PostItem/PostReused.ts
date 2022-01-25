@@ -1,7 +1,4 @@
-import Router from 'next/router';
 import { Session } from 'next-auth';
-import axios from 'axios';
-import { Routes } from 'lib-client/constants';
 import { PostWithAuthorStr, PostWithAuthor } from 'types';
 
 // pages/[username]/post/[id].tsx - page
@@ -14,25 +11,6 @@ export type PostProps = {
 // home, drafts - pages
 export type PostsProps = {
   posts: PostWithAuthorStr[];
-};
-
-export const publishOrDeletePost = async (
-  id: number,
-  action: 'publish' | 'delete'
-): Promise<void> => {
-  try {
-    switch (action) {
-      case 'publish':
-        await axios.patch(`${Routes.API.POSTS}${id}`, { published: true });
-        break;
-      case 'delete':
-        await axios.delete(`${Routes.API.POSTS}${id}`);
-        break;
-    }
-  } catch (error) {
-    console.error(error);
-  }
-  await Router.push(Routes.SITE.HOME);
 };
 
 export const getIsPostOwner = (session: Session, post: PostWithAuthor) =>

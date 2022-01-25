@@ -684,3 +684,4 @@ await Promise.all([invalidateQueries(...), invalidateQueries(...)])
 - error path, db function, getServerSideProps, api endpoint
 - mutations
 - handle errors in getServerSideProps
+- edit user, delete user - admin

@@ -10,6 +10,6 @@ const getPost = async (id: number) => {
 };
 
 export const usePost = (id: number) => {
-  const query = useQuery([QueryKeys, id], () => getPost(id));
+  const query = useQuery([QueryKeys.POST, id], () => getPost(id));
   return query;
 };

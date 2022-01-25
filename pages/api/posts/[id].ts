@@ -38,7 +38,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (!post) throw new ApiError(`Post not found.`, 404);
 
-  res.status(200).json({ post });
+  res.status(200).json(post);
 });
 
 handler.patch(

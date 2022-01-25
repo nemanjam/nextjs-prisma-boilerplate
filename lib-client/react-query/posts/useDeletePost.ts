@@ -18,11 +18,12 @@ export const useDeletePost = () => {
       onError: (error) => {
         console.error(error);
       },
-      onSuccess: async () => {
+      onSuccess: async (data) => {
         await Promise.all([
           queryClient.invalidateQueries(QueryKeys.POSTS_DRAFTS),
           queryClient.invalidateQueries(QueryKeys.POSTS_HOME),
           queryClient.invalidateQueries(QueryKeys.POSTS_PROFILE),
+          queryClient.invalidateQueries([QueryKeys.POST, data.id]),
         ]);
       },
     }
