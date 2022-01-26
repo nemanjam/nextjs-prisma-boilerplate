@@ -684,7 +684,7 @@ await Promise.all([invalidateQueries(...), invalidateQueries(...)])
 - request, response types
 - me query, only userId and email in session
 - throw 404 from zod api...
-- error path, db function, getServerSideProps, api endpoint
+- error path, db function, getServerSideProps, api endpoint, ask reddit, github
 - mutations
 - handle errors in getServerSideProps
 - edit user, delete user - admin

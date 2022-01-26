@@ -4,9 +4,14 @@ import PostItem from 'components/PostItem';
 import Pagination from 'components/Pagination';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import QueryKeys from 'lib-client/react-query/queryKeys';
+import { useMe } from 'lib-client/react-query/users/useMe';
 
 const Home: React.FC = () => {
   const b = withBem('home');
+
+  const { data: me, isLoading: isLoadingMe } = useMe();
+
+  console.log('me', me, 'isLoadingMe', isLoadingMe);
 
   const [page, setPage] = useState(1);
   const { data, isLoading, isFetching, isPreviousData } = usePosts(QueryKeys.POSTS_HOME, {

@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import AuthLayout from 'layouts/AuthLayout';
-import { default as AuthView } from 'views/Auth';
+import AuthView from 'views/Auth';
 
-const Register: React.FC = () => {
+const Register: FC = () => {
   return (
     <AuthLayout>
       <AuthView isRegisterForm />

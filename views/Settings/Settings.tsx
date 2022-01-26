@@ -18,6 +18,8 @@ import { Routes } from 'lib-client/constants';
 import { getAvatarPath, getHeaderImagePath } from 'utils';
 import { ClientUser } from 'types';
 
+// don't put id in form, validation  needs to diff on client and server
+// id is in route param
 interface SettingsFormData {
   name: string;
   username: string;
@@ -101,10 +103,7 @@ const Settings: FC = () => {
     const updatedFields = {} as UserUpdateType;
     Object.keys(data).forEach((key) => {
       // send only dirty fileds
-      if (
-        Object.keys(dirtyFields).includes(key) &&
-        !['id', 'confirmPassword'].includes(key)
-      ) {
+      if (Object.keys(dirtyFields).includes(key) && !['confirmPassword'].includes(key)) {
         updatedFields[key] = data[key];
       }
     });

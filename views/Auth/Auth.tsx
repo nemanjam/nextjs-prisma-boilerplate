@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { signIn, ClientSafeProvider } from 'next-auth/react';
 import Link from 'next/link';
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { getErrorClass, withBem } from 'utils/bem';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userRegisterSchema, userLoginSchema } from 'lib-server/validation';
 import { Routes } from 'lib-client/constants';
 import Button from 'components/Button';
+import { useCreateUser } from 'lib-client/react-query/users/useCreateUser';
 
 interface AuthFormData {
   email: string;
@@ -22,8 +22,10 @@ type Props = {
   providers?: Record<string, ClientSafeProvider>;
 };
 
-const Auth: React.FC<Props> = ({ isRegisterForm = true, providers }) => {
+const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
   const b = withBem('auth');
+
+  const { mutate: createUser, isLoading, isError, error } = useCreateUser();
 
   const { register, handleSubmit, formState } = useForm<AuthFormData>({
     resolver: zodResolver(isRegisterForm ? userRegisterSchema : userLoginSchema),
@@ -31,6 +33,7 @@ const Auth: React.FC<Props> = ({ isRegisterForm = true, providers }) => {
   const { errors } = formState;
 
   // axios post to /api/auth/callback/credentials
+  // custom request with csrf token...
   // https://next-auth.js.org/configuration/pages#credentials-sign-in
   const onSubmitLogin = async ({ email, password }: AuthFormData) => {
     await signIn('credentials', {
@@ -39,18 +42,17 @@ const Auth: React.FC<Props> = ({ isRegisterForm = true, providers }) => {
     });
   };
 
-  const onSubmitRegister = async ({ name, username, email, password }: AuthFormData) => {
-    try {
-      await axios.post(Routes.API.USERS, { name, username, email, password });
-    } catch (error) {
-      console.error(error);
-    }
+  const onSubmitRegister = async (user: AuthFormData) => {
+    const { confirmPassword: _, ..._user } = user;
+    createUser(_user);
   };
 
   return (
     <div className={b()}>
       <section className={b('content')}>
         <h1 className={b('title')}>{isRegisterForm ? 'Register' : 'Login'}</h1>
+
+        {isError && <div className="alert-error">{error.message}</div>}
 
         <form
           className={b('form')}
@@ -107,7 +109,7 @@ const Auth: React.FC<Props> = ({ isRegisterForm = true, providers }) => {
           )}
 
           <Button variant="secondary" type="submit">
-            {isRegisterForm ? 'Register' : 'Login'}
+            {isRegisterForm ? (!isLoading ? 'Register' : 'Register...') : 'Login'}
           </Button>
         </form>
 

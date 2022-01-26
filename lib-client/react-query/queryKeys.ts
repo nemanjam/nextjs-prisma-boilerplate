@@ -4,6 +4,7 @@ const QueryKeys = {
   POSTS_DRAFTS: 'posts-drafts',
   POST: 'post',
   USER: 'user',
+  ME: 'me',
 } as const;
 
 export type QueryKeysType = typeof QueryKeys[keyof typeof QueryKeys];

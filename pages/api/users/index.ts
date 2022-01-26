@@ -36,9 +36,6 @@ export const getUserByUsernameOrEmail = async (query: QueryParamsType): Promise<
   const { username, email } = validationResult.data;
 
   const user = await prisma.user.findFirst({ where: { OR: [{ username }, { email }] } });
-  if (!user) {
-    throw new ApiError(`User not found.`, 404);
-  }
   return user;
 };
 
@@ -47,6 +44,11 @@ export const getUserByUsernameOrEmail = async (query: QueryParamsType): Promise<
  */
 handler.get(validateUserGet(), async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await getUserByUsernameOrEmail(req.query);
+
+  if (!user) {
+    throw new ApiError(`User not found.`, 404);
+  }
+
   res.status(200).json(user);
 });
 
@@ -77,7 +79,7 @@ handler.post(
       },
     });
 
-    res.status(201).json({ user });
+    res.status(201).json(user);
   }
 );
 
