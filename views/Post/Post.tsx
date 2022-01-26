@@ -80,7 +80,9 @@ const Post: FC = () => {
           {isOwnerOrAdmin && (
             <div className={b('publish-delete')}>
               {!post.published && (
-                <Button onClick={() => updatePost({ id: post.id, published: true })}>
+                <Button
+                  onClick={() => updatePost({ id: post.id, post: { published: true } })}
+                >
                   {!restUpdate.isLoading ? 'Publish' : 'Submiting...'}
                 </Button>
               )}

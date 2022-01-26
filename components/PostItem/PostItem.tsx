@@ -90,7 +90,7 @@ const PostItem: FC<PostProps> = ({ post }) => {
             <Button
               onClick={(e) => {
                 e.stopPropagation();
-                updatePost({ id: post.id, published: true });
+                updatePost({ id: post.id, post: { published: true } });
               }}
             >
               {!restUpdate.isLoading ? 'Publish' : 'Submiting...'}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import axios from 'axios';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,15 +7,20 @@ import { Routes } from 'lib-client/constants';
 import { userUpdateSchema } from 'lib-server/validation';
 import { getAvatarPath, getHeaderImagePath } from 'utils';
 import DropzoneSingle from 'components/DropzoneSingle';
-import { UserStr } from 'types';
+import { ClientUser } from 'types';
 import { getErrorClass, withBem } from 'utils/bem';
 import Button from 'components/Button';
+import {
+  UserUpdateType,
+  useUpdateUser,
+} from 'lib-client/react-query/users/useUpdateUser';
 
 type Props = {
-  user: UserStr;
+  user: ClientUser;
 };
 
 interface SettingsFormData {
+  id: string;
   name: string;
   username: string;
   avatar: File;
@@ -25,13 +30,14 @@ interface SettingsFormData {
   confirmPassword: string;
 }
 
-const Settings: React.FC<Props> = ({ user }) => {
+const Settings: FC<Props> = ({ user }) => {
   const [progress, setProgress] = useState(0);
   const b = withBem('settings');
 
   const methods = useForm<SettingsFormData>({
     resolver: zodResolver(userUpdateSchema),
     defaultValues: {
+      id: user.id,
       username: user.username,
       name: user.name,
       bio: user.bio,
@@ -55,6 +61,8 @@ const Settings: React.FC<Props> = ({ user }) => {
   const { register, handleSubmit, formState, reset, getValues } = methods;
   const { errors, dirtyFields } = formState;
 
+  const { mutate: updateUser, isLoading, isError, error } = useUpdateUser();
+
   const getDefaultImageAsync = async (url: string) => {
     try {
       // works with relative path
@@ -68,7 +76,7 @@ const Settings: React.FC<Props> = ({ user }) => {
 
   // set initial value for avatar, header async
   useEffect(() => {
-    const run = async (user: UserStr) => {
+    const run = async (user: ClientUser) => {
       const avatarUrl = getAvatarPath(user);
       const headerUrl = getHeaderImagePath(user);
       const avatar = await getDefaultImageAsync(avatarUrl);
@@ -89,27 +97,18 @@ const Settings: React.FC<Props> = ({ user }) => {
   const onSubmit = async (data: SettingsFormData) => {
     if (Object.keys(dirtyFields).length === 0) return;
 
-    const formData = new FormData();
+    const updatedFields = {} as UserUpdateType;
     Object.keys(data).forEach((key) => {
       // send only dirty fileds
-      if (Object.keys(dirtyFields).includes(key) && key !== 'confirmPassword') {
-        formData.append(key, data[key]);
+      if (
+        Object.keys(dirtyFields).includes(key) &&
+        !['id', 'confirmPassword'].includes(key)
+      ) {
+        updatedFields[key] = data[key];
       }
     });
 
-    const config = {
-      headers: { 'content-type': 'multipart/form-data' },
-      onUploadProgress: (event: ProgressEvent) => {
-        const _progress = Math.round((event.loaded * 100) / event.total);
-        setProgress(_progress);
-      },
-    };
-
-    try {
-      await axios.patch(`${Routes.API.USERS}${user.id}`, formData, config);
-    } catch (error) {
-      console.error(error);
-    }
+    updateUser({ id: data.id, user: updatedFields, setProgress });
   };
 
   if (!getValues('avatar') || !getValues('header')) return <div>Loading...</div>;
@@ -118,6 +117,10 @@ const Settings: React.FC<Props> = ({ user }) => {
     <FormProvider {...methods}>
       <form className={b()} onSubmit={handleSubmit(onSubmit)}>
         <h1 className={b('title')}>Settings</h1>
+
+        {isError && <div className="alert-error">{error.message}</div>}
+
+        <input {...register('id')} type="hidden" />
 
         <div className={b('form-field', { header: true })}>
           <DropzoneSingle
@@ -205,7 +208,7 @@ const Settings: React.FC<Props> = ({ user }) => {
         </div>
 
         <div className={b('buttons')}>
-          <Button type="submit">Submit</Button>
+          <Button type="submit">{!isLoading ? 'Submit' : 'Submiting...'}</Button>
           <Button variant="secondary" onClick={() => reset()}>
             Reset
           </Button>

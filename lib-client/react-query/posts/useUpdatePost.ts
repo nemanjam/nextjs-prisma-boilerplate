@@ -5,15 +5,17 @@ import { Routes } from 'lib-client/constants';
 import { PostWithAuthor } from 'types';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 
-export type PostUpdateType = Partial<Pick<Post, 'title' | 'content' | 'published'>> & {
+export type PostUpdateType = Partial<Pick<Post, 'title' | 'content' | 'published'>>;
+
+export type PostUpdateFormType = {
+  post: PostUpdateType;
   id: number;
 };
 
-const updatePost = async (post: PostUpdateType) => {
-  const { id, ...rest } = post;
+const updatePost = async ({ id, post }) => {
   const { data } = await axiosInstance.patch<PostWithAuthor>(
     `${Routes.API.POSTS}${id}`,
-    rest
+    post
   );
   return data;
 };
@@ -21,8 +23,8 @@ const updatePost = async (post: PostUpdateType) => {
 export const useUpdatePost = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation<PostWithAuthor, Error, PostUpdateType, unknown>(
-    (post: PostUpdateType) => updatePost(post),
+  const mutation = useMutation<PostWithAuthor, Error, PostUpdateFormType, unknown>(
+    (data) => updatePost(data),
     {
       onError: (error) => {
         console.error(error);

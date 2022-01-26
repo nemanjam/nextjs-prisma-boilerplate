@@ -1,19 +1,10 @@
 import { User, Post } from '@prisma/client';
 
-export type WithStringDates<T> = Omit<T, 'createdAt' | 'updatedAt'> & {
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type UserStr = WithStringDates<User>;
-export type PostStr = WithStringDates<Post>;
-
-export type PostWithAuthorStr = PostStr & {
-  author: UserStr;
-};
+// remove password on client
+export type ClientUser = Omit<User, 'password'>;
 
 export type PostWithAuthor = Post & {
-  author: User;
+  author: ClientUser;
 };
 
 export type PaginatedResponse<T> = {
@@ -32,5 +23,21 @@ export type PaginatedResponse<T> = {
 export type QueryParamsType = {
   [key: string]: string | string[];
 };
+
+// ------------------- not used any more
+
+export type WithStringDates<T> = Omit<T, 'createdAt' | 'updatedAt'> & {
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UserStr = WithStringDates<User>;
+export type PostStr = WithStringDates<Post>;
+
+export type PostWithAuthorStr = PostStr & {
+  author: UserStr;
+};
+
+// --------------------
 
 // type all request and response objects

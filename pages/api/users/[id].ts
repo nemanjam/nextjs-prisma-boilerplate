@@ -56,7 +56,9 @@ handler.patch(
       data,
     });
 
-    res.status(200).json({ user });
+    delete user.password;
+
+    res.status(200).json(user);
   }
 );
 
