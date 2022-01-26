@@ -20,11 +20,16 @@ const validateUserUpdate = withValidation({
   mode: 'body',
 });
 
+export const getUserById = async (id: string) => {
+  const user = await prisma.user.findUnique({ where: { id } });
+  return user;
+};
+
 // GET /api/users/:id
-// for me query
+// for me query too
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
-  const user = await prisma.user.findUnique({ where: { id: getId(req) } });
-  res.status(200).json({ user });
+  const user = await getUserById(getId(req));
+  res.status(200).json(user);
 });
 
 handler.patch(

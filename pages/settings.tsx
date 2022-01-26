@@ -1,20 +1,17 @@
+import { FC } from 'react';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
-import prisma from 'lib-server/prisma';
+import { dehydrate, QueryClient } from 'react-query';
 import { Routes } from 'lib-client/constants';
-import { datesToStrings } from 'utils';
 import PageLayout from 'layouts/PageLayout';
-import { UserStr } from 'types';
-import { default as SettingsView } from 'views/Settings';
+import SettingsView from 'views/Settings';
+import { getUserById } from './api/users/[id]';
+import QueryKeys from 'lib-client/react-query/queryKeys';
 
-type Props = {
-  user: UserStr;
-};
-
-const Settings: React.FC<Props> = ({ user }) => {
+const Settings: FC = () => {
   return (
     <PageLayout>
-      <SettingsView user={user} />
+      <SettingsView />
     </PageLayout>
   );
 };
@@ -32,18 +29,20 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     return redirect;
   }
 
-  // not all user fields are available in session.user
-  const user = await prisma.user.findUnique({
-    where: { username: session.user.username },
-  });
+  const user = await getUserById(session.user.id);
 
   if (!user) {
-    return redirect;
+    return {
+      notFound: true,
+    };
   }
+
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery([QueryKeys.USER, user.id], () => user);
 
   return {
     props: {
-      user: datesToStrings(user),
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };

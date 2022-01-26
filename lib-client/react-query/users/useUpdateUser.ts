@@ -48,15 +48,16 @@ export const useUpdateUser = () => {
         console.error(error);
       },
       onSuccess: async (data) => {
-        await Promise.all([
-          // queryClient.invalidateQueries(QueryKeys.POSTS_DRAFTS),
-          // queryClient.invalidateQueries(QueryKeys.POSTS_HOME),
-          // queryClient.invalidateQueries(QueryKeys.POSTS_PROFILE),
-          // queryClient.invalidateQueries([QueryKeys.POST, data.id]),
-        ]);
+        await queryClient.invalidateQueries([QueryKeys.USER, data.id]);
       },
     }
   );
 
   return mutation;
+};
+
+export const getImage = async (url: string): Promise<File> => {
+  const response = await axiosInstance.get(url, { responseType: 'blob' });
+  const file = new File([response.data], 'default-image');
+  return file;
 };

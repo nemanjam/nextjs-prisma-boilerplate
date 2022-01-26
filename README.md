@@ -582,6 +582,9 @@ export default $1;
 await Promise.all([invalidateQueries(...), invalidateQueries(...)])
 ```
 
+- avatar and header images in Settings form should be in form state and not React Query state
+- keep user and post query cache separated (api calls) on client, ok now
+
 ### Serialize Dates in getServerSideProps solved
 
 - use `babel-plugin-superjson-next` and `superjson-next` [Readme](https://github.com/blitz-js/superjson#using-with-nextjs)
@@ -686,3 +689,4 @@ await Promise.all([invalidateQueries(...), invalidateQueries(...)])
 - handle errors in getServerSideProps
 - edit user, delete user - admin
 - progressbar tailwind div
+- validate ids in api zod

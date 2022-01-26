@@ -1,26 +1,24 @@
 import { useState, useEffect, FC } from 'react';
-import axios from 'axios';
+import { useSession } from 'next-auth/react';
 import { useForm, FormProvider } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DropzoneOptions } from 'react-dropzone';
-import { Routes } from 'lib-client/constants';
 import { userUpdateSchema } from 'lib-server/validation';
-import { getAvatarPath, getHeaderImagePath } from 'utils';
 import DropzoneSingle from 'components/DropzoneSingle';
-import { ClientUser } from 'types';
 import { getErrorClass, withBem } from 'utils/bem';
 import Button from 'components/Button';
 import {
+  getImage,
   UserUpdateType,
   useUpdateUser,
 } from 'lib-client/react-query/users/useUpdateUser';
-
-type Props = {
-  user: ClientUser;
-};
+import { useUser } from 'lib-client/react-query/users/useUser';
+import { Routes } from 'lib-client/constants';
+import { getAvatarPath, getHeaderImagePath } from 'utils';
+import { ClientUser } from 'types';
 
 interface SettingsFormData {
-  id: string;
   name: string;
   username: string;
   avatar: File;
@@ -30,14 +28,22 @@ interface SettingsFormData {
   confirmPassword: string;
 }
 
-const Settings: FC<Props> = ({ user }) => {
+const Settings: FC = () => {
   const [progress, setProgress] = useState(0);
   const b = withBem('settings');
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  if (!session) return <h2>Loading...</h2>;
+  if (!session?.user?.id) router.push(Routes.SITE.LOGIN);
+
+  const { data: user, isLoading, isFetching } = useUser(session.user.id);
+
+  if (isLoading) return <h2>Loading...</h2>;
 
   const methods = useForm<SettingsFormData>({
     resolver: zodResolver(userUpdateSchema),
     defaultValues: {
-      id: user.id,
       username: user.username,
       name: user.name,
       bio: user.bio,
@@ -47,6 +53,27 @@ const Settings: FC<Props> = ({ user }) => {
       confirmPassword: '',
     },
   });
+
+  // set initial value for avatar, header async
+  // images should be in form state and not in React Query state
+  useEffect(() => {
+    const run = async (user: ClientUser) => {
+      const avatarUrl = getAvatarPath(user);
+      const headerUrl = getHeaderImagePath(user);
+      const avatar = await getImage(avatarUrl);
+      const header = await getImage(headerUrl);
+
+      reset({
+        ...getValues(),
+        avatar,
+        header,
+      } as SettingsFormData);
+    };
+
+    if (user) {
+      run(user);
+    }
+  }, [user]);
 
   const dropzoneOptions: DropzoneOptions = {
     accept: 'image/png, image/jpg, image/jpeg',
@@ -61,38 +88,12 @@ const Settings: FC<Props> = ({ user }) => {
   const { register, handleSubmit, formState, reset, getValues } = methods;
   const { errors, dirtyFields } = formState;
 
-  const { mutate: updateUser, isLoading, isError, error } = useUpdateUser();
-
-  const getDefaultImageAsync = async (url: string) => {
-    try {
-      // works with relative path
-      const response = await axios.get(url, { responseType: 'blob' });
-      const file = new File([response.data], 'default-image');
-      return file;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // set initial value for avatar, header async
-  useEffect(() => {
-    const run = async (user: ClientUser) => {
-      const avatarUrl = getAvatarPath(user);
-      const headerUrl = getHeaderImagePath(user);
-      const avatar = await getDefaultImageAsync(avatarUrl);
-      const header = await getDefaultImageAsync(headerUrl);
-
-      reset({
-        ...getValues(),
-        avatar,
-        header,
-      } as any);
-    };
-
-    if (user) {
-      run(user);
-    }
-  }, [user]);
+  const {
+    mutate: updateUser,
+    isLoading: isUpdateLoading,
+    isError,
+    error,
+  } = useUpdateUser();
 
   const onSubmit = async (data: SettingsFormData) => {
     if (Object.keys(dirtyFields).length === 0) return;
@@ -108,7 +109,7 @@ const Settings: FC<Props> = ({ user }) => {
       }
     });
 
-    updateUser({ id: data.id, user: updatedFields, setProgress });
+    updateUser({ id: user.id, user: updatedFields, setProgress });
   };
 
   if (!getValues('avatar') || !getValues('header')) return <div>Loading...</div>;
@@ -116,11 +117,9 @@ const Settings: FC<Props> = ({ user }) => {
   return (
     <FormProvider {...methods}>
       <form className={b()} onSubmit={handleSubmit(onSubmit)}>
-        <h1 className={b('title')}>Settings</h1>
+        <h1 className={b('title')}>{!isFetching ? 'Settings' : 'Settings...'}</h1>
 
         {isError && <div className="alert-error">{error.message}</div>}
-
-        <input {...register('id')} type="hidden" />
 
         <div className={b('form-field', { header: true })}>
           <DropzoneSingle
@@ -208,7 +207,7 @@ const Settings: FC<Props> = ({ user }) => {
         </div>
 
         <div className={b('buttons')}>
-          <Button type="submit">{!isLoading ? 'Submit' : 'Submiting...'}</Button>
+          <Button type="submit">{!isUpdateLoading ? 'Submit' : 'Submiting...'}</Button>
           <Button variant="secondary" onClick={() => reset()}>
             Reset
           </Button>
