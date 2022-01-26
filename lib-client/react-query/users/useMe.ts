@@ -17,8 +17,6 @@ export const useMe = () => {
   const { data: session, status } = useSession();
   const id = session?.user?.id;
 
-  console.log('session', session, 'status', status);
-
   const query = useQuery(QueryKeys.ME, () => getUser(id), {
     retry: 1,
     retryDelay: (attempt) => attempt * 1000,

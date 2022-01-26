@@ -22,6 +22,7 @@ const validateUserUpdate = withValidation({
 
 export const getUserById = async (id: string) => {
   const user = await prisma.user.findUnique({ where: { id } });
+  delete user.password;
   return user;
 };
 

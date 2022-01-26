@@ -42,9 +42,8 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
     });
   };
 
-  const onSubmitRegister = async (user: AuthFormData) => {
-    const { confirmPassword: _, ..._user } = user;
-    createUser(_user);
+  const onSubmitRegister = async ({ name, username, email, password }: AuthFormData) => {
+    createUser({ name, username, email, password });
   };
 
   return (

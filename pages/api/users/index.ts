@@ -36,6 +36,7 @@ export const getUserByUsernameOrEmail = async (query: QueryParamsType): Promise<
   const { username, email } = validationResult.data;
 
   const user = await prisma.user.findFirst({ where: { OR: [{ username }, { email }] } });
+  delete user.password;
   return user;
 };
 
@@ -53,7 +54,7 @@ handler.get(validateUserGet(), async (req: NextApiRequest, res: NextApiResponse)
 });
 
 /**
- * POST /api/users
+ * POST /api/users - register
  * Required fields in body: name, username, email, password
  */
 handler.post(
@@ -79,13 +80,14 @@ handler.post(
       },
     });
 
+    delete user.password;
     res.status(201).json(user);
   }
 );
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   const users = await prisma.user.findMany();
-  res.status(200).json({ users });
+  res.status(200).json(users);
 });
 
 export default handler;
