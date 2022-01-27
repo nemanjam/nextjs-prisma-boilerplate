@@ -694,3 +694,4 @@ await Promise.all([invalidateQueries(...), invalidateQueries(...)])
 - validate ids in api zod
 - replace session.user on server
 - leave just id and email in session.user, and type
+- users page, pagination, api filtering

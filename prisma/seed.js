@@ -44,20 +44,22 @@ const createPosts = (n) => {
 };
 
 const createUsers = (n) => {
-  return Array.from(Array(n).keys()).map((index) => ({
-    name: `user${index} name`,
-    username: `user${index}`,
-    email: `user${index}@email.com`,
-    // undefined for placeholder, prisma converts it to null
-    image: index === 3 ? undefined : `avatar${index % 4}.jpg`, // 0...3
-    headerImage: index === 3 ? undefined : `header${index % 4}.jpg`,
-    password,
-    bio: lorem.sentences(3),
-    role: index === 0 ? 'admin' : 'user',
-    posts: {
-      create: createPosts(numberOfPosts),
-    },
-  }));
+  return Array.from(Array(n).keys())
+    .reverse()
+    .map((index) => ({
+      name: `user${index} name`,
+      username: `user${index}`,
+      email: `user${index}@email.com`,
+      // undefined for placeholder, prisma converts it to null
+      image: index === 3 ? undefined : `avatar${index % 4}.jpg`, // 0...3
+      headerImage: index === 3 ? undefined : `header${index % 4}.jpg`,
+      password,
+      bio: lorem.sentences(3),
+      role: index === 0 ? 'admin' : 'user',
+      posts: {
+        create: createPosts(numberOfPosts),
+      },
+    }));
 };
 
 const deleteAllAvatars = async () => {
