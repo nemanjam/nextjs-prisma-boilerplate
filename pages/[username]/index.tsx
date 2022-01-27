@@ -33,7 +33,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const query = { username: profile.username };
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(QueryKeys.POSTS_PROFILE, () =>
+  await queryClient.prefetchQuery([QueryKeys.POSTS_PROFILE, profile.username, 1], () =>
     getPostsWithAuthor(query)
   );
 

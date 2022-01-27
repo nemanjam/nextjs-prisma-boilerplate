@@ -11,7 +11,7 @@ import { Routes } from 'lib-client/constants';
 import Button from 'components/Button';
 import { useCreateUser } from 'lib-client/react-query/users/useCreateUser';
 import QueryKeys from 'lib-client/react-query/queryKeys';
-import { useMe } from 'lib-client/react-query/users/useMe';
+import { useMe } from 'lib-client/react-query/auth/useMe';
 
 interface AuthFormData {
   email: string;

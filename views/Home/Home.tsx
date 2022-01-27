@@ -8,8 +8,6 @@ import QueryKeys from 'lib-client/react-query/queryKeys';
 const Home: FC = () => {
   const b = withBem('home');
 
-  // const { data: me, isLoading: isLoadingMe } = useMe();
-
   const [page, setPage] = useState(1);
   const { data, isLoading, isFetching, isPreviousData } = usePosts(QueryKeys.POSTS_HOME, {
     page,

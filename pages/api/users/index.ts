@@ -5,8 +5,9 @@ import { withValidation } from 'next-validations';
 import prisma from 'lib-server/prisma';
 import nc, { ncOptions } from 'lib-server/nc';
 import ApiError from 'lib-server/error';
-import { userGetSchema, userRegisterSchema } from 'lib-server/validation';
-import { QueryParamsType } from 'types';
+import { userGetSchema, usersGetSchema, userRegisterSchema } from 'lib-server/validation';
+import { PaginatedResponse, QueryParamsType } from 'types';
+import { ClientUser } from 'types';
 
 const handler = nc(ncOptions);
 
@@ -83,8 +84,47 @@ handler.post(
   }
 );
 
+const defaultLimit = 3;
+
+export const getUsers = async (
+  query: QueryParamsType
+): Promise<PaginatedResponse<ClientUser>> => {
+  const validationResult = usersGetSchema.safeParse(query);
+
+  const {
+    page = 1,
+    limit = defaultLimit,
+    searchTerm,
+    sortField = 'createdAt',
+    sortDirection: _sortDirection,
+  } = validationResult.data;
+
+  const where = {
+    where: {},
+  };
+
+  const totalCount = await prisma.post.count({ ...where });
+
+  const users = await prisma.user.findMany({ ...where });
+
+  const result = {
+    items: users,
+    pagination: {
+      total: totalCount,
+      pagesCount: Math.ceil(totalCount / limit),
+      currentPage: page,
+      perPage: limit,
+      from: (page - 1) * limit + 1,
+      to: (page - 1) * limit + users.length,
+      hasMore: page < Math.ceil(totalCount / limit),
+    },
+  };
+
+  return result;
+};
+
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
-  const users = await prisma.user.findMany();
+  const users = await getUsers(req.query);
   res.status(200).json(users);
 });
 

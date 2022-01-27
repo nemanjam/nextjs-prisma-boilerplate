@@ -11,7 +11,7 @@ import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
 import { usePost } from 'lib-client/react-query/posts/usePost';
 import { Routes } from 'lib-client/constants';
-import { useMe } from 'lib-client/react-query/users/useMe';
+import { useMe } from 'lib-client/react-query/auth/useMe';
 
 const Post: FC = () => {
   const b = withBem('post');

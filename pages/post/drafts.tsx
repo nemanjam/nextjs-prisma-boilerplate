@@ -6,7 +6,7 @@ import { dehydrate, QueryClient } from 'react-query';
 import DraftsView from 'views/Drafts';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { getPostsWithAuthor } from 'pages/api/posts';
-import { useMe } from 'lib-client/react-query/users/useMe';
+import { useMe } from 'lib-client/react-query/auth/useMe';
 
 const Drafts: FC = () => {
   const { me } = useMe();
@@ -42,7 +42,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   };
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(QueryKeys.POSTS_DRAFTS, () =>
+  await queryClient.prefetchQuery([QueryKeys.POSTS_DRAFTS, 1], () =>
     getPostsWithAuthor(query)
   );
 

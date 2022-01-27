@@ -17,8 +17,8 @@ import {
   RiLoginBoxLine,
   RiAccountBoxLine,
 } from 'react-icons/ri';
-import { IoSettingsOutline } from 'react-icons/io5';
-import { useMe } from 'lib-client/react-query/users/useMe';
+import { IoPeopleOutline, IoSettingsOutline } from 'react-icons/io5';
+import { useMe } from 'lib-client/react-query/auth/useMe';
 import { ClientUser } from 'types';
 
 const isActive: (router: NextRouter, pathname: string) => boolean = (router, pathname) =>
@@ -65,6 +65,18 @@ const getAllItems = ({
       <a>
         <NavLink icon={<FaRegUser />} isActive={isActive(router, `/${me.username}/`)}>
           Profile
+        </NavLink>
+      </a>
+    </Link>
+  ),
+  users: (
+    <Link key="users" href={Routes.SITE.USERS}>
+      <a>
+        <NavLink
+          icon={<IoPeopleOutline />}
+          isActive={isActive(router, Routes.SITE.USERS)}
+        >
+          Users
         </NavLink>
       </a>
     </Link>

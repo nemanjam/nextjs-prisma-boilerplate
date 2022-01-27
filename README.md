@@ -695,3 +695,4 @@ await Promise.all([invalidateQueries(...), invalidateQueries(...)])
 - replace session.user on server
 - leave just id and email in session.user, and type
 - users page, pagination, api filtering
+- test `await queryClient.prefetchQuery([QueryKeys.POSTS_PROFILE, profile.username, 1]...`

@@ -9,7 +9,7 @@ import { PostProps, getIsAdmin, getIsPostOwner } from 'components/PostItem';
 import Button from 'components/Button';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
-import { useMe } from 'lib-client/react-query/users/useMe';
+import { useMe } from 'lib-client/react-query/auth/useMe';
 
 const PostItem: FC<PostProps> = ({ post }) => {
   const router = useRouter();

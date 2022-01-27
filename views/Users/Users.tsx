@@ -1,26 +1,23 @@
 import React, { FC, useState } from 'react';
 import { withBem } from 'utils/bem';
-import PostItem from 'components/PostItem';
-import { usePosts } from 'lib-client/react-query/posts/usePosts';
+import UserItem from 'components/UserItem';
 import Pagination from 'components/Pagination';
+import { useUsers } from 'lib-client/react-query/users/useUsers';
 import QueryKeys from 'lib-client/react-query/queryKeys';
-import { useMe } from 'lib-client/react-query/auth/useMe';
 
-const Drafts: FC = () => {
-  const b = withBem('drafts');
-  const { me } = useMe();
+const Users: FC = () => {
+  const b = withBem('users');
 
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, isPreviousData } = usePosts(
-    QueryKeys.POSTS_DRAFTS,
-    { page, userId: me?.id, published: false }
-  );
+  const { data, isLoading, isFetching, isPreviousData } = useUsers(QueryKeys.USERS, {
+    page,
+  });
 
   if (isLoading) return <h2>Loading...</h2>;
 
   return (
     <div className={b()}>
-      <h1 className={b('title')}>My Drafts</h1>
+      <h1 className={b('title')}>Home</h1>
 
       <Pagination
         onPreviousClick={() => setPage((oldPage) => Math.max(oldPage - 1, 1))}
@@ -41,12 +38,12 @@ const Drafts: FC = () => {
       />
 
       <section className={b('list')}>
-        {data.items.map((post) => (
-          <PostItem key={post.id} post={post} />
+        {data.items.map((user) => (
+          <UserItem key={user.id} user={user} />
         ))}
       </section>
     </div>
   );
 };
 
-export default Drafts;
+export default Users;

@@ -1,0 +1,18 @@
+.user-item {
+  @apply flex flex-col gap-4 p-4 border-t border-x border-gray-200 hover:bg-gray-100;
+  &:last-child {
+    @apply border-b;
+  }
+
+  &__header {
+    @apply flex gap-4;
+  }
+
+  &__left {
+    @apply shrink-0;
+  }
+
+  &__avatar {
+    @apply h-24 w-24 object-cover;
+  }
+}
