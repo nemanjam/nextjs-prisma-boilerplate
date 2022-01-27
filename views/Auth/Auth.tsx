@@ -46,12 +46,16 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
   // custom request with csrf token...
   // https://next-auth.js.org/configuration/pages#credentials-sign-in
   const onSubmitLogin = async ({ email, password }: AuthFormData) => {
-    await signIn('credentials', {
+    const response = await signIn('credentials', {
       email,
       password,
-      // redirect: false, // mutation with csrf token
+      redirect: false, // mutation with csrf token maybe
     });
-    await queryClient.invalidateQueries(QueryKeys.ME);
+
+    if (response.ok) {
+      await queryClient.invalidateQueries(QueryKeys.ME);
+      await router.push(response.url);
+    }
   };
 
   const onSubmitRegister = async ({ name, username, email, password }: AuthFormData) => {
