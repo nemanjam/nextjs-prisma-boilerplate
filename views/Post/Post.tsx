@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { withBem } from 'utils/bem';
 import moment from 'moment';
@@ -12,18 +11,19 @@ import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
 import { usePost } from 'lib-client/react-query/posts/usePost';
 import { Routes } from 'lib-client/constants';
+import { useMe } from 'lib-client/react-query/users/useMe';
 
 const Post: FC = () => {
   const b = withBem('post');
 
-  const { data: session } = useSession();
+  const { me, isLoadingMe } = useMe();
   const router = useRouter();
   const id = Number(router.query?.id);
 
   // redirect on delete
   const { data: post, isLoading, isFetching } = usePost(id);
 
-  if (isLoading) return <h2>Loading...</h2>;
+  if (isLoading || isLoadingMe) return <h2>Loading...</h2>;
 
   const { mutate: updatePost, ...restUpdate } = useUpdatePost();
   const { mutateAsync: deletePost, ...restDelete } = useDeletePost();
@@ -36,7 +36,7 @@ const Post: FC = () => {
   };
 
   const title = `${post.title} ${post.published ? '' : '(Draft)'}`;
-  const isOwnerOrAdmin = getIsPostOwner(session, post) || getIsAdmin(session);
+  const isOwnerOrAdmin = getIsPostOwner(me, post) || getIsAdmin(me);
 
   return (
     <article className={b()}>

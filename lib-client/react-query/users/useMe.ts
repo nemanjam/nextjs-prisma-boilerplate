@@ -22,5 +22,5 @@ export const useMe = () => {
     retryDelay: (attempt) => attempt * 1000,
   });
 
-  return query;
+  return { me: query.data, isLoadingMe: query.isLoading };
 };

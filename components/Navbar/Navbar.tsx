@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import Link from 'next/link';
 import { NextRouter, useRouter } from 'next/router';
-import { Session } from 'next-auth';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import { withBem } from 'utils/bem';
 import { Routes } from 'lib-client/constants';
 import { getAvatarPath } from 'utils';
@@ -19,13 +18,15 @@ import {
   RiAccountBoxLine,
 } from 'react-icons/ri';
 import { IoSettingsOutline } from 'react-icons/io5';
+import { useMe } from 'lib-client/react-query/users/useMe';
+import { ClientUser } from 'types';
 
 const isActive: (router: NextRouter, pathname: string) => boolean = (router, pathname) =>
   router.asPath === pathname;
 
 interface ItemsArgs {
   router: NextRouter;
-  session: Session;
+  me: ClientUser;
   onHamburgerClick?: () => void;
   mobileMenuOpen?: boolean;
   isGetDropdownItems?: boolean;
@@ -39,7 +40,7 @@ const b = withBem('navbar');
 
 const getAllItems = ({
   router,
-  session,
+  me,
   onHamburgerClick,
   mobileMenuOpen,
   isGetDropdownItems,
@@ -53,19 +54,16 @@ const getAllItems = ({
       </a>
     </Link>
   ),
-  profile: session && (
+  profile: me && (
     <Link
       key="profile"
       href={{
         pathname: '/[username]',
-        query: { username: session.user.username as string },
+        query: { username: me.username as string },
       }}
     >
       <a>
-        <NavLink
-          icon={<FaRegUser />}
-          isActive={isActive(router, `/${session.user.username}/`)}
-        >
+        <NavLink icon={<FaRegUser />} isActive={isActive(router, `/${me.username}/`)}>
           Profile
         </NavLink>
       </a>
@@ -130,19 +128,19 @@ const getAllItems = ({
     </Link>
   ),
   // prevent recursion
-  avatar: !isGetDropdownItems && session && (
+  avatar: !isGetDropdownItems && me && (
     <Dropdown
       key="avatar"
-      items={getDropdownItems({ router, session, onHamburgerClick, mobileMenuOpen })}
+      items={getDropdownItems({ router, me, onHamburgerClick, mobileMenuOpen })}
     >
-      <img className={b('avatar')} src={getAvatarPath(session.user)} />
+      <img className={b('avatar')} src={getAvatarPath(me)} />
     </Dropdown>
   ),
-  justAvatar: session && (
+  justAvatar: me && (
     <img
       className={b('just-avatar')}
       key="justAvatar"
-      src={getAvatarPath(session.user)}
+      src={getAvatarPath(me)}
       width="50"
       height="50"
     />
@@ -190,25 +188,25 @@ const navConfig = {
 
 // getLeftNavLinks, getRightNavLinks, getDropdownItems
 // don't care isMobile/desktop, but where they are called
-const getLeftNavLinks = ({ router, session }: ItemsArgs) => {
-  const argsArray = session ? navConfig.leftNav.loggedIn : navConfig.leftNav.loggedOut;
+const getLeftNavLinks = ({ router, me }: ItemsArgs) => {
+  const argsArray = me ? navConfig.leftNav.loggedIn : navConfig.leftNav.loggedOut;
 
-  return filterAllItems({ router, session, argsArray });
+  return filterAllItems({ router, me, argsArray });
 };
 
 const getRightNavLinks = ({
   router,
-  session,
+  me,
   onHamburgerClick,
   mobileMenuOpen,
 }: ItemsArgs) => {
-  const argsArray = session
+  const argsArray = me
     ? mobileMenuOpen
       ? navConfig.rightNav.loggedIn.mobile
       : navConfig.rightNav.loggedIn.desktop
     : navConfig.rightNav.loggedOut;
 
-  return filterAllItems({ router, session, argsArray, onHamburgerClick, mobileMenuOpen });
+  return filterAllItems({ router, me, argsArray, onHamburgerClick, mobileMenuOpen });
 };
 
 const getAllNavLinks = (args: ItemsArgs) => {
@@ -216,32 +214,30 @@ const getAllNavLinks = (args: ItemsArgs) => {
 };
 
 function getDropdownItems(args: ItemsArgs) {
-  const argsArray = args?.session
-    ? navConfig.dropdown.loggedIn
-    : navConfig.dropdown.loggedOut;
+  const argsArray = args?.me ? navConfig.dropdown.loggedIn : navConfig.dropdown.loggedOut;
 
   return filterAllItems({ ...args, argsArray, isGetDropdownItems: true });
 }
 
-const Navbar: React.FC = () => {
+const Navbar: FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
   const { width } = useViewport();
   const isMobile = width < 640;
 
-  const { data: session, status } = useSession();
+  const { me, isLoadingMe } = useMe();
   const _onHamburgerClick = () => setMobileMenuOpen(!mobileMenuOpen);
 
   const args = {
     router,
-    session,
+    me,
     mobileMenuOpen,
     onHamburgerClick: _onHamburgerClick,
   };
 
-  const rightNav = !isMobile && !session && getRightNavLinks(args);
+  const rightNav = !isMobile && !me && getRightNavLinks(args);
   const leftNav = getLeftNavLinks(args);
-  const avatar = !isMobile && session && getAllItems(args)?.avatar;
+  const avatar = !isMobile && me && getAllItems(args)?.avatar;
   const hamburger = isMobile && getAllItems(args)?.hamburger;
   const mobileNav = getAllNavLinks(args);
 

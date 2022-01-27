@@ -691,3 +691,5 @@ await Promise.all([invalidateQueries(...), invalidateQueries(...)])
 - edit user, delete user - admin
 - progressbar tailwind div
 - validate ids in api zod
+- replace session.user on server
+- leave just id and email in session.user, and type

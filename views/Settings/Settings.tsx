@@ -1,11 +1,11 @@
 import { useState, useEffect, FC } from 'react';
-import { useSession } from 'next-auth/react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DropzoneOptions } from 'react-dropzone';
 import { userUpdateSchema } from 'lib-server/validation';
 import DropzoneSingle from 'components/DropzoneSingle';
+import { useQueryClient } from 'react-query';
 import { getErrorClass, withBem } from 'utils/bem';
 import Button from 'components/Button';
 import {
@@ -17,6 +17,8 @@ import { useUser } from 'lib-client/react-query/users/useUser';
 import { Routes } from 'lib-client/constants';
 import { getAvatarPath, getHeaderImagePath } from 'utils';
 import { ClientUser } from 'types';
+import { useMe } from 'lib-client/react-query/users/useMe';
+import QueryKeys from 'lib-client/react-query/queryKeys';
 
 // don't put id in form, validation  needs to diff on client and server
 // id is in route param
@@ -30,16 +32,19 @@ interface SettingsFormData {
   confirmPassword: string;
 }
 
+// admin can edit other users
 const Settings: FC = () => {
   const [progress, setProgress] = useState(0);
   const b = withBem('settings');
-  const { data: session } = useSession();
+
+  const { me, isLoadingMe } = useMe();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
-  if (!session) return <h2>Loading...</h2>;
-  if (!session?.user?.id) router.push(Routes.SITE.LOGIN);
+  if (isLoadingMe) return <h2>Loading...</h2>;
+  if (!me?.id) router.push(Routes.SITE.LOGIN);
 
-  const { data: user, isLoading, isFetching } = useUser(session.user.id);
+  const { data: user, isLoading, isFetching } = useUser(me.id);
 
   if (isLoading) return <h2>Loading...</h2>;
 
@@ -91,7 +96,7 @@ const Settings: FC = () => {
   const { errors, dirtyFields } = formState;
 
   const {
-    mutate: updateUser,
+    mutateAsync: updateUser,
     isLoading: isUpdateLoading,
     isError,
     error,
@@ -108,7 +113,8 @@ const Settings: FC = () => {
       }
     });
 
-    updateUser({ id: user.id, user: updatedFields, setProgress });
+    await updateUser({ id: user.id, user: updatedFields, setProgress });
+    await queryClient.invalidateQueries(QueryKeys.ME);
   };
 
   if (!getValues('avatar') || !getValues('header')) return <div>Loading...</div>;

@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
 import moment from 'moment';
 import { Routes } from 'lib-client/constants';
 import { withBem } from 'utils/bem';
@@ -10,10 +9,11 @@ import { PostProps, getIsAdmin, getIsPostOwner } from 'components/PostItem';
 import Button from 'components/Button';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
+import { useMe } from 'lib-client/react-query/users/useMe';
 
 const PostItem: FC<PostProps> = ({ post }) => {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { me } = useMe();
   const b = withBem('post-item');
 
   const { mutate: updatePost, ...restUpdate } = useUpdatePost();
@@ -37,7 +37,7 @@ const PostItem: FC<PostProps> = ({ post }) => {
     query: { username: author.username },
   };
 
-  const isOwnerOrAdmin = getIsPostOwner(session, post) || getIsAdmin(session);
+  const isOwnerOrAdmin = getIsPostOwner(me, post) || getIsAdmin(me);
 
   return (
     <article className={b()} onClick={handlePostClick}>

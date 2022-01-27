@@ -3,11 +3,13 @@ import { signIn, ClientSafeProvider } from 'next-auth/react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { getErrorClass, withBem } from 'utils/bem';
+import { useQueryClient } from 'react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userRegisterSchema, userLoginSchema } from 'lib-server/validation';
 import { Routes } from 'lib-client/constants';
 import Button from 'components/Button';
 import { useCreateUser } from 'lib-client/react-query/users/useCreateUser';
+import QueryKeys from 'lib-client/react-query/queryKeys';
 
 interface AuthFormData {
   email: string;
@@ -25,6 +27,7 @@ type Props = {
 const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
   const b = withBem('auth');
 
+  const queryClient = useQueryClient();
   const { mutate: createUser, isLoading, isError, error } = useCreateUser();
 
   const { register, handleSubmit, formState } = useForm<AuthFormData>({
@@ -40,6 +43,7 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
       email,
       password,
     });
+    await queryClient.invalidateQueries(QueryKeys.ME);
   };
 
   const onSubmitRegister = async ({ name, username, email, password }: AuthFormData) => {

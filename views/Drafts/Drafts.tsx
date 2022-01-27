@@ -1,19 +1,19 @@
 import React, { FC, useState } from 'react';
 import { withBem } from 'utils/bem';
-import { useSession } from 'next-auth/react';
 import PostItem from 'components/PostItem';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import Pagination from 'components/Pagination';
 import QueryKeys from 'lib-client/react-query/queryKeys';
+import { useMe } from 'lib-client/react-query/users/useMe';
 
 const Drafts: FC = () => {
   const b = withBem('drafts');
-  const { data: session } = useSession();
+  const { me } = useMe();
 
   const [page, setPage] = useState(1);
   const { data, isLoading, isFetching, isPreviousData } = usePosts(
     QueryKeys.POSTS_DRAFTS,
-    { page, userId: session?.user.id, published: false }
+    { page, userId: me?.id, published: false }
   );
 
   if (isLoading) return <h2>Loading...</h2>;

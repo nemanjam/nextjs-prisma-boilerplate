@@ -1,19 +1,17 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { GetServerSideProps } from 'next';
 import PageLayout from 'layouts/PageLayout';
-import { useSession, getSession } from 'next-auth/react';
-import prisma from 'lib-server/prisma';
-import { datesToStrings } from 'utils';
-import { default as DraftsView } from 'views/Drafts';
-import { PostsProps } from 'components/PostItem';
+import { getSession } from 'next-auth/react';
 import { dehydrate, QueryClient } from 'react-query';
+import DraftsView from 'views/Drafts';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { getPostsWithAuthor } from 'pages/api/posts';
+import { useMe } from 'lib-client/react-query/users/useMe';
 
-const Drafts: React.FC<PostsProps> = ({ posts }) => {
-  const { data: session } = useSession();
+const Drafts: FC = () => {
+  const { me } = useMe();
 
-  if (!session) {
+  if (!me) {
     return (
       <PageLayout>
         <h1>My Drafts</h1>
@@ -24,7 +22,7 @@ const Drafts: React.FC<PostsProps> = ({ posts }) => {
 
   return (
     <PageLayout>
-      <DraftsView posts={posts} />
+      <DraftsView />
     </PageLayout>
   );
 };
