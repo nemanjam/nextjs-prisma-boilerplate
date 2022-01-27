@@ -19,6 +19,7 @@ const Login: FC<Props> = ({ providers }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  // leave session, doesn't need user or !user.id, !user.email
   const session = await getSession({ req });
 
   if (session) {

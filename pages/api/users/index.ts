@@ -36,7 +36,6 @@ export const getUserByUsernameOrEmail = async (query: QueryParamsType): Promise<
   const { username, email } = validationResult.data;
 
   const user = await prisma.user.findFirst({ where: { OR: [{ username }, { email }] } });
-  delete user.password;
   return user;
 };
 
@@ -80,7 +79,6 @@ handler.post(
       },
     });
 
-    delete user.password;
     res.status(201).json(user);
   }
 );

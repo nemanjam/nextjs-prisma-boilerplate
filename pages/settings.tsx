@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     },
   };
 
-  if (!session) {
+  if (!session?.user) {
     return redirect;
   }
 

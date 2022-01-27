@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { signIn, ClientSafeProvider } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { getErrorClass, withBem } from 'utils/bem';
@@ -10,6 +11,7 @@ import { Routes } from 'lib-client/constants';
 import Button from 'components/Button';
 import { useCreateUser } from 'lib-client/react-query/users/useCreateUser';
 import QueryKeys from 'lib-client/react-query/queryKeys';
+import { useMe } from 'lib-client/react-query/users/useMe';
 
 interface AuthFormData {
   email: string;
@@ -27,6 +29,11 @@ type Props = {
 const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
   const b = withBem('auth');
 
+  const router = useRouter();
+  const { me } = useMe();
+
+  if (me) router.push(Routes.SITE.HOME);
+
   const queryClient = useQueryClient();
   const { mutate: createUser, isLoading, isError, error } = useCreateUser();
 
@@ -42,6 +49,7 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
     await signIn('credentials', {
       email,
       password,
+      // redirect: false, // mutation with csrf token
     });
     await queryClient.invalidateQueries(QueryKeys.ME);
   };

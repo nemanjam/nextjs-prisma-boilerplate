@@ -1,8 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
 import { hash } from 'bcryptjs';
 import { withValidation } from 'next-validations';
-import prisma from 'lib-server/prisma';
+import prisma, { getMe } from 'lib-server/prisma';
 import { profileImagesUpload } from 'lib-server/middleware/upload';
 import nc, { ncOptions } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
@@ -22,7 +21,6 @@ const validateUserUpdate = withValidation({
 
 export const getUserById = async (id: string) => {
   const user = await prisma.user.findUnique({ where: { id } });
-  delete user.password;
   return user;
 };
 
@@ -42,10 +40,10 @@ handler.patch(
     const id = getId(req);
     const { name, username, password } = body; // email reconfirm...
 
-    const session = await getSession({ req });
+    const me = await getMe({ req });
     // if session.user.id === id force recreate session
 
-    if (!(session?.user && (session.user.id === id || session.user.role === 'admin'))) {
+    if (!(me && (me.id === id || me.role === 'admin'))) {
       throw new ApiError('Not authorized.', 401);
     }
 
@@ -61,8 +59,6 @@ handler.patch(
       where: { id },
       data,
     });
-
-    delete user.password;
 
     res.status(200).json(user);
   }

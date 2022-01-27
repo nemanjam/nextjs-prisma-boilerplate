@@ -1,8 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
 import { withValidation } from 'next-validations';
 import nc, { ncOptions } from 'lib-server/nc';
-import prisma from 'lib-server/prisma';
+import prisma, { getMe } from 'lib-server/prisma';
 import { requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
 import { postUpdateSchema } from 'lib-server/validation';
@@ -47,7 +46,7 @@ handler.patch(
   async (req: NextApiRequest, res: NextApiResponse) => {
     const id = getId(req);
     const { title, content, published } = req.body;
-    const session = await getSession({ req });
+    const me = await getMe({ req });
 
     const _post = await prisma.post.findUnique({
       where: {
@@ -60,7 +59,7 @@ handler.patch(
 
     if (!_post) throw new ApiError(`Post with id:${id} not found.`, 404);
 
-    if (session?.user.id !== _post.author.id && session?.user.role !== 'admin')
+    if (!me || (me.id !== _post.author.id && me.role !== 'admin'))
       throw new ApiError('Not authorized.', 401);
 
     const data = {

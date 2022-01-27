@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { withBem } from 'utils/bem';
 import PostItem from 'components/PostItem';
 import Pagination from 'components/Pagination';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 
-const Home: React.FC = () => {
+const Home: FC = () => {
   const b = withBem('home');
 
   // const { data: me, isLoading: isLoadingMe } = useMe();

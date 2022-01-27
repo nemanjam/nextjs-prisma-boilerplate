@@ -31,7 +31,7 @@ const Drafts: FC = () => {
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
 
-  if (!session) {
+  if (!session?.user) {
     res.statusCode = 403;
     return { props: { posts: [] } };
   }

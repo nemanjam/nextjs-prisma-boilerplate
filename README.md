@@ -585,6 +585,7 @@ await Promise.all([invalidateQueries(...), invalidateQueries(...)])
 - avatar and header images in Settings form should be in form state and not React Query state
 - keep user and post query cache separated (api calls) on client, ok now
 - hook return values trigger rerender, session, status `const { data: session, status } = useSession();`
+- only replace `getSession` with `getMe` if other props than `user.id` and `user.email` are accessed, else leave `getSession`, no need for db call
 
 ### Serialize Dates in getServerSideProps solved
 
