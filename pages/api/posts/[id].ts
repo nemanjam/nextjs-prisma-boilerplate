@@ -35,7 +35,7 @@ export const getPostWithAuthorById = async (id: number): Promise<PostWithAuthor>
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   const post = await getPostWithAuthorById(getId(req));
 
-  if (!post) throw new ApiError(`Post not found.`, 404);
+  if (!post) throw new ApiError('Post not found.', 404);
 
   res.status(200).json(post);
 });

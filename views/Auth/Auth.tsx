@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import { signIn, ClientSafeProvider } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -133,22 +133,18 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
             {Object.values(providers)
               .filter((p) => p.type !== 'credentials')
               .map((provider) => (
-                <>
+                <Fragment key={provider.name}>
                   {provider.name === 'Facebook' && (
-                    <Button key={provider.name} onClick={() => signIn(provider.id)}>
+                    <Button onClick={() => signIn(provider.id)}>
                       Login with Facebook
                     </Button>
                   )}
                   {provider.name === 'Google' && (
-                    <Button
-                      variant="danger"
-                      key={provider.name}
-                      onClick={() => signIn(provider.id)}
-                    >
+                    <Button variant="danger" onClick={() => signIn(provider.id)}>
                       Login with Google
                     </Button>
                   )}
-                </>
+                </Fragment>
               ))}
           </div>
         )}

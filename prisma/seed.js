@@ -33,6 +33,7 @@ const _unlink = promisify(unlink);
 const prisma = new PrismaClient();
 const password = hashSync('123', 10);
 const numberOfUsers = 4;
+const numberOfPosts = 6;
 
 const createPosts = (n) => {
   return Array.from(Array(n).keys()).map(() => ({
@@ -54,7 +55,7 @@ const createUsers = (n) => {
     bio: lorem.sentences(3),
     role: index === 0 ? 'admin' : 'user',
     posts: {
-      create: createPosts(getRandomInteger(3, 6)),
+      create: createPosts(numberOfPosts),
     },
   }));
 };

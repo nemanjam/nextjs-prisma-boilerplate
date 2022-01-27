@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query';
+import { AxiosError } from 'axios';
 import { ClientUser } from 'types';
 import { Routes } from 'lib-client/constants';
 import axiosInstance from 'lib-client/react-query/axios';
@@ -10,6 +11,6 @@ const getUser = async (id: string) => {
 };
 
 export const useUser = (id: string) => {
-  const query = useQuery([QueryKeys.USER, id], () => getUser(id));
+  const query = useQuery<ClientUser, AxiosError>([QueryKeys.USER, id], () => getUser(id));
   return query;
 };

@@ -28,6 +28,9 @@ export const getUserById = async (id: string) => {
 // for me query too
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await getUserById(getId(req));
+
+  if (!user) throw new ApiError('User not found.', 404);
+
   res.status(200).json(user);
 });
 

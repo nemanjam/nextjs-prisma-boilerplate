@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
+import { AxiosError } from 'axios';
 import { PaginatedResponse, PostWithAuthor } from 'types';
 import { Routes } from 'lib-client/constants';
 import axiosInstance from 'lib-client/react-query/axios';
@@ -24,7 +25,7 @@ export const usePosts = (queryKey: QueryKeysType, params: GetPostsQueryParams) =
     return queryKey.filter((item) => item || item === 0);
   };
 
-  const query = useQuery(
+  const query = useQuery<PaginatedResponse<PostWithAuthor>, AxiosError>(
     filterEmpty([queryKey, username, page]),
     () => getPosts(params),
     {
