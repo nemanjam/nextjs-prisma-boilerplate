@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { withBem } from 'utils/bem';
 import Navbar from 'components/Navbar';
 import Footer from 'components/Footer';
@@ -8,7 +8,7 @@ type Props = {
   noPaddingTop?: boolean;
 };
 
-const PageLayout: React.FC<Props> = ({ children, noPaddingTop }) => {
+const PageLayout: FC<Props> = ({ children, noPaddingTop }) => {
   const b = withBem('page-layout');
 
   return (

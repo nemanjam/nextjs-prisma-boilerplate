@@ -73,4 +73,12 @@ export const config = {
   },
 };
 
+handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
+  const user = await prisma.user.delete({ where: { id: getId(req) } });
+
+  if (!user) throw new ApiError('User not found.', 404);
+
+  res.status(204).json(user);
+});
+
 export default handler;

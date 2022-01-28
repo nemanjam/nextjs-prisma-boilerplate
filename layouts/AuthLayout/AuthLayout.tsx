@@ -1,11 +1,11 @@
-import React, { ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { withBem } from 'utils/bem';
 
 type Props = {
   children: ReactNode;
 };
 
-const AuthLayout: React.FC<Props> = ({ children }) => {
+const AuthLayout: FC<Props> = ({ children }) => {
   const b = withBem('auth-layout');
 
   return (

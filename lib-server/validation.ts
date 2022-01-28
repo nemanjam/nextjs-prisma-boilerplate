@@ -63,6 +63,32 @@ export const userUpdateSchema = z
     path: ['confirmPassword'],
   });
 
+// query params numbers are strings, parse them before validating
+const stringToNumber = (numberStr: string): number | void => {
+  return numberStr ? parseInt(z.string().parse(numberStr), 10) : undefined;
+};
+
+const stringToBoolean = (booleanStr: string): boolean | void => {
+  return booleanStr ? z.string().parse(booleanStr) === 'true' : undefined;
+};
+
+const usersLimitMax = 100;
+
+export const usersGetSchema = z.object({
+  page: z.preprocess(stringToNumber, z.number().min(1).optional()),
+  limit: z.preprocess(stringToNumber, z.number().min(1).max(usersLimitMax).optional()),
+  searchTerm: z.string().optional().or(z.literal('')),
+  startsWith: z.string().optional().or(z.literal('')),
+  sortDirection: z
+    .string()
+    .optional()
+    .or(z.literal(''))
+    .or(z.literal('asc'))
+    .or(z.literal('desc')),
+});
+
+// --------------- post ---------------
+
 const titleMin = 6,
   titleMax = 100,
   contentMin = 6,
@@ -80,20 +106,11 @@ export const postUpdateSchema = z.object({
   published: z.boolean().optional(),
 });
 
-// query params numbers are strings, parse them before validating
-const stringToNumber = (numberStr: string): number | void => {
-  return numberStr ? parseInt(z.string().parse(numberStr), 10) : undefined;
-};
-
-const stringToBoolean = (booleanStr: string): boolean | void => {
-  return booleanStr ? z.string().parse(booleanStr) === 'true' : undefined;
-};
-
-const limitMax = 100;
+const postsLimitMax = 100;
 
 export const postsGetSchema = z.object({
   page: z.preprocess(stringToNumber, z.number().min(1).optional()),
-  limit: z.preprocess(stringToNumber, z.number().min(1).max(limitMax).optional()),
+  limit: z.preprocess(stringToNumber, z.number().min(1).max(postsLimitMax).optional()),
   searchTerm: z.string().optional().or(z.literal('')),
   userId: z.string().cuid().optional().or(z.literal('')),
   email: z.string().email().optional().or(z.literal('')),

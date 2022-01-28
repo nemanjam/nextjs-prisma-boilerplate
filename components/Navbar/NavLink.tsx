@@ -1,4 +1,4 @@
-import React, { ReactNode, cloneElement, ReactElement } from 'react';
+import React, { ReactNode, cloneElement, ReactElement, FC } from 'react';
 import { withBem } from 'utils/bem';
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   icon?: ReactElement;
 };
 
-const NavLink: React.FC<Props> = ({ isActive, children, icon }) => {
+const NavLink: FC<Props> = ({ isActive, children, icon }) => {
   const b = withBem('navlink');
 
   return (

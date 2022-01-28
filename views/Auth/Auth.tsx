@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { userRegisterSchema, userLoginSchema } from 'lib-server/validation';
 import { Routes } from 'lib-client/constants';
 import Button from 'components/Button';
-import { useCreateUser } from 'lib-client/react-query/users/useCreateUser';
+import { useCreateUser } from 'lib-client/react-query/auth/useCreateUser';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 

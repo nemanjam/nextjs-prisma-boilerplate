@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Link from 'next/link';
 import { getErrorClass, withBem } from 'utils/bem';
 import { useForm } from 'react-hook-form';
@@ -11,7 +11,7 @@ import {
   useCreatePost,
 } from 'lib-client/react-query/posts/useCreatePost';
 
-const Create: React.FC = () => {
+const Create: FC = () => {
   const b = withBem('create');
 
   const { mutate: createPost, isLoading, isError, error } = useCreatePost();

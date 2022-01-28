@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import PageLayout from 'layouts/PageLayout';
 import { default as CreateView } from 'views/Create';
 
-const Create: React.FC = () => {
+const Create: FC = () => {
   return (
     <PageLayout>
       <CreateView />

@@ -3,15 +3,12 @@ import { withBem } from 'utils/bem';
 import UserItem from 'components/UserItem';
 import Pagination from 'components/Pagination';
 import { useUsers } from 'lib-client/react-query/users/useUsers';
-import QueryKeys from 'lib-client/react-query/queryKeys';
 
 const Users: FC = () => {
   const b = withBem('users');
 
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, isPreviousData } = useUsers(QueryKeys.USERS, {
-    page,
-  });
+  const { data, isLoading, isFetching, isPreviousData } = useUsers({ page });
 
   if (isLoading) return <h2>Loading...</h2>;
 

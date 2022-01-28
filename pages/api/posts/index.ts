@@ -65,11 +65,6 @@ export const getPostsWithAuthor = async (
     ? 'desc'
     : 'asc';
 
-  if (username) {
-    const user = await prisma.user.findUnique({ where: { username } });
-    if (!user) return; // throw 404
-  }
-
   // for count
   const where = {
     where: {

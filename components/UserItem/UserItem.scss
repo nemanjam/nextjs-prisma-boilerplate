@@ -15,4 +15,8 @@
   &__avatar {
     @apply h-24 w-24 object-cover;
   }
+
+  &__header-image {
+    @apply h-48 w-full bg-cover bg-center;
+  }
 }

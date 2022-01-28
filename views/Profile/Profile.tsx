@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import moment from 'moment';
 import { withBem } from 'utils/bem';
 import PostItem from 'components/PostItem';
@@ -13,7 +13,7 @@ type ProfileProps = {
   profile: User;
 };
 
-const Profile: React.FC<ProfileProps> = ({ profile }) => {
+const Profile: FC<ProfileProps> = ({ profile }) => {
   const b = withBem('profile');
 
   const [page, setPage] = useState(1);

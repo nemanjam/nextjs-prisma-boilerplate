@@ -12,5 +12,6 @@ export const Routes = {
   API: {
     POSTS: '/api/posts/',
     USERS: '/api/users/',
+    PROFILE: '/api/users/profile/',
   },
 } as const;

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { GetServerSideProps } from 'next';
 import PageLayout from 'layouts/PageLayout';
 import { dehydrate, QueryClient } from 'react-query';
 import ProfileView from 'views/Profile';
-import { getUserByUsernameOrEmail } from 'pages/api/users';
+import { getUserByUsernameOrEmail } from 'pages/api/users/profile';
 import { getPostsWithAuthor } from 'pages/api/posts';
 import { User } from '@prisma/client';
 import QueryKeys from 'lib-client/react-query/queryKeys';
@@ -12,7 +12,7 @@ type ProfileProps = {
   profile: User;
 };
 
-const Profile: React.FC<ProfileProps> = ({ profile }) => {
+const Profile: FC<ProfileProps> = ({ profile }) => {
   return (
     <PageLayout noPaddingTop>
       <ProfileView profile={profile} />

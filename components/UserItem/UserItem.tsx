@@ -5,7 +5,7 @@ import { withBem } from 'utils/bem';
 import { getAvatarPath, getHeaderImagePath } from 'utils';
 import { getIsAdmin } from 'components/PostItem';
 import Button from 'components/Button';
-import { useDeleteUser } from 'lib-client/react-query/posts/useDeleteUser';
+import { useDeleteUser } from 'lib-client/react-query/users/useDeleteUser';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import { mommentFormats } from '@lib-server/constants';
 import { ClientUser } from 'types';

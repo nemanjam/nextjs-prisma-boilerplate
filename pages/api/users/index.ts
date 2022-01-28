@@ -1,11 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { hash } from 'bcryptjs';
-import { User } from '@prisma/client';
 import { withValidation } from 'next-validations';
 import prisma from 'lib-server/prisma';
 import nc, { ncOptions } from 'lib-server/nc';
 import ApiError from 'lib-server/error';
-import { userGetSchema, usersGetSchema, userRegisterSchema } from 'lib-server/validation';
+import { usersGetSchema, userRegisterSchema } from 'lib-server/validation';
 import { PaginatedResponse, QueryParamsType } from 'types';
 import { ClientUser } from 'types';
 
@@ -17,40 +16,10 @@ const validateUserRegister = withValidation({
   mode: 'body',
 });
 
-const validateUserGet = withValidation({
-  schema: userGetSchema,
+const validateUsersGet = withValidation({
+  schema: usersGetSchema,
   type: 'Zod',
   mode: 'query',
-});
-
-// unused
-export type GetUserQueryParams = {
-  username?: string;
-  email?: string;
-};
-
-// query so it can be validated with schema
-export const getUserByUsernameOrEmail = async (query: QueryParamsType): Promise<User> => {
-  const validationResult = userGetSchema.safeParse(query);
-  if (!validationResult.success) return; // throw 404 in getServerSideProps
-
-  const { username, email } = validationResult.data;
-
-  const user = await prisma.user.findFirst({ where: { OR: [{ username }, { email }] } });
-  return user;
-};
-
-/**
- * GET /api/users?username=john&email=email@email.com
- */
-handler.get(validateUserGet(), async (req: NextApiRequest, res: NextApiResponse) => {
-  const user = await getUserByUsernameOrEmail(req.query);
-
-  if (!user) {
-    throw new ApiError(`User not found.`, 404);
-  }
-
-  res.status(200).json(user);
 });
 
 /**
@@ -84,28 +53,82 @@ handler.post(
   }
 );
 
+type SortDirectionType = 'asc' | 'desc';
+
+export type GetUsersQueryParams = {
+  page: number;
+  limit?: number;
+  startsWith?: string;
+  searchTerm?: string;
+  sortDirection?: SortDirectionType;
+};
+
 const defaultLimit = 3;
 
 export const getUsers = async (
   query: QueryParamsType
 ): Promise<PaginatedResponse<ClientUser>> => {
   const validationResult = usersGetSchema.safeParse(query);
+  if (!validationResult.success) return;
 
   const {
     page = 1,
     limit = defaultLimit,
+    startsWith,
     searchTerm,
-    sortField = 'createdAt',
-    sortDirection: _sortDirection,
+    sortDirection = 'asc',
   } = validationResult.data;
 
+  const mode = 'insensitive' as const;
+
   const where = {
-    where: {},
+    where: {
+      ...(startsWith && {
+        OR: [
+          {
+            name: {
+              startsWith,
+              mode,
+            },
+          },
+          {
+            username: {
+              startsWith,
+              mode,
+            },
+          },
+          {
+            email: {
+              startsWith,
+              mode,
+            },
+          },
+        ],
+      }),
+    },
   };
 
-  const totalCount = await prisma.post.count({ ...where });
+  const totalCount = await prisma.user.count({ ...where });
 
-  const users = await prisma.user.findMany({ ...where });
+  const users = await prisma.user.findMany({
+    ...where,
+    skip: (page - 1) * limit,
+    take: limit,
+    /*
+    orderBy: [
+      { ...(sortDirection && { createdAt: sortDirection as SortDirectionType }) },
+      {
+        ...(searchTerm && {
+          _relevance: {
+            fields: ['username', 'name', 'email'],
+            search: searchTerm,
+            sort: 'desc',
+          },
+        }),
+      },
+    ],
+    */
+  });
 
   const result = {
     items: users,
@@ -123,7 +146,7 @@ export const getUsers = async (
   return result;
 };
 
-handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
+handler.get(validateUsersGet(), async (req: NextApiRequest, res: NextApiResponse) => {
   const users = await getUsers(req.query);
   res.status(200).json(users);
 });

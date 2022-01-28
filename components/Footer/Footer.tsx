@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { withBem } from 'utils/bem';
 
-const Footer: React.FC = () => {
+const Footer: FC = () => {
   const b = withBem('footer');
 
   return (
