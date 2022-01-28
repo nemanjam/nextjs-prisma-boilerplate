@@ -586,6 +586,25 @@ await Promise.all([invalidateQueries(...), invalidateQueries(...)])
 - keep user and post query cache separated (api calls) on client, ok now
 - hook return values trigger rerender, session, status `const { data: session, status } = useSession();`
 - only replace `getSession` with `getMe` if other props than `user.id` and `user.email` are accessed, else leave `getSession`, no need for db call
+- problem: `Error: Rendered more hooks than during the previous render` - different key or subkey in getServerSideProps and useQuery - NO, solution: means you are rendering useQuery useUser hook conditionally and have `if return` before the hook
+- add Eslint add BOTH plugin and rule [react docs](https://reactjs.org/docs/hooks-rules.html)
+
+```
+yarn add -D eslint-plugin-react-hooks
+
+// Your ESLint configuration
+{
+  "plugins": [
+    // ...
+    "react-hooks"
+  ],
+  "rules": {
+    // ...
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
+  }
+}
+```
 
 ### Serialize Dates in getServerSideProps solved
 
@@ -696,3 +715,4 @@ await Promise.all([invalidateQueries(...), invalidateQueries(...)])
 - leave just id and email in session.user, and type
 - users page, pagination, api filtering
 - test `await queryClient.prefetchQuery([QueryKeys.POSTS_PROFILE, profile.username, 1]...`
+- redirect on protected pages, logged in and admin cases

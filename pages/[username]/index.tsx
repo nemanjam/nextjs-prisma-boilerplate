@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import PageLayout from 'layouts/PageLayout';
 import { dehydrate, QueryClient } from 'react-query';
 import ProfileView from 'views/Profile';
-import { getUserByUsernameOrEmail } from 'pages/api/users/profile';
+import { getUserByIdOrUsernameOrEmail } from 'pages/api/users/profile';
 import { getPostsWithAuthor } from 'pages/api/posts';
 import { User } from '@prisma/client';
 import QueryKeys from 'lib-client/react-query/queryKeys';
@@ -21,7 +21,7 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const _profile = await getUserByUsernameOrEmail(params);
+  const _profile = await getUserByIdOrUsernameOrEmail(params);
 
   if (!_profile) {
     return {

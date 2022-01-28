@@ -11,12 +11,13 @@ const passwordMin = 3,
 
 export const userGetSchema = z
   .object({
+    id: z.string().cuid().optional().or(z.literal('')),
     email: z.string().email().optional().or(z.literal('')),
     username: z.string().min(usernameMin).max(usernameMax).optional().or(z.literal('')),
   })
   .refine(
-    (data) => data.email || data.username, // false triggers message
-    'Either email or username should be filled in.'
+    (data) => data.id || data.username || data.email, // false triggers message
+    'Either id, username or email should be specified.'
   );
 
 export const userLoginSchema = z.object({

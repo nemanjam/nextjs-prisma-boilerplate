@@ -6,6 +6,7 @@ import { Routes } from 'lib-client/constants';
 import axiosInstance from 'lib-client/react-query/axios';
 import { GetPostsQueryParams } from 'pages/api/posts';
 import { QueryKeysType } from 'lib-client/react-query/queryKeys';
+import { filterEmpty } from 'utils';
 
 // usePaginatedQuery, first page hydrated method from getServerSideProps
 
@@ -20,10 +21,6 @@ const getPosts = async (params: GetPostsQueryParams) => {
 export const usePosts = (queryKey: QueryKeysType, params: GetPostsQueryParams) => {
   const queryClient = useQueryClient();
   const { page, username } = params;
-
-  const filterEmpty = (queryKey: Array<unknown>) => {
-    return queryKey.filter((item) => item || item === 0);
-  };
 
   const query = useQuery<PaginatedResponse<PostWithAuthor>, AxiosError>(
     filterEmpty([queryKey, username, page]),

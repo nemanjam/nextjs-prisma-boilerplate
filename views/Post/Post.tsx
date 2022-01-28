@@ -23,8 +23,6 @@ const Post: FC = () => {
   // redirect on delete
   const { data: post, isLoading, isFetching } = usePost(id);
 
-  if (isLoading || isLoadingMe) return <h2>Loading...</h2>;
-
   const { mutate: updatePost, ...restUpdate } = useUpdatePost();
   const { mutateAsync: deletePost, ...restDelete } = useDeletePost();
 
@@ -37,6 +35,8 @@ const Post: FC = () => {
 
   const title = `${post.title} ${post.published ? '' : '(Draft)'}`;
   const isOwnerOrAdmin = getIsPostOwner(me, post) || getIsAdmin(me);
+
+  if (isLoading || isLoadingMe) return <h2>Loading...</h2>;
 
   return (
     <article className={b()}>

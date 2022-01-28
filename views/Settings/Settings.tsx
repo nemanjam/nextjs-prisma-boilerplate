@@ -37,16 +37,23 @@ const Settings: FC = () => {
   const [progress, setProgress] = useState(0);
   const b = withBem('settings');
 
-  const { me, isLoadingMe } = useMe();
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  if (isLoadingMe) return <h2>Loading...</h2>;
-  if (!me?.id) router.push(Routes.SITE.LOGIN);
+  const { me, isLoadingMe } = useMe();
 
-  const { data: user, isLoading, isFetching } = useUser(me.id);
+  const id = me?.id;
+  const { username } = router.query;
+  const params = username?.length > 0 ? { username: username[0] } : { id };
 
-  if (isLoading) return <h2>Loading...</h2>;
+  const enabled = !!id;
+  const { data: user, isLoading, isFetching } = useUser(params, enabled);
+
+  useEffect(() => {
+    console.log('id', id);
+
+    // if (!id && router) router.push(Routes.SITE.LOGIN);
+  }, [id, router]);
 
   const methods = useForm<SettingsFormData>({
     resolver: zodResolver(userUpdateSchema),
@@ -117,6 +124,7 @@ const Settings: FC = () => {
     await queryClient.invalidateQueries(QueryKeys.ME);
   };
 
+  if (isLoading || isLoadingMe) return <h2>Loading...</h2>;
   if (!getValues('avatar') || !getValues('header')) return <div>Loading...</div>;
 
   return (

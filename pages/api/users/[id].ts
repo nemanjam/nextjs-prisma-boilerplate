@@ -25,7 +25,7 @@ export const getUserById = async (id: string) => {
 };
 
 // GET /api/users/:id
-// for me query too
+// only for me query
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await getUserById(getId(req));
 
