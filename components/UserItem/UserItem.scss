@@ -1,22 +1,39 @@
 .user-item {
-  @apply flex flex-col gap-4 p-4 border-t border-x border-gray-200 hover:bg-gray-100;
+  @apply flex flex-col gap-4 border-t border-x border-gray-200 hover:bg-gray-100;
+
   &:last-child {
     @apply border-b;
   }
 
-  &__header {
-    @apply flex gap-4;
-  }
-
-  &__left {
-    @apply shrink-0;
+  &__avatar-container {
+    @apply inline-block -mt-16 bg-white p-2;
   }
 
   &__avatar {
-    @apply h-24 w-24 object-cover;
+    @apply h-20 w-20 object-cover;
+  }
+
+  &__buttons {
+    @apply flex justify-end gap-4 -mt-11;
   }
 
   &__header-image {
-    @apply h-48 w-full bg-cover bg-center;
+    @apply h-28 w-full bg-cover bg-center;
+  }
+
+  &__user-info {
+    @apply px-4 pb-4;
+  }
+
+  &__name {
+    @apply inline;
+  }
+
+  &__username {
+    @apply text-gray-500;
+  }
+
+  &__date {
+    @apply text-sm text-gray-500;
   }
 }

@@ -189,7 +189,7 @@ const filterAllItems = ({ argsArray, ...restArgs }: FilterItemsArgs) =>
 const navConfig = {
   leftNav: {
     loggedIn: ['home', 'users', 'profile', 'create', 'drafts'],
-    loggedOut: ['home'],
+    loggedOut: ['home', 'users'],
   },
   rightNav: {
     loggedIn: {

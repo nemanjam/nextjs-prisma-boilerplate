@@ -20,8 +20,13 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
 
   const { mutate: deleteUser, ...restDelete } = useDeleteUser();
 
-  const authorHref = {
+  const userHref = {
     pathname: '/[username]',
+    query: { username: user.username },
+  };
+
+  const settingsHref = {
+    pathname: '/settings/[username]',
     query: { username: user.username },
   };
 
@@ -38,31 +43,48 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
         style={{ backgroundImage: `url('${getHeaderImagePath(user)}')` }}
       />
       <div className={b('user-info')}>
-        <Link href={authorHref}>
+        <span className={b('avatar-container')}>
+          <Link href={userHref}>
+            <a>
+              <img className={b('avatar')} src={getAvatarPath(user)} />
+            </a>
+          </Link>
+        </span>
+
+        {'isAdmin' && (
+          <div className={b('buttons')}>
+            <Link href={settingsHref}>
+              <Button tagName="a">Edit</Button>
+            </Link>
+            <Button
+              variant="danger"
+              onClick={() => {
+                deleteUser(user.id);
+              }}
+            >
+              {!restDelete.isLoading ? 'Delete' : 'Deleting...'}
+            </Button>
+          </div>
+        )}
+
+        <Link href={userHref}>
           <a>
-            <img className={b('avatar')} src={getAvatarPath(user)} />
+            <h2 className={b('name')}>{user.name}</h2>
           </a>
         </Link>
-        <h1 className={b('name')}>{user.name}</h1>
-        <p className={b('username')}>{user.username}</p>
+        <div>
+          <Link href={userHref}>
+            <a>
+              <span className={b('username')}>{`@${user.username}`}</span>
+            </a>
+          </Link>
+        </div>
         <p className={b('bio')}>{user.bio}</p>
         <p className={b('date')}>{`Joined ${moment(user.createdAt).format(
           mommentFormats.dateForUsersAndPosts
         )}`}</p>
         {/* count messages, comments, followers */}
       </div>
-
-      {isAdmin && (
-        <Button
-          variant="danger"
-          onClick={(e) => {
-            e.stopPropagation();
-            deleteUser(user.id);
-          }}
-        >
-          {!restDelete.isLoading ? 'Delete' : 'Deleting...'}
-        </Button>
-      )}
     </section>
   );
 };

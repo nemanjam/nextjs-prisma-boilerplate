@@ -74,6 +74,7 @@ export const config = {
 };
 
 handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
+  // delete posts too
   const user = await prisma.user.delete({ where: { id: getId(req) } });
 
   if (!user) throw new ApiError('User not found.', 404);

@@ -14,7 +14,7 @@ const Users: FC = () => {
 
   return (
     <div className={b()}>
-      <h1 className={b('title')}>Home</h1>
+      <h1 className={b('title')}>Users</h1>
 
       <Pagination
         onPreviousClick={() => setPage((oldPage) => Math.max(oldPage - 1, 1))}

@@ -1,5 +1,5 @@
 .button {
-  @apply focus:outline-none transition ease-in-out duration-200;
+  @apply inline-block focus:outline-none transition ease-in-out duration-200 cursor-pointer;
 
   &--pill {
     @apply rounded-full;
