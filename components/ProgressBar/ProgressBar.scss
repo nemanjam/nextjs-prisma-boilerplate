@@ -1,0 +1,21 @@
+.progress-bar {
+  @apply w-full bg-gray-200;
+
+  &__bar {
+    @apply bg-blue-600 transition;
+  }
+
+  &--height-base {
+    &,
+    & > div {
+      @apply h-5;
+    }
+  }
+
+  &--height-sm {
+    &,
+    & > div {
+      @apply h-1;
+    }
+  }
+}

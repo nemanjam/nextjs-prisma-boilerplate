@@ -19,6 +19,7 @@ import { getAvatarPath, getHeaderImagePath } from 'utils';
 import { ClientUser } from 'types';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import QueryKeys from 'lib-client/react-query/queryKeys';
+import ProgressBar from 'components/ProgressBar';
 
 // don't put id in form, validation  needs to diff on client and server
 // id is in route param
@@ -51,6 +52,16 @@ const Settings: FC = () => {
   useEffect(() => {
     if (!id && router) router.push(Routes.SITE.LOGIN);
   }, [id, router]);
+
+  useEffect(() => {
+    let timer = null;
+    if (progress > 99) {
+      timer = setTimeout(() => setProgress(0), 2000);
+    }
+    return () => {
+      timer && clearTimeout(timer);
+    };
+  }, [progress, setProgress]);
 
   const methods = useForm<SettingsFormData>({
     resolver: zodResolver(userUpdateSchema),
@@ -173,7 +184,6 @@ const Settings: FC = () => {
             label="Avatar"
             dropzoneOptions={dropzoneOptions}
           />
-          {progress > 0 && progress}
           <p className={getErrorClass(errors.avatar?.message)}>
             {errors.avatar?.message}
           </p>
@@ -222,6 +232,7 @@ const Settings: FC = () => {
             Reset
           </Button>
         </div>
+        {progress > 0 && <ProgressBar progress={progress} />}
       </form>
     </FormProvider>
   );
