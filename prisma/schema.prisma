@@ -22,7 +22,7 @@ model Post {
   title       String
   content     String?
   published   Boolean @default(false)
-  author      User?   @relation(fields: [authorId], references: [id])
+  author      User?   @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    String?
   createdAt   DateTime  @default(now()) @map(name: "created_at")
   updatedAt   DateTime  @updatedAt @map(name: "updated_at")
