@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axiosInstance from 'lib-client/react-query/axios';
+import { AxiosError } from 'axios';
 import { Routes } from 'lib-client/constants';
 import { PostWithAuthor } from 'types';
 import QueryKeys from 'lib-client/react-query/queryKeys';
@@ -12,7 +13,7 @@ const deletePost = async (id: number) => {
 export const useDeletePost = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation<PostWithAuthor, Error, number, unknown>(
+  const mutation = useMutation<PostWithAuthor, AxiosError, number, unknown>(
     (id: number) => deletePost(id),
     {
       onError: (error) => {

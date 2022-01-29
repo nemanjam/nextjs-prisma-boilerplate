@@ -2,6 +2,7 @@ import { useMutation } from 'react-query';
 import { useRouter } from 'next/router';
 import { ClientUser } from 'types';
 import { Routes } from 'lib-client/constants';
+import { AxiosError } from 'axios';
 import axiosInstance from 'lib-client/react-query/axios';
 import { User } from '@prisma/client';
 
@@ -15,7 +16,7 @@ const createUser = async (user: UserCreateType) => {
 export const useCreateUser = () => {
   const router = useRouter();
 
-  const mutation = useMutation<ClientUser, Error, UserCreateType, unknown>(
+  const mutation = useMutation<ClientUser, AxiosError, UserCreateType, unknown>(
     (data) => createUser(data),
     {
       onError: (error) => {

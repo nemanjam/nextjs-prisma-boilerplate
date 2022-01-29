@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { useRouter } from 'next/router';
 import { Post } from '@prisma/client';
+import { AxiosError } from 'axios';
 import axiosInstance from 'lib-client/react-query/axios';
 import { Routes } from 'lib-client/constants';
 import { PostWithAuthor } from 'types';
@@ -17,7 +18,7 @@ export const useCreatePost = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const mutation = useMutation<PostWithAuthor, Error, PostCreateType, unknown>(
+  const mutation = useMutation<PostWithAuthor, AxiosError, PostCreateType, unknown>(
     (post: PostCreateType) => createPost(post),
     {
       onError: (error) => {
