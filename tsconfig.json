@@ -19,7 +19,15 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "exclude": ["node_modules", "notes", "dist", ".next", "next.config.js", "prisma"],
+  "exclude": [
+    "node_modules",
+    "notes",
+    "docs",
+    "dist",
+    ".next",
+    "next.config.js",
+    "prisma"
+  ],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "ts-node": {
     "compilerOptions": {

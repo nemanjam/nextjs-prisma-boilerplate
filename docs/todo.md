@@ -1,0 +1,88 @@
+# Todo
+
+## Todo
+
+- logging
+- tests, next examples
+- ci cd, deploy
+- readme
+- tailwind and root font-size 10px 1rem, global and component styles
+- Header component
+- react query, redux toolkit, redux toolkit query
+- \_document.tsx
+- redux toolkit vercel example
+- pagination
+- update readme before forget...
+- refetch session after user is edited
+- try catch to prisma calls getServerSideProps...
+- light, dark, orange, blue theme
+- soft delete for reseed, or logger
+- semantic html
+- Next.js Image config
+- post - hero image, tag, category
+- comments model
+- drafts count in session or user state
+- protected routes and 404 pages
+- typescript silent errors...
+- on change tw-base.scss must restart, no intelisense for my utilities
+- themes
+- docker express maybe, github actions, remote containers
+- where to place and call printLoadedEnvVariables() ?
+- add prisma migration container, move prisma to devDependencies
+- next.js multiple build contexts, next.js app, server.ts and seed.js
+- heroku docker
+- update traefik-proxy readme
+- pagination with prisma and react query
+- type all request and response objects
+- add search posts field
+- create docs folder with mds
+- group pagination items
+- full text search posts
+- request, response types
+- me query, only userId and email in session
+- throw 404 from zod api...
+- error path, db function, getServerSideProps, api endpoint, ask reddit, github
+- mutations
+- handle errors in getServerSideProps
+- edit user, delete user - admin
+- progressbar tailwind div
+- validate ids in api zod
+- replace session.user on server
+- leave just id and email in session.user, and type
+- users page, pagination, api filtering
+- test `await queryClient.prefetchQuery([QueryKeys.POSTS_PROFILE, profile.username, 1]...`
+- redirect on protected pages, logged in and admin cases
+- edit post
+
+## Done
+
+- admin role - done, maybe type admin | user in prisma
+- middleware folder, withProtect, withRoles - done
+- disable prisma seed before migrate - done
+- error handling, next-connect - almost done
+- rethink routes, extract - done
+- fix User type - done
+- migrate to axios, fetch has no progress, done
+- add types file, mostly done
+- fix routing from Post, done
+- vs code recommended extensions, done
+- install icons, done
+- navbar, done
+  - responsive, hamburger
+  - avatar dropdown
+- update next and everything else, done
+- faker content, reseed, clean files, done
+- settings form header dropzone, repeat password, done
+- style forms, hero img upload, done
+- icons in navbar items, done
+- global styles button, links..., done
+- footer, done
+- problem: seed is buggy? solution: prisma 3 has bug with Promise.all([...]), use await, await, await..., done
+- traefik container reverse proxy, done
+- fix remaining forms, done
+- sqlite to postgres, done
+- dev, prod remove express https, done
+- docker, done
+- validation server, client, example [with-joi](https://github.com/vercel/next.js/tree/canary/examples/with-joi), [next-joi](https://github.com/codecoolture/next-joi), done with zod
+- extract styles, tailwind, next examples, done
+- query key in getServerSidePropa and useQuery and type it, done
