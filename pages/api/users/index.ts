@@ -7,6 +7,7 @@ import ApiError from 'lib-server/error';
 import { usersGetSchema, userRegisterSchema } from 'lib-server/validation';
 import { PaginatedResponse, QueryParamsType } from 'types';
 import { ClientUser } from 'types';
+import { Prisma } from '@prisma/client';
 
 const handler = nc(ncOptions);
 
@@ -76,7 +77,7 @@ export const getUsers = async (
     limit = defaultLimit,
     startsWith,
     searchTerm,
-    sortDirection = 'asc',
+    sortDirection = 'desc',
   } = validationResult.data;
 
   const mode = 'insensitive' as const;
@@ -114,20 +115,26 @@ export const getUsers = async (
     ...where,
     skip: (page - 1) * limit,
     take: limit,
-    /*
     orderBy: [
-      { ...(sortDirection && { createdAt: sortDirection as SortDirectionType }) },
-      {
-        ...(searchTerm && {
-          _relevance: {
-            fields: ['username', 'name', 'email'],
-            search: searchTerm,
-            sort: 'desc',
-          },
-        }),
-      },
+      ...(!searchTerm
+        ? [
+            {
+              createdAt: sortDirection,
+            } as Prisma.UserOrderByWithRelationAndSearchRelevanceInput,
+          ]
+        : []),
+      ...(searchTerm
+        ? [
+            {
+              _relevance: {
+                fields: ['username', 'name', 'email'],
+                search: searchTerm,
+                sort: 'desc',
+              },
+            } as Prisma.UserOrderByWithRelationAndSearchRelevanceInput,
+          ]
+        : []),
     ],
-    */
   });
 
   const result = {

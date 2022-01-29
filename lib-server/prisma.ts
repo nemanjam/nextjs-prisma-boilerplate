@@ -51,7 +51,9 @@ prisma.$use(async (params, next) => {
 
 export const getMe = async (params: GetSessionParams) => {
   const session = await getSession(params);
-  const id = session?.user.id;
+  const id = session?.user?.id;
+
+  if (!id) return null;
 
   // filter password
   const me = await prisma.user.findUnique({ where: { id } });

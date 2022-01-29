@@ -12,13 +12,13 @@ const getUser = async (params: GetUserQueryParams) => {
   return data;
 };
 
-export const useUser = (params: GetUserQueryParams, enabled: boolean) => {
+export const useUser = (params: GetUserQueryParams) => {
   const subKey = params?.username || params?.email || params?.id;
 
   const query = useQuery<ClientUser, AxiosError>(
     filterEmpty([QueryKeys.USER, subKey]),
     () => getUser(params),
-    { enabled }
+    { enabled: !!subKey }
   );
   return query;
 };

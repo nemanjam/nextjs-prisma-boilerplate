@@ -46,13 +46,10 @@ const Settings: FC = () => {
   const { username } = router.query;
   const params = username?.length > 0 ? { username: username[0] } : { id };
 
-  const enabled = !!id;
-  const { data: user, isLoading, isFetching } = useUser(params, enabled);
+  const { data: user, isLoading, isFetching } = useUser(params);
 
   useEffect(() => {
-    console.log('id', id);
-
-    // if (!id && router) router.push(Routes.SITE.LOGIN);
+    if (!id && router) router.push(Routes.SITE.LOGIN);
   }, [id, router]);
 
   const methods = useForm<SettingsFormData>({

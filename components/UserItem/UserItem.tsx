@@ -25,10 +25,13 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
     query: { username: user.username },
   };
 
-  const settingsHref = {
-    pathname: '/settings/[username]',
+  const settingsHref1 = {
+    pathname: '/settings/[username]/',
     query: { username: user.username },
   };
+
+  // use this instead of {pathname, query} to prevent hard refresh
+  const settingsHref = `/settings/${user.username}/`;
 
   const isAdmin = getIsAdmin(me);
 
@@ -51,10 +54,12 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
           </Link>
         </span>
 
-        {'isAdmin' && (
+        {isAdmin && (
           <div className={b('buttons')}>
             <Link href={settingsHref}>
-              <Button tagName="a">Edit</Button>
+              <a>
+                <Button tagName="span">Edit</Button>
+              </a>
             </Link>
             <Button
               variant="danger"

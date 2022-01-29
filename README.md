@@ -606,6 +606,33 @@ yarn add -D eslint-plugin-react-hooks
 }
 ```
 
+- useEffect runs only on browser, for redirect
+
+```
+  useEffect(() => {
+    if (me) router.push(Routes.SITE.HOME);
+  }, [me, router]);
+```
+
+- use `enabled` prop in useQuery to wait until async args are not resolved
+
+- `<Link />` with custom componenta requires `passHref` and `forwardRef` [next docs](https://nextjs.org/docs/api-reference/next/link#dynamic-routes)
+
+- problem: `Loading failed for the <script> with source “https://localhost:3001/_next/static/chunks/pages/settings/%5Busername%5D.js”.` and hard page refresh, solution:
+
+```
+// use this
+const settingsHref = `/settings/${user.username}`;
+
+// instead of this
+const settingsHref = {
+  pathname: '/settings/[username]/',
+  query: { username: user.username },
+};
+```
+
+- problem: prisma `where` and `orderBy` type errors, solution: cast object e.g `{...} as Prisma.UserOrderByWithRelationAndSearchRelevanceInput,`
+
 ### Serialize Dates in getServerSideProps solved
 
 - use `babel-plugin-superjson-next` and `superjson-next` [Readme](https://github.com/blitz-js/superjson#using-with-nextjs)

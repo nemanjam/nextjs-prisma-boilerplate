@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC, Fragment, useEffect } from 'react';
 import { signIn, ClientSafeProvider } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -32,8 +32,6 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
   const router = useRouter();
   const { me } = useMe();
 
-  if (me) router.push(Routes.SITE.HOME);
-
   const queryClient = useQueryClient();
   const { mutate: createUser, isLoading, isError, error } = useCreateUser();
 
@@ -41,6 +39,11 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
     resolver: zodResolver(isRegisterForm ? userRegisterSchema : userLoginSchema),
   });
   const { errors } = formState;
+
+  useEffect(() => {
+    console.log('me.email', me?.email);
+    if (me && router) router.push(Routes.SITE.HOME);
+  }, [me, router]);
 
   // axios post to /api/auth/callback/credentials
   // custom request with csrf token...
