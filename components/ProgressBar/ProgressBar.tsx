@@ -12,14 +12,12 @@ const ProgressBar: FC<Props> = ({ progress = 0, height = 'base' }) => {
   const modifiers = {
     'height-sm': height === 'sm',
     'height-base': height === 'base',
+    active: progress > 0,
   };
 
   return (
     <div className={b(null, modifiers)}>
-      <div
-        className={b('bar')}
-        style={{ width: `${progress}%`, transition: 'width 2s' }}
-      />
+      <div className={b('bar')} style={{ width: `${progress}%` }} />
     </div>
   );
 };

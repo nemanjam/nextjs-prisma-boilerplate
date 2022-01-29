@@ -1,8 +1,16 @@
 .progress-bar {
-  @apply w-full bg-gray-200;
+  @apply w-full bg-transparent;
 
   &__bar {
-    @apply bg-blue-600 transition;
+    @apply bg-blue-600;
+  }
+
+  &--active {
+    @apply bg-gray-200;
+    & > div {
+      transition: 1s ease;
+      transition-delay: 0.5s;
+    }
   }
 
   &--height-base {

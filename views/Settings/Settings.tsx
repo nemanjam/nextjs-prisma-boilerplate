@@ -232,7 +232,7 @@ const Settings: FC = () => {
             Reset
           </Button>
         </div>
-        {progress > 0 && <ProgressBar progress={progress} />}
+        <ProgressBar progress={progress} />
       </form>
     </FormProvider>
   );
