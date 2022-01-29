@@ -14,7 +14,7 @@
   }
 
   &__buttons {
-    @apply flex justify-end gap-4 -mt-11;
+    @apply flex justify-end gap-4 -mt-11 h-10;
   }
 
   &__header-image {

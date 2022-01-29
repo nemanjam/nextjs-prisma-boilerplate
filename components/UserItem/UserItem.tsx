@@ -25,11 +25,6 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
     query: { username: user.username },
   };
 
-  const settingsHref1 = {
-    pathname: '/settings/[username]/',
-    query: { username: user.username },
-  };
-
   // use this instead of {pathname, query} to prevent hard refresh
   const settingsHref = `/settings/${user.username}/`;
 
@@ -54,23 +49,25 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
           </Link>
         </span>
 
-        {isAdmin && (
-          <div className={b('buttons')}>
-            <Link href={settingsHref}>
-              <a>
-                <Button tagName="span">Edit</Button>
-              </a>
-            </Link>
-            <Button
-              variant="danger"
-              onClick={() => {
-                deleteUser(user.id);
-              }}
-            >
-              {!restDelete.isLoading ? 'Delete' : 'Deleting...'}
-            </Button>
-          </div>
-        )}
+        <div className={b('buttons')}>
+          {isAdmin && (
+            <>
+              <Link href={settingsHref}>
+                <a>
+                  <Button tagName="span">Edit</Button>
+                </a>
+              </Link>
+              <Button
+                variant="danger"
+                onClick={() => {
+                  deleteUser(user.id);
+                }}
+              >
+                {!restDelete.isLoading ? 'Delete' : 'Deleting...'}
+              </Button>
+            </>
+          )}
+        </div>
 
         <Link href={userHref}>
           <a>

@@ -37,7 +37,7 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
         <div className={b('user-info')}>
           <img className={b('avatar')} src={getAvatarPath(profile)} />
           <h1 className={b('name')}>{profile.name}</h1>
-          <p className={b('username')}>{profile.username}</p>
+          <p className={b('username')}>{`@${profile.username}`}</p>
           <p className={b('bio')}>{profile.bio}</p>
           <p className={b('date')}>{`Joined ${moment(profile.createdAt).format(
             mommentFormats.dateForUsersAndPosts

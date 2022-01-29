@@ -4,7 +4,7 @@ import { isBrowser } from 'utils';
 const passwordMin = 3,
   passwordMax = 20,
   nameMin = 3,
-  nameMax = 15,
+  nameMax = 25,
   usernameMin = 3,
   usernameMax = 15,
   bioMax = 200;

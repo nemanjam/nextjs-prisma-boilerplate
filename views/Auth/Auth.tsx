@@ -41,7 +41,6 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
   const { errors } = formState;
 
   useEffect(() => {
-    console.log('me.email', me?.email);
     if (me && router) router.push(Routes.SITE.HOME);
   }, [me, router]);
 
