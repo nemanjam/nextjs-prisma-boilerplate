@@ -8,8 +8,8 @@ import { getAvatarPath } from 'utils';
 import Dropdown from 'components/Dropdown';
 import { useViewport } from 'components/hooks';
 import { NavLink } from 'components/Navbar';
-
-import { FaCat, FaRegUser } from 'react-icons/fa';
+import { FaCat } from 'react-icons/fa';
+import { FiUser } from 'react-icons/fi';
 import { AiOutlineHome, AiOutlineFileAdd, AiOutlineEdit } from 'react-icons/ai';
 import {
   RiMenuLine,
@@ -63,7 +63,7 @@ const getAllItems = ({
       }}
     >
       <a>
-        <NavLink icon={<FaRegUser />} isActive={isActive(router, `/${me.username}/`)}>
+        <NavLink icon={<FiUser />} isActive={isActive(router, `/${me.username}/`)}>
           Profile
         </NavLink>
       </a>

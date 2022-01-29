@@ -48,7 +48,10 @@ export const useUpdateUser = () => {
         console.error(error);
       },
       onSuccess: async (data) => {
-        await queryClient.invalidateQueries([QueryKeys.USER, data.id]);
+        await Promise.all([
+          queryClient.invalidateQueries([QueryKeys.USER, data.id]),
+          queryClient.invalidateQueries([QueryKeys.USER, data.username]),
+        ]);
       },
     }
   );
