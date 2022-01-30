@@ -81,6 +81,7 @@ handler.patch(
 );
 
 handler.delete(requireAuth, async (req: NextApiRequest, res: NextApiResponse) => {
+  // todo: handle 404
   const post = await prisma.post.delete({
     where: { id: getId(req) },
     include: {

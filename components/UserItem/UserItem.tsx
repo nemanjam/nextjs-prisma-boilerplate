@@ -9,6 +9,7 @@ import { useDeleteUser } from 'lib-client/react-query/users/useDeleteUser';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import { mommentFormats } from '@lib-server/constants';
 import { ClientUser } from 'types';
+import { Routes } from 'lib-client/constants';
 
 type UserItemProps = {
   user: ClientUser;
@@ -26,7 +27,7 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
   };
 
   // use this instead of {pathname, query} to prevent hard refresh
-  const settingsHref = `/settings/${user.username}/`;
+  const settingsHref = `${Routes.SITE.SETTINGS}${user.username}/`;
 
   const isAdmin = getIsAdmin(me);
 

@@ -33,6 +33,8 @@ const Post: FC = () => {
     query: { username: author.username },
   };
 
+  const editPostHref = `${Routes.SITE.CREATE}${post.id}/`;
+
   const title = `${post.title} ${post.published ? '' : '(Draft)'}`;
   const isOwnerOrAdmin = getIsPostOwner(me, post) || getIsAdmin(me);
 
@@ -86,6 +88,13 @@ const Post: FC = () => {
                   {!restUpdate.isLoading ? 'Publish' : 'Submiting...'}
                 </Button>
               )}
+
+              <Link href={editPostHref}>
+                <a>
+                  <Button tagName="span">Edit</Button>
+                </a>
+              </Link>
+
               <Button
                 variant="danger"
                 onClick={async () => {

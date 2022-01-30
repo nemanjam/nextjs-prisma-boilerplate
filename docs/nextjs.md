@@ -48,3 +48,12 @@ loadEnvConfig(projectDir);
 
 - use `babel-plugin-superjson-next` and `superjson-next` [Readme](https://github.com/blitz-js/superjson#using-with-nextjs)
 - make sure it's `.babelrc` with `.`
+
+### Routing
+
+- must use `pages/post/create/[[...id]].tsx` and not `[[id]].tsx``
+
+```
+pages/post/create/[[id]].tsx
+Error: Optional route parameters are not yet supported ("[[id]]").
+```

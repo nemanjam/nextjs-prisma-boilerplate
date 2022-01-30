@@ -53,6 +53,7 @@
 - test `await queryClient.prefetchQuery([QueryKeys.POSTS_PROFILE, profile.username, 1]...`
 - redirect on protected pages, logged in and admin cases
 - edit post
+- reusable guard or HOC for protected routes, getServerSideProps too
 
 ## Done
 

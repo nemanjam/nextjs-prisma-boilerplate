@@ -26,6 +26,8 @@ const PostItem: FC<PostProps> = ({ post }) => {
     query: { username: author.username, id: post.id },
   };
 
+  const editPostHref = `${Routes.SITE.CREATE}${post.id}/`;
+
   // maybe remove it
   const handlePostClick = (event: React.MouseEvent) => {
     const isInsideOfLink = (event.target as HTMLElement).closest('a');
@@ -96,6 +98,13 @@ const PostItem: FC<PostProps> = ({ post }) => {
               {!restUpdate.isLoading ? 'Publish' : 'Submiting...'}
             </Button>
           )}
+
+          <Link href={editPostHref}>
+            <a>
+              <Button tagName="span">Edit</Button>
+            </a>
+          </Link>
+
           <Button
             variant="danger"
             onClick={(e) => {
