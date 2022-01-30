@@ -35,25 +35,22 @@
 - pagination with prisma and react query
 - type all request and response objects
 - add search posts field
-- create docs folder with mds
-- group pagination items
+- group pagination items function
 - full text search posts
 - request, response types
 - me query, only userId and email in session
 - throw 404 from zod api...
 - error path, db function, getServerSideProps, api endpoint, ask reddit, github
-- mutations
 - handle errors in getServerSideProps
 - edit user, delete user - admin
-- progressbar tailwind div
 - validate ids in api zod
 - replace session.user on server
 - leave just id and email in session.user, and type
 - users page, pagination, api filtering
 - test `await queryClient.prefetchQuery([QueryKeys.POSTS_PROFILE, profile.username, 1]...`
 - redirect on protected pages, logged in and admin cases
-- edit post
 - reusable guard or HOC for protected routes, getServerSideProps too
+- fix tailwind utility classes error
 
 ## Done
 
@@ -87,3 +84,7 @@
 - validation server, client, example [with-joi](https://github.com/vercel/next.js/tree/canary/examples/with-joi), [next-joi](https://github.com/codecoolture/next-joi), done with zod
 - extract styles, tailwind, next examples, done
 - query key in getServerSidePropa and useQuery and type it, done
+- mutations, done
+- progressbar tailwind div, done
+- edit post, done
+- create docs folder with mds, done
