@@ -51,6 +51,11 @@
 - redirect on protected pages, logged in and admin cases
 - reusable guard or HOC for protected routes, getServerSideProps too
 - fix tailwind utility classes error
+- dark theme, red, green
+- where to go next doc: markdown editor with image inline and upload, comments, likes, follow, tags, categories
+- publish/unpublish checkbox in update
+- absolute positioning or negative margin, css reddit question
+- clear types in a single place, form, request, response
 
 ## Done
 
