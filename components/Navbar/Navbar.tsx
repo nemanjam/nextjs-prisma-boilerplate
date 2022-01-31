@@ -20,6 +20,7 @@ import {
 import { IoPeopleOutline, IoSettingsOutline } from 'react-icons/io5';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import { ClientUser } from 'types';
+import ThemeChanger from 'components/ThemeChanger';
 
 const isActive: (router: NextRouter, pathname: string) => boolean = (router, pathname) =>
   router.asPath === pathname;
@@ -102,6 +103,7 @@ const getAllItems = ({
       </a>
     </Link>
   ),
+  theme: <ThemeChanger key="theme" />,
   settings: (
     <Link key="settings" href={Routes.SITE.SETTINGS}>
       <a>
@@ -193,10 +195,10 @@ const navConfig = {
   },
   rightNav: {
     loggedIn: {
-      desktop: ['settings', 'avatar', 'logout'],
-      mobile: ['settings', 'justAvatar', 'logout'],
+      desktop: ['theme', 'avatar'],
+      mobile: ['settings', 'theme', 'justAvatar', 'logout'],
     },
-    loggedOut: ['login', 'register'],
+    loggedOut: ['theme', 'login', 'register'],
   },
   dropdown: { loggedIn: ['settings', 'logout'], loggedOut: [] },
 };

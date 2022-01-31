@@ -45,6 +45,7 @@
     "next": "^12.0.9",
     "next-auth": "^4.1.2",
     "next-connect": "^0.11.0",
+    "next-themes": "^0.0.15",
     "next-validations": "^0.1.11",
     "prisma": "^3.8.1",
     "react": "^17.0.2",

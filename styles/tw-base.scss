@@ -1,6 +1,10 @@
 @layer base {
   // tags
 
+  body {
+    @apply bg-white dark:bg-black text-white dark:text-black;
+  }
+
   h1 {
     @apply text-2xl font-bold;
   }

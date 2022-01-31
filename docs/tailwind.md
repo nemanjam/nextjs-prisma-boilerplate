@@ -17,6 +17,7 @@
 - [tutorial](https://darrenwhite.dev/blog/nextjs-tailwindcss-theming), [repo](https://github.com/dwhiteGUK/dlw-nextjs-tailwindcss-theming)
 - idea: from tw constants -> css vars -> tw utility classes
 - tw utility classes read css vars, css vars live on html tag with selector <html attribute>, change selector - change vars
+- `th-background th-...` is a single theme utility classes under which all themes are
 
 ```
 // styles/global.css - from tw theme into css vars
@@ -46,3 +47,9 @@ darkMode: 'class',
 ```
 
 - next-themes only changes `<html data-theme="emerald">` attribute/class value? you can change it in `_document.tsx` on body tag
+
+### Tailwind themes docs
+
+- [theme](https://tailwindcss.com/docs/theme)
+- [customizing-colors](https://tailwindcss.com/docs/customizing-colors)
+- problem: concatenated classes on html element, solution: both `themes` array and `attribute` props must be set `<ThemeProvider themes={themes} attribute="class">`

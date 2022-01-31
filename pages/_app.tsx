@@ -4,6 +4,8 @@ import { AppProps } from 'next/app';
 import { IconContext } from 'react-icons';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { ThemeProvider } from 'next-themes';
+import { themes } from 'lib-client/constants';
 
 import 'styles/globals.scss';
 import 'styles/layouts.scss';
@@ -18,14 +20,16 @@ const App = ({
 
   return (
     <SessionProvider session={session} refetchInterval={5 * 60}>
-      <IconContext.Provider value={{ className: 'react-icons' }}>
-        <QueryClientProvider client={queryClient}>
-          <Hydrate state={dehydratedState}>
-            <Component {...pageProps} />
-          </Hydrate>
-          <ReactQueryDevtools />
-        </QueryClientProvider>
-      </IconContext.Provider>
+      <ThemeProvider themes={themes} attribute="class">
+        <IconContext.Provider value={{ className: 'react-icons' }}>
+          <QueryClientProvider client={queryClient}>
+            <Hydrate state={dehydratedState}>
+              <Component {...pageProps} />
+            </Hydrate>
+            <ReactQueryDevtools />
+          </QueryClientProvider>
+        </IconContext.Provider>
+      </ThemeProvider>
     </SessionProvider>
   );
 };

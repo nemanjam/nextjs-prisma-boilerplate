@@ -15,3 +15,5 @@ export const Routes = {
     PROFILE: '/api/users/profile/',
   },
 } as const;
+
+export const themes = ['light', 'dark', 'emerald', 'pink'];
