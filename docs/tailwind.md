@@ -53,3 +53,31 @@ darkMode: 'class',
 - [theme](https://tailwindcss.com/docs/theme)
 - [customizing-colors](https://tailwindcss.com/docs/customizing-colors)
 - problem: concatenated classes on html element, solution: both `themes` array and `attribute` props must be set `<ThemeProvider themes={themes} attribute="class">`
+
+- support opacity
+
+```js
+function withOpacityValue(_variable) {
+  return ({ opacityValue }) => {
+    const variable = hexToRgb(_variable);
+
+    if (opacityValue === undefined) {
+      return `rgb(var(${variable}))`;
+    }
+    return `rgb(var(${variable}) / ${opacityValue})`;
+  };
+}
+
+function hexToRgb(hex) {
+  console.log('hex', hex);
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  console.log('result', result);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
+}
+```
