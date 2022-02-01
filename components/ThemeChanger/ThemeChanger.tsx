@@ -5,7 +5,7 @@ import { useHasMounted } from 'components/hooks';
 import { themes } from 'lib-client/constants';
 
 const ThemeChanger: FC = () => {
-  const mounted = useHasMounted();
+  const hasMounted = useHasMounted();
   const { theme, setTheme } = useTheme();
   const [index, setIndex] = useState(0);
 
@@ -20,7 +20,7 @@ const ThemeChanger: FC = () => {
     setTheme(themes[index]);
   }, [index, themes]);
 
-  if (!mounted) return null;
+  if (!hasMounted) return null;
 
   return (
     <span className={b()}>

@@ -12,7 +12,9 @@ import { Prisma } from '@prisma/client';
 const handler = nc(ncOptions);
 
 const validateUserRegister = withValidation({
-  schema: userRegisterSchema,
+  schema: userRegisterSchema.innerType().omit({
+    confirmPassword: true,
+  }),
   type: 'Zod',
   mode: 'body',
 });

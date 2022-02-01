@@ -34,8 +34,8 @@ export const userRegisterSchema = z
     name: z.string().min(nameMin).max(nameMax),
     username: z.string().min(usernameMin).max(usernameMax),
   })
-  // fix this
-  .refine((data) => !data.confirmPassword || data.confirmPassword === data.password, {
+  // todo: fix this
+  .refine((data) => data.confirmPassword === data.password, {
     message: "Passwords don't match.",
     path: ['confirmPassword'],
   });

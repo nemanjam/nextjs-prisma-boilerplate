@@ -9,7 +9,6 @@
 - tailwind and root font-size 10px 1rem, global and component styles
 - Header component
 - react query, redux toolkit, redux toolkit query
-- \_document.tsx
 - redux toolkit vercel example
 - pagination
 - update readme before forget...
@@ -56,6 +55,8 @@
 - publish/unpublish checkbox in update
 - absolute positioning or negative margin, css reddit question
 - clear types in a single place, form, request, response
+- theme colors
+- \_document.tsx
 
 ## Done
 
