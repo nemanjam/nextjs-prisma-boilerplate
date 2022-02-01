@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { hash } from 'bcryptjs';
 import { withValidation } from 'next-validations';
-import prisma, { getMe } from 'lib-server/prisma';
+import prisma, { exclude, getMe } from 'lib-server/prisma';
 import { profileImagesUpload } from 'lib-server/middleware/upload';
 import nc, { ncOptions } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
@@ -31,7 +31,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (!user) throw new ApiError('User not found.', 404);
 
-  res.status(200).json(user);
+  res.status(200).json(exclude(user, 'password'));
 });
 
 handler.patch(
@@ -79,7 +79,7 @@ handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (!user) throw new ApiError('User not found.', 404);
 
-  res.status(204).json(user);
+  res.status(204).json(exclude(user, 'password'));
 });
 
 export default handler;

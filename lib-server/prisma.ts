@@ -18,36 +18,15 @@ if (process.env.NODE_ENV === 'production') {
   prisma = global.prisma;
 }
 
-/*
-prisma.$use(async (params, next) => {
-  const { model, action } = params;
-  if (
-    model == 'User' &&
-    (action == 'findUnique' || action == 'findFirst' || action == 'findMany')
-  ) {
-    params.args.select = {
-      id: true,
-      username: true,
-      name: true,
-      email: true,
-      provider: true,
-      emailVerified: true,
-      image: true,
-      headerImage: true,
-      bio: true,
-      role: true,
-      // accounts      Account[]
-      // sessions      Session[]
-      // posts         Post[]
-      createdAt: true,
-      updatedAt: true,
-      password: false,
-      //...params.args.select,
-    };
+export const exclude = <T, Key extends keyof T>(
+  model: T,
+  ...keys: Key[]
+): Omit<T, Key> => {
+  for (let key of keys) {
+    delete model[key];
   }
-  return next(params);
-});
-*/
+  return model;
+};
 
 export const getMe = async (params: GetSessionParams) => {
   const session = await getSession(params);

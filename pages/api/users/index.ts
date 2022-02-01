@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { hash } from 'bcryptjs';
 import { withValidation } from 'next-validations';
-import prisma from 'lib-server/prisma';
+import prisma, { exclude } from 'lib-server/prisma';
 import nc, { ncOptions } from 'lib-server/nc';
 import ApiError from 'lib-server/error';
 import { usersGetSchema, userRegisterSchema } from 'lib-server/validation';
@@ -52,7 +52,7 @@ handler.post(
       },
     });
 
-    res.status(201).json(user);
+    res.status(201).json(exclude(user, 'password'));
   }
 );
 
@@ -140,7 +140,7 @@ export const getUsers = async (
   });
 
   const result = {
-    items: users,
+    items: users.map((user) => exclude(user, 'password')),
     pagination: {
       total: totalCount,
       pagesCount: Math.ceil(totalCount / limit),
