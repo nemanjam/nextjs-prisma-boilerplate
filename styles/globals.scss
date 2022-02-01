@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'styles/tw-base';
-@import 'styles/tw-components';
-@import 'styles/tw-utilities';
+@import 'tw-base';
+@import 'tw-components';
+@import 'tw-utilities';
 
 :root {
   --navbar-height: 3.5rem;
