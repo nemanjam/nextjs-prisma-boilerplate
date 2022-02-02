@@ -78,7 +78,6 @@ export const usersGetSchema = z.object({
   page: z.preprocess(stringToNumber, z.number().min(1).optional()),
   limit: z.preprocess(stringToNumber, z.number().min(1).max(usersLimitMax).optional()),
   searchTerm: z.string().optional().or(z.literal('')),
-  startsWith: z.string().optional().or(z.literal('')),
   sortDirection: z
     .string()
     .optional()

@@ -105,8 +105,7 @@ export const getPostsWithAuthor = async (
     },
   };
 
-  // const totalCount = await prisma.post.count({ ...where });
-  const totalCount = (await prisma.post.findMany({ ...where }))?.length || 0;
+  const totalCount = await prisma.post.count({ ...where });
 
   let posts = await prisma.post.findMany({
     ...where,

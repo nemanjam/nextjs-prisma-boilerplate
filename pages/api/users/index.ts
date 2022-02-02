@@ -61,7 +61,6 @@ type SortDirectionType = 'asc' | 'desc';
 export type GetUsersQueryParams = {
   page: number;
   limit?: number;
-  startsWith?: string;
   searchTerm?: string;
   sortDirection?: SortDirectionType;
 };
@@ -77,33 +76,27 @@ export const getUsers = async (
   const {
     page = 1,
     limit = defaultLimit,
-    startsWith,
     searchTerm,
     sortDirection = 'desc',
   } = validationResult.data;
 
-  const mode = 'insensitive' as const;
-
   const where = {
     where: {
-      ...(startsWith && {
+      ...(searchTerm && {
         OR: [
           {
             name: {
-              startsWith,
-              mode,
+              search: searchTerm,
             },
           },
           {
             username: {
-              startsWith,
-              mode,
+              search: searchTerm,
             },
           },
           {
             email: {
-              startsWith,
-              mode,
+              search: searchTerm,
             },
           },
         ],
@@ -117,26 +110,9 @@ export const getUsers = async (
     ...where,
     skip: (page - 1) * limit,
     take: limit,
-    orderBy: [
-      ...(!searchTerm
-        ? [
-            {
-              createdAt: sortDirection,
-            } as Prisma.UserOrderByWithRelationAndSearchRelevanceInput,
-          ]
-        : []),
-      ...(searchTerm
-        ? [
-            {
-              _relevance: {
-                fields: ['username', 'name', 'email'],
-                search: searchTerm,
-                sort: 'desc',
-              },
-            } as Prisma.UserOrderByWithRelationAndSearchRelevanceInput,
-          ]
-        : []),
-    ],
+    orderBy: {
+      createdAt: sortDirection as SortDirectionType,
+    },
   });
 
   const result = {

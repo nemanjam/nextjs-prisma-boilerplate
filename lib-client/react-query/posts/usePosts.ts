@@ -36,8 +36,9 @@ export const usePosts = (queryKey: QueryKeysType, params: GetPostsQueryParams) =
   // prefetch next page
   useEffect(() => {
     if (hasMore) {
-      queryClient.prefetchQuery(filterEmpty([queryKey, username, page + 1]), () =>
-        getPosts({ ...params, page: page + 1 })
+      queryClient.prefetchQuery(
+        filterEmpty([queryKey, username, searchTerm, page + 1]),
+        () => getPosts({ ...params, page: page + 1 })
       );
     }
   }, [hasMore, page, queryClient]);

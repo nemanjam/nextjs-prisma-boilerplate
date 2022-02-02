@@ -55,8 +55,12 @@
 - publish/unpublish checkbox in update
 - absolute positioning or negative margin, css reddit question
 - clear types in a single place, form, request, response
-- theme colors
+- theme colors, daisy ui
 - \_document.tsx
+- search and pagination responsive css
+- maybe arrays in navbar for mobile
+- tests
+- fix theme reset on mobile menu
 
 ## Done
 

@@ -1,6 +1,10 @@
 .users {
   @apply flex flex-col gap-4;
 
+  &__pagination-search {
+    @apply flex justify-between;
+  }
+
   &__list {
     @apply flex flex-col;
   }

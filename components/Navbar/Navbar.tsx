@@ -242,7 +242,7 @@ const Navbar: FC = () => {
   const { width } = useViewport();
   const isMobile = width < 640;
 
-  const { me, isLoadingMe } = useMe();
+  const { me } = useMe();
   const _onHamburgerClick = () => setMobileMenuOpen(!mobileMenuOpen);
 
   const args = {
@@ -254,7 +254,6 @@ const Navbar: FC = () => {
 
   const rightNav = !isMobile && getRightNavLinks(args);
   const leftNav = getLeftNavLinks(args);
-  const avatar = !isMobile && me && getAllItems(args)?.avatar;
   const hamburger = isMobile && getAllItems(args)?.hamburger;
   const mobileNav = getAllNavLinks(args);
 
