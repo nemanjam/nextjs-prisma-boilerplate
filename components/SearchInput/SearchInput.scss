@@ -1,0 +1,15 @@
+.search {
+  @apply flex justify-end;
+
+  &__form-field {
+    @apply w-1/2 flex flex-col;
+
+    & > label {
+      @apply font-semibold;
+    }
+
+    & > input {
+      // @apply items-end;
+    }
+  }
+}

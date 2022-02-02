@@ -6,6 +6,7 @@ import { requireAuth } from 'lib-server/middleware/auth';
 import { getSession } from 'next-auth/react';
 import { postCreateSchema, postsGetSchema } from 'lib-server/validation';
 import { PostWithAuthor, PaginatedResponse, QueryParamsType } from 'types';
+import { Prisma } from '@prisma/client';
 
 const handler = nc(ncOptions);
 
@@ -22,7 +23,6 @@ const validatePostsGet = withValidation({
 });
 
 type SortDirectionType = 'asc' | 'desc';
-type SortFieldType = 'updatedAt' | 'title' | 'name';
 
 // used on client only, in usePosts
 export type GetPostsQueryParams = {
@@ -32,7 +32,6 @@ export type GetPostsQueryParams = {
   email?: string;
   username?: string;
   searchTerm?: string;
-  sortField?: SortFieldType;
   sortDirection?: SortDirectionType;
   published?: boolean;
 };
@@ -53,19 +52,10 @@ export const getPostsWithAuthor = async (
     userId,
     email,
     username,
-    sortField = 'updatedAt',
-    sortDirection: _sortDirection,
+    sortDirection = 'desc',
     published = true,
   } = validationResult.data;
 
-  // default sortDirection
-  const sortDirection = _sortDirection
-    ? (_sortDirection as SortDirectionType)
-    : sortField === 'updatedAt'
-    ? 'desc'
-    : 'asc';
-
-  // for count
   const where = {
     where: {
       published,
@@ -84,10 +74,39 @@ export const getPostsWithAuthor = async (
           ],
         },
       }),
+      ...(searchTerm && {
+        OR: [
+          {
+            title: {
+              search: searchTerm,
+            },
+          },
+          {
+            content: {
+              search: searchTerm,
+            },
+          },
+          {
+            author: {
+              username: {
+                search: searchTerm,
+              },
+            },
+          },
+          {
+            author: {
+              name: {
+                search: searchTerm,
+              },
+            },
+          },
+        ],
+      }),
     },
   };
 
-  const totalCount = await prisma.post.count({ ...where });
+  // const totalCount = await prisma.post.count({ ...where });
+  const totalCount = (await prisma.post.findMany({ ...where }))?.length || 0;
 
   let posts = await prisma.post.findMany({
     ...where,
@@ -96,30 +115,15 @@ export const getPostsWithAuthor = async (
     include: {
       author: true,
     },
-    // sort and text search
     orderBy: {
-      ...(sortField === 'updatedAt' && { updatedAt: sortDirection }),
-      ...(sortField === 'title' && {
-        _relevance: {
-          fields: ['title'],
-          search: searchTerm,
-          sort: sortDirection,
-        },
-      }),
-      ...(!username &&
-        sortField === 'name' && {
-          author: {
-            _relevance: {
-              fields: ['name'],
-              search: searchTerm,
-              sort: sortDirection,
-            },
-          },
-        }),
+      updatedAt: sortDirection as SortDirectionType,
     },
   });
 
   posts = Array.isArray(posts) ? posts : [];
+
+  // console.log('where === ', JSON.stringify(where, null, 2));
+  // console.log('totalCount', totalCount);
 
   const result = {
     items: posts,

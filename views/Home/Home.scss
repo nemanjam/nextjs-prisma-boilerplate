@@ -1,6 +1,10 @@
 .home {
   @apply flex flex-col gap-4;
 
+  &__header {
+    @apply flex justify-between items-end;
+  }
+
   &__list {
     @apply flex flex-col;
   }

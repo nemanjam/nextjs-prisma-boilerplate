@@ -115,13 +115,6 @@ export const postsGetSchema = z.object({
   userId: z.string().cuid().optional().or(z.literal('')),
   email: z.string().email().optional().or(z.literal('')),
   username: z.string().optional().or(z.literal('')),
-  sortField: z
-    .string()
-    .optional()
-    .or(z.literal(''))
-    .or(z.literal('updatedAt'))
-    .or(z.literal('title'))
-    .or(z.literal('name')),
   sortDirection: z
     .string()
     .optional()
@@ -129,4 +122,11 @@ export const postsGetSchema = z.object({
     .or(z.literal('asc'))
     .or(z.literal('desc')),
   published: z.preprocess(stringToBoolean, z.boolean().optional()),
+});
+
+const searchMin = 3,
+  searchMax = 20;
+
+export const postSearchSchema = z.object({
+  search: z.string().min(searchMin).max(searchMax).optional().or(z.literal('')),
 });
