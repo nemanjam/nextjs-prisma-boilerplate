@@ -252,7 +252,7 @@ const Navbar: FC = () => {
     onHamburgerClick: _onHamburgerClick,
   };
 
-  const rightNav = !isMobile && !me && getRightNavLinks(args);
+  const rightNav = !isMobile && getRightNavLinks(args);
   const leftNav = getLeftNavLinks(args);
   const avatar = !isMobile && me && getAllItems(args)?.avatar;
   const hamburger = isMobile && getAllItems(args)?.hamburger;
@@ -267,14 +267,13 @@ const Navbar: FC = () => {
             <Link href={Routes.SITE.HOME}>
               <a className={b('brand-link')}>
                 <FaCat className={b('logo')} />
-                <span className={b('brand-text')}>NP Boilerplate</span>
+                <span className={b('brand-text')}>NPB</span>
               </a>
             </Link>
           </div>
           <div className={b('left-nav')}>{leftNav}</div>
         </div>
         <div className={b('right-nav')}>
-          {avatar}
           {rightNav}
           {hamburger}
         </div>

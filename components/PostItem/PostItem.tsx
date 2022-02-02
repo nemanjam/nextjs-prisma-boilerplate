@@ -42,7 +42,7 @@ const PostItem: FC<PostProps> = ({ post }) => {
   const isOwnerOrAdmin = getIsPostOwner(me, post) || getIsAdmin(me);
 
   return (
-    <article className={b()} onClick={handlePostClick}>
+    <article className={b()}>
       {restUpdate.isError && (
         <div className="alert-error">{restUpdate.error.message}</div>
       )}
