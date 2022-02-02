@@ -52,7 +52,7 @@
 - fix tailwind utility classes error
 - dark theme, red, green
 - where to go next doc: markdown editor with image inline and upload, comments, likes, follow, tags, categories
-- publish/unpublish checkbox in update
+- publish/unpublish checkbox in update, no
 - absolute positioning or negative margin, css reddit question
 - clear types in a single place, form, request, response
 - theme colors, daisy ui
@@ -60,7 +60,7 @@
 - search and pagination responsive css
 - maybe arrays in navbar for mobile
 - tests
-- fix theme reset on mobile menu
+- drafts count in me
 
 ## Done
 
@@ -98,3 +98,4 @@
 - progressbar tailwind div, done
 - edit post, done
 - create docs folder with mds, done
+- fix theme reset on mobile menu, done

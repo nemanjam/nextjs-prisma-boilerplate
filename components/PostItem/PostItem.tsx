@@ -76,9 +76,9 @@ const PostItem: FC<PostProps> = ({ post }) => {
             <Link href={authorHref}>
               <a className={b('username')}>{`@${author.username}`}</a>
             </Link>
-            <span className={b('post-created-at')}>
-              {moment(post.createdAt).fromNow()}
-            </span>
+            <Link href={postHref}>
+              <a className={b('post-created-at')}>{moment(post.createdAt).fromNow()}</a>
+            </Link>
           </div>
         </div>
       </div>

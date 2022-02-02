@@ -51,3 +51,7 @@ export const getRandomInteger = (min: number, max: number) => {
 export const filterEmpty = (queryKey: Array<unknown>) => {
   return queryKey.filter((item) => item || item === 0);
 };
+
+export const capitalizeFirstLetter = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
