@@ -25,6 +25,10 @@
     @apply h-32 w-32 -mt-16 object-cover bg-white p-2;
   }
 
+  &__pagination-search {
+    @apply flex justify-between;
+  }
+
   &__list {
     @apply flex flex-col;
   }

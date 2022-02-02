@@ -2,14 +2,14 @@
   @apply flex justify-end;
 
   &__form-field {
-    @apply w-1/2 flex flex-col;
+    @apply flex flex-col max-w-[12.5rem];
 
     & > label {
       @apply font-semibold;
     }
 
     & > input {
-      // @apply items-end;
+      @apply w-full;
     }
   }
 }

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import moment from 'moment';
 import { withBem } from 'utils/bem';
 import PostItem from 'components/PostItem';
@@ -8,6 +8,8 @@ import { User } from '@prisma/client';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import Pagination from 'components/Pagination';
 import QueryKeys from 'lib-client/react-query/queryKeys';
+import { usePrevious } from 'components/hooks/usePrevious';
+import SearchInput from 'components/SearchInput';
 
 type ProfileProps = {
   profile: User;
@@ -16,14 +18,24 @@ type ProfileProps = {
 const Profile: FC<ProfileProps> = ({ profile }) => {
   const b = withBem('profile');
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const prevSearchTerm = usePrevious(searchTerm);
+
   const [page, setPage] = useState(1);
   const { data, isLoading, isFetching, isPreviousData } = usePosts(
     QueryKeys.POSTS_PROFILE,
     {
       page,
       username: profile.username,
+      searchTerm,
     }
   );
+
+  useEffect(() => {
+    if (prevSearchTerm !== searchTerm) {
+      setPage(1);
+    }
+  }, [prevSearchTerm, searchTerm]);
 
   if (isLoading) return <h2>Loading...</h2>;
 
@@ -46,24 +58,26 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
         </div>
       </section>
 
-      <Pagination
-        align="right"
-        onPreviousClick={() => setPage((oldPage) => Math.max(oldPage - 1, 1))}
-        onNextClick={() => {
-          if (!isPreviousData && data.pagination.hasMore) {
-            setPage((oldPage) => oldPage + 1);
-          }
-        }}
-        setPage={setPage}
-        isPreviousDisabled={page === 1}
-        isNextDisabled={isPreviousData || !data?.pagination.hasMore}
-        currentPage={page}
-        pagesCount={data.pagination.pagesCount}
-        isFetching={isFetching}
-        from={data.pagination.from}
-        to={data.pagination.to}
-        total={data.pagination.total}
-      />
+      <div className={b('pagination-search')}>
+        <Pagination
+          onPreviousClick={() => setPage((oldPage) => Math.max(oldPage - 1, 1))}
+          onNextClick={() => {
+            if (!isPreviousData && data.pagination.hasMore) {
+              setPage((oldPage) => oldPage + 1);
+            }
+          }}
+          setPage={setPage}
+          isPreviousDisabled={page === 1}
+          isNextDisabled={isPreviousData || !data?.pagination.hasMore}
+          currentPage={page}
+          pagesCount={data.pagination.pagesCount}
+          isFetching={isFetching}
+          from={data.pagination.from}
+          to={data.pagination.to}
+          total={data.pagination.total}
+        />
+        <SearchInput onSearchSubmit={setSearchTerm} />
+      </div>
 
       <section className={b('list')}>
         {data.items.map((post) => (

@@ -28,7 +28,6 @@ export const usePosts = (queryKey: QueryKeysType, params: GetPostsQueryParams) =
     {
       keepPreviousData: true,
       staleTime: 5000,
-      // enabled: !!searchTerm,
     }
   );
 

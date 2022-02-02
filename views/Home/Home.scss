@@ -1,8 +1,8 @@
 .home {
   @apply flex flex-col gap-4;
 
-  &__header {
-    @apply flex justify-between items-end;
+  &__pagination-search {
+    @apply flex justify-between;
   }
 
   &__list {

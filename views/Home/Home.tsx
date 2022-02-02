@@ -31,7 +31,7 @@ const Home: FC = () => {
     <div className={b()}>
       <h1 className={b('title')}>Home</h1>
 
-      <div className={b('header')}>
+      <div className={b('pagination-search')}>
         <Pagination
           onPreviousClick={() => setPage((oldPage) => Math.max(oldPage - 1, 1))}
           onNextClick={() => {
