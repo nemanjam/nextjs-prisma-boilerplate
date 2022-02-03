@@ -27,7 +27,7 @@ const NavLink: FC<Props> = ({ isActive, children, icon, passChildRef = false }) 
   });
 
   const handleClick = () => {
-    childRef.current?.click();
+    childRef.current?.handleChange();
   };
 
   return (

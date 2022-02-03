@@ -1,4 +1,11 @@
-import { FC, MutableRefObject, ReactNode, useEffect, useState } from 'react';
+import {
+  FC,
+  MutableRefObject,
+  ReactNode,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import { useTheme } from 'next-themes';
 import { withBem } from 'utils/bem';
 import { useHasMounted } from 'components/hooks';
@@ -23,17 +30,17 @@ const ThemeChanger: FC<Props> = ({ childRef }) => {
     setIndex(newIndex);
   };
 
+  useImperativeHandle(childRef, () => ({
+    handleChange,
+  }));
+
   useEffect(() => {
     setTheme(themes[index]);
   }, [index, themes]);
 
   if (!hasMounted) return null;
 
-  return (
-    <span className={b()} ref={childRef} onClick={handleChange}>
-      {capitalizeFirstLetter(theme)}
-    </span>
-  );
+  return <span className={b()}>{capitalizeFirstLetter(theme)}</span>;
 };
 
 export default ThemeChanger;
