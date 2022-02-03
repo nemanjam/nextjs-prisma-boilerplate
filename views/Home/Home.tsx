@@ -16,7 +16,7 @@ const Home: FC = () => {
   const [page, setPage] = useState(1);
   const { data, isLoading, isFetching, isPreviousData } = usePosts(QueryKeys.POSTS_HOME, {
     page,
-    searchTerm,
+    ...(searchTerm && { searchTerm }),
   });
 
   useEffect(() => {

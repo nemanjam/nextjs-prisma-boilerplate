@@ -5,6 +5,7 @@ import { getProviders, ClientSafeProvider } from 'next-auth/react';
 import { Routes } from 'lib-client/constants';
 import AuthLayout from 'layouts/AuthLayout';
 import AuthView from 'views/Auth';
+import { redirectHome } from 'utils';
 
 type Props = {
   providers: Record<string, ClientSafeProvider>;
@@ -23,12 +24,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
   if (session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: Routes.SITE.HOME,
-      },
-    };
+    return redirectHome;
   }
 
   const providers = await getProviders();

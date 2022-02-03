@@ -27,7 +27,7 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
     {
       page,
       username: profile.username,
-      searchTerm,
+      ...(searchTerm && { searchTerm }),
     }
   );
 

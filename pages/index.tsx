@@ -15,10 +15,10 @@ const Home: FC = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([QueryKeys.POSTS_HOME, 1], () =>
-    getPostsWithAuthor(query)
+    getPostsWithAuthor({})
   );
 
   return {

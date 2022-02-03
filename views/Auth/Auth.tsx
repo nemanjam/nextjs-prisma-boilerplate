@@ -40,6 +40,7 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
   });
   const { errors } = formState;
 
+  // not needed, done in getServerSideProps
   useEffect(() => {
     if (me && router) router.push(Routes.SITE.HOME);
   }, [me, router]);

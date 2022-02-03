@@ -1,3 +1,4 @@
+import { Routes } from 'lib-client/constants';
 import { ClientUser } from 'types';
 
 export const uniqueString = (length: number) => {
@@ -54,4 +55,22 @@ export const filterEmpty = (queryKey: Array<unknown>) => {
 
 export const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+export const redirectNotFound = {
+  notFound: true,
+} as const;
+
+export const redirectLogin = {
+  redirect: {
+    permanent: false,
+    destination: Routes.SITE.LOGIN,
+  },
+};
+
+export const redirectHome = {
+  redirect: {
+    permanent: false,
+    destination: Routes.SITE.HOME,
+  },
 };

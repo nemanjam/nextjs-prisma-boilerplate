@@ -13,7 +13,10 @@ const Users: FC = () => {
   const prevSearchTerm = usePrevious(searchTerm);
 
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, isPreviousData } = useUsers({ page, searchTerm });
+  const { data, isLoading, isFetching, isPreviousData } = useUsers({
+    page,
+    ...(searchTerm && { searchTerm }),
+  });
 
   useEffect(() => {
     if (prevSearchTerm !== searchTerm) {

@@ -61,6 +61,7 @@
 - maybe arrays in navbar for mobile
 - tests
 - drafts count in me
+- route guards - redirect from getServerSideProps
 
 ## Done
 

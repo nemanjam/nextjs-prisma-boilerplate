@@ -7,6 +7,7 @@ import { getMe } from '@lib-server/prisma';
 import { Routes } from 'lib-client/constants';
 import { getPostWithAuthorById } from 'pages/api/posts/[id]';
 import QueryKeys from 'lib-client/react-query/queryKeys';
+import { redirectLogin, redirectNotFound } from 'utils';
 
 const Create: FC = () => {
   return (
@@ -17,38 +18,28 @@ const Create: FC = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params, req }) => {
+  const me = await getMe({ req });
+
+  if (!me) {
+    return redirectLogin;
+  }
+
+  const id = Number(params?.id?.[0]);
+
   // if no param in url - no preloading logic needed
-  if (!params?.id?.[0])
+  if (!id)
     return {
       props: {},
     };
 
-  const me = await getMe({ req });
-
-  const notFound = {
-    notFound: true,
-  } as const;
-
-  const redirect = {
-    redirect: {
-      permanent: false,
-      destination: Routes.SITE.LOGIN,
-    },
-  };
-
-  if (!me) {
-    return redirect;
-  }
-
-  const id = Number(params.id[0]);
   const post = await getPostWithAuthorById(id);
 
   if (!post) {
-    return notFound;
+    return redirectNotFound;
   }
 
   if (!(post.author.id === me.id || me.role === 'admin')) {
-    return notFound;
+    return redirectNotFound;
   }
 
   const queryClient = new QueryClient();

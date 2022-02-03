@@ -7,6 +7,8 @@ import DraftsView from 'views/Drafts';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { getPostsWithAuthor } from 'pages/api/posts';
 import { useMe } from 'lib-client/react-query/auth/useMe';
+import { Routes } from 'lib-client/constants';
+import { redirectLogin } from 'utils';
 
 const Drafts: FC = () => {
   const { me } = useMe();
@@ -30,14 +32,14 @@ const Drafts: FC = () => {
 // can have pagination
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
+  const id = session?.user?.id;
 
-  if (!session?.user) {
-    res.statusCode = 403;
-    return { props: { posts: [] } };
+  if (!id) {
+    return redirectLogin;
   }
 
   const query = {
-    userId: session.user.id,
+    userId: id,
     published: 'false', // query string
   };
 

@@ -10,6 +10,7 @@ import {
   GetUserQueryParams,
 } from 'pages/api/users/profile';
 import { getMe } from '@lib-server/prisma';
+import { redirectLogin, redirectNotFound } from 'utils';
 
 const Settings: FC = () => {
   return (
@@ -26,15 +27,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req }) =>
     notFound: true,
   } as const;
 
-  const redirect = {
-    redirect: {
-      permanent: false,
-      destination: Routes.SITE.LOGIN,
-    },
-  };
-
   if (!me) {
-    return redirect;
+    return redirectLogin;
   }
   // if my username trim url
 
@@ -43,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req }) =>
     if (me.role === 'admin') {
       _params = { username: params?.username[0] };
     } else {
-      return notFound;
+      return redirectNotFound;
     }
   } else {
     _params = { id: me.id };
@@ -52,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req }) =>
   const user = await getUserByIdOrUsernameOrEmail(_params);
 
   if (!user) {
-    return notFound;
+    return redirectNotFound;
   }
 
   const subKey = _params?.username || _params?.id;
