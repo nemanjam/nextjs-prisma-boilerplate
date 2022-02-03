@@ -61,7 +61,6 @@
 - maybe arrays in navbar for mobile
 - tests
 - drafts count in me
-- route guards - redirect from getServerSideProps
 
 ## Done
 
@@ -100,3 +99,4 @@
 - edit post, done
 - create docs folder with mds, done
 - fix theme reset on mobile menu, done
+- route guards - redirect from getServerSideProps, done

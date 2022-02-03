@@ -57,3 +57,7 @@ loadEnvConfig(projectDir);
 pages/post/create/[[id]].tsx
 Error: Optional route parameters are not yet supported ("[[id]]").
 ```
+
+### Problem - solution
+
+- problem: client and server props not same, solution: delete `.next` folder

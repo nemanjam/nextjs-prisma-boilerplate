@@ -1,5 +1,5 @@
 .navlink {
-  @apply flex items-center gap-2 justify-center sm:justify-items-start;
+  @apply flex items-center gap-2 justify-center sm:justify-items-start cursor-pointer;
   @apply font-semibold p-2 hover:bg-blue-400 hover:text-white;
 
   &__icon {

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { NextRouter, useRouter } from 'next/router';
 import { signOut } from 'next-auth/react';
@@ -11,6 +11,7 @@ import { NavLink } from 'components/Navbar';
 import { FaCat } from 'react-icons/fa';
 import { FiUser } from 'react-icons/fi';
 import { AiOutlineHome, AiOutlineFileAdd, AiOutlineEdit } from 'react-icons/ai';
+import { BsSun } from 'react-icons/bs';
 import {
   RiMenuLine,
   RiLogoutBoxRLine,
@@ -103,7 +104,11 @@ const getAllItems = ({
       </a>
     </Link>
   ),
-  theme: <ThemeChanger key="theme" />,
+  theme: (
+    <NavLink key="theme" passChildRef icon={<BsSun />}>
+      <ThemeChanger />
+    </NavLink>
+  ),
   settings: (
     <Link key="settings" href={Routes.SITE.SETTINGS}>
       <a>
@@ -242,8 +247,15 @@ const Navbar: FC = () => {
   const { width } = useViewport();
   const isMobile = width < 640;
 
+  useEffect(() => {
+    // close mobile menu on desktop
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(isMobile);
+    }
+  }, [isMobile, mobileMenuOpen]);
+
   const { me } = useMe();
-  const _onHamburgerClick = () => setMobileMenuOpen(!mobileMenuOpen);
+  const _onHamburgerClick = () => setMobileMenuOpen((prevOpen) => !prevOpen);
 
   const args = {
     router,

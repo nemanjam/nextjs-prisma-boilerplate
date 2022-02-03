@@ -1,13 +1,15 @@
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, MutableRefObject, ReactNode, useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
-import { BsSun } from 'react-icons/bs';
 import { withBem } from 'utils/bem';
 import { useHasMounted } from 'components/hooks';
 import { themes } from 'lib-client/constants';
-import { NavLink } from 'components/Navbar';
 import { capitalizeFirstLetter } from 'utils';
 
-const ThemeChanger: FC = () => {
+type Props = {
+  childRef?: MutableRefObject<any>;
+};
+
+const ThemeChanger: FC<Props> = ({ childRef }) => {
   const hasMounted = useHasMounted();
   const { theme, setTheme } = useTheme();
 
@@ -28,8 +30,8 @@ const ThemeChanger: FC = () => {
   if (!hasMounted) return null;
 
   return (
-    <span className={b()} onClick={handleChange}>
-      <NavLink icon={<BsSun />}>{capitalizeFirstLetter(theme)}</NavLink>
+    <span className={b()} ref={childRef} onClick={handleChange}>
+      {capitalizeFirstLetter(theme)}
     </span>
   );
 };
