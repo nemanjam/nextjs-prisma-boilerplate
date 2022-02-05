@@ -20,23 +20,17 @@ const ThemeChanger: FC<Props> = ({ childRef }) => {
   const hasMounted = useHasMounted();
   const { theme, setTheme } = useTheme();
 
-  const initialTheme = themes.indexOf(theme);
-  const [index, setIndex] = useState(initialTheme);
-
   const b = withBem('theme-changer');
 
   const handleChange = () => {
+    const index = themes.indexOf(theme);
     const newIndex = index === themes.length - 1 ? 0 : index + 1;
-    setIndex(newIndex);
+    setTheme(themes[newIndex]);
   };
 
   useImperativeHandle(childRef, () => ({
     handleChange,
   }));
-
-  useEffect(() => {
-    setTheme(themes[index]);
-  }, [index, themes]);
 
   if (!hasMounted) return null;
 
