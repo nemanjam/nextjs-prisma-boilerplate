@@ -1,8 +1,8 @@
+const plugin = require('tailwindcss/plugin');
 const colorNames = require('./color-names');
 const themes = require('./themes');
 const hexToRgb = require('./hex-to-rgb');
 const withOpacity = require('./with-opacity');
-const { yellow } = require('tailwindcss/colors');
 
 const prefix = 'th-';
 function prefixedColorName(name) {
@@ -33,11 +33,11 @@ const mainFunction = ({ addBase }) => {
   console.log('resultThemes', resultThemes);
   addBase(resultThemes);
 
-  //   addBase({
-  //     h1: {
-  //       backgroundColor: yellow,
-  //     },
-  //   });
+  addBase({
+    'test-class': {
+      backgroundColor: 'yellow',
+    },
+  });
 };
 
 // mainFunction({ addBase: 1 });
@@ -47,6 +47,6 @@ Object.entries(colorNames).forEach(([name, value]) => {
   colorFns[prefixedColorName(name)] = withOpacity(value);
 });
 
-module.exports = require('tailwindcss/plugin')(mainFunction, {
+module.exports = plugin(mainFunction, {
   theme: { extend: { colors: colorFns } },
 });

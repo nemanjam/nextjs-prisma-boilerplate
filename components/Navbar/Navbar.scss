@@ -2,7 +2,7 @@
   @apply fixed top-0 left-0 right-0 z-10;
   @apply whitespace-nowrap;
   // @apply bg-gradient-to-r from-indigo-500 to-sky-500;
-  // @apply bg-th-primary;
+  @apply bg-th-primary;
 
   &__desktop {
     @apply flex justify-between px-4 h-[var(--navbar-height)];
