@@ -81,3 +81,6 @@ function hexToRgb(hex) {
     : null;
 }
 ```
+
+- .class is injected in base, problem is .emerald, .pink... are purged, they dont exist in template
+- theme must be plugin to convert hex to rgb at buildtime

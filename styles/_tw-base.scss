@@ -1,6 +1,5 @@
 @layer base {
   // tags
-
   body {
     @apply dark:bg-black dark:text-white;
 
@@ -14,5 +13,9 @@
 
   h2 {
     @apply text-xl font-bold;
+  }
+
+  .test-class1 {
+    @apply bg-red-400;
   }
 }

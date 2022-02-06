@@ -26,7 +26,8 @@
     "dist",
     ".next",
     "next.config.js",
-    "prisma"
+    "prisma",
+    "themes"
   ],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "ts-node": {
