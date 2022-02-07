@@ -4,11 +4,10 @@
 
 const { PrismaClient } = require('@prisma/client');
 const { hashSync } = require('bcryptjs');
-const { lorem } = require('faker');
+const { lorem } = require('@faker-js/faker').faker;
 const { readdir, unlink } = require('fs');
 const { promisify } = require('util');
 const { loadEnvConfig } = require('@next/env');
-
 const rootDirAbsolutePath = process.cwd();
 
 // load process.env.DATABASE_URL from .env.local

@@ -82,5 +82,31 @@ function hexToRgb(hex) {
 }
 ```
 
+### Themes plugin
+
 - .class is injected in base, problem is .emerald, .pink... are purged, they dont exist in template
 - theme must be plugin to convert hex to rgb at buildtime
+
+- problem: compilation error with @apply
+
+```
+Syntax error: "test-class-base" class does not exist. If "test-class-base" is a custom class, make sure it is defined within a @layer directive.
+```
+
+- solution: scss files must not be imported in .tsx files but all scss files into a single index.scss and then it into \_app.tsx
+
+```
+afaik you can only use @apply when the class is either from the tailwind config, or in the same file
+```
+
+- rgba() syntax
+
+```css
+/* old notation */
+color: rgb(255, 255, 255);
+color: rgba(255, 255, 255, 1);
+
+/* new notation */
+color: rgb(255 255 255);
+color: rgb(255 255 255 / 1);
+```

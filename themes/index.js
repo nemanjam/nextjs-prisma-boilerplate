@@ -32,19 +32,14 @@ const mainFunction = ({ addBase }) => {
 
   console.log('resultThemes', resultThemes);
   addBase(resultThemes);
-
-  addBase({
-    'test-class': {
-      backgroundColor: 'yellow',
-    },
-  });
 };
 
 // mainFunction({ addBase: 1 });
 
 const colorFns = {};
+// already has th- prefix
 Object.entries(colorNames).forEach(([name, value]) => {
-  colorFns[prefixedColorName(name)] = withOpacity(value);
+  colorFns[name] = withOpacity(value);
 });
 
 module.exports = plugin(mainFunction, {

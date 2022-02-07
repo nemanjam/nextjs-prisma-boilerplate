@@ -7,10 +7,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from 'next-themes';
 import { themes } from 'lib-client/constants';
 
-import 'styles/globals.scss';
-import 'styles/layouts.scss';
-import 'styles/views.scss';
-import 'styles/components.scss';
+import 'styles/index.scss';
 
 const App = ({
   Component,

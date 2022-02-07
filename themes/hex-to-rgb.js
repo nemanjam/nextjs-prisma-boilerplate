@@ -9,7 +9,9 @@ function hexToRgb(hex) {
       }
     : null;
 
-  return obj ? `rgb(${obj.r}, ${obj.g}, ${obj.b})` : null;
+  // just numbers, no rgb() here but in with-opacity
+  // rgb(255 255 255 / 1);
+  return obj ? `${obj.r} ${obj.g} ${obj.b}` : null;
 }
 
 module.exports = hexToRgb;

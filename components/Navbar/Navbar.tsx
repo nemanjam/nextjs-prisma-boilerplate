@@ -270,7 +270,7 @@ const Navbar: FC = () => {
   const mobileNav = getAllNavLinks(args);
 
   return (
-    <header className={b() + ' bg-th-primary'}>
+    <header className={b()}>
       {/* desktop navbar */}
       <div className={b('desktop')}>
         <div className={b('left-wrapper')}>
