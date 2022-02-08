@@ -16,6 +16,8 @@
   }
 
   [type='text'],
+  [type='email'],
+  [type='password'],
   textarea {
     @apply bg-th-base-100 text-th-base-content border-th-base-200;
   }

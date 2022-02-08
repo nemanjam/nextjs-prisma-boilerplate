@@ -65,6 +65,32 @@
 - alert component
 - @tailwindcss/line-clamp plugin to limmit posts length
 - search fetching... indicator
+- declerative navbar lesson
+- reseed app button in footer
+- white border on pagination transparent button css bug
+- mobile text wrap user, username, time, fix with flexbox
+- responsive pagination and search
+- custom font maybe
+- outside click close mobile menu
+- footer styling
+- more color themes and navbar gradient
+- link to home on login page
+- 404 and 500 pages
+- login neutral button color, dark theme
+
+```
+react query home page refresh, maybe just .next folder...
+Warning: Prop `disabled` did not match. Server: "null" Client: "true"
+button
+Button@webpack-internal:///./components/Button/Button.tsx:26:18
+li
+ul
+nav
+Pagination@webpack-internal:///./components/Pagination/Pagination.tsx:18:25
+div
+div
+Home@webpack-internal:///./views/Home/Home.tsx:40:66
+```
 
 ## Done
 
