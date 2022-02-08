@@ -126,7 +126,7 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
             </div>
           )}
 
-          <Button variant="secondary" type="submit">
+          <Button variant="neutral" type="submit">
             {isRegisterForm ? (!isLoading ? 'Register' : 'Register...') : 'Login'}
           </Button>
         </form>

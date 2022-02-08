@@ -1,5 +1,6 @@
 .auth-layout {
   @apply min-h-screen;
+  @apply bg-th-base-100 text-th-base-content;
 
   &__content {
     @apply container min-h-screen max-w-4xl min-w-fit mx-auto;

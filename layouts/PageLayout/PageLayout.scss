@@ -1,9 +1,9 @@
 .page-layout {
-  @apply relative min-h-screen; // bg-gray-400;
+  @apply relative min-h-screen;
   @apply bg-th-base-100 text-th-base-content;
 
   &__content {
-    @apply container max-w-4xl min-w-min mx-auto; // bg-gray-300;
+    @apply container max-w-4xl min-w-min mx-auto;
     @apply min-h-[calc(100vh-var(--footer-height))] pt-[calc(var(--layout-content-pt)+1rem)];
     @apply px-2 sm:px-4 lg:px-0 pb-2 sm:pb-4;
 

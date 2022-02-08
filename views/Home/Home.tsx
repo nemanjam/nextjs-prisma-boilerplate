@@ -54,8 +54,7 @@ const Home: FC = () => {
       </div>
 
       <section className={b('list')}>
-        <PreviewTheme />
-
+        {/* <PreviewTheme /> */}
         {data.items.map((post) => (
           <PostItem key={post.id} post={post} />
         ))}

@@ -38,11 +38,15 @@
   }
 
   &--transparent {
-    @apply text-indigo-600 transition-colors duration-150 focus:shadow hover:bg-indigo-100;
+    @apply bg-transparent text-current border border-transparent;
+    &:hover {
+      @apply bg-th-base-content bg-opacity-20 border-opacity-0;
+    }
   }
 
-  // same for all themes?
-  &--disabled {
-    @apply cursor-not-allowed text-gray-400 bg-gray-200 hover:bg-gray-200;
+  &--disabled,
+  &--disabled:hover {
+    @apply cursor-not-allowed;
+    @apply bg-th-neutral border-opacity-0 bg-opacity-20 text-th-base-content text-opacity-20;
   }
 }
