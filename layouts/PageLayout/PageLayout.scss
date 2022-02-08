@@ -1,5 +1,6 @@
 .page-layout {
   @apply relative min-h-screen; // bg-gray-400;
+  @apply bg-th-base-100 text-th-base-content;
 
   &__content {
     @apply container max-w-4xl min-w-min mx-auto; // bg-gray-300;

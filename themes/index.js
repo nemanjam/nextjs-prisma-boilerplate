@@ -12,10 +12,8 @@ function prefixedColorName(name) {
 function convertThemeColorsToRgb(theme) {
   const resultObject = {};
   Object.entries(theme).forEach(([rule, value]) => {
-    // in color-names: th-primary
-    // in theme: primary
-    const colorKey = prefixedColorName(rule);
-    resultObject[colorNames[colorKey]] = colorNames.hasOwnProperty(colorKey)
+    // neither themes nor colorNames have th- prefix
+    resultObject[colorNames[rule]] = colorNames.hasOwnProperty(rule)
       ? hexToRgb(value)
       : value;
   });
@@ -26,7 +24,6 @@ const mainFunction = ({ addBase }) => {
   const resultThemes = {};
   Object.entries(themes).forEach(([selector, theme], index) => {
     const _selector = index === 0 ? ':root' : selector;
-
     resultThemes[_selector] = convertThemeColorsToRgb(theme);
   });
 
@@ -37,9 +34,9 @@ const mainFunction = ({ addBase }) => {
 // mainFunction({ addBase: 1 });
 
 const colorFns = {};
-// already has th- prefix
+// colorNames without prefix, add th- prefix here
 Object.entries(colorNames).forEach(([name, value]) => {
-  colorFns[name] = withOpacity(value);
+  colorFns[prefixedColorName(name)] = withOpacity(value);
 });
 
 module.exports = plugin(mainFunction, {

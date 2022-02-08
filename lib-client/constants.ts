@@ -16,4 +16,4 @@ export const Routes = {
   },
 } as const;
 
-export const themes = ['theme-light', 'theme-dark', 'theme-emerald', 'theme-pink'];
+export const themes = ['theme-light', 'theme-dark' /*, 'theme-emerald', 'theme-pink'*/];

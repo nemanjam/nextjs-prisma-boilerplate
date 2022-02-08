@@ -110,3 +110,5 @@ color: rgba(255, 255, 255, 1);
 color: rgb(255 255 255);
 color: rgb(255 255 255 / 1);
 ```
+
+- opacity and bg-opacity is not same, opacity - content too

@@ -6,6 +6,7 @@ import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import SearchInput from 'components/SearchInput';
 import { usePrevious } from 'components/hooks/usePrevious';
+import PreviewTheme from 'components/PreviewTheme';
 
 const Home: FC = () => {
   const b = withBem('home');
@@ -53,6 +54,8 @@ const Home: FC = () => {
       </div>
 
       <section className={b('list')}>
+        <PreviewTheme />
+
         {data.items.map((post) => (
           <PostItem key={post.id} post={post} />
         ))}

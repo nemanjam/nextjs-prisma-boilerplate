@@ -1,5 +1,6 @@
 .user-item {
-  @apply flex flex-col gap-4 border-t border-x border-gray-200 hover:bg-gray-100;
+  @apply flex flex-col gap-4 border-t border-x;
+  @apply border-th-base-200 hover:bg-th-base-200;
 
   &:last-child {
     @apply border-b;

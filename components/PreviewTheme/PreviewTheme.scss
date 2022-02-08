@@ -1,0 +1,7 @@
+.preview-theme {
+  @apply flex flex-col;
+
+  &__item {
+    @apply p-4 text-center;
+  }
+}
