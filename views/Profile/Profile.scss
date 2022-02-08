@@ -22,7 +22,8 @@
   }
 
   &__avatar {
-    @apply h-32 w-32 -mt-16 object-cover bg-white p-2;
+    @apply h-32 w-32 -mt-16 object-cover p-2;
+    @apply bg-th-base-100;
   }
 
   &__pagination-search {

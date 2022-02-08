@@ -96,7 +96,7 @@ const Post: FC = () => {
               </Link>
 
               <Button
-                variant="danger"
+                variant="secondary"
                 onClick={async () => {
                   await deletePost(post.id);
                   await router.push(Routes.SITE.HOME);

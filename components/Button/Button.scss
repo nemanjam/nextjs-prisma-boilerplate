@@ -18,21 +18,30 @@
   }
 
   &--primary {
-    @apply bg-blue-500 hover:bg-blue-800 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-white;
+    @apply focus:ring-2 focus:ring-opacity-50;
+    @apply bg-th-primary hover:bg-th-primary-focus focus:ring-th-primary text-th-primary-content;
   }
 
   &--secondary {
-    @apply bg-gray-200 hover:bg-gray-800 focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 text-gray-900 hover:text-white;
+    @apply focus:ring-2 focus:ring-opacity-50;
+    @apply bg-th-secondary hover:bg-th-secondary-focus focus:ring-th-secondary text-th-secondary-content;
+  }
+
+  &--neutral {
+    @apply focus:ring-2 focus:ring-opacity-50;
+    @apply bg-th-neutral hover:bg-th-neutral-focus focus:ring-th-neutral text-th-neutral-content;
   }
 
   &--danger {
-    @apply bg-red-500 hover:bg-red-800 focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 text-white;
+    // @apply bg-red-500 hover:bg-red-800 focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 text-white;
+    @apply bg-th-error text-th-base-content;
   }
 
   &--transparent {
     @apply text-indigo-600 transition-colors duration-150 focus:shadow hover:bg-indigo-100;
   }
 
+  // same for all themes?
   &--disabled {
     @apply cursor-not-allowed text-gray-400 bg-gray-200 hover:bg-gray-200;
   }

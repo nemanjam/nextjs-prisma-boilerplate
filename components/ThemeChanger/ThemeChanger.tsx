@@ -32,9 +32,11 @@ const ThemeChanger: FC<Props> = ({ childRef }) => {
     handleChange,
   }));
 
+  const getThemeAlias = (theme: string) => theme.toLowerCase().replace('theme-', '');
+
   if (!hasMounted) return null;
 
-  return <span className={b()}>{capitalizeFirstLetter(theme)}</span>;
+  return <span className={b()}>{capitalizeFirstLetter(getThemeAlias(theme))}</span>;
 };
 
 export default ThemeChanger;

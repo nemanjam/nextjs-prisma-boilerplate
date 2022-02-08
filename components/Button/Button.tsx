@@ -13,7 +13,7 @@ type Props = {
   disabled?: boolean;
   tagName?: 'button' | 'a' | 'span';
   type?: 'submit' | 'button';
-  variant?: 'primary' | 'secondary' | 'danger' | 'transparent';
+  variant?: 'primary' | 'secondary' | 'danger' | 'transparent' | 'neutral';
   size?: 'sm' | 'base' | 'lg';
 } & HTMLAttributes<HTMLElement>;
 
@@ -40,6 +40,7 @@ const Button: ForwardRefRenderFunction<unknown, Props> = (
     'size-lg': size === 'lg',
     primary: variant === 'primary',
     secondary: variant === 'secondary',
+    neutral: variant === 'neutral',
     danger: variant === 'danger',
     transparent: variant === 'transparent',
     pill,

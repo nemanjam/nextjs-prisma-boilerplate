@@ -106,7 +106,7 @@ const PostItem: FC<PostProps> = ({ post }) => {
           </Link>
 
           <Button
-            variant="danger"
+            variant="secondary"
             onClick={(e) => {
               e.stopPropagation();
               deletePost(post.id);

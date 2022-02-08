@@ -59,7 +59,7 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
                 </a>
               </Link>
               <Button
-                variant="danger"
+                variant="secondary"
                 onClick={() => {
                   deleteUser(user.id);
                 }}

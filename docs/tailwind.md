@@ -112,3 +112,5 @@ color: rgb(255 255 255 / 1);
 ```
 
 - opacity and bg-opacity is not same, opacity - content too
+- for hovers: `hover:bg-th-base-content hover:bg-opacity-5`
+- for borders: `border-th-base-200`

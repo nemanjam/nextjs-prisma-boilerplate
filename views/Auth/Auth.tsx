@@ -143,7 +143,7 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
                     </Button>
                   )}
                   {provider.name === 'Google' && (
-                    <Button variant="danger" onClick={() => signIn(provider.id)}>
+                    <Button variant="secondary" onClick={() => signIn(provider.id)}>
                       Login with Google
                     </Button>
                   )}
