@@ -188,7 +188,7 @@ const objectFilter = (obj, predicate) =>
 const filterAllItems = ({ argsArray, ...restArgs }: FilterItemsArgs) =>
   argsArray?.length > 0
     ? Object.values(
-        objectFilter(getAllItems(restArgs), ([key, value]) => argsArray.includes(key))
+        objectFilter(getAllItems(restArgs), ([key]) => argsArray.includes(key))
       )
     : [];
 

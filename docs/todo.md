@@ -64,6 +64,7 @@
 - all in daisy ui
 - alert component
 - @tailwindcss/line-clamp plugin to limmit posts length
+- search fetching... indicator
 
 ## Done
 

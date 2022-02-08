@@ -21,15 +21,14 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const _profile = await getUserByIdOrUsernameOrEmail(params);
+  const profile = await getUserByIdOrUsernameOrEmail(params);
 
-  if (!_profile) {
+  if (!profile) {
     return {
       notFound: true,
     };
   }
 
-  const { password, ...profile } = _profile;
   const query = { username: profile.username };
 
   const queryClient = new QueryClient();

@@ -7,7 +7,6 @@ import DraftsView from 'views/Drafts';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { getPostsWithAuthor } from 'pages/api/posts';
 import { useMe } from 'lib-client/react-query/auth/useMe';
-import { Routes } from 'lib-client/constants';
 import { redirectLogin } from 'utils';
 
 const Drafts: FC = () => {

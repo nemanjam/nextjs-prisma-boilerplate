@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import Link from 'next/link';
 import NextError from 'next/error';
 import { getErrorClass, withBem } from 'utils/bem';

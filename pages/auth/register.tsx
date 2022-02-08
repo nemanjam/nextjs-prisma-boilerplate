@@ -3,7 +3,6 @@ import { getSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next';
 import AuthLayout from 'layouts/AuthLayout';
 import AuthView from 'views/Auth';
-import { Routes } from 'lib-client/constants';
 import { redirectHome } from 'utils';
 
 const Register: FC = () => {

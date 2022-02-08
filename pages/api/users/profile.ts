@@ -5,7 +5,6 @@ import nc, { ncOptions } from 'lib-server/nc';
 import ApiError from 'lib-server/error';
 import { userGetSchema } from 'lib-server/validation';
 import { ClientUser, QueryParamsType } from 'types';
-import { User } from '@prisma/client';
 
 const handler = nc(ncOptions);
 

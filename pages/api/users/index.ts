@@ -7,7 +7,6 @@ import ApiError from 'lib-server/error';
 import { usersGetSchema, userRegisterSchema } from 'lib-server/validation';
 import { PaginatedResponse, QueryParamsType } from 'types';
 import { ClientUser } from 'types';
-import { Prisma } from '@prisma/client';
 
 const handler = nc(ncOptions);
 

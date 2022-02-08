@@ -1,11 +1,4 @@
-import {
-  FC,
-  MutableRefObject,
-  ReactNode,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from 'react';
+import { FC, MutableRefObject, useImperativeHandle } from 'react';
 import { useTheme } from 'next-themes';
 import { withBem } from 'utils/bem';
 import { useHasMounted } from 'components/hooks';

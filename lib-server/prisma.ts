@@ -24,7 +24,7 @@ export const exclude = <T, Key extends keyof T>(
 ): Omit<T, Key> => {
   if (!model) return null;
 
-  for (let key of keys) {
+  for (const key of keys) {
     delete model[key];
   }
   return model;

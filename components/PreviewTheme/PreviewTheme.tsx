@@ -31,8 +31,10 @@ const PreviewTheme: FC = () => {
 
   return (
     <div className={b()}>
-      {themeColors.map((color) => (
-        <div className={b('item') + bgColor(color)}>{bgColor(color)}</div>
+      {themeColors.map((color, index) => (
+        <div key={index} className={b('item') + bgColor(color)}>
+          {bgColor(color)}
+        </div>
       ))}
     </div>
   );

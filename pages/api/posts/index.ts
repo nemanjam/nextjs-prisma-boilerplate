@@ -6,7 +6,6 @@ import { requireAuth } from 'lib-server/middleware/auth';
 import { getSession } from 'next-auth/react';
 import { postCreateSchema, postsGetSchema } from 'lib-server/validation';
 import { PostWithAuthor, PaginatedResponse, QueryParamsType } from 'types';
-import { Prisma } from '@prisma/client';
 
 const handler = nc(ncOptions);
 

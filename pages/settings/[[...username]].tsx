@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
-import { Routes } from 'lib-client/constants';
 import PageLayout from 'layouts/PageLayout';
 import SettingsView from 'views/Settings';
 import QueryKeys from 'lib-client/react-query/queryKeys';
@@ -22,10 +21,6 @@ const Settings: FC = () => {
 
 export const getServerSideProps: GetServerSideProps = async ({ params, req }) => {
   const me = await getMe({ req });
-
-  const notFound = {
-    notFound: true,
-  } as const;
 
   if (!me) {
     return redirectLogin;

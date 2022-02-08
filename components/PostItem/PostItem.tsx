@@ -29,6 +29,7 @@ const PostItem: FC<PostProps> = ({ post }) => {
   const editPostHref = `${Routes.SITE.CREATE}${post.id}/`;
 
   // maybe remove it
+  // eslint-disable-next-line no-unused-vars
   const handlePostClick = (event: React.MouseEvent) => {
     const isInsideOfLink = (event.target as HTMLElement).closest('a');
     if (!isInsideOfLink) router.push(postHref);
