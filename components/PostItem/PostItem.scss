@@ -1,6 +1,10 @@
 .post-item {
   @apply flex flex-col gap-4 p-4 border-t border-x;
-  @apply border-th-base-200 hover:bg-th-base-200;
+  @apply border-th-base-200;
+
+  &:hover {
+    @apply bg-th-base-content bg-opacity-5;
+  }
 
   &:last-child {
     @apply border-b;

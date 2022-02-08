@@ -1,11 +1,11 @@
 .user-item {
-  @apply flex flex-col gap-4 border-t border-x;
+  @apply flex flex-col border-t border-x;
   @apply border-th-base-200;
 
   &:hover {
-    @apply bg-th-base-200;
-    .user-item__avatar-container {
-      @apply bg-th-base-200;
+    @apply bg-th-base-content bg-opacity-5;
+    .user-item__avatar-container-2 {
+      @apply bg-th-base-content bg-opacity-5;
     }
   }
 
@@ -13,25 +13,33 @@
     @apply border-b;
   }
 
-  &__avatar-container {
-    @apply inline-block -mt-16 p-2;
-    @apply bg-th-base-100;
+  &__user-info {
+    @apply relative p-4 pt-8;
+  }
+
+  &__avatar-container-1 {
+    @apply inline-flex bg-th-base-100; // same bg as layout
+    @apply absolute -top-12;
+  }
+
+  &__avatar-container-2 {
+    @apply inline-block w-full h-full bg-transparent p-2;
   }
 
   &__avatar {
     @apply h-20 w-20 object-cover;
   }
 
+  &__first-row {
+    @apply flex justify-between items-end;
+  }
+
   &__buttons {
-    @apply flex justify-end gap-4 -mt-11 h-10;
+    @apply flex justify-end gap-4 h-10; // same hight with and without buttons
   }
 
   &__header-image {
     @apply h-28 w-full bg-cover bg-center;
-  }
-
-  &__user-info {
-    @apply px-4 pb-4;
   }
 
   &__name {

@@ -42,39 +42,44 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
         style={{ backgroundImage: `url('${getHeaderImagePath(user)}')` }}
       />
       <div className={b('user-info')}>
-        <span className={b('avatar-container')}>
-          <Link href={userHref}>
-            <a>
-              <img className={b('avatar')} src={getAvatarPath(user)} />
-            </a>
-          </Link>
+        <span className={b('avatar-container-1')}>
+          <span className={b('avatar-container-2')}>
+            <Link href={userHref}>
+              <a>
+                <img className={b('avatar')} src={getAvatarPath(user)} />
+              </a>
+            </Link>
+          </span>
         </span>
 
-        <div className={b('buttons')}>
-          {isAdmin && (
-            <>
-              <Link href={settingsHref}>
-                <a>
-                  <Button tagName="span">Edit</Button>
-                </a>
-              </Link>
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  deleteUser(user.id);
-                }}
-              >
-                {!restDelete.isLoading ? 'Delete' : 'Deleting...'}
-              </Button>
-            </>
-          )}
+        <div className={b('first-row')}>
+          <Link href={userHref}>
+            <a>
+              <h2 className={b('name')}>{user.name}</h2>
+            </a>
+          </Link>
+
+          <div className={b('buttons')}>
+            {isAdmin && (
+              <>
+                <Link href={settingsHref}>
+                  <a>
+                    <Button tagName="span">Edit</Button>
+                  </a>
+                </Link>
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    deleteUser(user.id);
+                  }}
+                >
+                  {!restDelete.isLoading ? 'Delete' : 'Deleting...'}
+                </Button>
+              </>
+            )}
+          </div>
         </div>
 
-        <Link href={userHref}>
-          <a>
-            <h2 className={b('name')}>{user.name}</h2>
-          </a>
-        </Link>
         <div>
           <Link href={userHref}>
             <a>
