@@ -103,6 +103,11 @@ color: rgb(255 255 255 / 1);
 - for hovers: `hover:bg-th-base-content hover:bg-opacity-5`
 - for borders: `border-th-base-200`
 
+### Convert Hex to RGB
+
+- [converting](https://css-tricks.com/converting-color-spaces-in-javascript/)
+- color [units](https://dev.to/alvaromontoro/the-ultimate-guide-to-css-colors-2020-edition-1bh1)
+
 ### DaisyUI
 
 - themes and components [website](https://daisyui.com/)
