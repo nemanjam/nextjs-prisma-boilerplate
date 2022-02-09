@@ -36,11 +36,11 @@
   }
 
   &__facebook {
-    @apply bg-blue-500 text-white #{!important};
+    @apply bg-blue-500 hover:bg-blue-600 text-white #{!important};
   }
 
   &__google {
-    @apply bg-red-500 text-white #{!important};
+    @apply bg-red-500 hover:bg-red-600 text-white #{!important};
   }
 
   &__link {

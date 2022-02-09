@@ -28,8 +28,13 @@
   }
 
   &--neutral {
-    @apply focus:ring-2 focus:ring-opacity-50;
-    @apply bg-th-neutral hover:bg-th-neutral-focus focus:ring-th-neutral text-th-neutral-content;
+    @apply bg-th-neutral text-th-neutral-content;
+    &:hover {
+      @apply bg-th-neutral-focus;
+    }
+    &:focus {
+      @apply ring-2 ring-opacity-50 ring-th-neutral;
+    }
   }
 
   &--danger {

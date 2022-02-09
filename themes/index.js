@@ -30,7 +30,7 @@ const mainFunction = ({ addBase }) => {
     resultThemes[_selector] = convertThemeColorsToRgb(theme);
   });
 
-  console.log('resultThemes', resultThemes);
+  // console.log('resultThemes', resultThemes);
   addBase(resultThemes);
 };
 
