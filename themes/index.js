@@ -14,12 +14,11 @@ function convertThemeColorsToRgb(theme) {
   Object.entries(theme).forEach(([rule, value]) => {
     // neither themes nor colorNames have th- prefix
     // just for eslint
-    resultObject[colorNames[rule]] = Object.prototype.hasOwnProperty.call(
-      colorNames,
-      rule
-    )
-      ? hexToRgb(value)
-      : value;
+    if (Object.prototype.hasOwnProperty.call(colorNames, rule)) {
+      resultObject[colorNames[rule]] = hexToRgb(value);
+    } else {
+      resultObject[rule] = value;
+    }
   });
   return resultObject;
 }

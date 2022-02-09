@@ -33,5 +33,5 @@ const App = ({
 
 export default App;
 
-// prevent purge
-// theme-light theme-dark theme-emerald theme-pink
+// include themes, prevent purge
+// theme-light theme-dark theme-blue theme-red theme-green theme-black

@@ -1,5 +1,6 @@
 .footer {
-  @apply flex justify-center items-center h-[var(--footer-height)] bg-gray-500;
+  @apply flex justify-center items-center h-[var(--footer-height)];
+  @apply bg-th-base-200 text-th-base-content;
 
   &__content {
     // @apply bg-th-primary;

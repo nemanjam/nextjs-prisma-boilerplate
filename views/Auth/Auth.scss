@@ -7,8 +7,16 @@
     @apply bg-th-base-200;
   }
 
+  &__header {
+    @apply flex justify-between items-center;
+  }
+
   &__title {
     @apply text-2xl font-bold;
+  }
+
+  &__home-link {
+    @apply link-primary text-sm;
   }
 
   &__form {
@@ -25,6 +33,14 @@
 
   &__oauth-buttons {
     @apply flex flex-col gap-4;
+  }
+
+  &__facebook {
+    @apply bg-blue-500 text-white #{!important};
+  }
+
+  &__google {
+    @apply bg-red-500 text-white #{!important};
   }
 
   &__link {

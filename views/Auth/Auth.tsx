@@ -68,7 +68,12 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
   return (
     <div className={b()}>
       <section className={b('content')}>
-        <h1 className={b('title')}>{isRegisterForm ? 'Register' : 'Login'}</h1>
+        <div className={b('header')}>
+          <h1 className={b('title')}>{isRegisterForm ? 'Register' : 'Login'}</h1>
+          <Link href={Routes.SITE.HOME}>
+            <a className={b('home-link')}>Home</a>
+          </Link>
+        </div>
 
         {isError && <div className="alert-error">{error.message}</div>}
 
@@ -138,12 +143,20 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
               .map((provider) => (
                 <Fragment key={provider.name}>
                   {provider.name === 'Facebook' && (
-                    <Button onClick={() => signIn(provider.id)}>
+                    <Button
+                      className={b('facebook')}
+                      variant="transparent"
+                      onClick={() => signIn(provider.id)}
+                    >
                       Login with Facebook
                     </Button>
                   )}
                   {provider.name === 'Google' && (
-                    <Button variant="secondary" onClick={() => signIn(provider.id)}>
+                    <Button
+                      className={b('google')}
+                      variant="transparent"
+                      onClick={() => signIn(provider.id)}
+                    >
                       Login with Google
                     </Button>
                   )}

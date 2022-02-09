@@ -11,6 +11,8 @@
   --navbar-height: 3.5rem;
   --footer-height: 3.5rem;
   --layout-content-pt: var(--navbar-height);
+
+  @apply bg-th-base-100 text-th-base-content;
 }
 
 .react-icons {

@@ -1,8 +1,12 @@
 .navbar {
   @apply fixed top-0 left-0 right-0 z-10;
-  @apply whitespace-nowrap;
+  @apply whitespace-nowrap border-b;
   // @apply bg-gradient-to-r from-indigo-500 to-sky-500;
-  @apply border-b border-th-base-200 bg-th-base-100 text-th-base-content;
+
+  // theme styles
+  background-color: var(--navbar-bg-color, rgb(var(--base-100)));
+  color: var(--navbar-text-color, rgb(var(--base-content)));
+  border-color: var(--navbar-border-color, rgb(var(--base-200)));
 
   &__desktop {
     @apply flex justify-between px-4 h-[var(--navbar-height)];

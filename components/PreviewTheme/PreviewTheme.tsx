@@ -24,10 +24,11 @@ const themeColors = [
   'error',
 ];
 
+// component for debugging themes palette
 const PreviewTheme: FC = () => {
   const b = withBem('preview-theme');
 
-  const bgColor = (color) => ` bg-th-${color}`;
+  const bgColor = (color: string) => ` bg-th-${color}`;
 
   return (
     <div className={b()}>

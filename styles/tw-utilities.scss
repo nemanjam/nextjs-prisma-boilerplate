@@ -25,10 +25,10 @@
       @apply text-purple-600;
     }
     &:hover {
-      @apply text-blue-800 underline cursor-pointer;
+      @apply text-blue-800 cursor-pointer;
     }
     &:active {
-      @apply text-red-600 underline;
+      @apply text-red-600;
     }
   }
 }

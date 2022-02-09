@@ -124,9 +124,10 @@ const getAllItems = ({
   logout: (
     <a
       key="logout"
-      onClick={(e) => {
+      onClick={async (e) => {
         e.preventDefault();
-        signOut();
+        await signOut();
+        router.push(Routes.SITE.HOME);
       }}
     >
       <NavLink icon={<RiLogoutBoxRLine />}>Log out</NavLink>

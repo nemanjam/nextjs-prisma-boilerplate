@@ -10,7 +10,7 @@
   &__menu {
     @apply absolute invisible opacity-0 top-14 right-0 w-64 rounded-lg shadow-md overflow-hidden p-2;
     @apply transition-opacity ease-in duration-300;
-    @apply bg-th-base-100;
+    @apply bg-th-base-100 text-th-base-content;
   }
 
   &__menu--active {
