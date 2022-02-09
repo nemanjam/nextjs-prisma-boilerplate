@@ -3,7 +3,6 @@ import { useTheme } from 'next-themes';
 import { withBem } from 'utils/bem';
 import { useHasMounted } from 'components/hooks';
 import { themes } from 'lib-client/constants';
-import { capitalizeFirstLetter } from 'utils';
 
 type Props = {
   childRef?: MutableRefObject<any>;
@@ -29,7 +28,7 @@ const ThemeChanger: FC<Props> = ({ childRef }) => {
 
   if (!hasMounted) return null;
 
-  return <span className={b()}>{capitalizeFirstLetter(getThemeAlias(theme))}</span>;
+  return <span className={b()}>{getThemeAlias(theme)}</span>;
 };
 
 export default ThemeChanger;
