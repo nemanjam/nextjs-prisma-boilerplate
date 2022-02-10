@@ -5,8 +5,9 @@ import Pagination from 'components/Pagination';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import SearchInput from 'components/SearchInput';
-import { usePrevious } from 'components/hooks/usePrevious';
+import usePrevious from 'components/hooks/usePrevious';
 import PreviewTheme from 'components/PreviewTheme';
+import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
 
 const Home: FC = () => {
   const b = withBem('home');
@@ -25,6 +26,16 @@ const Home: FC = () => {
       setPage(1);
     }
   }, [prevSearchTerm, searchTerm]);
+
+  const isSearchFetching = useCalcIsFetching({
+    isFetching,
+    state: searchTerm,
+  });
+
+  const isPaginationFetching = useCalcIsFetching({
+    isFetching,
+    state: page,
+  });
 
   if (isLoading) return <h2>Loading...</h2>;
 
@@ -45,16 +56,16 @@ const Home: FC = () => {
           isNextDisabled={isPreviousData || !data?.pagination.hasMore}
           currentPage={page}
           pagesCount={data.pagination.pagesCount}
-          isFetching={isFetching}
+          isFetching={isPaginationFetching}
           from={data.pagination.from}
           to={data.pagination.to}
           total={data.pagination.total}
         />
-        <SearchInput onSearchSubmit={setSearchTerm} />
+        <SearchInput onSearchSubmit={setSearchTerm} isFetching={isSearchFetching} />
       </div>
 
       <section className={b('list')}>
-        <PreviewTheme />
+        {/* <PreviewTheme /> */}
         {data.items.map((post) => (
           <PostItem key={post.id} post={post} />
         ))}

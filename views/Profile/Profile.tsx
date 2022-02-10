@@ -8,8 +8,9 @@ import { User } from '@prisma/client';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import Pagination from 'components/Pagination';
 import QueryKeys from 'lib-client/react-query/queryKeys';
-import { usePrevious } from 'components/hooks/usePrevious';
+import usePrevious from 'components/hooks/usePrevious';
 import SearchInput from 'components/SearchInput';
+import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
 
 type ProfileProps = {
   profile: User;
@@ -36,6 +37,16 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
       setPage(1);
     }
   }, [prevSearchTerm, searchTerm]);
+
+  const isSearchFetching = useCalcIsFetching({
+    isFetching,
+    state: searchTerm,
+  });
+
+  const isPaginationFetching = useCalcIsFetching({
+    isFetching,
+    state: page,
+  });
 
   if (isLoading) return <h2>Loading...</h2>;
 
@@ -71,12 +82,12 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
           isNextDisabled={isPreviousData || !data?.pagination.hasMore}
           currentPage={page}
           pagesCount={data.pagination.pagesCount}
-          isFetching={isFetching}
+          isFetching={isPaginationFetching}
           from={data.pagination.from}
           to={data.pagination.to}
           total={data.pagination.total}
         />
-        <SearchInput onSearchSubmit={setSearchTerm} />
+        <SearchInput onSearchSubmit={setSearchTerm} isFetching={isSearchFetching} />
       </div>
 
       <section className={b('list')}>

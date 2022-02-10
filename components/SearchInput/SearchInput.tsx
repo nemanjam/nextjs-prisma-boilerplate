@@ -10,9 +10,10 @@ interface SearchFormData {
 
 type Props = {
   onSearchSubmit?: (search: string) => void;
+  isFetching?: boolean;
 };
 
-const SearchInput: FC<Props> = ({ onSearchSubmit }) => {
+const SearchInput: FC<Props> = ({ onSearchSubmit, isFetching }) => {
   const b = withBem('search');
 
   const { register, handleSubmit, formState } = useForm<SearchFormData>({
@@ -28,7 +29,12 @@ const SearchInput: FC<Props> = ({ onSearchSubmit }) => {
   return (
     <form className={b()} onSubmit={handleSubmit(onSubmit)}>
       <div className={b('form-field')}>
-        <label htmlFor="search">Search</label>
+        <div className={b('label-row')}>
+          <label className={b('label')} htmlFor="search">
+            Search
+          </label>
+          {isFetching && <span className={b('text')}>Fetching...</span>}
+        </div>
         <input
           {...register('search')}
           id="search"

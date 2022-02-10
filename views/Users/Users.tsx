@@ -4,7 +4,8 @@ import UserItem from 'components/UserItem';
 import Pagination from 'components/Pagination';
 import { useUsers } from 'lib-client/react-query/users/useUsers';
 import SearchInput from 'components/SearchInput';
-import { usePrevious } from 'components/hooks/usePrevious';
+import usePrevious from 'components/hooks/usePrevious';
+import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
 
 const Users: FC = () => {
   const b = withBem('users');
@@ -23,6 +24,16 @@ const Users: FC = () => {
       setPage(1);
     }
   }, [prevSearchTerm, searchTerm]);
+
+  const isSearchFetching = useCalcIsFetching({
+    isFetching,
+    state: searchTerm,
+  });
+
+  const isPaginationFetching = useCalcIsFetching({
+    isFetching,
+    state: page,
+  });
 
   if (isLoading) return <h2>Loading...</h2>;
 
@@ -43,12 +54,12 @@ const Users: FC = () => {
           isNextDisabled={isPreviousData || !data?.pagination.hasMore}
           currentPage={page}
           pagesCount={data.pagination.pagesCount}
-          isFetching={isFetching}
+          isFetching={isPaginationFetching}
           from={data.pagination.from}
           to={data.pagination.to}
           total={data.pagination.total}
         />
-        <SearchInput onSearchSubmit={setSearchTerm} />
+        <SearchInput onSearchSubmit={setSearchTerm} isFetching={isSearchFetching} />
       </div>
 
       <section className={b('list')}>
