@@ -63,7 +63,12 @@ const Pagination: FC<Props> = ({
         {Array.from(Array(pagesCount).keys()) // range 1..9
           .map((_val, i) => i + 1)
           .map((index) => (
-            <li key={index}>
+            <li
+              key={index}
+              className={b('list-item', {
+                'hide-on-mobile': currentPage !== index,
+              })}
+            >
               <Button
                 onClick={() => setPage(index)}
                 variant={currentPage === index ? 'primary' : 'transparent'}

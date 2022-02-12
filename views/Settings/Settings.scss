@@ -10,6 +10,9 @@
 
     &--input {
       @apply max-w-xs;
+      & > input {
+        @apply w-full;
+      }
     }
 
     &--avatar {
@@ -18,6 +21,9 @@
 
     &--bio {
       @apply max-w-xl;
+      & > textarea {
+        @apply w-full;
+      }
     }
   }
 

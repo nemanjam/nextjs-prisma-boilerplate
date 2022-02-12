@@ -20,4 +20,10 @@
   &__list {
     @apply inline-flex gap-2;
   }
+
+  &__list-item {
+    &--hide-on-mobile {
+      @apply hidden md:inline-block;
+    }
+  }
 }

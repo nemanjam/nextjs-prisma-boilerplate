@@ -2,7 +2,7 @@
   @apply flex flex-col gap-4;
 
   &__pagination-search {
-    @apply flex justify-between;
+    @apply flex justify-between flex-wrap gap-2;
   }
 
   &__list {

@@ -27,7 +27,8 @@
   }
 
   &__user-title {
-    @apply flex items-center gap-2;
+    @apply flex flex-col items-start gap-2;
+    @apply xs:flex-row xs:items-center;
   }
 
   &__name {

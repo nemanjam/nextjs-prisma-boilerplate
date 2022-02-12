@@ -22,6 +22,7 @@ import { IoPeopleOutline, IoSettingsOutline } from 'react-icons/io5';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import { ClientUser } from 'types';
 import ThemeChanger from 'components/ThemeChanger';
+import { fullTwConfig } from 'utils';
 
 const isActive: (router: NextRouter, pathname: string) => boolean = (router, pathname) =>
   router.asPath === pathname;
@@ -246,12 +247,13 @@ const Navbar: FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
   const { width } = useViewport();
-  const isMobile = width < 640;
+  const sm = parseInt(fullTwConfig.theme.screens.sm, 10);
+  const isMobile = width < sm; // 640px
 
   const navRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(navRef, false);
 
-  // foeward mobileMenuOpen to isActive
+  // forward mobileMenuOpen to isActive
   useEffect(() => {
     setIsActive(mobileMenuOpen);
   }, [mobileMenuOpen]);

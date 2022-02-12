@@ -14,7 +14,7 @@
   }
 
   &__user-info {
-    @apply relative p-4 pt-8;
+    @apply relative p-4 pt-10;
   }
 
   &__avatar-container-1 {
@@ -31,11 +31,11 @@
   }
 
   &__first-row {
-    @apply flex justify-between items-end;
+    @apply flex justify-between;
   }
 
   &__buttons {
-    @apply flex justify-end gap-4 h-10; // same hight with and without buttons
+    @apply flex justify-end h-10 -mt-4 gap-2 xs:gap-4; // same hight with and without buttons
   }
 
   &__header-image {
