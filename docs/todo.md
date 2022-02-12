@@ -64,7 +64,6 @@
 - all in daisy ui
 - alert component
 - @tailwindcss/line-clamp plugin to limmit posts length
-- search fetching... indicator
 - declerative navbar lesson
 - reseed app button in footer
 - white border on pagination transparent button css bug
@@ -74,7 +73,6 @@
 - outside click close mobile menu
 - footer styling
 - more color themes and navbar gradient
-- link to home on login page
 - 404 and 500 pages
 - login neutral button color, dark theme
 - 2x1px border navbar calculation
@@ -132,3 +130,5 @@ Home@webpack-internal:///./views/Home/Home.tsx:40:66
 - create docs folder with mds, done
 - fix theme reset on mobile menu, done
 - route guards - redirect from getServerSideProps, done
+- search fetching... indicator, done
+- link to home on login page, done
