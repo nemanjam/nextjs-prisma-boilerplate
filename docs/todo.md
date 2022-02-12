@@ -76,7 +76,7 @@
 - 404 and 500 pages
 - login neutral button color, dark theme
 - 2x1px border navbar calculation
--
+- router.back() on cancel
 
 ```
 react query home page refresh, maybe just .next folder...

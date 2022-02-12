@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { NextRouter, useRouter } from 'next/router';
 import { signOut } from 'next-auth/react';
@@ -6,7 +6,7 @@ import { withBem } from 'utils/bem';
 import { Routes } from 'lib-client/constants';
 import { getAvatarPath } from 'utils';
 import Dropdown from 'components/Dropdown';
-import { useViewport } from 'components/hooks';
+import { useDetectOutsideClick, useViewport } from 'components/hooks';
 import { NavLink } from 'components/Navbar';
 import { FaCat } from 'react-icons/fa';
 import { FiUser } from 'react-icons/fi';
@@ -248,6 +248,21 @@ const Navbar: FC = () => {
   const { width } = useViewport();
   const isMobile = width < 640;
 
+  const navRef = useRef(null);
+  const [isActive, setIsActive] = useDetectOutsideClick(navRef, false);
+
+  // foeward mobileMenuOpen to isActive
+  useEffect(() => {
+    setIsActive(mobileMenuOpen);
+  }, [mobileMenuOpen]);
+
+  // close mobile menu onClick outside nav
+  useEffect(() => {
+    if (mobileMenuOpen && !isActive) {
+      setMobileMenuOpen(false);
+    }
+  }, [isActive, mobileMenuOpen]);
+
   useEffect(() => {
     // close mobile menu on desktop
     if (mobileMenuOpen) {
@@ -271,7 +286,7 @@ const Navbar: FC = () => {
   const mobileNav = getAllNavLinks(args);
 
   return (
-    <header className={b()}>
+    <header className={b()} ref={navRef}>
       {/* desktop navbar */}
       <div className={b('desktop')}>
         <div className={b('left-wrapper')}>

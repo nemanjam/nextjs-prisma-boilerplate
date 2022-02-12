@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, MutableRefObject, Dispatch, SetStateAction } from 'react';
 
 /**
  * Hook for handling closing when clicking outside of an element
  * @param {React.node} el
  * @param {boolean} initialState
  */
-const useDetectOutsideClick = (el, initialState) => {
+const useDetectOutsideClick = (
+  el: MutableRefObject<any>,
+  initialState: boolean
+): [boolean, Dispatch<SetStateAction<boolean>>] => {
   const [isActive, setIsActive] = useState(initialState);
 
   useEffect(() => {
