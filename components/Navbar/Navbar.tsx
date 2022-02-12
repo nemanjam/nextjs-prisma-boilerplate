@@ -246,6 +246,7 @@ function getDropdownItems(args: ItemsArgs) {
 const Navbar: FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
+
   const { width } = useViewport();
   const sm = parseInt(fullTwConfig.theme.screens.sm, 10);
   const isMobile = width < sm; // 640px

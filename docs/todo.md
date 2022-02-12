@@ -10,11 +10,9 @@
 - Header component
 - react query, redux toolkit, redux toolkit query
 - redux toolkit vercel example
-- pagination
 - update readme before forget...
 - refetch session after user is edited
 - try catch to prisma calls getServerSideProps...
-- light, dark, orange, blue theme
 - soft delete for reseed, or logger
 - semantic html
 - Next.js Image config
@@ -24,18 +22,14 @@
 - protected routes and 404 pages
 - typescript silent errors...
 - on change tw-base.scss must restart, no intelisense for my utilities
-- themes
 - docker express maybe, github actions, remote containers
 - where to place and call printLoadedEnvVariables() ?
 - add prisma migration container, move prisma to devDependencies
 - next.js multiple build contexts, next.js app, server.ts and seed.js
 - heroku docker
 - update traefik-proxy readme
-- pagination with prisma and react query
 - type all request and response objects
-- add search posts field
 - group pagination items function
-- full text search posts
 - request, response types
 - me query, only userId and email in session
 - throw 404 from zod api...
@@ -45,17 +39,13 @@
 - validate ids in api zod
 - replace session.user on server
 - leave just id and email in session.user, and type
-- users page, pagination, api filtering
 - test `await queryClient.prefetchQuery([QueryKeys.POSTS_PROFILE, profile.username, 1]...`
 - redirect on protected pages, logged in and admin cases
 - reusable guard or HOC for protected routes, getServerSideProps too
-- fix tailwind utility classes error
-- dark theme, red, green
 - where to go next doc: markdown editor with image inline and upload, comments, likes, follow, tags, categories
 - publish/unpublish checkbox in update, no
 - absolute positioning or negative margin, css reddit question
 - clear types in a single place, form, request, response
-- theme colors, daisy ui
 - \_document.tsx
 - search and pagination responsive css
 - maybe arrays in navbar for mobile
@@ -67,16 +57,12 @@
 - declerative navbar lesson
 - reseed app button in footer
 - white border on pagination transparent button css bug
-- mobile text wrap user, username, time, fix with flexbox
-- responsive pagination and search
 - custom font maybe
-- outside click close mobile menu
 - footer styling
 - more color themes and navbar gradient
 - 404 and 500 pages
 - login neutral button color, dark theme
 - 2x1px border navbar calculation
-- router.back() on cancel
 
 ```
 react query home page refresh, maybe just .next folder...
@@ -132,3 +118,13 @@ Home@webpack-internal:///./views/Home/Home.tsx:40:66
 - route guards - redirect from getServerSideProps, done
 - search fetching... indicator, done
 - link to home on login page, done
+- router.back() on cancel, done, styling href link,active...
+- outside click close mobile menu, done
+- mobile text wrap user, username, time, fix with flexbox, done
+- responsive pagination and search, done
+- dark theme, red, green, theme colors, daisy ui, done
+- fix tailwind utility classes error, done
+- users page, pagination, api filtering, done
+- pagination with prisma and react query, done
+- add search posts field, done
+- full text search posts, done

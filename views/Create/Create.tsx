@@ -84,9 +84,16 @@ const Create: FC = () => {
           {isUpdate && (!restUpdate.isLoading ? 'Update' : 'Submiting...')}
         </Button>
         <span>or</span>
-        <Link href={Routes.SITE.HOME}>
-          <a className={b('cancel')}>Cancel</a>
-        </Link>
+        <a
+          href=""
+          onClick={(e) => {
+            e.preventDefault();
+            router.back();
+          }}
+          className={b('cancel')}
+        >
+          Cancel
+        </a>
       </div>
     </form>
   );

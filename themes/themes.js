@@ -37,7 +37,7 @@ module.exports = {
     neutral: colors.neutral[600],
     'neutral-focus': colors.neutral[500],
     'neutral-content': colors.white,
-    'base-100': colors.gray[700],
+    'base-100': colors.gray[800],
     'base-200': colors.gray[600],
     'base-300': colors.gray[500],
     'base-content': colors.gray[100],
