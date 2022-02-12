@@ -43,7 +43,7 @@
   }
 
   &--transparent {
-    @apply bg-transparent text-current border border-transparent;
+    @apply bg-transparent text-current;
     &:hover {
       @apply bg-th-base-content bg-opacity-20 border-opacity-0;
     }
