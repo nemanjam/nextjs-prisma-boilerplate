@@ -22,7 +22,7 @@ import { IoPeopleOutline, IoSettingsOutline } from 'react-icons/io5';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import { ClientUser } from 'types';
 import ThemeChanger from 'components/ThemeChanger';
-import { fullTwConfig } from 'utils';
+import fullTwConfig from 'utils/tw-config';
 
 const isActive: (router: NextRouter, pathname: string) => boolean = (router, pathname) =>
   router.asPath === pathname;

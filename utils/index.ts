@@ -1,7 +1,5 @@
 import { Routes } from 'lib-client/constants';
 import { ClientUser } from 'types';
-import resolveConfig from 'tailwindcss/resolveConfig';
-import tailwindConfig from 'tailwind.config.js';
 
 export const uniqueString = (length: number) => {
   let result = '';
@@ -72,5 +70,3 @@ export const redirectHome = {
     destination: Routes.SITE.HOME,
   },
 };
-
-export const fullTwConfig = resolveConfig(tailwindConfig);
