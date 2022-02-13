@@ -42,6 +42,20 @@ const PostItem: FC<PostProps> = ({ post }) => {
 
   const isOwnerOrAdmin = getIsPostOwner(me, post) || getIsAdmin(me);
 
+  const userInfo = (
+    <>
+      <Link href={authorHref}>
+        <a className={b('name')}>{author.name}</a>
+      </Link>
+      <Link href={authorHref}>
+        <a className={b('username')}>{`@${author.username}`}</a>
+      </Link>
+      <Link href={postHref}>
+        <a className={b('time')}>{moment(post.updatedAt).fromNow()}</a>
+      </Link>
+    </>
+  );
+
   return (
     <article className={b()}>
       {restUpdate.isError && (
@@ -70,19 +84,11 @@ const PostItem: FC<PostProps> = ({ post }) => {
             </a>
           </Link>
 
-          <div className={b('user-title')}>
-            <Link href={authorHref}>
-              <a className={b('name')}>{author.name}</a>
-            </Link>
-            <Link href={authorHref}>
-              <a className={b('username')}>{`@${author.username}`}</a>
-            </Link>
-            <Link href={postHref}>
-              <a className={b('time')}>{moment(post.updatedAt).fromNow()}</a>
-            </Link>
-          </div>
+          <div className={b('user-title-desktop')}>{userInfo}</div>
         </div>
       </div>
+
+      <div className={b('user-title-mobile')}>{userInfo}</div>
 
       {/* content */}
       <div className={b('content')}>{post.content}</div>

@@ -23,6 +23,22 @@
     @apply flex flex-col gap-4;
   }
 
+  &__test-accounts {
+    @apply text-sm;
+
+    p:first-child {
+      @apply mb-1;
+    }
+  }
+
+  &__row {
+    @apply flex gap-2;
+  }
+
+  &__label {
+    @apply font-semibold;
+  }
+
   &__form-field {
     @apply flex flex-col;
 

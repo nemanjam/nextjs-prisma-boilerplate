@@ -65,6 +65,13 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
     createUser({ name, username, email, password });
   };
 
+  const testAccounts = [
+    { email: 'user0@email.com', pass: '123456', role: 'admin' },
+    { email: 'user1@email.com', pass: '123456', role: 'user' },
+    { email: 'user2@email.com', pass: '123456', role: 'user' },
+    { email: 'user3@email.com', pass: '123456', role: 'user' },
+  ];
+
   return (
     <div className={b()}>
       <section className={b('content')}>
@@ -81,6 +88,20 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
           className={b('form')}
           onSubmit={handleSubmit(isRegisterForm ? onSubmitRegister : onSubmitLogin)}
         >
+          {!isRegisterForm && (
+            <div className={b('test-accounts')}>
+              <p className={b('label')}>Test accounts:</p>
+              {testAccounts.map((acc) => (
+                <p key={acc.email} className={b('row')}>
+                  <span className={b('label')}>{`${acc.role}:`}</span>
+                  <span className={b('info')}>{acc.email}</span>
+                  <span className={b('label')}>pass:</span>
+                  <span className={b('info')}>{acc.pass}</span>
+                </p>
+              ))}
+            </div>
+          )}
+
           {isRegisterForm && (
             <>
               <div className={b('form-field')}>

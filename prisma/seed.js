@@ -30,7 +30,7 @@ const _readdir = promisify(readdir);
 const _unlink = promisify(unlink);
 
 const prisma = new PrismaClient();
-const password = hashSync('123', 10);
+const password = hashSync('123456', 10);
 const numberOfUsers = 4;
 const numberOfPosts = 6;
 

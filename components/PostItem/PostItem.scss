@@ -26,9 +26,14 @@
     @apply flex flex-col;
   }
 
-  &__user-title {
-    @apply flex flex-col items-start gap-2;
-    @apply xs:flex-row xs:items-center;
+  &__user-title-desktop {
+    @apply hidden items-center gap-2;
+    @apply xs:flex;
+  }
+
+  &__user-title-mobile {
+    @apply flex items-center gap-2 flex-wrap;
+    @apply xs:hidden;
   }
 
   &__name {

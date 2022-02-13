@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { isBrowser } from 'utils';
 
-const passwordMin = 3,
+const passwordMin = 6,
   passwordMax = 20,
   nameMin = 3,
   nameMax = 25,
