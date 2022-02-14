@@ -62,7 +62,6 @@
 - more color themes and navbar gradient
 - 404 and 500 pages
 - login neutral button color, dark theme
-- 2x1px border navbar calculation
 - active button border, focus ring...
 - Next images
 - wrong password server response on login page
@@ -132,3 +131,4 @@ Home@webpack-internal:///./views/Home/Home.tsx:40:66
 - pagination with prisma and react query, done
 - add search posts field, done
 - full text search posts, done
+- fix 1px border-bottom navbar calculation, done
