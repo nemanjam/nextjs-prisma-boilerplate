@@ -18,10 +18,6 @@
     @apply shrink-0;
   }
 
-  &__avatar {
-    @apply h-24 w-24 object-cover;
-  }
-
   &__main {
     @apply flex flex-col;
   }

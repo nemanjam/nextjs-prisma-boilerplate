@@ -1,8 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
+import Image from 'next/image';
 import moment from 'moment';
 import { withBem } from 'utils/bem';
 import PostItem from 'components/PostItem';
-import { getAvatarPath, getHeaderImagePath } from 'utils';
+import {
+  getAvatarPath,
+  getHeaderImagePath,
+  uploadsImageLoader,
+} from 'lib-client/imageLoaders';
 import { mommentFormats } from '@lib-server/constants';
 import { User } from '@prisma/client';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
@@ -58,7 +63,14 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
           style={{ backgroundImage: `url('${getHeaderImagePath(profile)}')` }}
         />
         <div className={b('user-info')}>
-          <img className={b('avatar')} src={getAvatarPath(profile)} />
+          <Image
+            className={b('avatar')}
+            loader={uploadsImageLoader}
+            src={getAvatarPath(profile)}
+            width={128}
+            height={128}
+            alt={profile.name}
+          />
           <h1 className={b('name')}>{profile.name}</h1>
           <p className={b('username')}>{`@${profile.username}`}</p>
           <p className={b('bio')}>{profile.bio}</p>

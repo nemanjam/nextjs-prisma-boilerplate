@@ -1,10 +1,11 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { NextRouter, useRouter } from 'next/router';
 import { signOut } from 'next-auth/react';
 import { withBem } from 'utils/bem';
 import { Routes } from 'lib-client/constants';
-import { getAvatarPath } from 'utils';
+import { getAvatarPath, uploadsImageLoader } from 'lib-client/imageLoaders';
 import Dropdown from 'components/Dropdown';
 import { useDetectOutsideClick, useViewport } from 'components/hooks';
 import { NavLink } from 'components/Navbar';
@@ -154,16 +155,25 @@ const getAllItems = ({
       key="avatar"
       items={getDropdownItems({ router, me, onHamburgerClick, mobileMenuOpen })}
     >
-      <img className={b('avatar')} src={getAvatarPath(me)} />
+      <Image
+        className={b('avatar')}
+        loader={uploadsImageLoader}
+        src={getAvatarPath(me)}
+        width={48}
+        height={48}
+        alt={me.name}
+      />
     </Dropdown>
   ),
   justAvatar: me && (
-    <img
+    <Image
       className={b('just-avatar')}
       key="justAvatar"
+      loader={uploadsImageLoader}
       src={getAvatarPath(me)}
-      width="50"
-      height="50"
+      width={96}
+      height={96}
+      alt={me.name}
     />
   ),
   hamburger: (

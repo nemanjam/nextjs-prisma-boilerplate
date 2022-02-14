@@ -1,8 +1,13 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import moment from 'moment';
 import { withBem } from 'utils/bem';
-import { getAvatarPath, getHeaderImagePath } from 'utils';
+import {
+  getAvatarPath,
+  getHeaderImagePath,
+  uploadsImageLoader,
+} from 'lib-client/imageLoaders';
 import { getIsAdmin } from 'components/PostItem';
 import Button from 'components/Button';
 import { useDeleteUser } from 'lib-client/react-query/users/useDeleteUser';
@@ -45,7 +50,14 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
           <span className={b('avatar-container-2')}>
             <Link href={userHref}>
               <a>
-                <img className={b('avatar')} src={getAvatarPath(user)} />
+                <Image
+                  loader={uploadsImageLoader}
+                  src={getAvatarPath(user)}
+                  width={80}
+                  height={80}
+                  alt={user.name}
+                  objectFit="cover"
+                />
               </a>
             </Link>
           </span>

@@ -1,16 +1,17 @@
 import React, { FC } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
 import moment from 'moment';
 import { Routes } from 'lib-client/constants';
 import { withBem } from 'utils/bem';
-import { getAvatarPath } from 'utils';
 import { PostProps, getIsAdmin, getIsPostOwner } from 'components/PostItem';
 import Button from 'components/Button';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import Alert from 'components/Alert';
+import { getAvatarPath, uploadsImageLoader } from 'lib-client/imageLoaders';
 
 const PostItem: FC<PostProps> = ({ post }) => {
   const router = useRouter();
@@ -68,7 +69,14 @@ const PostItem: FC<PostProps> = ({ post }) => {
         <div className={b('left')}>
           <Link href={authorHref}>
             <a>
-              <img className={b('avatar')} src={getAvatarPath(author)} />
+              <Image
+                loader={uploadsImageLoader}
+                src={getAvatarPath(author)}
+                width={96}
+                height={96}
+                alt={author.name}
+                objectFit="cover"
+              />
             </a>
           </Link>
         </div>

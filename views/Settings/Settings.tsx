@@ -15,7 +15,7 @@ import {
 } from 'lib-client/react-query/users/useUpdateUser';
 import { useUser } from 'lib-client/react-query/users/useUser';
 import { Routes } from 'lib-client/constants';
-import { getAvatarPath, getHeaderImagePath } from 'utils';
+import { getAvatarPath, getHeaderImagePath } from 'lib-client/imageLoaders';
 import { ClientUser } from 'types';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import QueryKeys from 'lib-client/react-query/queryKeys';

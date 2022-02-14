@@ -4,7 +4,7 @@ import { withBem } from 'utils/bem';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import { getIsAdmin, getIsPostOwner } from 'components/PostItem';
-import { getAvatarPath } from 'utils';
+import { getAvatarPath } from 'lib-client/imageLoaders';
 import { mommentFormats } from '@lib-server/constants';
 import Button from 'components/Button';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';

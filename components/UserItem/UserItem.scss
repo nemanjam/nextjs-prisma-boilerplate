@@ -26,10 +26,6 @@
     @apply inline-block w-full h-full bg-transparent p-2;
   }
 
-  &__avatar {
-    @apply h-20 w-20 object-cover;
-  }
-
   &__first-row {
     @apply flex justify-between;
   }
