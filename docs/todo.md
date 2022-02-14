@@ -38,26 +38,23 @@
 - edit user, delete user - admin
 - validate ids in api zod
 - replace session.user on server
-- leave just id and email in session.user, and type
 - test `await queryClient.prefetchQuery([QueryKeys.POSTS_PROFILE, profile.username, 1]...`
 - redirect on protected pages, logged in and admin cases
 - reusable guard or HOC for protected routes, getServerSideProps too
 - where to go next doc: markdown editor with image inline and upload, comments, likes, follow, tags, categories
 - publish/unpublish checkbox in update, no
 - absolute positioning or negative margin, css reddit question
-- clear types in a single place, form, request, response
-- \_document.tsx
+- clear types in a single place, form, request, response, api
+- \_document.tsx, \_head.tsx
 - search and pagination responsive css
 - maybe arrays in navbar for mobile
 - tests
 - drafts count in me
 - all in daisy ui
-- alert component
 - @tailwindcss/line-clamp plugin to limmit posts length
 - declerative navbar lesson
-- reseed app button in footer
-- white border on pagination transparent button css bug
 - custom font maybe
+- reseed app button in footer
 - footer styling
 - more color themes and navbar gradient
 - 404 and 500 pages
@@ -66,20 +63,8 @@
 - Next images
 - wrong password server response on login page
 - client error handling, axios interceptor, alert component
-
-```
-react query home page refresh, maybe just .next folder...
-Warning: Prop `disabled` did not match. Server: "null" Client: "true"
-button
-Button@webpack-internal:///./components/Button/Button.tsx:26:18
-li
-ul
-nav
-Pagination@webpack-internal:///./components/Pagination/Pagination.tsx:18:25
-div
-div
-Home@webpack-internal:///./views/Home/Home.tsx:40:66
-```
+- throw errors in all api
+- remove safeParse(query), let it throw
 
 ## Done
 
@@ -132,3 +117,6 @@ Home@webpack-internal:///./views/Home/Home.tsx:40:66
 - add search posts field, done
 - full text search posts, done
 - fix 1px border-bottom navbar calculation, done
+- white border on pagination transparent button css bug, done
+- alert component, done
+- leave just id and email in session.user, and type, done

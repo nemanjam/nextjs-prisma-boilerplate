@@ -6,6 +6,7 @@ import { requireAuth } from 'lib-server/middleware/auth';
 import { getSession } from 'next-auth/react';
 import { postCreateSchema, postsGetSchema } from 'lib-server/validation';
 import { PostWithAuthor, PaginatedResponse, QueryParamsType } from 'types';
+import ApiError from '@lib-server/error';
 
 const handler = nc(ncOptions);
 
@@ -154,11 +155,13 @@ handler.post(
     const { title, content } = req.body;
     const session = await getSession({ req });
 
+    if (!session?.user?.id) throw new ApiError('Not authorized.', 401);
+
     const post = await prisma.post.create({
       data: {
         title,
         content,
-        author: { connect: { email: session.user.email as string } },
+        author: { connect: { id: session.user.id as string } },
       },
     });
 
