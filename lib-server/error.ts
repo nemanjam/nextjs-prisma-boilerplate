@@ -15,6 +15,15 @@ export default class ApiError extends Error {
 }
 
 export const handleError = (error: any, req: NextApiRequest, res: NextApiResponse) => {
-  console.error('my error', error);
-  res.status(error.statusCode || 500).send(error.message);
+  console.log('handled error: ', error);
+  const isProd = process.env.NODE_ENV === 'production';
+
+  const response = {
+    ...(!isProd && { stack: error.stack }),
+    message: error.message,
+    statusCode: error.statusCode,
+    isOperational: error.isOperational,
+  };
+  // if status > 399 => error
+  res.status(error.statusCode || 500).json(response);
 };

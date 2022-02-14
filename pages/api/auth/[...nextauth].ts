@@ -12,6 +12,7 @@ import nc, { ncOptions } from 'lib-server/nc';
 import ApiError from 'lib-server/error';
 import { userLoginSchema } from 'lib-server/validation';
 import { Routes } from 'lib-client/constants';
+import { ClientUser } from 'types';
 
 const { serverRuntimeConfig } = getConfig();
 const handler = nc(ncOptions);
@@ -66,7 +67,13 @@ handler.use(
           return token;
         },
         async session({ session, token }) {
-          const _session = token.user ? { ...session, user: token.user } : undefined;
+          let _session = undefined;
+          const user = token.user as ClientUser;
+          // put just user's immutable props in session (id and email)
+          // for session user use useUser React Query state
+          if (user) {
+            _session = { ...session, user: { id: user.id, email: user.email } };
+          }
           return _session as Session;
         },
       },

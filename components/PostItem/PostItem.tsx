@@ -10,6 +10,7 @@ import Button from 'components/Button';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
 import { useMe } from 'lib-client/react-query/auth/useMe';
+import Alert from 'components/Alert';
 
 const PostItem: FC<PostProps> = ({ post }) => {
   const router = useRouter();
@@ -58,13 +59,9 @@ const PostItem: FC<PostProps> = ({ post }) => {
 
   return (
     <article className={b()}>
-      {restUpdate.isError && (
-        <div className="alert-error">{restUpdate.error.message}</div>
-      )}
+      {restUpdate.isError && <Alert variant="error" message={restUpdate.error.message} />}
 
-      {restDelete.isError && (
-        <div className="alert-error">{restDelete.error.message}</div>
-      )}
+      {restDelete.isError && <Alert variant="error" message={restDelete.error.message} />}
 
       <div className={b('header')}>
         {/* avatar */}

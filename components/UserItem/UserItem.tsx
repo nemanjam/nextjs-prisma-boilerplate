@@ -10,6 +10,7 @@ import { useMe } from 'lib-client/react-query/auth/useMe';
 import { mommentFormats } from '@lib-server/constants';
 import { ClientUser } from 'types';
 import { Routes } from 'lib-client/constants';
+import Alert from 'components/Alert';
 
 type UserItemProps = {
   user: ClientUser;
@@ -33,9 +34,7 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
 
   return (
     <section className={b()}>
-      {restDelete.isError && (
-        <div className="alert-error">{restDelete.error.message}</div>
-      )}
+      {restDelete.isError && <Alert variant="error" message={restDelete.error.message} />}
 
       <div
         className={b('header-image')}

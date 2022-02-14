@@ -19,7 +19,7 @@
   vertical-align: middle;
 }
 
-// styles for invalied form fields
+// styles for invalid form fields
 input.validation-error,
 textarea.validation-error {
   @apply border border-red-600;
@@ -27,8 +27,4 @@ textarea.validation-error {
 
 p.validation-error {
   @apply text-red-600 text-sm;
-}
-
-div.alert-error {
-  @apply p-2 text-red-600 bg-red-200 border border-red-600;
 }

@@ -1,0 +1,19 @@
+.alert {
+  @apply p-2 border;
+
+  &--info {
+    @apply text-th-info border-th-info bg-th-info/20;
+  }
+
+  &--success {
+    @apply text-th-success border-th-success bg-th-success/20;
+  }
+
+  &--warning {
+    @apply text-th-warning border-th-warning bg-th-warning/20;
+  }
+
+  &--error {
+    @apply text-th-error border-th-error bg-th-error/20;
+  }
+}

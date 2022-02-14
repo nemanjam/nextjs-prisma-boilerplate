@@ -12,6 +12,7 @@ import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
 import { usePost } from 'lib-client/react-query/posts/usePost';
 import { Routes } from 'lib-client/constants';
 import { useMe } from 'lib-client/react-query/auth/useMe';
+import Alert from 'components/Alert';
 
 const Post: FC = () => {
   const b = withBem('post');
@@ -42,13 +43,9 @@ const Post: FC = () => {
 
   return (
     <article className={b()}>
-      {restUpdate.isError && (
-        <div className="alert-error">{restUpdate.error.message}</div>
-      )}
+      {restUpdate.isError && <Alert variant="error" message={restUpdate.error.message} />}
 
-      {restDelete.isError && (
-        <div className="alert-error">{restDelete.error.message}</div>
-      )}
+      {restDelete.isError && <Alert variant="error" message={restDelete.error.message} />}
 
       <h1 className={b('title')}>{title}</h1>
       {/* category, tags */}

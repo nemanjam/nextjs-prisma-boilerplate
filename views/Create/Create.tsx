@@ -11,6 +11,7 @@ import Button from 'components/Button';
 import { useCreatePost } from 'lib-client/react-query/posts/useCreatePost';
 import { usePost } from 'lib-client/react-query/posts/usePost';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
+import Alert from 'components/Alert';
 
 interface CreatePostFormData {
   title: string;
@@ -49,9 +50,7 @@ const Create: FC = () => {
     <form className={b()} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={b('title')}>Create new draft</h1>
 
-      {restCreate.isError && (
-        <div className="alert-error">{restCreate.error.message}</div>
-      )}
+      {restCreate.isError && <Alert variant="error" message={restCreate.error.message} />}
 
       <div className={b('form-field')}>
         <label htmlFor="title">Title</label>

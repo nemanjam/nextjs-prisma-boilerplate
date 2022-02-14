@@ -20,6 +20,7 @@ import { ClientUser } from 'types';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import ProgressBar from 'components/ProgressBar';
+import Alert from 'components/Alert';
 
 // don't put id in form, validation  needs to diff on client and server
 // id is in route param
@@ -140,7 +141,7 @@ const Settings: FC = () => {
       <form className={b()} onSubmit={handleSubmit(onSubmit)}>
         <h1 className={b('title')}>{!isFetching ? 'Settings' : 'Settings...'}</h1>
 
-        {isError && <div className="alert-error">{error.message}</div>}
+        {isError && <Alert variant="error" message={error.message} />}
 
         <div className={b('form-field', { header: true })}>
           <DropzoneSingle

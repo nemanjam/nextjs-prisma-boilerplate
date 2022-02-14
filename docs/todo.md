@@ -64,6 +64,9 @@
 - login neutral button color, dark theme
 - 2x1px border navbar calculation
 - active button border, focus ring...
+- Next images
+- wrong password server response on login page
+- client error handling, axios interceptor, alert component
 
 ```
 react query home page refresh, maybe just .next folder...

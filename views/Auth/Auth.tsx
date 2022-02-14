@@ -12,6 +12,7 @@ import Button from 'components/Button';
 import { useCreateUser } from 'lib-client/react-query/auth/useCreateUser';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { useMe } from 'lib-client/react-query/auth/useMe';
+import Alert from 'components/Alert';
 
 interface AuthFormData {
   email: string;
@@ -82,7 +83,7 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
           </Link>
         </div>
 
-        {isError && <div className="alert-error">{error.message}</div>}
+        {isError && <Alert variant="error" message={error.message} />}
 
         <form
           className={b('form')}
