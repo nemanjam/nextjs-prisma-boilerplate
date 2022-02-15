@@ -44,8 +44,8 @@
     @apply p-4 flex flex-col gap-2 sm:hidden;
   }
 
-  &__just-avatar {
-    @apply mx-auto;
+  &__just-avatar-wrapper {
+    @apply mx-auto flex;
   }
 
   &__hamburger {

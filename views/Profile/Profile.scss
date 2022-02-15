@@ -6,11 +6,11 @@
   }
 
   &__header-image {
-    @apply h-48 w-full bg-cover bg-center;
+    @apply h-48 w-full relative;
   }
 
   &__user-info {
-    @apply px-4 pb-4;
+    @apply relative p-4 pt-16;
   }
 
   &__username {
@@ -21,9 +21,8 @@
     @apply text-sm text-gray-500;
   }
 
-  &__avatar {
-    @apply -mt-16 p-2;
-    @apply bg-th-base-100;
+  &__avatar-wrapper {
+    @apply absolute -top-16 flex p-2 bg-th-base-100;
   }
 
   &__pagination-search {

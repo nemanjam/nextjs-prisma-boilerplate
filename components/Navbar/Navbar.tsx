@@ -156,7 +156,6 @@ const getAllItems = ({
       items={getDropdownItems({ router, me, onHamburgerClick, mobileMenuOpen })}
     >
       <Image
-        className={b('avatar')}
         loader={uploadsImageLoader}
         src={getAvatarPath(me)}
         width={48}
@@ -166,15 +165,16 @@ const getAllItems = ({
     </Dropdown>
   ),
   justAvatar: me && (
-    <Image
-      className={b('just-avatar')}
-      key="justAvatar"
-      loader={uploadsImageLoader}
-      src={getAvatarPath(me)}
-      width={96}
-      height={96}
-      alt={me.name}
-    />
+    <span className={b('just-avatar-wrapper')}>
+      <Image
+        key="justAvatar"
+        loader={uploadsImageLoader}
+        src={getAvatarPath(me)}
+        width={96}
+        height={96}
+        alt={me.name}
+      />
+    </span>
   ),
   hamburger: (
     <button

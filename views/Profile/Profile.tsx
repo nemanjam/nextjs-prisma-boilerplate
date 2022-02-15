@@ -58,19 +58,26 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
   return (
     <div className={b()}>
       <section className={b('user-card')}>
-        <div
-          className={b('header-image')}
-          style={{ backgroundImage: `url('${getHeaderImagePath(profile)}')` }}
-        />
-        <div className={b('user-info')}>
+        <div className={b('header-image')}>
           <Image
-            className={b('avatar')}
             loader={uploadsImageLoader}
-            src={getAvatarPath(profile)}
-            width={128}
-            height={128}
+            layout="fill"
+            src={getHeaderImagePath(profile)}
             alt={profile.name}
+            objectFit="cover"
+            objectPosition="center"
           />
+        </div>
+        <div className={b('user-info')}>
+          <div className={b('avatar-wrapper')}>
+            <Image
+              loader={uploadsImageLoader}
+              src={getAvatarPath(profile)}
+              width={112}
+              height={112}
+              alt={profile.name}
+            />
+          </div>
           <h1 className={b('name')}>{profile.name}</h1>
           <p className={b('username')}>{`@${profile.username}`}</p>
           <p className={b('bio')}>{profile.bio}</p>

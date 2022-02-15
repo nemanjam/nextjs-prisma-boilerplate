@@ -1,4 +1,6 @@
 .dropdown {
+  @apply shrink-0;
+
   &__container {
     @apply relative flex justify-center items-center;
   }

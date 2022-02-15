@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { withBem } from 'utils/bem';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import { getIsAdmin, getIsPostOwner } from 'components/PostItem';
-import { getAvatarPath } from 'lib-client/imageLoaders';
+import { getAvatarPath, uploadsImageLoader } from 'lib-client/imageLoaders';
 import { mommentFormats } from '@lib-server/constants';
 import Button from 'components/Button';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
@@ -55,7 +56,14 @@ const Post: FC = () => {
         <div className={b('author-card')}>
           <Link href={authorHref}>
             <a className={b('left')}>
-              <img className={b('avatar')} src={getAvatarPath(author)} />
+              <Image
+                loader={uploadsImageLoader}
+                src={getAvatarPath(author)}
+                width={80}
+                height={80}
+                alt={author.name}
+                objectFit="cover"
+              />
             </a>
           </Link>
 

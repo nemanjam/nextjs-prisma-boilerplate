@@ -24,6 +24,10 @@
 
   &__avatar-container-2 {
     @apply inline-block w-full h-full bg-transparent p-2;
+
+    & > a {
+      @apply flex;
+    }
   }
 
   &__first-row {
@@ -35,7 +39,7 @@
   }
 
   &__header-image {
-    @apply h-28 w-full bg-cover bg-center;
+    @apply h-28 w-full relative;
   }
 
   &__name {

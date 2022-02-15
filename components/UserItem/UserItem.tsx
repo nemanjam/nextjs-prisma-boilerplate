@@ -41,10 +41,16 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
     <section className={b()}>
       {restDelete.isError && <Alert variant="error" message={restDelete.error.message} />}
 
-      <div
-        className={b('header-image')}
-        style={{ backgroundImage: `url('${getHeaderImagePath(user)}')` }}
-      />
+      <div className={b('header-image')}>
+        <Image
+          loader={uploadsImageLoader}
+          layout="fill"
+          src={getHeaderImagePath(user)}
+          alt={user.name}
+          objectFit="cover"
+          objectPosition="center"
+        />
+      </div>
       <div className={b('user-info')}>
         <span className={b('avatar-container-1')}>
           <span className={b('avatar-container-2')}>

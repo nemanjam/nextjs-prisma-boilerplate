@@ -16,6 +16,10 @@
 
   &__left {
     @apply shrink-0;
+
+    & > a {
+      @apply flex;
+    }
   }
 
   &__main {
