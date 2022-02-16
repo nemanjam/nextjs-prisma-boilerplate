@@ -5,12 +5,16 @@ import PageLayout from 'layouts/PageLayout';
 import { getUsers } from 'pages/api/users';
 import UsersView from 'views/Users';
 import QueryKeys from 'lib-client/react-query/queryKeys';
+import CustomHead from 'components/CustomHead';
 
 const Users: FC = () => {
   return (
-    <PageLayout>
-      <UsersView />
-    </PageLayout>
+    <>
+      <CustomHead />
+      <PageLayout>
+        <UsersView />
+      </PageLayout>
+    </>
   );
 };
 

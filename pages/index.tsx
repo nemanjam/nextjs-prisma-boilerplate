@@ -1,18 +1,16 @@
 import React, { FC } from 'react';
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
 import { dehydrate, QueryClient } from 'react-query';
 import PageLayout from 'layouts/PageLayout';
 import { getPostsWithAuthor } from 'pages/api/posts';
 import HomeView from 'views/Home';
 import QueryKeys from 'lib-client/react-query/queryKeys';
+import CustomHead from 'components/CustomHead';
 
 const Home: FC = () => {
   return (
     <>
-      <Head>
-        <title>Next.js Prisma Boilerplate</title>
-      </Head>
+      <CustomHead />
       <PageLayout>
         {/* now posts are passed via context and React Query cache */}
         <HomeView />
