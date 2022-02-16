@@ -4,12 +4,16 @@ import { GetServerSideProps } from 'next';
 import AuthLayout from 'layouts/AuthLayout';
 import AuthView from 'views/Auth';
 import { redirectHome } from 'utils';
+import CustomHead from 'components/CustomHead';
 
 const Register: FC = () => {
   return (
-    <AuthLayout>
-      <AuthView isRegisterForm />
-    </AuthLayout>
+    <>
+      <CustomHead title="Register" description="Create new account" />
+      <AuthLayout>
+        <AuthView isRegisterForm />
+      </AuthLayout>
+    </>
   );
 };
 

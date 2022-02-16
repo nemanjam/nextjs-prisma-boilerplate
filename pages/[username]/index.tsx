@@ -7,6 +7,8 @@ import { getUserByIdOrUsernameOrEmail } from 'pages/api/users/profile';
 import { getPostsWithAuthor } from 'pages/api/posts';
 import { User } from '@prisma/client';
 import QueryKeys from 'lib-client/react-query/queryKeys';
+import CustomHead from 'components/CustomHead';
+import { getAvatarPathAbsolute } from 'lib-client/imageLoaders';
 
 type ProfileProps = {
   profile: User;
@@ -14,9 +16,16 @@ type ProfileProps = {
 
 const Profile: FC<ProfileProps> = ({ profile }) => {
   return (
-    <PageLayout noPaddingTop>
-      <ProfileView profile={profile} />
-    </PageLayout>
+    <>
+      <CustomHead
+        title={profile.name}
+        description={profile.name}
+        image={getAvatarPathAbsolute(profile)}
+      />
+      <PageLayout noPaddingTop>
+        <ProfileView profile={profile} />
+      </PageLayout>
+    </>
   );
 };
 

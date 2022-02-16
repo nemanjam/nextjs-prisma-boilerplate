@@ -10,12 +10,16 @@ import {
 } from 'pages/api/users/profile';
 import { getMe } from '@lib-server/prisma';
 import { redirectLogin, redirectNotFound } from 'utils';
+import CustomHead from 'components/CustomHead';
 
 const Settings: FC = () => {
   return (
-    <PageLayout>
-      <SettingsView />
-    </PageLayout>
+    <>
+      <CustomHead title="Settings" description="Settings" />
+      <PageLayout>
+        <SettingsView />
+      </PageLayout>
+    </>
   );
 };
 

@@ -5,6 +5,7 @@ import { getProviders, ClientSafeProvider } from 'next-auth/react';
 import AuthLayout from 'layouts/AuthLayout';
 import AuthView from 'views/Auth';
 import { redirectHome } from 'utils';
+import CustomHead from 'components/CustomHead';
 
 type Props = {
   providers: Record<string, ClientSafeProvider>;
@@ -12,9 +13,12 @@ type Props = {
 
 const Login: FC<Props> = ({ providers }) => {
   return (
-    <AuthLayout>
-      <AuthView providers={providers} isRegisterForm={false} />
-    </AuthLayout>
+    <>
+      <CustomHead title="Login page" description="Login" />
+      <AuthLayout>
+        <AuthView providers={providers} isRegisterForm={false} />
+      </AuthLayout>
+    </>
   );
 };
 

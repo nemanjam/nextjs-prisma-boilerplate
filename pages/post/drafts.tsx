@@ -6,25 +6,17 @@ import { dehydrate, QueryClient } from 'react-query';
 import DraftsView from 'views/Drafts';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { getPostsWithAuthor } from 'pages/api/posts';
-import { useMe } from 'lib-client/react-query/auth/useMe';
 import { redirectLogin } from 'utils';
+import CustomHead from 'components/CustomHead';
 
 const Drafts: FC = () => {
-  const { me } = useMe();
-
-  if (!me) {
-    return (
-      <PageLayout>
-        <h1>My Drafts</h1>
-        <div>You need to be authenticated to view this page.</div>
-      </PageLayout>
-    );
-  }
-
   return (
-    <PageLayout>
-      <DraftsView />
-    </PageLayout>
+    <>
+      <CustomHead title="Draft posts" description="Draft posts" />
+      <PageLayout>
+        <DraftsView />
+      </PageLayout>
+    </>
   );
 };
 

@@ -5,7 +5,7 @@ import CustomHead from 'components/CustomHead';
 const Page404: FC = () => {
   return (
     <>
-      <CustomHead />
+      <CustomHead title="Not Found" description="Not Found" />
       <NotFound />
     </>
   );

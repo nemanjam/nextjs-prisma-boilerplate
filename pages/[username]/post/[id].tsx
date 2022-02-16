@@ -5,12 +5,22 @@ import PostView from 'views/Post';
 import { getPostWithAuthorById } from 'pages/api/posts/[id]';
 import { dehydrate, QueryClient } from 'react-query';
 import QueryKeys from 'lib-client/react-query/queryKeys';
+import CustomHead from 'components/CustomHead';
 
-const Post: FC = () => {
+type Props = {
+  title?: string;
+  updatedAt?: string;
+};
+
+const Post: FC<Props> = ({ title, updatedAt }) => {
+  // can't read from cache onLoad
   return (
-    <PageLayout>
-      <PostView />
-    </PageLayout>
+    <>
+      <CustomHead title={title} description={title} date={updatedAt} />
+      <PageLayout>
+        <PostView />
+      </PageLayout>
+    </>
   );
 };
 
@@ -31,6 +41,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
+      title: post.title,
+      updatedAt: post.updatedAt.toISOString(),
     },
   };
 };

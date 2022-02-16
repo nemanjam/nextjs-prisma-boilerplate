@@ -10,7 +10,7 @@ import CustomHead from 'components/CustomHead';
 const Users: FC = () => {
   return (
     <>
-      <CustomHead />
+      <CustomHead title="Users page" description="Users page" />
       <PageLayout>
         <UsersView />
       </PageLayout>

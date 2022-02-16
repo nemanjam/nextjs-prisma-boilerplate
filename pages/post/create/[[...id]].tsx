@@ -7,12 +7,16 @@ import { getMe } from '@lib-server/prisma';
 import { getPostWithAuthorById } from 'pages/api/posts/[id]';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { redirectLogin, redirectNotFound } from 'utils';
+import CustomHead from 'components/CustomHead';
 
 const Create: FC = () => {
   return (
-    <PageLayout>
-      <CreateView />
-    </PageLayout>
+    <>
+      <CustomHead title="Create or update post" description="Create or update post" />
+      <PageLayout>
+        <CreateView />
+      </PageLayout>
+    </>
   );
 };
 
