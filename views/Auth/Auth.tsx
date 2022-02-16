@@ -167,7 +167,7 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
                   {provider.name === 'Facebook' && (
                     <Button
                       className={b('facebook')}
-                      variant="transparent"
+                      variant="blank"
                       onClick={() => signIn(provider.id)}
                     >
                       Login with Facebook
@@ -176,7 +176,7 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
                   {provider.name === 'Google' && (
                     <Button
                       className={b('google')}
-                      variant="transparent"
+                      variant="blank"
                       onClick={() => signIn(provider.id)}
                     >
                       Login with Google

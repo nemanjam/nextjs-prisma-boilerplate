@@ -13,7 +13,7 @@ type Props = {
   disabled?: boolean;
   tagName?: 'button' | 'a' | 'span';
   type?: 'submit' | 'button';
-  variant?: 'primary' | 'secondary' | 'danger' | 'transparent' | 'neutral';
+  variant?: 'primary' | 'secondary' | 'danger' | 'transparent' | 'neutral' | 'blank';
   size?: 'sm' | 'base' | 'lg';
 } & HTMLAttributes<HTMLElement>;
 

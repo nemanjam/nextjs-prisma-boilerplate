@@ -68,6 +68,7 @@
 - custom favicon, seo meta tags
 - resize images on server, lovell/sharp
 - handle fb, google and local avatars
+- mount only pg-data and remove prisma files from traefik repo
 
 ## Done
 
