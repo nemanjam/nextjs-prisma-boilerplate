@@ -66,6 +66,7 @@
 - throw errors in all api
 - remove safeParse(query), let it throw
 - custom favicon, seo meta tags
+- resize images on server, lovell/sharp
 
 ## Done
 
