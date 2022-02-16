@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import { dehydrate, QueryClient } from 'react-query';
 import PageLayout from 'layouts/PageLayout';
 import { getPostsWithAuthor } from 'pages/api/posts';
@@ -8,10 +9,15 @@ import QueryKeys from 'lib-client/react-query/queryKeys';
 
 const Home: FC = () => {
   return (
-    <PageLayout>
-      {/* now posts are passed via context and React Query cache */}
-      <HomeView />
-    </PageLayout>
+    <>
+      <Head>
+        <title>Next.js Prisma Boilerplate</title>
+      </Head>
+      <PageLayout>
+        {/* now posts are passed via context and React Query cache */}
+        <HomeView />
+      </PageLayout>
+    </>
   );
 };
 

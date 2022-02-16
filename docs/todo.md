@@ -65,6 +65,7 @@
 - client error handling, axios interceptor, alert component
 - throw errors in all api
 - remove safeParse(query), let it throw
+- custom favicon, seo meta tags
 
 ## Done
 
