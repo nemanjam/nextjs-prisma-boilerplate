@@ -76,6 +76,7 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
               width={112}
               height={112}
               alt={profile.name}
+              objectFit="cover"
             />
           </div>
           <h1 className={b('name')}>{profile.name}</h1>

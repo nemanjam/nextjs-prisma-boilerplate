@@ -67,6 +67,7 @@
 - remove safeParse(query), let it throw
 - custom favicon, seo meta tags
 - resize images on server, lovell/sharp
+- handle fb, google and local avatars
 
 ## Done
 

@@ -56,3 +56,7 @@ export const redirectHome = {
     destination: Routes.SITE.HOME,
   },
 };
+
+export const isUrl = (str: string) => {
+  return /^https?:\/\//gi.test(str);
+};

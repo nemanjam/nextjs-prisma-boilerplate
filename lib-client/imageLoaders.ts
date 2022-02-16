@@ -1,14 +1,14 @@
 import { ClientUser } from 'types';
+import { isUrl } from 'utils';
 
 export const getAvatarPath = (user: ClientUser) => {
-  return user.provider === 'credentials'
-    ? `${process.env.NEXT_PUBLIC_AVATARS_PATH}${user.image || 'placeholder-avatar.jpg'}`
-    : user.image;
-  // can edit avatar, startsWith('https://')
+  return isUrl(user.image)
+    ? user.image
+    : `${process.env.NEXT_PUBLIC_AVATARS_PATH}${user.image || 'placeholder-avatar.jpg'}`;
 };
 
 export const getAvatarPathAbsolute = (user: ClientUser) => {
-  return user.image.startsWith('https://')
+  return isUrl(user.image)
     ? user.image
     : `${process.env.NEXT_PUBLIC_BASE_URL}${getAvatarPath(user).replace(/^\//, '')}`;
 };
