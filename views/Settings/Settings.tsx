@@ -225,7 +225,6 @@ const Settings: FC = () => {
               name="avatar"
               label="Avatar"
               dropzoneOptions={dropzoneOptions}
-              isLoading={isAvatarLoading}
             />
           ) : (
             <div className={b('avatar-placeholder')} />
