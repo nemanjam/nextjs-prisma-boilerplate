@@ -14,7 +14,6 @@ import {
   useUpdateUser,
 } from 'lib-client/react-query/users/useUpdateUser';
 import { useUser } from 'lib-client/react-query/users/useUser';
-import { Routes } from 'lib-client/constants';
 import { getAvatarPath, getHeaderImagePath } from 'lib-client/imageLoaders';
 import { ClientUser } from 'types';
 import { useMe } from 'lib-client/react-query/auth/useMe';
@@ -34,10 +33,17 @@ interface SettingsFormData {
   confirmPassword: string;
 }
 
+let renderCount = 0;
+
 // admin can edit other users
 const Settings: FC = () => {
+  renderCount += 1;
+
   const [progress, setProgress] = useState(0);
   const b = withBem('settings');
+
+  const [isAvatarLoading, setIsAvatarLoading] = useState(true);
+  const [isHeaderLoading, setIsHeaderLoading] = useState(true);
 
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -46,13 +52,10 @@ const Settings: FC = () => {
 
   const id = me?.id;
   const { username } = router.query;
-  const params = username?.length > 0 ? { username: username[0] } : { id };
+  const isOtherUser = username?.length > 0;
+  const params = isOtherUser ? { username: username[0] } : { id };
 
-  const { data: user, isLoading, isFetching } = useUser(params);
-
-  useEffect(() => {
-    if (!id && router) router.push(Routes.SITE.LOGIN);
-  }, [id, router]);
+  const { data: user, isLoading } = useUser(params);
 
   useEffect(() => {
     let timer = null;
@@ -67,9 +70,9 @@ const Settings: FC = () => {
   const methods = useForm<SettingsFormData>({
     resolver: zodResolver(userUpdateSchema),
     defaultValues: {
-      username: user.username,
-      name: user.name,
-      bio: user.bio,
+      username: '',
+      name: '',
+      bio: '',
       avatar: undefined,
       header: undefined,
       password: '',
@@ -77,26 +80,57 @@ const Settings: FC = () => {
     },
   });
 
+  const { register, handleSubmit, formState, reset, getValues } = methods;
+  const { errors, dirtyFields } = formState;
+
+  // async load user too
+  useEffect(() => {
+    if (!isLoading && user) {
+      reset({
+        ...getValues(),
+        username: user.username,
+        name: user.name,
+        bio: user.bio,
+      } as SettingsFormData);
+    }
+  }, [user, isLoading]);
+
+  const avatarFile = getValues('avatar');
+  const headerFile = getValues('header');
+
   // set initial value for avatar, header async
   // images should be in form state and not in React Query state
   useEffect(() => {
-    const run = async (user: ClientUser) => {
+    const runAvatar = async (user: ClientUser) => {
       const avatarUrl = getAvatarPath(user);
-      const headerUrl = getHeaderImagePath(user);
       const avatar = await getImage(avatarUrl);
-      const header = await getImage(headerUrl);
 
       reset({
         ...getValues(),
         avatar,
-        header,
       } as SettingsFormData);
+      setIsAvatarLoading(false);
     };
 
-    if (user) {
-      run(user);
+    const runHeader = async (user: ClientUser) => {
+      const headerUrl = getHeaderImagePath(user);
+      const header = await getImage(headerUrl);
+
+      reset({
+        ...getValues(),
+        header,
+      } as SettingsFormData);
+      setIsHeaderLoading(false);
+    };
+
+    if (!avatarFile && isAvatarLoading && user) {
+      runAvatar(user);
     }
-  }, [user]);
+
+    if (!headerFile && isHeaderLoading && user) {
+      runHeader(user);
+    }
+  }, [user, avatarFile, headerFile, isAvatarLoading, isHeaderLoading]);
 
   const dropzoneOptions: DropzoneOptions = {
     accept: 'image/png, image/jpg, image/jpeg',
@@ -107,9 +141,6 @@ const Settings: FC = () => {
     // maxSize: 1 * 1024 * 1024, // 1MB
     // validator: ...
   };
-
-  const { register, handleSubmit, formState, reset, getValues } = methods;
-  const { errors, dirtyFields } = formState;
 
   const {
     mutateAsync: updateUser,
@@ -130,26 +161,35 @@ const Settings: FC = () => {
     });
 
     await updateUser({ id: user.id, user: updatedFields, setProgress });
-    await queryClient.invalidateQueries(QueryKeys.ME);
+
+    if (isOtherUser) {
+      await queryClient.invalidateQueries([QueryKeys.USER, user.username]);
+    } else {
+      await queryClient.invalidateQueries([QueryKeys.USER, user.id]);
+      await queryClient.invalidateQueries(QueryKeys.ME);
+    }
   };
 
-  if (isLoading || isLoadingMe) return <h2>Loading...</h2>;
-  if (!getValues('avatar') || !getValues('header')) return <div>Loading...</div>;
+  if (isLoading || isLoadingMe) return <div>Loading...</div>;
 
   return (
     <FormProvider {...methods}>
       <form className={b()} onSubmit={handleSubmit(onSubmit)}>
-        <h1 className={b('title')}>{!isFetching ? 'Settings' : 'Settings...'}</h1>
+        <h1 className={b('title')}>Settings</h1>
 
         {isError && <Alert variant="error" message={error.message} />}
 
         <div className={b('form-field', { header: true })}>
-          <DropzoneSingle
-            name="header"
-            label="Header"
-            imageClassName="max-h-44"
-            dropzoneOptions={dropzoneOptions}
-          />
+          {!isHeaderLoading ? (
+            <DropzoneSingle
+              name="header"
+              label="Header"
+              imageClassName="max-h-44"
+              dropzoneOptions={dropzoneOptions}
+            />
+          ) : (
+            <div className={b('header-placeholder')} />
+          )}
           <p className={getErrorClass(errors.header?.message)}>
             {errors.header?.message}
           </p>
@@ -180,11 +220,16 @@ const Settings: FC = () => {
         </div>
 
         <div className={b('form-field', { avatar: true })}>
-          <DropzoneSingle
-            name="avatar"
-            label="Avatar"
-            dropzoneOptions={dropzoneOptions}
-          />
+          {!isAvatarLoading ? (
+            <DropzoneSingle
+              name="avatar"
+              label="Avatar"
+              dropzoneOptions={dropzoneOptions}
+              isLoading={isAvatarLoading}
+            />
+          ) : (
+            <div className={b('avatar-placeholder')} />
+          )}
           <p className={getErrorClass(errors.avatar?.message)}>
             {errors.avatar?.message}
           </p>
