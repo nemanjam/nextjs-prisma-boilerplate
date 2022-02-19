@@ -33,12 +33,8 @@ interface SettingsFormData {
   confirmPassword: string;
 }
 
-let renderCount = 0;
-
 // admin can edit other users
 const Settings: FC = () => {
-  renderCount += 1;
-
   const [progress, setProgress] = useState(0);
   const b = withBem('settings');
 
