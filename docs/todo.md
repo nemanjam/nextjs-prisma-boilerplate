@@ -11,7 +11,6 @@
 - react query, redux toolkit, redux toolkit query
 - redux toolkit vercel example
 - update readme before forget...
-- refetch session after user is edited
 - try catch to prisma calls getServerSideProps...
 - soft delete for reseed, or logger
 - semantic html
@@ -39,7 +38,7 @@
 - validate ids in api zod
 - replace session.user on server
 - test `await queryClient.prefetchQuery([QueryKeys.POSTS_PROFILE, profile.username, 1]...`
-- redirect on protected pages, logged in and admin cases
+- redirect on protected pages, logged in and admin cases - reusable guards
 - reusable guard or HOC for protected routes, getServerSideProps too
 - where to go next doc: markdown editor with image inline and upload, comments, likes, follow, tags, categories
 - publish/unpublish checkbox in update, no
@@ -70,6 +69,7 @@
 - handle fb, google and local avatars
 - mount only pg-data and remove prisma files from traefik repo
 - skeletons, just in docs
+- remove password from all server users
 
 ## Done
 
@@ -125,3 +125,4 @@
 - white border on pagination transparent button css bug, done
 - alert component, done
 - leave just id and email in session.user, and type, done
+- refetch session after user is edited, done
