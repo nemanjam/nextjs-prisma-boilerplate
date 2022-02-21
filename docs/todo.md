@@ -55,6 +55,8 @@
 - remove password from all server users
 - maybe shell script for migration container
 - postgres expose external env var in d-c.yml
+- new next.js dockerfile? https://nextjs.org/docs/advanced-features/output-file-tracing
+- migrate react query to v4
 
 ### Questions
 
