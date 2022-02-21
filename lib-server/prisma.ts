@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { getSession, GetSessionParams } from 'next-auth/react';
+import { ClientUser } from 'types';
 
 // PrismaClient is attached to the `global` object in development to prevent
 // exhausting your database connection limit.
@@ -39,7 +40,7 @@ export const getMe = async (params: GetSessionParams) => {
   // filter password
   const me = await prisma.user.findUnique({ where: { id } });
 
-  return me;
+  return exclude(me, 'password') as ClientUser;
 };
 
 export default prisma;

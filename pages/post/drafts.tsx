@@ -22,6 +22,7 @@ const Drafts: FC = () => {
 
 // can have pagination
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  // id is enough
   const session = await getSession({ req });
   const id = session?.user?.id;
 

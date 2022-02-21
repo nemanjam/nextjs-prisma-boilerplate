@@ -7,56 +7,40 @@
 - ci cd, deploy
 - readme
 - tailwind and root font-size 10px 1rem, global and component styles
-- Header component
 - react query, redux toolkit, redux toolkit query
 - redux toolkit vercel example
 - update readme before forget...
 - try catch to prisma calls getServerSideProps...
-- soft delete for reseed, or logger
 - semantic html
 - Next.js Image config
 - post - hero image, tag, category
 - comments model
 - drafts count in session or user state
-- protected routes and 404 pages
 - typescript silent errors...
 - on change tw-base.scss must restart, no intelisense for my utilities
 - docker express maybe, github actions, remote containers
-- where to place and call printLoadedEnvVariables() ?
 - add prisma migration container, move prisma to devDependencies
 - next.js multiple build contexts, next.js app, server.ts and seed.js
 - heroku docker
 - update traefik-proxy readme
-- type all request and response objects
-- group pagination items function
-- request, response types
 - me query, only userId and email in session
 - throw 404 from zod api...
-- error path, db function, getServerSideProps, api endpoint, ask reddit, github
 - handle errors in getServerSideProps
 - edit user, delete user - admin
 - validate ids in api zod
-- replace session.user on server
 - test `await queryClient.prefetchQuery([QueryKeys.POSTS_PROFILE, profile.username, 1]...`
-- redirect on protected pages, logged in and admin cases - reusable guards
 - reusable guard or HOC for protected routes, getServerSideProps too
 - where to go next doc: markdown editor with image inline and upload, comments, likes, follow, tags, categories
-- publish/unpublish checkbox in update, no
-- absolute positioning or negative margin, css reddit question
 - clear types in a single place, form, request, response, api
-- \_document.tsx, \_head.tsx
-- search and pagination responsive css
 - maybe arrays in navbar for mobile
+- declerative navbar lesson
 - tests
 - drafts count in me
 - all in daisy ui
 - @tailwindcss/line-clamp plugin to limmit posts length
-- declerative navbar lesson
 - custom font maybe
 - reseed app button in footer
 - footer styling
-- more color themes and navbar gradient
-- 404 and 500 pages
 - login neutral button color, dark theme
 - active button border, focus ring...
 - Next images
@@ -66,10 +50,15 @@
 - remove safeParse(query), let it throw
 - custom favicon, seo meta tags
 - resize images on server, lovell/sharp
-- handle fb, google and local avatars
 - mount only pg-data and remove prisma files from traefik repo
 - skeletons, just in docs
 - remove password from all server users
+
+### Questions
+
+- error path, db function, getServerSideProps, api endpoint, ask reddit, github
+- where to place and call printLoadedEnvVariables() ?
+- absolute positioning or negative margin, css reddit question
 
 ## Done
 
@@ -126,3 +115,14 @@
 - alert component, done
 - leave just id and email in session.user, and type, done
 - refetch session after user is edited, done
+- redirect on protected pages, logged in and admin cases - reusable guards, getMe() + if is enough
+- protected routes and 404 pages, handled in getServerSideProps
+- handle fb, google and local avatars, handled with isUrl()
+- more color themes and navbar gradient, done
+- 404 and 500 pages, done
+- search and pagination responsive css, done
+- \_document.tsx, CustomHead, seo, done
+- publish/unpublish checkbox in update, no
+- replace session.user on server, done
+- group pagination items function, no
+- soft delete for reseed, or logger, no
