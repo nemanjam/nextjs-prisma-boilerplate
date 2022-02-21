@@ -16,7 +16,8 @@ services:
     #command: sleep infinity
     volumes:
       - ./uploads:/app/uploads
-      - ./prisma:/app/prisma
+      # needed only for sqlite and db.dev
+      # - ./prisma:/app/prisma
     # runtime only
     env_file:
       - .env.production
@@ -42,9 +43,9 @@ services:
       - '5432:5432'
     volumes:
       - ./prisma/pg-data:/var/lib/postgresql/data
-    # internal only for now
-    # - ./prisma/pg-config/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
-    # - ./prisma/pg-config/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+    # uncomment for external access
+    # - ./prisma/pg-config/pg_hba.conf:/etc/postgresql.conf
+    # - ./prisma/pg-config/postgresql.conf:/etc/pg_hba.conf
 
     # instead of env_file
     # environment:

@@ -168,3 +168,8 @@ build-args: |
 
 - port must not be hardcoded in Dockerfile
 - upload volume can't work
+
+### Migration container
+
+- separate container is needed and Github Action job, keep 2 images on Dockerhub, versions must match
+- keep migration in same image for simplicity

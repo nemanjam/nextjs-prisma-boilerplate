@@ -53,6 +53,8 @@
 - mount only pg-data and remove prisma files from traefik repo
 - skeletons, just in docs
 - remove password from all server users
+- maybe shell script for migration container
+- postgres expose external env var in d-c.yml
 
 ### Questions
 
