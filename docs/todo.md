@@ -60,6 +60,8 @@
 - add role attributes for accesibility in one go, a11...
 - update resume react testing
 - find practical github repo code example for jest and cypress
+- setup Github Actions for tests
+- check additional Eslint rules from other repositories
 
 ### Questions
 
