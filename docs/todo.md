@@ -62,6 +62,14 @@
 - find practical github repo code example for jest and cypress
 - setup Github Actions for tests
 - check additional Eslint rules from other repositories
+- setup Cypress
+- separate test config for react and backend api
+- mocks, spyes, describe
+- unit, integration
+- msw
+- setupt logged in user in test-utils render
+- ErrorBoundary component maybe
+- skeletons, react suspense
 
 ### Questions
 

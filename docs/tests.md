@@ -48,3 +48,10 @@ yarn add --dev eslint eslint-plugin-jest
 # test with screen.debug()
 yarn add --dev eslint-plugin-testing-library
 ```
+
+- rtlRender in unit tests, customRender with loggedin user and all providers in integration tests
+
+### React Query testing
+
+- [docs](https://react-query.tanstack.com/guides/testing)
+- [tkdodo blog](https://tkdodo.eu/blog/testing-react-query)
