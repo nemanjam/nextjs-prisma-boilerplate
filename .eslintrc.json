@@ -2,6 +2,7 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "warnOnUnsupportedTypeScriptVersion": false
+    // "project": "./tsconfig.json"
   },
   "plugins": ["@typescript-eslint", "react-hooks"],
   "extends": [

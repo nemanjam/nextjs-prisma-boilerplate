@@ -8,6 +8,8 @@ export const b_ = B({
   classSeparator: ' ',
 });
 
-export const withBem = b_.with.bind(b_);
+type withType = typeof b_.with;
+
+export const withBem: withType = b_.with.bind(b_);
 
 export const getErrorClass = (value: unknown) => (value ? ' validation-error' : '');

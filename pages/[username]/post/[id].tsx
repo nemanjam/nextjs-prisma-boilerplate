@@ -13,7 +13,7 @@ type Props = {
 };
 
 const Post: FC<Props> = ({ title, updatedAt }) => {
-  // can't read from cache onLoad
+  // better pass as props than usePost, no loading state
   return (
     <>
       <CustomHead title={title} description={title} date={updatedAt} />

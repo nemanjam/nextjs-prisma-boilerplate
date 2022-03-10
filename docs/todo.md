@@ -70,6 +70,7 @@
 - setupt logged in user in test-utils render
 - ErrorBoundary component maybe
 - skeletons, react suspense
+- work organisation md doc
 
 ### Questions
 
