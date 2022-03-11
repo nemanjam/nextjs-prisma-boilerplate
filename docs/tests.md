@@ -55,3 +55,8 @@ yarn add --dev eslint-plugin-testing-library
 
 - [docs](https://react-query.tanstack.com/guides/testing)
 - [tkdodo blog](https://tkdodo.eu/blog/testing-react-query)
+
+### Forms testing
+
+- Bruno Antunes [youtube](https://www.youtube.com/watch?v=MhFSuOjU624)
+- Github [code](https://github.com/bmvantunes/youtube-react-testing-video8-forms-react-testing-library)

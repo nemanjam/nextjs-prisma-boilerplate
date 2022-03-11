@@ -3,7 +3,7 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
-  moduleDirectories: ['.', 'node_modules'], // fixes baseUrl absolute imports
+  moduleDirectories: ['<rootDir>', 'node_modules'], // fixes baseUrl absolute imports
   globals: {
     'ts-jest': {
       tsconfig: './tsconfig.jest.json',

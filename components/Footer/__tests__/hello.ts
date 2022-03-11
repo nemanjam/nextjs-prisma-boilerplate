@@ -1,4 +1,4 @@
-import { sum } from './hello'; // abs import doesnt work
+import { sum } from 'components/Footer/hello';
 
 test('sum 5 and 2 will return 7', () => {
   //   const a: string = 5;
