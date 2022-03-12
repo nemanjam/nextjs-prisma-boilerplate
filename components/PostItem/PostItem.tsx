@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import moment from 'moment';
@@ -14,7 +13,6 @@ import Alert from 'components/Alert';
 import { getAvatarPath, uploadsImageLoader } from 'lib-client/imageLoaders';
 
 const PostItem: FC<PostProps> = ({ post }) => {
-  const router = useRouter();
   const { me } = useMe();
   const b = withBem('post-item');
 
@@ -29,13 +27,6 @@ const PostItem: FC<PostProps> = ({ post }) => {
   };
 
   const editPostHref = `${Routes.SITE.CREATE}${post.id}/`;
-
-  // maybe remove it
-  // eslint-disable-next-line no-unused-vars
-  const handlePostClick = (event: React.MouseEvent) => {
-    const isInsideOfLink = (event.target as HTMLElement).closest('a');
-    if (!isInsideOfLink) router.push(postHref);
-  };
 
   const authorHref = {
     pathname: '/[username]',

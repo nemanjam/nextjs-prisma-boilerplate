@@ -55,6 +55,7 @@ yarn add --dev eslint-plugin-testing-library
 
 - [docs](https://react-query.tanstack.com/guides/testing)
 - [tkdodo blog](https://tkdodo.eu/blog/testing-react-query)
+- [tkdodo repo](https://github.com/TkDodo/testing-react-query)
 
 ### Forms testing
 

@@ -20,6 +20,7 @@ const Post: FC = () => {
 
   const { me, isLoadingMe } = useMe();
   const router = useRouter();
+  // getServerSideProps will validate id
   const id = Number(router.query?.id);
 
   // redirect on delete
