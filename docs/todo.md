@@ -71,6 +71,7 @@
 - ErrorBoundary component maybe
 - skeletons, react suspense
 - work organisation md doc
+- handle success, loading, error, empty states
 
 ### Questions
 

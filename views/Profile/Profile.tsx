@@ -16,6 +16,7 @@ import QueryKeys from 'lib-client/react-query/queryKeys';
 import usePrevious from 'components/hooks/usePrevious';
 import SearchInput from 'components/SearchInput';
 import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
+import NoItems from 'components/NoItems';
 
 type ProfileProps = {
   profile: User;
@@ -111,9 +112,11 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
       </div>
 
       <section className={b('list')}>
-        {data.items.map((post) => (
-          <PostItem key={post.id} post={post} />
-        ))}
+        {data.items.length > 0 ? (
+          data.items.map((post) => <PostItem key={post.id} post={post} />)
+        ) : (
+          <NoItems />
+        )}
       </section>
     </div>
   );

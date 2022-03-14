@@ -6,6 +6,7 @@ import { useUsers } from 'lib-client/react-query/users/useUsers';
 import SearchInput from 'components/SearchInput';
 import usePrevious from 'components/hooks/usePrevious';
 import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
+import NoItems from 'components/NoItems';
 
 const Users: FC = () => {
   const b = withBem('users');
@@ -63,9 +64,11 @@ const Users: FC = () => {
       </div>
 
       <section className={b('list')}>
-        {data.items.map((user) => (
-          <UserItem key={user.id} user={user} />
-        ))}
+        {data.items.length > 0 ? (
+          data.items.map((user) => <UserItem key={user.id} user={user} />)
+        ) : (
+          <NoItems itemsType="users" />
+        )}
       </section>
     </div>
   );

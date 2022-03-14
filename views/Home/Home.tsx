@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { withBem } from 'utils/bem';
 import PostItem from 'components/PostItem';
 import Pagination from 'components/Pagination';
+import NoItems from 'components/NoItems';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import SearchInput from 'components/SearchInput';
@@ -66,9 +67,11 @@ const Home: FC = () => {
 
       <section className={b('list')}>
         {/* <PreviewTheme /> */}
-        {data.items.map((post) => (
-          <PostItem key={post.id} post={post} />
-        ))}
+        {data.items.length > 0 ? (
+          data.items.map((post) => <PostItem key={post.id} post={post} />)
+        ) : (
+          <NoItems />
+        )}
       </section>
     </div>
   );

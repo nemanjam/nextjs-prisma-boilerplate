@@ -5,6 +5,7 @@ import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import Pagination from 'components/Pagination';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { useMe } from 'lib-client/react-query/auth/useMe';
+import NoItems from 'components/NoItems';
 
 const Drafts: FC = () => {
   const b = withBem('drafts');
@@ -41,9 +42,11 @@ const Drafts: FC = () => {
       />
 
       <section className={b('list')}>
-        {data.items.map((post) => (
-          <PostItem key={post.id} post={post} />
-        ))}
+        {data.items.length > 0 ? (
+          data.items.map((post) => <PostItem key={post.id} post={post} />)
+        ) : (
+          <NoItems />
+        )}
       </section>
     </div>
   );
