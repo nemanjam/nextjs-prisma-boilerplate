@@ -31,7 +31,7 @@
 - test `await queryClient.prefetchQuery([QueryKeys.POSTS_PROFILE, profile.username, 1]...`
 - reusable guard or HOC for protected routes, getServerSideProps too
 - where to go next doc: markdown editor with image inline and upload, comments, likes, follow, tags, categories
-- clear types in a single place, form, request, response, api
+- clear types in a single place, form, request, response, api - models
 - maybe arrays in navbar for mobile
 - declerative navbar lesson
 - tests
@@ -73,6 +73,7 @@
 - work organisation md doc
 - handle success, loading, error, empty states
 - ErrorBoundary
+- msw param routes?
 
 ### Questions
 

@@ -1,7 +1,10 @@
 import '@testing-library/jest-dom';
 import { setLogger } from 'react-query';
+import { server } from 'test/server';
 
-// add msw server...
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
 // silence react-query errors
 setLogger({
