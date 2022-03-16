@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { QueryClient } from 'react-query';
 import Wrapper, { WrapperProps } from 'test/Wrapper';
-import { testSession } from 'test/server/handlers/auth';
+import { fakeSession } from 'test/server/fake-data';
 
 const createTestQueryClient = () =>
   new QueryClient({
@@ -17,7 +17,7 @@ type CustomRenderOptionsType = Omit<RenderOptions, 'wrapper'> & {
   wrapperProps?: WrapperProps;
 };
 
-export const customRender = (ui: ReactElement, options?: CustomRenderOptionsType) => {
+export const customRender = (ui: ReactElement, options: CustomRenderOptionsType = {}) => {
   const { wrapperProps, ...renderOptions } = options;
   const testQueryClient = createTestQueryClient();
 
@@ -26,7 +26,7 @@ export const customRender = (ui: ReactElement, options?: CustomRenderOptionsType
 
   const defaultWrapperProps = {
     queryClient: testQueryClient,
-    session: testSession,
+    session: fakeSession,
   };
 
   return render(ui, {

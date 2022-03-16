@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { postSearchSchema } from '@lib-server/validation';
+import { postSearchSchema } from 'lib-server/validation';
 import { getErrorClass, withBem } from 'utils/bem';
 
 interface SearchFormData {

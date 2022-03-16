@@ -1,3 +1,4 @@
+import { ImageLoaderProps } from 'next/image';
 import { ClientUser } from 'types';
 import { isUrl } from 'utils';
 
@@ -19,6 +20,6 @@ export const getHeaderImagePath = (user: ClientUser) => {
   }`;
 };
 
-export const uploadsImageLoader = ({ src, width, quality }) => {
+export const uploadsImageLoader = ({ src, width, quality }: ImageLoaderProps) => {
   return `${process.env.NEXT_PUBLIC_BASE_URL}${src}?w=${width}&q=${quality || 75}`;
 };

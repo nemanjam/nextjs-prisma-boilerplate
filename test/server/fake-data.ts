@@ -1,5 +1,4 @@
 import { faker } from '@faker-js/faker';
-// import { hashSync } from 'bcryptjs';
 import { Session } from 'next-auth';
 import { ClientUser } from 'types';
 import { Post } from '@prisma/client';
@@ -7,7 +6,6 @@ import { PaginatedResponse, PostWithAuthor } from 'types';
 
 const { lorem } = faker;
 const numberOfPosts = 10;
-// const password = hashSync('123456', 10);
 
 // almost same as seed, response types, not db
 const createPosts = (n: number): Post[] => {
@@ -22,6 +20,7 @@ const createPosts = (n: number): Post[] => {
   }));
 };
 
+// all posts by same author
 const createPostsWithAuthor = (posts: Post[], author: ClientUser): PostWithAuthor[] => {
   return posts.map((post) => ({ ...post, authorId: author.id, author }));
 };
@@ -58,8 +57,8 @@ export const fakeSession: Session = {
 export const fakePosts: PaginatedResponse<PostWithAuthor> = {
   items: createPostsWithAuthor(createPosts(numberOfPosts), fakeUser),
   pagination: {
-    total: 24,
-    pagesCount: 5,
+    total: 10,
+    pagesCount: 2,
     currentPage: 1, // first page
     perPage: 5,
     from: 1,

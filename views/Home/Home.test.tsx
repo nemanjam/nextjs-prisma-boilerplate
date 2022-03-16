@@ -6,5 +6,6 @@ import HomeView from 'views/Home';
 describe('Home View', () => {
   test('renders title, pagination section and posts list', () => {
     customRender(<HomeView />);
+    screen.debug();
   });
 });
