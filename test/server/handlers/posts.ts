@@ -1,11 +1,11 @@
-import { DefaultRequestBody, rest } from 'msw';
+import { DefaultRequestBody, PathParams, rest } from 'msw';
 import { PaginatedResponse, PostWithAuthor } from 'types';
 import { Routes } from 'lib-client/constants';
 import { fakePosts } from 'test/server/fake-data';
 
 const postsHandlers = [
   // usePosts
-  rest.get<DefaultRequestBody, PaginatedResponse<PostWithAuthor>>(
+  rest.get<DefaultRequestBody, PathParams, PaginatedResponse<PostWithAuthor>>(
     Routes.API.POSTS,
     (req, res, ctx) => {
       // const name = req.url.searchParams.get('name') || 'Unknown';
