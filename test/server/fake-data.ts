@@ -66,20 +66,3 @@ export const fakePosts: PaginatedResponse<PostWithAuthor> = {
     hasMore: true,
   },
 };
-
-/*
-export const fakeUser: ClientUser = {
-  id: 'ckzwmjsll00385wr0k2h1i8fl',
-  name: 'user0 name',
-  email: 'user0@email.com',
-  username: 'user0',
-  provider: 'credentials',
-  emailVerified: null,
-  image: 'avatar0.jpg',
-  headerImage: 'header0.jpg',
-  bio: 'Consequatur corporis ad quod blanditiis eaque. Quia non quam eos.',
-  role: 'admin',
-  createdAt: new Date(),
-  updatedAt: new Date(),
-};
-*/

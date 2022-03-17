@@ -72,3 +72,20 @@ yarn add --dev eslint-plugin-testing-library
 const postsList = document.querySelector('.home__list');
 screen.debug(postsList, 20 * 1000);
 ```
+
+- if it has state (async) update debug has to wait (`state wrapped with act() warning`) if not already bellow waitFor(), findby()...
+
+```ts
+await waitFor(() => {
+  const postsList = document.querySelector('.home__list');
+  screen.debug(postsList, 20000);
+});
+```
+
+- better name element you are selecting
+
+```ts
+const title = screen.getByRole('heading', {
+  name: /home/i,
+});
+```
