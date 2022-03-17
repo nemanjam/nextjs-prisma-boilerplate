@@ -7,6 +7,7 @@ import SearchInput from 'components/SearchInput';
 import usePrevious from 'components/hooks/usePrevious';
 import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
 import NoItems from 'components/NoItems';
+import Loading from 'components/Loading';
 
 const Users: FC = () => {
   const b = withBem('users');
@@ -36,7 +37,7 @@ const Users: FC = () => {
     state: page,
   });
 
-  if (isLoading) return <h2>Loading...</h2>;
+  if (isLoading) return <Loading />;
 
   return (
     <div className={b()}>

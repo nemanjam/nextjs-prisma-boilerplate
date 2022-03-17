@@ -20,6 +20,7 @@ import { useMe } from 'lib-client/react-query/auth/useMe';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import ProgressBar from 'components/ProgressBar';
 import Alert from 'components/Alert';
+import Loading from 'components/Loading';
 
 // don't put id in form, validation  needs to diff on client and server
 // id is in route param
@@ -166,7 +167,7 @@ const Settings: FC = () => {
     }
   };
 
-  if (isLoading || isLoadingMe) return <div>Loading...</div>;
+  if (isLoading || isLoadingMe) return <Loading />;
 
   return (
     <FormProvider {...methods}>

@@ -5,7 +5,6 @@ import { getErrorClass, withBem } from 'utils/bem';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Routes } from 'lib-client/constants';
 import { postCreateSchema } from 'lib-server/validation';
 import Button from 'components/Button';
 import { useCreatePost } from 'lib-client/react-query/posts/useCreatePost';

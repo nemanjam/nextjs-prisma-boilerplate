@@ -9,6 +9,7 @@ import SearchInput from 'components/SearchInput';
 import usePrevious from 'components/hooks/usePrevious';
 import PreviewTheme from 'components/PreviewTheme';
 import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
+import Loading from 'components/Loading';
 
 const Home: FC = () => {
   const b = withBem('home');
@@ -38,7 +39,7 @@ const Home: FC = () => {
     state: page,
   });
 
-  if (isLoading) return <h2>Loading...</h2>;
+  if (isLoading) return <Loading />;
 
   return (
     <div className={b()}>

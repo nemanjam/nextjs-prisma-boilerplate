@@ -17,6 +17,7 @@ import usePrevious from 'components/hooks/usePrevious';
 import SearchInput from 'components/SearchInput';
 import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
 import NoItems from 'components/NoItems';
+import Loading from 'components/Loading';
 
 type ProfileProps = {
   profile: User;
@@ -54,7 +55,7 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
     state: page,
   });
 
-  if (isLoading) return <h2>Loading...</h2>;
+  if (isLoading) return <Loading />;
 
   return (
     <div className={b()}>

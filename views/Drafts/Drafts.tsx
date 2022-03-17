@@ -6,6 +6,7 @@ import Pagination from 'components/Pagination';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import NoItems from 'components/NoItems';
+import Loading from 'components/Loading';
 
 const Drafts: FC = () => {
   const b = withBem('drafts');
@@ -17,7 +18,7 @@ const Drafts: FC = () => {
     { page, userId: me?.id, published: false }
   );
 
-  if (isLoading) return <h2>Loading...</h2>;
+  if (isLoading) return <Loading />;
 
   return (
     <div className={b()}>

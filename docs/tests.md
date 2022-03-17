@@ -61,3 +61,14 @@ yarn add --dev eslint-plugin-testing-library
 
 - Bruno Antunes [youtube](https://www.youtube.com/watch?v=MhFSuOjU624)
 - Github [code](https://github.com/bmvantunes/youtube-react-testing-video8-forms-react-testing-library)
+
+### React Testing Libraries queries
+
+- bug: `TypeError: window.matchMedia is not a function`, [solution](https://stackoverflow.com/questions/39830580/jest-test-fails-typeerror-window-matchmedia-is-not-a-function)
+
+- Print element by class - `screen.debug()`
+
+```ts
+const postsList = document.querySelector('.home__list');
+screen.debug(postsList, 20 * 1000);
+```

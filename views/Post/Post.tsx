@@ -14,6 +14,7 @@ import { usePost } from 'lib-client/react-query/posts/usePost';
 import { Routes } from 'lib-client/constants';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import Alert from 'components/Alert';
+import Loading from 'components/Loading';
 
 const Post: FC = () => {
   const b = withBem('post');
@@ -41,7 +42,7 @@ const Post: FC = () => {
   const title = `${post.title} ${post.published ? '' : '(Draft)'}`;
   const isOwnerOrAdmin = getIsPostOwner(me, post) || getIsAdmin(me);
 
-  if (isLoading || isLoadingMe) return <h2>Loading...</h2>;
+  if (isLoading || isLoadingMe) return <Loading />;
 
   return (
     <article className={b()}>
