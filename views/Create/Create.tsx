@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import Link from 'next/link';
 import NextError from 'next/error';
 import { getErrorClass, withBem } from 'utils/bem';
 import { useRouter } from 'next/router';
@@ -43,6 +42,7 @@ const Create: FC = () => {
   });
   const { errors } = formState;
 
+  // invalid id in url
   if (id && !post) return <NextError statusCode={404} />;
 
   return (
@@ -50,6 +50,8 @@ const Create: FC = () => {
       <h1 className={b('title')}>Create new draft</h1>
 
       {restCreate.isError && <Alert variant="error" message={restCreate.error.message} />}
+
+      {restUpdate.isError && <Alert variant="error" message={restUpdate.error.message} />}
 
       <div className={b('form-field')}>
         <label htmlFor="title">Title</label>
