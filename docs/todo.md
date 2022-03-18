@@ -68,12 +68,13 @@
 - unit, integration
 - msw
 - setup logged in user in test-utils render
-- ErrorBoundary component maybe
 - skeletons, react suspense
 - work organisation md doc
 - handle success, loading, error, empty states
 - ErrorBoundary
 - msw param routes?
+- tests: render 200 and 500, forms, mutation, hooks
+- handle http error in HomeView, both getServerSideProps and useQuery, ErrorBoundary
 
 ### Questions
 

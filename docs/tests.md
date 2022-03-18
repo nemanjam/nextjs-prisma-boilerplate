@@ -56,6 +56,7 @@ yarn add --dev eslint-plugin-testing-library
 - [docs](https://react-query.tanstack.com/guides/testing)
 - [tkdodo blog](https://tkdodo.eu/blog/testing-react-query)
 - [tkdodo repo](https://github.com/TkDodo/testing-react-query)
+- test mutation [codesandbox](https://codesandbox.io/s/friendly-brahmagupta-1dz7v?file=/src/App.test.js) - perform mutation and assert result on ui
 
 ### Forms testing
 
