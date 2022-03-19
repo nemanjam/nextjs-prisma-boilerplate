@@ -23,6 +23,8 @@ describe('Home View', () => {
     });
     expect(paginationButton).toBeInTheDocument();
 
+    screen.debug();
+
     // assert search input
     const searchInput = screen.getByRole('textbox', {
       name: /search/i,
@@ -44,7 +46,10 @@ describe('Home View', () => {
 
     // find input, type in it and submit
     const searchTerm = 'thisIsSearchTerm';
-    const searchInput = screen.getByLabelText(/search/i);
+    const searchInput = screen.getByRole('textbox', {
+      name: /search/i,
+    });
+
     userEvent.type(searchInput, searchTerm);
     fireEvent.submit(searchInput);
 

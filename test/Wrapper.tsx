@@ -14,7 +14,7 @@ export type WrapperProps = {
   dehydratedState: unknown;
   queryClient: QueryClient;
   themes?: string[];
-  routerProps?: Partial<NextRouter>;
+  router?: Partial<NextRouter>;
 };
 
 /**
@@ -26,10 +26,10 @@ const Wrapper = ({
   dehydratedState,
   queryClient,
   themes = defaultThemes,
-  routerProps,
+  router,
 }: WrapperProps) => {
   return (
-    <RouterContext.Provider value={{ ...createMockRouter(), ...routerProps }}>
+    <RouterContext.Provider value={{ ...createMockRouter(), ...router }}>
       <SessionProvider session={session} refetchInterval={5 * 60}>
         <ThemeProvider themes={themes} attribute="class">
           <IconContext.Provider value={{ className: 'react-icons' }}>
@@ -46,7 +46,7 @@ const Wrapper = ({
   );
 };
 
-export function createMockRouter(routerProps?: Partial<NextRouter>): NextRouter {
+export function createMockRouter(router?: Partial<NextRouter>): NextRouter {
   return {
     basePath: '',
     pathname: '/',
@@ -70,7 +70,7 @@ export function createMockRouter(routerProps?: Partial<NextRouter>): NextRouter 
     defaultLocale: 'en',
     domainLocales: [],
     isPreview: false,
-    ...routerProps,
+    ...router,
   };
 }
 

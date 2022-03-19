@@ -14,7 +14,7 @@ const createTestQueryClient = () =>
   });
 
 type CustomRenderOptionsType = Omit<RenderOptions, 'wrapper'> & {
-  wrapperProps?: WrapperProps;
+  wrapperProps?: Partial<WrapperProps>;
 };
 
 export const customRender = (ui: ReactElement, options: CustomRenderOptionsType = {}) => {
@@ -30,7 +30,9 @@ export const customRender = (ui: ReactElement, options: CustomRenderOptionsType 
   };
 
   return render(ui, {
-    wrapper: (props) => <Wrapper {...props} {...defaultWrapperProps} {...wrapperProps} />,
+    wrapper: (props) => (
+      <Wrapper {...(props as WrapperProps)} {...defaultWrapperProps} {...wrapperProps} />
+    ),
     ...renderOptions,
   });
 };

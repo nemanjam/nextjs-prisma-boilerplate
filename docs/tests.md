@@ -90,3 +90,20 @@ const title = screen.getByRole('heading', {
   name: /home/i,
 });
 ```
+
+- select text input
+
+```ts
+// option 1
+const searchInput = screen.getByRole('textbox', {
+  name: /search/i,
+});
+// option 2
+const searchInput = screen.getByLabelText(/search/i);
+```
+
+- run only one test
+
+```
+ yarn jest -t "test desc..."
+```

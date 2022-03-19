@@ -66,3 +66,5 @@ export const fakePosts: PaginatedResponse<PostWithAuthor> = {
     hasMore: true,
   },
 };
+
+export const fakeCreatePost: Post = createPosts(1)[0];
