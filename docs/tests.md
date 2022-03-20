@@ -105,5 +105,18 @@ const searchInput = screen.getByLabelText(/search/i);
 - run only one test
 
 ```
- yarn jest -t "test desc..."
+yarn jest -t "test desc..."
+
+test.only('...')
+describe.only('...')
+
+test.skip('...')
+describe.skip('...')
+```
+
+- problem: `The above error occurred in the <Link> component, Error: Uncaught [TypeError: Cannot read properties of undefined (reading 'catch')]`, solution: `jest.fn() must return promise` (important, spent half day on it)
+
+```ts
+prefetch: jest.fn(() => Promise.resolve()),
+reload: jest.fn(() => Promise.resolve(true)),
 ```

@@ -1,13 +1,8 @@
-import {
-  fireEvent,
-  screen,
-  waitFor,
-  waitForElementToBeRemoved,
-} from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { customRender } from 'test/test-utils';
 import CreateView from 'views/Create';
-import { fakeCreatePost, fakePosts } from 'test/server/fake-data';
+import { fakeCreatePost } from 'test/server/fake-data';
 import { Routes } from 'lib-client/constants';
 import { createMockRouter } from 'test/Wrapper';
 

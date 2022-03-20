@@ -30,9 +30,7 @@ export const customRender = (ui: ReactElement, options: CustomRenderOptionsType 
   };
 
   return render(ui, {
-    wrapper: (props) => (
-      <Wrapper {...(props as WrapperProps)} {...defaultWrapperProps} {...wrapperProps} />
-    ),
+    wrapper: (props) => <Wrapper {...props} {...defaultWrapperProps} {...wrapperProps} />,
     ...renderOptions,
   });
 };

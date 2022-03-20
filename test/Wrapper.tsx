@@ -11,8 +11,8 @@ import { themes as defaultThemes } from 'lib-client/constants';
 export type WrapperProps = {
   children: ReactNode;
   session: Session;
-  dehydratedState: unknown;
   queryClient: QueryClient;
+  dehydratedState?: unknown;
   themes?: string[];
   router?: Partial<NextRouter>;
 };
@@ -23,8 +23,8 @@ export type WrapperProps = {
 const Wrapper = ({
   children,
   session,
-  dehydratedState,
   queryClient,
+  dehydratedState,
   themes = defaultThemes,
   router,
 }: WrapperProps) => {
@@ -53,12 +53,12 @@ export function createMockRouter(router?: Partial<NextRouter>): NextRouter {
     route: '/',
     query: {},
     asPath: '/',
-    back: jest.fn(),
-    beforePopState: jest.fn(),
-    prefetch: jest.fn(),
-    push: jest.fn(),
-    reload: jest.fn(),
-    replace: jest.fn(),
+    back: jest.fn(() => Promise.resolve(true)),
+    beforePopState: jest.fn(() => Promise.resolve(true)),
+    push: jest.fn(() => Promise.resolve(true)),
+    prefetch: jest.fn(() => Promise.resolve()),
+    reload: jest.fn(() => Promise.resolve(true)),
+    replace: jest.fn(() => Promise.resolve(true)),
     events: {
       on: jest.fn(),
       off: jest.fn(),

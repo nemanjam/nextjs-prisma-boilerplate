@@ -23,8 +23,6 @@ describe('Home View', () => {
     });
     expect(paginationButton).toBeInTheDocument();
 
-    screen.debug();
-
     // assert search input
     const searchInput = screen.getByRole('textbox', {
       name: /search/i,
