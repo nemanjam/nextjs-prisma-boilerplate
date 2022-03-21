@@ -51,6 +51,10 @@ describe('Home View', () => {
     userEvent.type(searchInput, searchTerm);
     fireEvent.submit(searchInput);
 
+    // wait for fetching indicator to appear and disappear, no need
+    // await screen.findByText(/fetching.../i);
+    // await waitForElementToBeRemoved(() => screen.getByText(/fetching.../i));
+
     // assert searchTerm in second post's title
     const title = await screen.findByRole('heading', {
       name: RegExp(`${searchTerm}`, 'i'),

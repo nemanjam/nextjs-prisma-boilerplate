@@ -21,8 +21,6 @@ export const useMe = () => {
 
   const query = useQuery<ClientUser, AxiosError>(QueryKeys.ME, () => getUser(id), {
     enabled: status !== 'loading',
-    retry: 1,
-    retryDelay: (attempt) => attempt * 1000,
     onError: (error) => {
       console.error('me query error: ', error.response);
 

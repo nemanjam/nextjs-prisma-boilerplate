@@ -14,6 +14,7 @@ module.exports = {
     '<rootDir>/node_modules/',
     '<rootDir>/.next/',
     '<rootDir>/dist/',
+    '<rootDir>/notes/',
   ],
   /*
   // todo

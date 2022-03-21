@@ -1,16 +1,31 @@
 import { DefaultRequestBody, PathParams, rest } from 'msw';
 import { PaginatedResponse, PostWithAuthor } from 'types';
 import { Routes } from 'lib-client/constants';
-import { fakePosts } from 'test/server/fake-data';
+import { fakePosts, fakePostWithAuthor } from 'test/server/fake-data';
 import { Post } from '@prisma/client';
 
 const postsHandlers = [
+  // usePost /api/posts/:id
+  // must come first
+  // both test and msw mock coupled to fakePostWithAuthor, maybe it could be better
+  rest.get<DefaultRequestBody, PathParams, PostWithAuthor>(
+    `${Routes.API.POSTS}:id`,
+    (req, res, ctx) => {
+      const { id: postId } = req.params;
+
+      // can be 0
+      if (!isNaN(Number(postId))) {
+        return res(ctx.status(200), ctx.json(fakePostWithAuthor));
+      }
+    }
+  ),
   // 1. usePosts
   // 2. usePosts ?searchTerm=xxx
   rest.get<DefaultRequestBody, PathParams, PaginatedResponse<PostWithAuthor>>(
     Routes.API.POSTS,
     (req, res, ctx) => {
       const searchTerm = req.url.searchParams.get('searchTerm');
+      console.log('222');
 
       if (!searchTerm) {
         // 1.

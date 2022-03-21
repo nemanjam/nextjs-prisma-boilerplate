@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import NextError from 'next/error';
 import { getErrorClass, withBem } from 'utils/bem';
 import { useRouter } from 'next/router';
@@ -10,6 +10,7 @@ import { useCreatePost } from 'lib-client/react-query/posts/useCreatePost';
 import { usePost } from 'lib-client/react-query/posts/usePost';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import Alert from 'components/Alert';
+import Loading from 'components/Loading';
 
 interface CreatePostFormData {
   title: string;
@@ -33,21 +34,36 @@ const Create: FC = () => {
       : createPost({ title, content });
   };
 
-  const { register, handleSubmit, formState } = useForm<CreatePostFormData>({
-    resolver: zodResolver(postCreateSchema),
-    defaultValues: {
-      title: !isLoading ? post?.title : 'Loading...',
-      content: !isLoading ? post?.content : 'Loading...',
-    },
-  });
+  const { register, handleSubmit, formState, getValues, reset } =
+    useForm<CreatePostFormData>({
+      resolver: zodResolver(postCreateSchema),
+      defaultValues: {
+        title: '',
+        content: '',
+      },
+    });
+
+  // async load post like user in Settings form
+  useEffect(() => {
+    if (!isLoading && post) {
+      reset({
+        ...getValues(),
+        title: post.title,
+        content: post.content,
+      } as CreatePostFormData);
+    }
+  }, [post, isLoading]);
+
   const { errors } = formState;
 
   // invalid id in url
   if (id && !post) return <NextError statusCode={404} />;
 
+  if (isLoading) return <Loading />;
+
   return (
     <form className={b()} onSubmit={handleSubmit(onSubmit)}>
-      <h1 className={b('title')}>Create new draft</h1>
+      <h1 className={b('title')}>{!isUpdate ? 'Create new draft' : 'Edit post'}</h1>
 
       {restCreate.isError && <Alert variant="error" message={restCreate.error.message} />}
 
