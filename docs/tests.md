@@ -120,3 +120,11 @@ describe.skip('...')
 prefetch: jest.fn(() => Promise.resolve()),
 reload: jest.fn(() => Promise.resolve(true)),
 ```
+
+- variable inside a regex
+
+```ts
+const title = await screen.findByRole('heading', {
+  name: RegExp(`${searchTerm}`, 'i'),
+});
+```

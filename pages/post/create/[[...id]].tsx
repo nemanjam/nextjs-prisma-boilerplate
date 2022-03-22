@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import CreateView from 'views/Create';
 import PageLayout from 'layouts/PageLayout';
-import { getMe } from '@lib-server/prisma';
+import { getMe } from 'lib-server/prisma';
 import { getPostWithAuthorById } from 'pages/api/posts/[id]';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { redirectLogin, redirectNotFound } from 'utils';

@@ -6,7 +6,7 @@ import moment from 'moment';
 import { useRouter } from 'next/router';
 import { getIsAdmin, getIsPostOwner } from 'components/PostItem';
 import { getAvatarPath, uploadsImageLoader } from 'lib-client/imageLoaders';
-import { mommentFormats } from '@lib-server/constants';
+import { mommentFormats } from 'lib-server/constants';
 import Button from 'components/Button';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';

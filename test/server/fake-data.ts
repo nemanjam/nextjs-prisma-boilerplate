@@ -35,6 +35,7 @@ const createUsers = (n: number): ClientUser[] => {
     headerImage: index === 3 ? undefined : `header${index % 4}.jpg`,
     // password,
     bio: lorem.sentences(3),
+    // first user is admin
     role: index === 0 ? 'admin' : 'user',
     // additional
     createdAt: new Date(),

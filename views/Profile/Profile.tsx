@@ -8,8 +8,8 @@ import {
   getHeaderImagePath,
   uploadsImageLoader,
 } from 'lib-client/imageLoaders';
-import { mommentFormats } from '@lib-server/constants';
-import { User } from '@prisma/client';
+import { mommentFormats } from 'lib-server/constants';
+import { ClientUser } from 'types';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import Pagination from 'components/Pagination';
 import QueryKeys from 'lib-client/react-query/queryKeys';
@@ -20,7 +20,7 @@ import NoItems from 'components/NoItems';
 import Loading from 'components/Loading';
 
 type ProfileProps = {
-  profile: User;
+  profile: ClientUser;
 };
 
 const Profile: FC<ProfileProps> = ({ profile }) => {

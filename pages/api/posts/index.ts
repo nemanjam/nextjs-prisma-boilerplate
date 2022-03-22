@@ -6,7 +6,7 @@ import { requireAuth } from 'lib-server/middleware/auth';
 import { getSession } from 'next-auth/react';
 import { postCreateSchema, postsGetSchema } from 'lib-server/validation';
 import { PostWithAuthor, PaginatedResponse, QueryParamsType } from 'types';
-import ApiError from '@lib-server/error';
+import ApiError from 'lib-server/error';
 
 const handler = nc(ncOptions);
 

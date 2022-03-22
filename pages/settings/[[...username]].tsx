@@ -8,7 +8,7 @@ import {
   getUserByIdOrUsernameOrEmail,
   GetUserQueryParams,
 } from 'pages/api/users/profile';
-import { getMe } from '@lib-server/prisma';
+import { getMe } from 'lib-server/prisma';
 import { redirectLogin, redirectNotFound } from 'utils';
 import CustomHead from 'components/CustomHead';
 
