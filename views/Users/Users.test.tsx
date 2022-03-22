@@ -1,20 +1,19 @@
 import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { customRender } from 'test/test-utils';
-import ProfileView from 'views/Profile';
-import { fakeUser, fakePosts } from 'test/server/fake-data';
+import UsersView from 'views/Users';
+import { fakeUsers } from 'test/server/fake-data';
 
-describe('Profile View', () => {
+describe('Users View', () => {
   // almost same like HomeView
-  test('renders profile card, pagination section and posts list', async () => {
-    // first user is admin
-    customRender(<ProfileView profile={fakeUser} />);
+  test('renders pagination section and users cards list', async () => {
+    customRender(<UsersView />);
 
     // wait for loader to disappear
     await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));
 
     // assert title
     const title = screen.getByRole('heading', {
-      name: RegExp(`${fakeUser.name}`, 'i'),
+      name: /users/i,
     });
     expect(title).toBeInTheDocument();
 
@@ -30,12 +29,12 @@ describe('Profile View', () => {
     });
     expect(searchInput).toBeInTheDocument();
 
-    // assert first post's username link
+    // assert first users's username link
     const usernameLink = screen.getAllByRole('link', {
-      name: RegExp(`@${fakePosts.items[0].author.username}`, 'i'),
+      name: RegExp(`@${fakeUsers.items[0].username}`, 'i'),
     })[0];
     expect(usernameLink).toBeInTheDocument();
   });
 
-  // test search filters posts - same as in HomeView
+  // test search filters users - same as in HomeView
 });

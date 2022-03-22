@@ -6,6 +6,7 @@ import { PaginatedResponse, PostWithAuthor } from 'types';
 
 const { lorem } = faker;
 const numberOfPosts = 10;
+const numberOfUsers = 4;
 
 // almost same as seed, response types, not db
 const createPosts = (n: number): Post[] => {
@@ -45,7 +46,20 @@ const createUsers = (n: number): ClientUser[] => {
   }));
 };
 
-export const fakeUser = createUsers(1)[0];
+export const fakeUser: ClientUser = createUsers(1)[0];
+
+export const fakeUsers: PaginatedResponse<ClientUser> = {
+  items: createUsers(numberOfUsers),
+  pagination: {
+    total: numberOfUsers,
+    pagesCount: 2,
+    currentPage: 1,
+    perPage: 3,
+    from: 1,
+    to: 3,
+    hasMore: true,
+  },
+};
 
 export const fakeSession: Session = {
   user: {
