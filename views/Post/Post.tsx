@@ -30,6 +30,9 @@ const Post: FC = () => {
   const { mutate: updatePost, ...restUpdate } = useUpdatePost();
   const { mutateAsync: deletePost, ...restDelete } = useDeletePost();
 
+  // must be here for post to be defined below
+  if (isLoading || isLoadingMe) return <Loading />;
+
   const { author } = post;
 
   const authorHref = {
@@ -41,8 +44,6 @@ const Post: FC = () => {
 
   const title = `${post.title} ${post.published ? '' : '(Draft)'}`;
   const isOwnerOrAdmin = getIsPostOwner(me, post) || getIsAdmin(me);
-
-  if (isLoading || isLoadingMe) return <Loading />;
 
   return (
     <article className={b()}>
