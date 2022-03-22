@@ -19,13 +19,28 @@ const postsHandlers = [
       }
     }
   ),
+  // useUpdatePost
+  // just forward what you received
+  rest.patch<DefaultRequestBody, PathParams, PostWithAuthor>(
+    `${Routes.API.POSTS}:id`,
+    (req, res, ctx) => {
+      const postId = Number(req.params.id);
+
+      if (fakePostWithAuthor.id !== postId) throw new Error('Invalid fake post.id.');
+
+      if (!isNaN(postId)) {
+        const post = req.body as PostWithAuthor; // PostUpdateType, incomplete
+        // username needed in useUpdatePost, updated title
+        return res(ctx.status(200), ctx.json({ ...fakePostWithAuthor, ...post }));
+      }
+    }
+  ),
   // 1. usePosts
   // 2. usePosts ?searchTerm=xxx
   rest.get<DefaultRequestBody, PathParams, PaginatedResponse<PostWithAuthor>>(
     Routes.API.POSTS,
     (req, res, ctx) => {
       const searchTerm = req.url.searchParams.get('searchTerm');
-      console.log('222');
 
       if (!searchTerm) {
         // 1.

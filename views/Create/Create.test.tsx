@@ -34,11 +34,7 @@ describe('Create View', () => {
   });
 
   test("update post mutation on success redirects to that post's page", async () => {
-    // only for update, mock usePost
-    // await waitForElementToBeRemoved(() => screen.getAllByDisplayValue(/loading.../i)[0]);
-
-    // for router
-    const redirectPostPath = `${Routes.SITE.POST}${fakePostWithAuthor.id}/`;
+    // mocks both usePost and useUpdatePost
     const updatedTitle = 'Updated';
 
     const router = createMockRouter({
@@ -47,8 +43,6 @@ describe('Create View', () => {
       push: jest.fn(),
     });
     customRender(<CreateView />, { wrapperProps: { router } });
-
-    // msw patch call is not implemented for success
 
     // wait for loader to disappear
     await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));
@@ -65,15 +59,21 @@ describe('Create View', () => {
     });
     userEvent.click(updateButton);
 
-    // assert redirect to /post/:id
-    await waitFor(() => expect(router.push).toHaveBeenCalledWith(redirectPostPath));
-
-    screen.debug();
+    // assert redirect to /username/post/:id
+    // useUpdatePost - {query: { username: data.author.username, id: data.id }},
+    await waitFor(() =>
+      expect(router.push).toHaveBeenCalledWith(
+        expect.objectContaining({
+          query: {
+            username: fakePostWithAuthor.author.username,
+            id: fakePostWithAuthor.id,
+          },
+        })
+      )
+    );
   });
 
   test.todo('form');
-
-  test.todo('render');
 
   test.todo('http error 500');
 });

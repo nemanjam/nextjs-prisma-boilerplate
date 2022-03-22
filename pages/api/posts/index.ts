@@ -165,6 +165,7 @@ handler.post(
       },
     });
 
+    // only this returns Post instead of PostWithAuthor
     res.status(201).json(post);
   }
 );
