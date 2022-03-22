@@ -35,26 +35,42 @@ const postsHandlers = [
       }
     }
   ),
-  // 1. usePosts
+  // 1. usePosts published=false
   // 2. usePosts ?searchTerm=xxx
+  // 3. usePosts
   rest.get<DefaultRequestBody, PathParams, PaginatedResponse<PostWithAuthor>>(
     Routes.API.POSTS,
     (req, res, ctx) => {
       const searchTerm = req.url.searchParams.get('searchTerm');
+      const published = req.url.searchParams.get('published');
 
-      if (!searchTerm) {
+      switch (true) {
         // 1.
-        return res(ctx.status(200), ctx.json(fakePosts));
-      } else {
+        case published === 'false':
+          // set posts.items.published = false
+          const unpublishedPosts = {
+            ...fakePosts,
+            items: fakePosts.items.map((post) => ({ ...post, published: false })),
+          };
+          return res(ctx.status(200), ctx.json(unpublishedPosts));
+
         // 2.
-        // insert searchTerm at second posts title, return only second
-        const _fakePosts = {
-          ...fakePosts,
-          items: [
-            { ...fakePosts.items[1], title: `${searchTerm} ${fakePosts.items[1].title}` },
-          ],
-        };
-        return res(ctx.status(200), ctx.json(_fakePosts));
+        case !!searchTerm:
+          // insert searchTerm at second posts title, return only second
+          const _fakePosts = {
+            ...fakePosts,
+            items: [
+              {
+                ...fakePosts.items[1],
+                title: `${searchTerm} ${fakePosts.items[1].title}`,
+              },
+            ],
+          };
+          return res(ctx.status(200), ctx.json(_fakePosts));
+
+        // 3.
+        default:
+          return res(ctx.status(200), ctx.json(fakePosts));
       }
     }
   ),
