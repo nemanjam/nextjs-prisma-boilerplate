@@ -11,10 +11,10 @@ const postsHandlers = [
   rest.get<DefaultRequestBody, PathParams, PostWithAuthor>(
     `${Routes.API.POSTS}:id`,
     (req, res, ctx) => {
-      const { id: postId } = req.params;
+      const postId = Number(req.params.id);
 
       // can be 0
-      if (!isNaN(Number(postId))) {
+      if (!isNaN(postId)) {
         return res(ctx.status(200), ctx.json(fakePostWithAuthor));
       }
     }
@@ -79,6 +79,16 @@ const postsHandlers = [
     const post = req.body as Post; // just forward what you received
     return res(ctx.status(200), ctx.json(post));
   }),
+  // useDeletePost
+  rest.delete<DefaultRequestBody, PathParams, PostWithAuthor>(
+    `${Routes.API.POSTS}:id`,
+    (req, res, ctx) => {
+      const postId = Number(req.params.id);
+      if (!isNaN(postId)) {
+        return res(ctx.status(200), ctx.json(fakePostWithAuthor));
+      }
+    }
+  ),
 ];
 
 export default postsHandlers;

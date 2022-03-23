@@ -128,3 +128,6 @@ const title = await screen.findByRole('heading', {
   name: RegExp(`${searchTerm}`, 'i'),
 });
 ```
+
+- integration tests - views folder, unit - components, hooks
+- ask afterEach() clear router.push: jest.fn()?

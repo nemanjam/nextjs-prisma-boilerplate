@@ -7,7 +7,7 @@ import { Routes } from 'lib-client/constants';
 import { createMockRouter } from 'test/Wrapper';
 
 describe('Create View', () => {
-  test('create post mutation on success redirects to drafts page', async () => {
+  test('create post mutation onSuccess redirects to drafts page', async () => {
     const router = createMockRouter({
       push: jest.fn(),
     });

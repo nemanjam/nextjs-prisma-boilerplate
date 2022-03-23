@@ -28,7 +28,7 @@ const Post: FC = () => {
   const { data: post, isLoading, isFetching } = usePost(id);
 
   const { mutate: updatePost, ...restUpdate } = useUpdatePost();
-  const { mutateAsync: deletePost, ...restDelete } = useDeletePost();
+  const { mutate: deletePost, ...restDelete } = useDeletePost();
 
   // must be here for post to be defined below
   if (isLoading || isLoadingMe) return <Loading />;
@@ -106,8 +106,9 @@ const Post: FC = () => {
               <Button
                 variant="secondary"
                 onClick={async () => {
-                  await deletePost(post.id);
-                  await router.push(Routes.SITE.HOME);
+                  deletePost(post.id, {
+                    onSuccess: async () => await router.push(Routes.SITE.HOME),
+                  });
                 }}
               >
                 {!restDelete.isLoading || isFetching ? 'Delete' : 'Deleting...'}

@@ -5,12 +5,14 @@ import HomeView from 'views/Home';
 import { fakePosts } from 'test/server/fake-data';
 
 describe('Home View', () => {
-  test('renders title, pagination section and posts list', async () => {
+  beforeEach(async () => {
     customRender(<HomeView />);
 
     // wait for loader to disappear
     await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));
+  });
 
+  test('renders title, pagination section and posts list', async () => {
     // assert title
     const title = screen.getByRole('heading', {
       name: /home/i,
@@ -37,11 +39,6 @@ describe('Home View', () => {
   });
 
   test('finds post with submited search term', async () => {
-    customRender(<HomeView />);
-
-    // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));
-
     // find input, type in it and submit
     const searchTerm = 'thisIsSearchTerm';
     const searchInput = screen.getByRole('textbox', {
