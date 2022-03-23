@@ -31,12 +31,21 @@
     }
   }
 
-  &__row {
-    @apply flex gap-2;
-  }
+  &__table {
+    @apply table-auto text-left;
 
-  &__label {
-    @apply font-semibold;
+    caption {
+      @apply font-semibold text-left mb-1;
+    }
+
+    th {
+      @apply font-semibold;
+    }
+
+    th,
+    td {
+      @apply pr-2 py-0;
+    }
   }
 
   &__form-field {

@@ -85,15 +85,19 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
         >
           {!isRegisterForm && (
             <div className={b('test-accounts')}>
-              <p className={b('label')}>Test accounts:</p>
-              {testAccounts.map((acc) => (
-                <p key={acc.email} className={b('row')}>
-                  <span className={b('label')}>{`${acc.role}:`}</span>
-                  <span className={b('info')}>{acc.email}</span>
-                  <span className={b('label')}>pass:</span>
-                  <span className={b('info')}>{acc.pass}</span>
-                </p>
-              ))}
+              <table className={b('table')}>
+                <caption className={b('caption')}>Test accounts:</caption>
+                <tbody>
+                  {testAccounts.map((acc) => (
+                    <tr key={acc.email}>
+                      <th>{`${acc.role}:`}</th>
+                      <td>{acc.email}</td>
+                      <th>pass:</th>
+                      <td>{acc.pass}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
 
