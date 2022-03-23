@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useEffect } from 'react';
+import React, { FC, Fragment } from 'react';
 import { signIn, ClientSafeProvider } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -11,7 +11,6 @@ import { Routes } from 'lib-client/constants';
 import Button from 'components/Button';
 import { useCreateUser } from 'lib-client/react-query/auth/useCreateUser';
 import QueryKeys from 'lib-client/react-query/queryKeys';
-import { useMe } from 'lib-client/react-query/auth/useMe';
 import Alert from 'components/Alert';
 
 interface AuthFormData {
@@ -30,8 +29,8 @@ type Props = {
 const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
   const b = withBem('auth');
 
+  // !me redirect not needed, done in getServerSideProps
   const router = useRouter();
-  const { me } = useMe();
 
   const queryClient = useQueryClient();
   const { mutate: createUser, isLoading, isError, error } = useCreateUser();
@@ -40,11 +39,6 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
     resolver: zodResolver(isRegisterForm ? userRegisterSchema : userLoginSchema),
   });
   const { errors } = formState;
-
-  // not needed, done in getServerSideProps
-  useEffect(() => {
-    if (me && router) router.push(Routes.SITE.HOME);
-  }, [me, router]);
 
   // axios post to /api/auth/callback/credentials
   // custom request with csrf token...

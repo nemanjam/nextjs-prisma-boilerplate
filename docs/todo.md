@@ -77,6 +77,7 @@
 - Github Action CI for tests
 - handle http error in HomeView, both getServerSideProps and useQuery, ErrorBoundary, error handling and error testing same thing
 - return ClientUser from all api endpoints
+- update callback links on Facebook and Google for Oracle
 
 ### Questions
 

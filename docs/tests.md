@@ -102,10 +102,11 @@ const searchInput = screen.getByRole('textbox', {
 const searchInput = screen.getByLabelText(/search/i);
 ```
 
-- run only one test
+- run only one test or describe
 
 ```
-yarn jest -t "test desc..."
+yarn jest -t "describe desc..." // single describe()
+yarn jest -t "test desc..." // single test()
 
 test.only('...')
 describe.only('...')
