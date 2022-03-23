@@ -30,7 +30,7 @@ const providers: Record<string, ClientSafeProvider> = {
 };
 
 describe('Auth View', () => {
-  test('renders Login form and buttons', async () => {
+  test('renders Login form, links and buttons', async () => {
     customRender(<AuthView isRegisterForm={false} providers={providers} />);
 
     // assert title
@@ -81,6 +81,64 @@ describe('Auth View', () => {
       'href',
       // trim end '/'
       expect.stringMatching(RegExp(`${Routes.SITE.REGISTER}`.replace(/\/$/, ''), 'i'))
+    );
+  });
+
+  test('renders Register form, links and button', async () => {
+    customRender(<AuthView isRegisterForm />);
+
+    // assert title
+    const title = screen.getByRole('heading', {
+      name: /register/i,
+    });
+    expect(title).toBeInTheDocument();
+
+    // assert name field
+    const nameField = screen.getByRole('textbox', {
+      name: /^name$/i,
+    });
+    expect(nameField).toBeInTheDocument();
+
+    // assert username field
+    const usernameField = screen.getByRole('textbox', {
+      name: /username/i,
+    });
+    expect(usernameField).toBeInTheDocument();
+
+    // assert email field
+    const emailField = screen.getByRole('textbox', {
+      name: /email/i,
+    });
+    expect(emailField).toBeInTheDocument();
+
+    // assert password field
+    const passwordField = screen.getByLabelText(/^password$/i);
+    expect(passwordField).toBeInTheDocument();
+
+    // assert confirm password field
+    const confirmPasswordField = screen.getByLabelText(/confirm password/i);
+    expect(confirmPasswordField).toBeInTheDocument();
+
+    // assert register button
+    const loginButton = screen.getByRole('button', {
+      name: /register/i,
+    });
+    expect(loginButton).toBeInTheDocument();
+
+    // assert home link '/'
+    const homeLink = screen.getByRole('link', {
+      name: /home/i,
+    });
+    expect(homeLink).toHaveAttribute('href', Routes.SITE.HOME);
+
+    // assert login link /auth/login/
+    const registerLink = screen.getByRole('link', {
+      name: /login/i,
+    });
+    expect(registerLink).toHaveAttribute(
+      'href',
+      // trim end '/'
+      expect.stringMatching(RegExp(`${Routes.SITE.LOGIN}`.replace(/\/$/, ''), 'i'))
     );
   });
 });

@@ -132,3 +132,9 @@ const title = await screen.findByRole('heading', {
 
 - integration tests - views folder, unit - components, hooks
 - ask afterEach() clear router.push: jest.fn()?
+- optimal query for spaces \s? `screen.getByLabelText(/confirm password/i);`, answer: use space
+
+```ts
+// space is space
+\s matches any whitespace character (equivalent to [\r\n\t\f\v ])
+```
