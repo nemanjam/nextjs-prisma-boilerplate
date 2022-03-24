@@ -1,8 +1,11 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { ClientSafeProvider } from 'next-auth/react';
 import { customRender } from 'test/test-utils';
 import AuthView from 'views/Auth';
 import { Routes } from 'lib-client/constants';
+import { createMockRouter } from 'test/Wrapper';
+import { fakeUser } from 'test/server/fake-data';
+import userEvent from '@testing-library/user-event';
 
 const authUrl = 'https://localhost:3001/api/auth/';
 const providers: Record<string, ClientSafeProvider> = {
@@ -140,5 +143,49 @@ describe('Auth View', () => {
       // trim end '/'
       expect.stringMatching(RegExp(`${Routes.SITE.LOGIN}`.replace(/\/$/, ''), 'i'))
     );
+  });
+
+  test('register calls createUser mutation and redirects to login page', async () => {
+    const fakePassword = '123456';
+
+    const router = createMockRouter({
+      push: jest.fn(),
+    });
+    customRender(<AuthView isRegisterForm />, { wrapperProps: { router } });
+
+    // fill name
+    const nameInput = screen.getByRole('textbox', {
+      name: /^name$/i,
+    });
+    userEvent.type(nameInput, fakeUser.name);
+
+    // fill username
+    const usernameInput = screen.getByRole('textbox', {
+      name: /username/i,
+    });
+    userEvent.type(usernameInput, fakeUser.username);
+
+    // fill email
+    const emailInput = screen.getByRole('textbox', {
+      name: /email/i,
+    });
+    userEvent.type(emailInput, fakeUser.email);
+
+    // fill password
+    const passwordField = screen.getByLabelText(/^password$/i);
+    userEvent.type(passwordField, fakePassword);
+
+    // fill confirm password
+    const confirmPasswordField = screen.getByLabelText(/confirm password/i);
+    userEvent.type(confirmPasswordField, fakePassword);
+
+    // click register
+    const loginButton = screen.getByRole('button', {
+      name: /register/i,
+    });
+    userEvent.click(loginButton);
+
+    // assert redirect to /auth/login/
+    await waitFor(() => expect(router.push).toHaveBeenCalledWith(Routes.SITE.LOGIN));
   });
 });
