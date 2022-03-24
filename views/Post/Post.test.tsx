@@ -39,7 +39,7 @@ describe('Post View', () => {
     expect(usernameLink).toBeInTheDocument();
 
     // assert Edit href to /post/create/:id
-    const editButtonLink = screen.getByText(/edit/i).closest('a');
+    const editButtonLink = screen.getByText(/^edit$/i).closest('a');
     expect(editButtonLink).toHaveAttribute(
       'href',
       // with or without '/'

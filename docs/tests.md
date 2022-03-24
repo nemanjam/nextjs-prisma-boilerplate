@@ -138,3 +138,29 @@ const title = await screen.findByRole('heading', {
 // space is space
 \s matches any whitespace character (equivalent to [\r\n\t\f\v ])
 ```
+
+- mock single property/fn from module import
+
+```ts
+// https://stackoverflow.com/questions/59312671/mock-only-one-function-from-module-but-leave-rest-with-original-functionality
+// cast type
+// https://stackoverflow.com/a/60007123/4383275
+// jest.requireActual(...) - most important
+
+// import
+import { signIn, ClientSafeProvider } from 'next-auth/react';
+
+// set
+jest.mock('next-auth/react', () => ({
+  ...(jest.requireActual('next-auth/react') as {}), // cast just for spread
+  signIn: jest.fn().mockReturnValue({ ok: false }),
+}));
+const mockedSignIn = jest.mocked(signIn, true); // just for type .mockClear();
+
+// assert
+await waitFor(() => expect(mockedSignIn).toHaveBeenCalledWith(providers.facebook.id));
+// cleanup mock
+mockedSignIn.mockClear();
+```
+
+- alternative way - spyOn(), difference?

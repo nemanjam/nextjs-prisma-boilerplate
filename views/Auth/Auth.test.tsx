@@ -1,11 +1,11 @@
 import { screen, waitFor } from '@testing-library/react';
-import { ClientSafeProvider } from 'next-auth/react';
 import { customRender } from 'test/test-utils';
 import AuthView from 'views/Auth';
 import { Routes } from 'lib-client/constants';
 import { createMockRouter } from 'test/Wrapper';
 import { fakeUser } from 'test/server/fake-data';
 import userEvent from '@testing-library/user-event';
+import { signIn, ClientSafeProvider } from 'next-auth/react';
 
 const authUrl = 'https://localhost:3001/api/auth/';
 const providers: Record<string, ClientSafeProvider> = {
@@ -144,10 +144,68 @@ describe('Auth View', () => {
       expect.stringMatching(RegExp(`${Routes.SITE.LOGIN}`.replace(/\/$/, ''), 'i'))
     );
   });
+});
+
+jest.mock('next-auth/react', () => ({
+  ...(jest.requireActual('next-auth/react') as {}), // cast just for spread
+  signIn: jest.fn().mockReturnValue({ ok: false }),
+}));
+const mockedSignIn = jest.mocked(signIn, true); // just for type .mockClear();
+
+describe('Auth View login and register buttons', () => {
+  const fakePassword = '123456';
+
+  test('login, facebook login and google login call next-auth signIn', async () => {
+    customRender(<AuthView isRegisterForm={false} providers={providers} />);
+
+    // fill email
+    const emailInput = screen.getByRole('textbox', {
+      name: /email/i,
+    });
+    userEvent.type(emailInput, fakeUser.email);
+
+    // fill password
+    const passwordField = screen.getByLabelText(/^password$/i);
+    userEvent.type(passwordField, fakePassword);
+
+    // click login
+    const loginButton = screen.getByRole('button', {
+      name: /^login$/i,
+    });
+    userEvent.click(loginButton);
+
+    // assert login signIn arguments
+    await waitFor(() =>
+      expect(mockedSignIn).toHaveBeenCalledWith(providers.credentials.id, {
+        email: fakeUser.email,
+        password: fakePassword,
+        redirect: false,
+      })
+    );
+    mockedSignIn.mockClear();
+
+    // click facebook login
+    const facebookButton = screen.getByRole('button', {
+      name: /login with facebook/i,
+    });
+    userEvent.click(facebookButton);
+
+    // assert fb signIn arguments
+    await waitFor(() => expect(mockedSignIn).toHaveBeenCalledWith(providers.facebook.id));
+    mockedSignIn.mockClear();
+
+    // click google login
+    const googleButton = screen.getByRole('button', {
+      name: /login with google/i,
+    });
+    userEvent.click(googleButton);
+
+    // assert google signIn arguments
+    await waitFor(() => expect(mockedSignIn).toHaveBeenCalledWith(providers.google.id));
+    mockedSignIn.mockClear();
+  });
 
   test('register calls createUser mutation and redirects to login page', async () => {
-    const fakePassword = '123456';
-
     const router = createMockRouter({
       push: jest.fn(),
     });
@@ -180,10 +238,10 @@ describe('Auth View', () => {
     userEvent.type(confirmPasswordField, fakePassword);
 
     // click register
-    const loginButton = screen.getByRole('button', {
+    const registerButton = screen.getByRole('button', {
       name: /register/i,
     });
-    userEvent.click(loginButton);
+    userEvent.click(registerButton);
 
     // assert redirect to /auth/login/
     await waitFor(() => expect(router.push).toHaveBeenCalledWith(Routes.SITE.LOGIN));
