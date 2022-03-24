@@ -159,6 +159,7 @@ const Settings: FC = () => {
 
     await updateUser({ id: user.id, user: updatedFields, setProgress });
 
+    // onSuccess...
     if (isOtherUser) {
       await queryClient.invalidateQueries([QueryKeys.USER, user.username]);
     } else {

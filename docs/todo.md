@@ -73,17 +73,20 @@
 - handle success, loading, error, empty states
 - ErrorBoundary
 - msw param routes?
-- tests: render 200 and 500, forms, mutation, component- unit, hooks, API backend, cypress with real db
+- tests: render 200 and 500, forms, mutation, component - unit, hooks, API backend, cypress with real db
 - Github Action CI for tests
 - handle http error in HomeView, both getServerSideProps and useQuery, ErrorBoundary, error handling and error testing same thing
 - return ClientUser from all api endpoints
 - update callback links on Facebook and Google for Oracle
+- test Settings view
+- test coverage setup
 
 ### Questions
 
 - error path, db function, getServerSideProps, api endpoint, ask reddit, github
 - where to place and call printLoadedEnvVariables() ?
 - absolute positioning or negative margin, css reddit question
+- jest.mock() vs jest.spyOn()?
 
 ## Done
 

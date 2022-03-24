@@ -164,3 +164,4 @@ mockedSignIn.mockClear();
 ```
 
 - alternative way - spyOn(), difference?
+- views folder - integration tests
