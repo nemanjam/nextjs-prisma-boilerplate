@@ -11,6 +11,7 @@ interface IFileInputProps
   label: string;
   dropzoneOptions?: DropzoneOptions;
   imageClassName?: string;
+  altText?: string;
 }
 
 const DropzoneSingle: FC<IFileInputProps> = ({
@@ -18,6 +19,7 @@ const DropzoneSingle: FC<IFileInputProps> = ({
   name,
   label,
   imageClassName = 'h-36',
+  altText,
   ...rest
 }) => {
   const b = withBem('dropzone-single');
@@ -64,7 +66,7 @@ const DropzoneSingle: FC<IFileInputProps> = ({
             <>
               <img
                 src={URL.createObjectURL(file)}
-                alt={file.name}
+                alt={altText}
                 className={b('image') + ` ${imageClassName}`}
               />
               <div className={b('overlay', { active: isDragActive || hover })}>

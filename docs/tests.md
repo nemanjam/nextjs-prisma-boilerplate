@@ -165,3 +165,17 @@ mockedSignIn.mockClear();
 
 - alternative way - spyOn(), difference?
 - views folder - integration tests
+
+- mock image File [gist](https://gist.github.com/josephhanson/372b44f93472f9c5a2d025d40e7bb4cc)
+- mock URL.createObjectURL in jest-dom [stackoverflow](https://stackoverflow.com/questions/52968969/jest-url-createobjecturl-is-not-a-function)
+
+- how to use jest.spyOn() to mock local function [tutorial](https://www.carlrippon.com/how-to-mock-a-function-in-jest-with-typescript/)
+
+```ts
+// jest.spyOn(object, methodName);
+import * as data from './data'; // local import
+const mock = jest.spyOn(data, 'getCharacter').mockResolvedValue('Bob'); // za promise
+mock.mockRestore(); // oslobodi fju na kraju testa
+```
+
+- image mocked as {} somewhere ??? [next docs](https://nextjs.org/docs/testing)

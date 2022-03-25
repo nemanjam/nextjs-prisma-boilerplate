@@ -39,20 +39,14 @@ const updateUser = async ({ id, user, setProgress }: UserUpdateFormType) => {
 };
 
 export const useUpdateUser = () => {
-  const queryClient = useQueryClient();
-
   const mutation = useMutation<ClientUser, Error, UserUpdateFormType, unknown>(
     (data) => updateUser(data),
     {
       onError: (error) => {
         console.error(error);
       },
-      onSuccess: async (data) => {
-        await Promise.all([
-          queryClient.invalidateQueries([QueryKeys.USER, data.id]),
-          queryClient.invalidateQueries([QueryKeys.USER, data.username]),
-        ]);
-      },
+      // implemented in Settings component
+      // onSuccess: async (data) => {},
     }
   );
 

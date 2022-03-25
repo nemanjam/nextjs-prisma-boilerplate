@@ -105,7 +105,7 @@ const Post: FC = () => {
 
               <Button
                 variant="secondary"
-                onClick={async () => {
+                onClick={() => {
                   deletePost(post.id, {
                     onSuccess: async () => await router.push(Routes.SITE.HOME),
                   });

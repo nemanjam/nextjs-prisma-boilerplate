@@ -140,13 +140,13 @@ const Settings: FC = () => {
   };
 
   const {
-    mutateAsync: updateUser,
+    mutate: updateUser,
     isLoading: isUpdateLoading,
     isError,
     error,
   } = useUpdateUser();
 
-  const onSubmit = async (data: SettingsFormData) => {
+  const onSubmit = (data: SettingsFormData) => {
     if (Object.keys(dirtyFields).length === 0) return;
 
     const updatedFields = {} as UserUpdateType;
@@ -157,15 +157,21 @@ const Settings: FC = () => {
       }
     });
 
-    await updateUser({ id: user.id, user: updatedFields, setProgress });
-
-    // onSuccess...
-    if (isOtherUser) {
-      await queryClient.invalidateQueries([QueryKeys.USER, user.username]);
-    } else {
-      await queryClient.invalidateQueries([QueryKeys.USER, user.id]);
-      await queryClient.invalidateQueries(QueryKeys.ME);
-    }
+    updateUser(
+      { id: user.id, user: updatedFields, setProgress },
+      {
+        onSuccess: async (user) => {
+          if (isOtherUser) {
+            await queryClient.invalidateQueries([QueryKeys.USER, user.username]);
+          } else {
+            await Promise.all([
+              queryClient.invalidateQueries([QueryKeys.USER, user.id]),
+              queryClient.invalidateQueries(QueryKeys.ME),
+            ]);
+          }
+        },
+      }
+    );
   };
 
   if (isLoading || isLoadingMe) return <Loading />;
@@ -183,6 +189,7 @@ const Settings: FC = () => {
               name="header"
               label="Header"
               imageClassName="max-h-44"
+              altText="header-image"
               dropzoneOptions={dropzoneOptions}
             />
           ) : (
@@ -222,6 +229,7 @@ const Settings: FC = () => {
             <DropzoneSingle
               name="avatar"
               label="Avatar"
+              altText="avatar-image"
               dropzoneOptions={dropzoneOptions}
             />
           ) : (

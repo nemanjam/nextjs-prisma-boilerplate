@@ -19,6 +19,13 @@ const usersHandlers = [
       return res(ctx.status(200), ctx.json(fakeUsers));
     }
   ),
+  // useUser
+  rest.get<DefaultRequestBody, PathParams, ClientUser>(
+    Routes.API.PROFILE,
+    (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(fakeUser));
+    }
+  ),
 ];
 
 export default usersHandlers;
