@@ -100,4 +100,7 @@ export const createFakeImageFile = ({
   blob['name'] = name;
   return new File([blob as BlobPart], name);
 };
+
+// export const fakeImageFile = createFakeImageFile();
+
 // return new File(['any text'], 'image.jpg', { type: 'image/jpg' });

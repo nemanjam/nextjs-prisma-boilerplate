@@ -2,10 +2,12 @@ node_modules/
 .next/
 prisma/dev.db
 prisma/pg-data/
-.env.local
 certs/
 dist/
 /**/tsconfig.tsbuildinfo
+
+.env.local
+.env.test.local
 
 !uploads/avatars
 uploads/avatars/*

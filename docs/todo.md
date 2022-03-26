@@ -80,6 +80,7 @@
 - update callback links on Facebook and Google for Oracle
 - test Settings view
 - test coverage setup
+- maybe put uploads paths in Routes object
 
 ### Questions
 

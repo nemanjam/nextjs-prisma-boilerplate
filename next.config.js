@@ -17,9 +17,8 @@ module.exports = {
   env: {
     // repeated in folder structure, static folder, seed
     // next.config.js, docker volumes prod, Dockerfile.prod, gitignore
+    // Routes.STATIC.AVATARS, Routes.STATIC.HEADERS - constants, not env vars
     // rename to single uploads var
-    NEXT_PUBLIC_AVATARS_PATH: '/uploads/avatars/',
-    NEXT_PUBLIC_HEADERS_PATH: '/uploads/headers/',
     // used in axios instance, just rename it
     NEXT_PUBLIC_BASE_URL: `${process.env.NEXTAUTH_URL}/`,
     NEXT_PUBLIC_POSTS_PER_PAGE: 5,

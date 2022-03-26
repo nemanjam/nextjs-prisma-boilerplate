@@ -2,6 +2,8 @@ import { DefaultRequestBody, PathParams, rest } from 'msw';
 import { ClientUser, PaginatedResponse } from 'types';
 import { fakeUser, fakeUsers } from 'test/server/fake-data';
 import { Routes } from 'lib-client/constants';
+import { resolve } from 'path';
+import { readFileSync } from 'fs';
 
 const usersHandlers = [
   // useMe
@@ -26,6 +28,19 @@ const usersHandlers = [
       return res(ctx.status(200), ctx.json(fakeUser));
     }
   ),
+  // getImage
+  // Routes.STATIC.AVATARS - /uploads/avatars/
+  // Routes.STATIC.HEADERS - /uploads/headers/
+  rest.get<DefaultRequestBody, PathParams, Buffer>('/uploads/*', (req, res, ctx) => {
+    const imageBuffer = readFileSync(resolve(__dirname, '../fixtures/image.jpg'));
+
+    return res(
+      ctx.status(200),
+      ctx.set('Content-Length', imageBuffer.byteLength.toString()),
+      ctx.set('Content-Type', 'image/jpeg'),
+      ctx.body(imageBuffer)
+    );
+  }),
 ];
 
 export default usersHandlers;

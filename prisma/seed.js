@@ -13,18 +13,29 @@ const rootDirAbsolutePath = process.cwd();
 // load process.env.DATABASE_URL from .env.local
 loadEnvConfig(rootDirAbsolutePath);
 
-// MUST redefine these, separate build context from next app
-// next.js env vars unavailable, must be set idependently, set fallback
+// MUST repeat definitions, imports don't work
+// separate build context from next app
+
+// lib-client/constants.ts
+const Routes = {
+  STATIC: {
+    AVATARS: '/uploads/avatars/',
+    HEADERS: '/uploads/headers/',
+  },
+};
+
 // /lib-server/constants
-// repeated in seed , next.config.js, docker volumes, Dockerfile.prod, folder structure
-const avatarsFolderAbsolutePath = `${rootDirAbsolutePath}${'/uploads/avatars/'}`;
-const headersFolderAbsolutePath = `${rootDirAbsolutePath}${'/uploads/headers/'}`;
+// repeated in seed, docker volumes, Dockerfile.prod, folder structure
+const avatarsFolderAbsolutePath = `${rootDirAbsolutePath}${Routes.STATIC.AVATARS}`;
+const headersFolderAbsolutePath = `${rootDirAbsolutePath}${Routes.STATIC.HEADERS}`;
 
 // /utils
 // min, max included
 const getRandomInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+// end repeated definitions
 
 const _readdir = promisify(readdir);
 const _unlink = promisify(unlink);

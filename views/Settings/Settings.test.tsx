@@ -2,21 +2,11 @@ import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/rea
 import userEvent from '@testing-library/user-event';
 import { customRender } from 'test/test-utils';
 import SettingsView from 'views/Settings';
-import { fakeUser, createFakeImageFile } from 'test/server/fake-data';
+import { fakeUser } from 'test/server/fake-data';
 import { Routes } from 'lib-client/constants';
 import { createMockRouter } from 'test/Wrapper';
-import * as useUpdateUser from 'lib-client/react-query/users/useUpdateUser';
-
-// 'blob:https://site.com/image.jpg'
-
-const imageFile = createFakeImageFile();
-const mockedGetImage = jest.spyOn(useUpdateUser, 'getImage').mockResolvedValue(imageFile);
 
 describe('Settings View', () => {
-  afterEach(() => {
-    mockedGetImage.mockRestore();
-  });
-
   test('renders user settings view', async () => {
     const router = createMockRouter({
       query: { username: fakeUser.username },
@@ -33,8 +23,8 @@ describe('Settings View', () => {
     });
     expect(title).toBeInTheDocument();
 
-    // assert header image
-    const headerImage = screen.getByRole('img', { name: /header\-image/i });
+    // assert header image - async
+    const headerImage = await screen.findByRole('img', { name: /header\-image/i });
     expect(headerImage).toBeInTheDocument();
     expect(headerImage).toHaveAttribute(
       'href',
@@ -53,8 +43,8 @@ describe('Settings View', () => {
     });
     expect(nameInput).toBeInTheDocument();
 
-    // assert avatar image
-    const avatarImage = screen.getByRole('img', { name: /avatar\-image/i });
+    // assert avatar image - async
+    const avatarImage = await screen.findByRole('img', { name: /avatar\-image/i });
     expect(avatarImage).toBeInTheDocument();
     expect(avatarImage).toHaveAttribute(
       'href',

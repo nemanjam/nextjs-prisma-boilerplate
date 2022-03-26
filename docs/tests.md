@@ -178,4 +178,7 @@ const mock = jest.spyOn(data, 'getCharacter').mockResolvedValue('Bob'); // za pr
 mock.mockRestore(); // oslobodi fju na kraju testa
 ```
 
-- image mocked as {} somewhere ??? [next docs](https://nextjs.org/docs/testing)
+- image mocked as {} somewhere ??? [next docs](https://nextjs.org/docs/testing), bad way, use msw
+- msw mock image binary response [docs](https://mswjs.io/docs/recipes/binary-response-type)
+
+- load `.env.test` and `.env.test.local` in tests [stackoverflow](https://stackoverflow.com/questions/63934104/environment-variables-undefined-in-nextjs-when-running-jest)

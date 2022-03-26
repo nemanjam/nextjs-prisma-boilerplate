@@ -1,11 +1,12 @@
 import { ImageLoaderProps } from 'next/image';
 import { ClientUser } from 'types';
 import { isUrl } from 'utils';
+import { Routes } from 'lib-client/constants';
 
 export const getAvatarPath = (user: ClientUser) => {
   return isUrl(user.image)
     ? user.image
-    : `${process.env.NEXT_PUBLIC_AVATARS_PATH}${user.image || 'placeholder-avatar.jpg'}`;
+    : `${Routes.STATIC.AVATARS}${user.image || 'placeholder-avatar.jpg'}`;
 };
 
 export const getAvatarPathAbsolute = (user: ClientUser) => {
@@ -15,9 +16,7 @@ export const getAvatarPathAbsolute = (user: ClientUser) => {
 };
 
 export const getHeaderImagePath = (user: ClientUser) => {
-  return `${process.env.NEXT_PUBLIC_HEADERS_PATH}${
-    user.headerImage || 'placeholder-header.jpg'
-  }`;
+  return `${Routes.STATIC.HEADERS}${user.headerImage || 'placeholder-header.jpg'}`;
 };
 
 export const uploadsImageLoader = ({ src, width, quality }: ImageLoaderProps) => {

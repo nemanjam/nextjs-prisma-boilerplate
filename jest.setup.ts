@@ -1,6 +1,11 @@
 import '@testing-library/jest-dom';
 import { setLogger } from 'react-query';
 import { server } from 'test/server';
+import { loadEnvConfig } from '@next/env';
+
+// load env vars from .env.test and .env.test.local
+const rootDirAbsolutePath = process.cwd();
+loadEnvConfig(rootDirAbsolutePath);
 
 // TypeError: window.matchMedia is not a function
 Object.defineProperty(window, 'matchMedia', {
@@ -19,7 +24,7 @@ Object.defineProperty(window, 'matchMedia', {
 
 // TypeError: URL.createObjectURL is not a function
 Object.defineProperty(window.URL, 'createObjectURL', {
-  value: jest.fn().mockImplementation((arg) => console.log(arg)),
+  value: jest.fn().mockImplementation((arg) => console.log('createObjectURL', arg)),
 });
 
 beforeAll(() => server.listen());

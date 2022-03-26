@@ -14,6 +14,10 @@ export const Routes = {
     USERS: '/api/users/',
     PROFILE: '/api/users/profile/',
   },
+  STATIC: {
+    AVATARS: '/uploads/avatars/',
+    HEADERS: '/uploads/headers/',
+  },
 } as const;
 
 export const themes = [
