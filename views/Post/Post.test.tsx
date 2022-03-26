@@ -5,9 +5,10 @@ import { fakePostWithAuthor } from 'test/server/fake-data';
 import { createMockRouter } from 'test/Wrapper';
 import { Routes } from 'lib-client/constants';
 import userEvent from '@testing-library/user-event';
+import { NextRouter } from 'next/router';
 
 describe('Post View', () => {
-  let router = null;
+  let router: NextRouter = null;
 
   beforeEach(async () => {
     router = createMockRouter({

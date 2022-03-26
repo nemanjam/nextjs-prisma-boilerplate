@@ -5,10 +5,13 @@ import SettingsView from 'views/Settings';
 import { fakeUser } from 'test/server/fake-data';
 import { Routes } from 'lib-client/constants';
 import { createMockRouter } from 'test/Wrapper';
+import { NextRouter } from 'next/router';
 
 describe('Settings View', () => {
-  test('renders user settings view', async () => {
-    const router = createMockRouter({
+  let router: NextRouter = null;
+
+  beforeEach(async () => {
+    router = createMockRouter({
       query: { username: fakeUser.username },
       pathname: Routes.SITE.SETTINGS,
     });
@@ -16,7 +19,9 @@ describe('Settings View', () => {
 
     // wait for loader to disappear
     await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));
+  });
 
+  test('renders user settings view', async () => {
     // assert title
     const title = screen.getByRole('heading', {
       name: /settings/i,
@@ -76,5 +81,32 @@ describe('Settings View', () => {
       name: /reset/i,
     });
     expect(resetButton).toBeInTheDocument();
+  });
+
+  test('update user mutation on success changes name field value', async () => {
+    const updatedName = `Updated ${fakeUser.name}`;
+
+    // edit name
+    const nameInput = screen.getByRole('textbox', {
+      name: /^name$/i,
+    });
+    userEvent.type(nameInput, `{selectall}${updatedName}`);
+
+    // click submit
+    const submitButton = screen.getByRole('button', {
+      name: /submit/i,
+    });
+    userEvent.click(submitButton);
+
+    // no need to explicitly wait for submit, sumbiting..., submit states
+
+    // 55 |     header: isBrowser()
+    // > 56 |       ? z.instanceof(File).refine((file) => file.size <= 1024 * 1024 * 2, {
+
+    // assert name field value is updated
+    const updatedNameInput = (await screen.findByRole('textbox', {
+      name: /^name$/i,
+    })) as HTMLInputElement;
+    expect(updatedNameInput.value).toBe(updatedName);
   });
 });

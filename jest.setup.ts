@@ -24,7 +24,7 @@ Object.defineProperty(window, 'matchMedia', {
 
 // TypeError: URL.createObjectURL is not a function
 Object.defineProperty(window.URL, 'createObjectURL', {
-  value: jest.fn().mockImplementation((arg) => console.log('createObjectURL', arg)),
+  value: jest.fn().mockImplementation((arg) => arg),
 });
 
 beforeAll(() => server.listen());

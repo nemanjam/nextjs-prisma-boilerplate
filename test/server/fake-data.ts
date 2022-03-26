@@ -98,7 +98,8 @@ export const createFakeImageFile = ({
   const blob = new Blob(['a'.repeat(size)], { type });
   blob['lastModifiedDate'] = lastModified;
   blob['name'] = name;
-  return new File([blob as BlobPart], name);
+  return blob as File;
+  // return new File([blob as BlobPart], name);
 };
 
 // export const fakeImageFile = createFakeImageFile();

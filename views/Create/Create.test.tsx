@@ -35,7 +35,7 @@ describe('Create View', () => {
 
   test("update post mutation on success redirects to that post's page", async () => {
     // mocks both usePost and useUpdatePost
-    const updatedTitle = 'Updated';
+    const updatedTitle = `Updated ${fakePostWithAuthor.title}`;
 
     const router = createMockRouter({
       query: { id: [fakePostWithAuthor.id.toString()] },
@@ -51,7 +51,7 @@ describe('Create View', () => {
     const titleInput = screen.getByRole('textbox', {
       name: /title/i,
     });
-    userEvent.type(titleInput, `{selectall}${updatedTitle} ${fakePostWithAuthor.title}`);
+    userEvent.type(titleInput, `{selectall}${updatedTitle}`);
 
     // click update
     const updateButton = screen.getByRole('button', {

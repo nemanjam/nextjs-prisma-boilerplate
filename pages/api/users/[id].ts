@@ -63,7 +63,7 @@ handler.patch(
       data,
     });
 
-    res.status(200).json(user);
+    res.status(200).json(exclude(user, 'password'));
   }
 );
 

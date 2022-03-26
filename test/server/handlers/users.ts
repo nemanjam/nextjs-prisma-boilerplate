@@ -41,6 +41,20 @@ const usersHandlers = [
       ctx.body(imageBuffer)
     );
   }),
+  // useUpdateUser
+  rest.patch<DefaultRequestBody, PathParams, ClientUser>(
+    `${Routes.API.USERS}:id`,
+    (req, res, ctx) => {
+      const userId = req.params.id;
+
+      if (fakeUser.id !== userId) throw new Error('Invalid fake user.id.');
+
+      if (userId) {
+        const user = req.body as ClientUser; // UserUpdateType, incomplete
+        return res(ctx.status(200), ctx.json({ ...fakeUser, ...user }));
+      }
+    }
+  ),
 ];
 
 export default usersHandlers;
