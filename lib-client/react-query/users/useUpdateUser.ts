@@ -1,10 +1,9 @@
 import { Dispatch, SetStateAction } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
 import { User } from '@prisma/client';
 import axiosInstance from 'lib-client/react-query/axios';
 import { Routes } from 'lib-client/constants';
 import { ClientUser } from 'types';
-import QueryKeys from 'lib-client/react-query/queryKeys';
 
 export type UserUpdateType = Partial<
   Pick<User, 'username' | 'name' | 'bio' | 'image' | 'headerImage' | 'password'>
@@ -55,6 +54,12 @@ export const useUpdateUser = () => {
 
 export const getImage = async (url: string): Promise<File> => {
   const response = await axiosInstance.get(url, { responseType: 'blob' });
-  const file = new File([response.data], 'default-image');
-  return file;
+  // const file = new File([response.data], 'default-image');
+
+  // use Blob instead of File for jsdom polyfill
+  const file = new Blob([response.data], { type: response.headers['content-type'] });
+  file['lastModifiedDate'] = new Date();
+  file['name'] = 'default-image';
+
+  return file as File;
 };

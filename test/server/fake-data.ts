@@ -3,7 +3,6 @@ import { Session } from 'next-auth';
 import { ClientUser } from 'types';
 import { Post } from '@prisma/client';
 import { PaginatedResponse, PostWithAuthor } from 'types';
-import { Blob } from 'buffer'; // node 16
 
 const { lorem } = faker;
 const numberOfPosts = 10;
@@ -98,10 +97,6 @@ export const createFakeImageFile = ({
   const blob = new Blob(['a'.repeat(size)], { type });
   blob['lastModifiedDate'] = lastModified;
   blob['name'] = name;
+
   return blob as File;
-  // return new File([blob as BlobPart], name);
 };
-
-// export const fakeImageFile = createFakeImageFile();
-
-// return new File(['any text'], 'image.jpg', { type: 'image/jpg' });

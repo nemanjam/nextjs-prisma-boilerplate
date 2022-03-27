@@ -182,3 +182,30 @@ mock.mockRestore(); // oslobodi fju na kraju testa
 - msw mock image binary response [docs](https://mswjs.io/docs/recipes/binary-response-type)
 
 - load `.env.test` and `.env.test.local` in tests [stackoverflow](https://stackoverflow.com/questions/63934104/environment-variables-undefined-in-nextjs-when-running-jest)
+
+- mock File and Blob in Node.js polyfill [@web-std/file](https://www.npmjs.com/package/@web-std/file) - doesn't work in jsdom, only node.js, **don't use it**
+
+- mock Blob with [blob-polyfill](https://www.npmjs.com/package/blob-polyfill)
+
+```ts
+yarn add -D blob-polyfill
+
+// jest.setup.ts
+import { Blob } from 'blob-polyfill';
+
+// mock Blob with polyfill
+global.Blob = Blob;
+
+// useUpdateUser.ts getImage()
+// replace File with Blob - works
+const file = new File([response.data], 'default-image');
+
+const file = new Blob([response.data], { type: 'image/jpeg' });
+file['lastModifiedDate'] = new Date();
+file['name'] = 'default-image';
+
+return file as File;
+// debug
+// const text = await file.text();
+// console.log('text', text);
+```

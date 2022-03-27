@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { setLogger } from 'react-query';
 import { server } from 'test/server';
 import { loadEnvConfig } from '@next/env';
+import { Blob } from 'blob-polyfill';
 
 // load env vars from .env.test and .env.test.local
 const rootDirAbsolutePath = process.cwd();
@@ -23,10 +24,17 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // TypeError: URL.createObjectURL is not a function
-Object.defineProperty(window.URL, 'createObjectURL', {
-  value: jest.fn().mockImplementation((arg) => arg),
+Object.defineProperty(URL, 'createObjectURL', {
+  value: jest.fn().mockImplementation((file) => {
+    return file;
+  }),
 });
 
+// mock Blob with polyfill (and File)
+global.Blob = Blob;
+// global.URL.createObjectURL = mockCreateObjectURL;
+
+// msw
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());

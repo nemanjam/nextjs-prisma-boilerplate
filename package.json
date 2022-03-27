@@ -87,6 +87,7 @@
     "@typescript-eslint/parser": "^5.16.0",
     "autoprefixer": "^10.4.4",
     "babel-plugin-preval": "^5.1.0",
+    "blob-polyfill": "^6.0.20211015",
     "dotenv-cli": "^5.0.0",
     "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
