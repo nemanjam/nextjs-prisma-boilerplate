@@ -209,3 +209,19 @@ return file as File;
 // const text = await file.text();
 // console.log('text', text);
 ```
+
+- mock `URL.createObjectURL` [jsdom-worker](https://github.com/developit/jsdom-worker), **this works**
+
+```ts
+// jest.config.js
+setupFiles: ['jsdom-worker'];
+```
+
+- wait for more than one element to disapear
+
+```ts
+await waitForElementToBeRemoved(() => [
+  screen.getByTestId(/header\-placeholder/i),
+  screen.getByTestId(/avatar\-placeholder/i),
+]);
+```

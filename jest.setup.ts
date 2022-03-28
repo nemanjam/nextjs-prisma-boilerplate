@@ -23,16 +23,8 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-// TypeError: URL.createObjectURL is not a function
-Object.defineProperty(URL, 'createObjectURL', {
-  value: jest.fn().mockImplementation((file) => {
-    return file;
-  }),
-});
-
 // mock Blob with polyfill (and File)
 global.Blob = Blob;
-// global.URL.createObjectURL = mockCreateObjectURL;
 
 // msw
 beforeAll(() => server.listen());

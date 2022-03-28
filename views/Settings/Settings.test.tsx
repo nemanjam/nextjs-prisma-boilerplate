@@ -28,11 +28,17 @@ describe('Settings View', () => {
     });
     expect(title).toBeInTheDocument();
 
-    // assert header image - async
-    const headerImage = await screen.findByRole('img', { name: /header\-image/i });
+    // wait for isHeaderLoading and isAvatarLoading
+    await waitForElementToBeRemoved(() => [
+      screen.getByTestId(/header\-placeholder/i),
+      screen.getByTestId(/avatar\-placeholder/i),
+    ]);
+
+    // assert header image
+    const headerImage = screen.getByRole('img', { name: /header\-image/i });
     expect(headerImage).toBeInTheDocument();
     expect(headerImage).toHaveAttribute(
-      'href',
+      'src',
       expect.stringMatching(/^blob:https?:\/\//i)
     );
 
@@ -48,11 +54,11 @@ describe('Settings View', () => {
     });
     expect(nameInput).toBeInTheDocument();
 
-    // assert avatar image - async
-    const avatarImage = await screen.findByRole('img', { name: /avatar\-image/i });
+    // assert avatar image
+    const avatarImage = screen.getByRole('img', { name: /avatar\-image/i });
     expect(avatarImage).toBeInTheDocument();
     expect(avatarImage).toHaveAttribute(
-      'href',
+      'src',
       expect.stringMatching(/^blob:https?:\/\//i)
     );
 

@@ -9,6 +9,7 @@ module.exports = {
       tsconfig: './tsconfig.jest.json',
     },
   },
+  setupFiles: ['jsdom-worker'], // defines URL.createObjectURL
   setupFilesAfterEnv: ['./jest.setup.ts'],
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',

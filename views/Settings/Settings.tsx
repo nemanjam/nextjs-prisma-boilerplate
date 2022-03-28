@@ -193,7 +193,7 @@ const Settings: FC = () => {
               dropzoneOptions={dropzoneOptions}
             />
           ) : (
-            <div className={b('header-placeholder')} />
+            <div data-testid="header-placeholder" className={b('header-placeholder')} />
           )}
           <p className={getErrorClass(errors.header?.message)}>
             {errors.header?.message}
@@ -233,7 +233,7 @@ const Settings: FC = () => {
               dropzoneOptions={dropzoneOptions}
             />
           ) : (
-            <div className={b('avatar-placeholder')} />
+            <div data-testid="avatar-placeholder" className={b('avatar-placeholder')} />
           )}
           <p className={getErrorClass(errors.avatar?.message)}>
             {errors.avatar?.message}
