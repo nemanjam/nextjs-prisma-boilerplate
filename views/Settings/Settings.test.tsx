@@ -19,6 +19,12 @@ describe('Settings View', () => {
 
     // wait for loader to disappear
     await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));
+
+    // wait for isHeaderLoading and isAvatarLoading
+    await waitForElementToBeRemoved(() => [
+      screen.getByTestId(/header\-placeholder/i),
+      screen.getByTestId(/avatar\-placeholder/i),
+    ]);
   });
 
   test('renders user settings view', async () => {
@@ -27,12 +33,6 @@ describe('Settings View', () => {
       name: /settings/i,
     });
     expect(title).toBeInTheDocument();
-
-    // wait for isHeaderLoading and isAvatarLoading
-    await waitForElementToBeRemoved(() => [
-      screen.getByTestId(/header\-placeholder/i),
-      screen.getByTestId(/avatar\-placeholder/i),
-    ]);
 
     // assert header image
     const headerImage = screen.getByRole('img', { name: /header\-image/i });
@@ -92,10 +92,15 @@ describe('Settings View', () => {
   test('update user mutation on success changes name field value', async () => {
     const updatedName = `Updated ${fakeUser.name}`;
 
-    // edit name
+    // name field
     const nameInput = screen.getByRole('textbox', {
       name: /^name$/i,
-    });
+    }) as HTMLInputElement;
+
+    // assert original value
+    expect(nameInput.value).toBe(fakeUser.name);
+
+    // edit name
     userEvent.type(nameInput, `{selectall}${updatedName}`);
 
     // click submit
@@ -105,9 +110,6 @@ describe('Settings View', () => {
     userEvent.click(submitButton);
 
     // no need to explicitly wait for submit, sumbiting..., submit states
-
-    // 55 |     header: isBrowser()
-    // > 56 |       ? z.instanceof(File).refine((file) => file.size <= 1024 * 1024 * 2, {
 
     // assert name field value is updated
     const updatedNameInput = (await screen.findByRole('textbox', {

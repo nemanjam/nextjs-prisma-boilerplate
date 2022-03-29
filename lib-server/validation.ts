@@ -48,12 +48,12 @@ export const userUpdateSchema = z
     username: z.string().min(usernameMin).max(usernameMax).optional().or(z.literal('')),
     bio: z.string().max(bioMax).optional().or(z.literal('')),
     avatar: isBrowser()
-      ? z.instanceof(File).refine((file) => file.size <= 1024 * 1024, {
+      ? z.instanceof(File).refine((file) => file?.size <= 1024 * 1024, {
           message: 'Avatar size must be less than 1MB.', // no minSize google, fb...
         })
       : z.any(),
     header: isBrowser()
-      ? z.instanceof(File).refine((file) => file.size <= 1024 * 1024 * 2, {
+      ? z.instanceof(File).refine((file) => file?.size <= 1024 * 1024 * 2, {
           message: 'Header image size must be less than 2MB.',
         })
       : z.any(),
