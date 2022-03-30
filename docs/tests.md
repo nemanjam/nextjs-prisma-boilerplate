@@ -269,3 +269,13 @@ await userEvent.click(submitButton);
 ```
 
 - wrapped in act warning - something async is out of order and not awaited, race and state update, forms e.g., events, (react state update is always async)
+
+- submit form without button click
+
+```ts
+import { fireEvent } from '@testing-library/react';
+
+fireEvent.submit(searchInput); // or form element
+// enter key
+fireEvent.keyPress(input, { key: 'Enter', charCode: 13 });
+```
