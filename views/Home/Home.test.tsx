@@ -1,4 +1,9 @@
-import { fireEvent, screen, waitForElementToBeRemoved } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { customRender } from 'test/test-utils';
 import HomeView from 'views/Home';
@@ -45,7 +50,10 @@ describe('Home View', () => {
       name: /search/i,
     });
 
-    userEvent.type(searchInput, searchTerm);
+    // fix this?
+    await act(async () => {
+      await userEvent.type(searchInput, searchTerm);
+    });
     fireEvent.submit(searchInput);
 
     // wait for fetching indicator to appear and disappear, no need

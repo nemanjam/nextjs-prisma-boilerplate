@@ -225,3 +225,47 @@ await waitForElementToBeRemoved(() => [
   screen.getByTestId(/avatar\-placeholder/i),
 ]);
 ```
+
+- jest log upside down, first error at bottom...
+- userEvent v14 breaking changes `clear()` (select text and delete input) and `type()` [docs](https://testing-library.com/docs/user-event/utility)
+
+```ts
+// utils
+userEvent.clear();
+userEvent.type(); // utility api
+userEvent.click(); // convinience api
+// keyboard, pointer...
+const user = userEvent.setup();
+
+await user.keyboard('[ShiftLeft>]'); // > hold key, /release
+await user.click(element);
+```
+
+```ts
+// v13 working
+// edit name
+userEvent.type(nameInput, `{selectall}${updatedName}`);
+
+// click submit
+const submitButton = screen.getByRole('button', {
+  name: /submit/i,
+});
+
+userEvent.click(submitButton);
+
+// ------------
+
+// v14 working
+// edit name
+await userEvent.clear(nameInput);
+await userEvent.type(nameInput, updatedName);
+
+// click submit
+const submitButton = screen.getByRole('button', {
+  name: /submit/i,
+});
+
+await userEvent.click(submitButton);
+```
+
+- wrapped in act warning - something async is out of order and not awaited, race and state update, forms e.g., events, (react state update is always async)

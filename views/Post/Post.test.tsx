@@ -48,12 +48,12 @@ describe('Post View', () => {
     );
   });
 
-  test('Delete button mutation redirects to Home onSuccess', async () => {
+  test('delete button mutation redirects to Home onSuccess', async () => {
     // click delete
     const deleteButton = screen.getByRole('button', {
       name: /delete/i,
     });
-    userEvent.click(deleteButton);
+    await userEvent.click(deleteButton);
 
     // assert redirect to home '/'
     await waitFor(() => expect(router.push).toHaveBeenCalledWith(Routes.SITE.HOME));

@@ -20,14 +20,14 @@ describe('Create View', () => {
     const contentTextArea = screen.getByRole('textbox', {
       name: /content/i,
     });
-    userEvent.type(titleInput, fakePost.title);
-    userEvent.type(contentTextArea, fakePost.content);
+    await userEvent.type(titleInput, fakePost.title);
+    await userEvent.type(contentTextArea, fakePost.content);
 
     // click create
     const createButton = screen.getByRole('button', {
       name: /create/i,
     });
-    userEvent.click(createButton);
+    await userEvent.click(createButton);
 
     // assert redirect to /post/drafts
     await waitFor(() => expect(router.push).toHaveBeenCalledWith(Routes.SITE.DRAFTS));
@@ -51,13 +51,14 @@ describe('Create View', () => {
     const titleInput = screen.getByRole('textbox', {
       name: /title/i,
     });
-    userEvent.type(titleInput, `{selectall}${updatedTitle}`);
+    await userEvent.clear(titleInput);
+    await userEvent.type(titleInput, updatedTitle);
 
     // click update
     const updateButton = screen.getByRole('button', {
       name: /update/i,
     });
-    userEvent.click(updateButton);
+    await userEvent.click(updateButton);
 
     // assert redirect to /username/post/:id
     // useUpdatePost - {query: { username: data.author.username, id: data.id }},

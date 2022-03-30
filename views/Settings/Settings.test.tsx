@@ -1,4 +1,4 @@
-import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { act, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { customRender } from 'test/test-utils';
 import SettingsView from 'views/Settings';
@@ -101,13 +101,15 @@ describe('Settings View', () => {
     expect(nameInput.value).toBe(fakeUser.name);
 
     // edit name
-    userEvent.type(nameInput, `{selectall}${updatedName}`);
+    await userEvent.clear(nameInput);
+    await userEvent.type(nameInput, updatedName);
 
     // click submit
     const submitButton = screen.getByRole('button', {
       name: /submit/i,
     });
-    userEvent.click(submitButton);
+
+    await userEvent.click(submitButton);
 
     // no need to explicitly wait for submit, sumbiting..., submit states
 
