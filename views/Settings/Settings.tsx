@@ -156,6 +156,7 @@ const Settings: FC = () => {
         updatedFields[key] = data[key];
       }
     });
+    console.log('updatedFields', updatedFields);
 
     updateUser(
       { id: user.id, user: updatedFields, setProgress },

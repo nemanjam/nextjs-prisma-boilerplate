@@ -1,6 +1,6 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
-import { QueryClient } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import Wrapper, { WrapperProps } from 'test/Wrapper';
 import { fakeSession } from 'test/server/fake-data';
 
@@ -33,4 +33,12 @@ export const customRender = (ui: ReactElement, options: CustomRenderOptionsType 
     wrapper: (props) => <Wrapper {...props} {...defaultWrapperProps} {...wrapperProps} />,
     ...renderOptions,
   });
+};
+
+export const createWrapper = () => {
+  const testQueryClient = createTestQueryClient();
+
+  return ({ children }: { children: ReactNode }) => (
+    <QueryClientProvider client={testQueryClient}>{children}</QueryClientProvider>
+  );
 };

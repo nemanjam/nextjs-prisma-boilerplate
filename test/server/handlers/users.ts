@@ -25,6 +25,10 @@ const usersHandlers = [
   rest.get<DefaultRequestBody, PathParams, ClientUser>(
     Routes.API.PROFILE,
     (req, res, ctx) => {
+      // SettingsView, useUser
+      const username = req.url.searchParams.get('username');
+      if (username !== fakeUser.username) return res(ctx.status(404));
+
       return res(ctx.status(200), ctx.json(fakeUser));
     }
   ),

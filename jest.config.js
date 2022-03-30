@@ -9,8 +9,8 @@ module.exports = {
       tsconfig: './tsconfig.jest.json',
     },
   },
-  setupFiles: ['jsdom-worker'], // defines URL.createObjectURL
-  setupFilesAfterEnv: ['./jest.setup.ts'],
+  setupFiles: ['jsdom-worker', '<rootDir>/jest.env.setup.ts'], // defines URL.createObjectURL
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/.next/',
