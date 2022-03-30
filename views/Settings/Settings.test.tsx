@@ -117,4 +117,8 @@ describe('Settings View', () => {
     })) as HTMLInputElement;
     expect(updatedNameInput.value).toBe(updatedName);
   });
+
+  test.todo('form and validation');
+
+  test.todo('http error 500');
 });

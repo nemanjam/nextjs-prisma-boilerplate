@@ -73,7 +73,7 @@ describe('Create View', () => {
     );
   });
 
-  test.todo('form');
+  test.todo('form and validation');
 
   test.todo('http error 500');
 });
