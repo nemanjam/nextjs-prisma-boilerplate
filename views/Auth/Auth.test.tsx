@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
+import { act, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import { customRender } from 'test/test-utils';
 import AuthView from 'views/Auth';
 import { Routes } from 'lib-client/constants';
@@ -246,5 +246,11 @@ describe('Auth View login and register buttons', () => {
 
     // assert redirect to /auth/login/
     await waitFor(() => expect(router.push).toHaveBeenCalledWith(Routes.SITE.LOGIN));
+
+    // missing msw mock for useCreateUser, to await it
+    // { isLoading } = useCreateUser(); is state
+    // act fix...
+    await screen.findByText(/register\.\.\./i);
+    await waitForElementToBeRemoved(() => screen.getByText(/register\.\.\./i));
   });
 });

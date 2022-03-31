@@ -81,6 +81,7 @@
 - test Settings view
 - test coverage setup
 - userEvent Auth and Home
+- fix loading... escape . regex `await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));`
 
 ### Questions
 
