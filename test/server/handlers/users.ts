@@ -6,12 +6,26 @@ import { resolve } from 'path';
 import { readFileSync } from 'fs';
 
 const usersHandlers = [
-  // useMe
+  // routes overlap, must be in same handler
+  // 1. Routes.API.PROFILE - /api/users/profile, useUser hook
+  // 2. ${Routes.API.USERS}:id - /api/users/:id, useMe SettingsView
   rest.get<DefaultRequestBody, PathParams, ClientUser>(
     `${Routes.API.USERS}:id`,
     (req, res, ctx) => {
-      // req.params.id
-      return res(ctx.status(200), ctx.json(fakeUser));
+      const userId = req.params.id as string;
+
+      switch (userId) {
+        case 'profile':
+          // 1.
+          const username = req.url.searchParams.get('username');
+          if (username !== fakeUser.username) return res(ctx.status(404));
+
+          return res(ctx.status(200), ctx.json(fakeUser));
+
+        default:
+          // 2.
+          return res(ctx.status(200), ctx.json(fakeUser));
+      }
     }
   ),
   // useUsers
@@ -19,17 +33,6 @@ const usersHandlers = [
     Routes.API.USERS,
     (req, res, ctx) => {
       return res(ctx.status(200), ctx.json(fakeUsers));
-    }
-  ),
-  // useUser
-  rest.get<DefaultRequestBody, PathParams, ClientUser>(
-    Routes.API.PROFILE,
-    (req, res, ctx) => {
-      // SettingsView, useUser
-      const username = req.url.searchParams.get('username');
-      if (username !== fakeUser.username) return res(ctx.status(404));
-
-      return res(ctx.status(200), ctx.json(fakeUser));
     }
   ),
   // getImage

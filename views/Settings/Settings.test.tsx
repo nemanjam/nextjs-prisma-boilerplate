@@ -12,7 +12,7 @@ describe('Settings View', () => {
 
   beforeEach(async () => {
     router = createMockRouter({
-      query: { username: fakeUser.username },
+      query: { username: [fakeUser.username] }, // nested site route, important
       pathname: Routes.SITE.SETTINGS,
     });
     customRender(<SettingsView />, { wrapperProps: { router } });

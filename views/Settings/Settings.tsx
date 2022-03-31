@@ -99,25 +99,35 @@ const Settings: FC = () => {
   // images should be in form state and not in React Query state
   useEffect(() => {
     const runAvatar = async (user: ClientUser) => {
-      const avatarUrl = getAvatarPath(user);
-      const avatar = await getImage(avatarUrl);
+      try {
+        const avatarUrl = getAvatarPath(user);
+        const avatar = await getImage(avatarUrl);
 
-      reset({
-        ...getValues(),
-        avatar,
-      } as SettingsFormData);
-      setIsAvatarLoading(false);
+        reset({
+          ...getValues(),
+          avatar,
+        } as SettingsFormData);
+
+        setIsAvatarLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     const runHeader = async (user: ClientUser) => {
-      const headerUrl = getHeaderImagePath(user);
-      const header = await getImage(headerUrl);
+      try {
+        const headerUrl = getHeaderImagePath(user);
+        const header = await getImage(headerUrl);
 
-      reset({
-        ...getValues(),
-        header,
-      } as SettingsFormData);
-      setIsHeaderLoading(false);
+        reset({
+          ...getValues(),
+          header,
+        } as SettingsFormData);
+
+        setIsHeaderLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     if (!avatarFile && isAvatarLoading && user) {
@@ -156,7 +166,6 @@ const Settings: FC = () => {
         updatedFields[key] = data[key];
       }
     });
-    console.log('updatedFields', updatedFields);
 
     updateUser(
       { id: user.id, user: updatedFields, setProgress },

@@ -80,8 +80,6 @@
 - update callback links on Facebook and Google for Oracle
 - test Settings view
 - test coverage setup
-- maybe put uploads paths in Routes object
-- msw not called at all?
 - userEvent Auth and Home
 
 ### Questions
@@ -157,3 +155,5 @@
 - replace session.user on server, done
 - group pagination items function, no
 - soft delete for reseed, or logger, no
+- msw not called at all?, done
+- maybe put uploads paths in Routes object, done
