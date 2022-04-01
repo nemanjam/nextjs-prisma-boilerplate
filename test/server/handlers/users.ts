@@ -32,7 +32,30 @@ const usersHandlers = [
   rest.get<DefaultRequestBody, PathParams, PaginatedResponse<ClientUser>>(
     Routes.API.USERS,
     (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json(fakeUsers));
+      const searchTerm = req.url.searchParams.get('searchTerm');
+
+      switch (true) {
+        // 1.
+        case !!searchTerm:
+          const _fakeUsers = {
+            // return one user by username
+            items: fakeUsers.items.filter((user) => user.username === searchTerm),
+            pagination: {
+              total: 1,
+              pagesCount: 1,
+              currentPage: 1,
+              perPage: 1,
+              from: 1,
+              to: 1,
+              hasMore: false,
+            },
+          };
+          return res(ctx.status(200), ctx.json(_fakeUsers));
+
+        // 2.
+        default:
+          return res(ctx.status(200), ctx.json(fakeUsers));
+      }
     }
   ),
   // getImage
