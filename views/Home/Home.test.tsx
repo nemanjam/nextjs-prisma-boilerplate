@@ -14,7 +14,7 @@ describe('Home View', () => {
     customRender(<HomeView />);
 
     // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));
+    await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));
   });
 
   test('renders title, pagination section and posts list', async () => {
@@ -57,8 +57,6 @@ describe('Home View', () => {
     fireEvent.submit(searchInput);
 
     // wait for fetching indicator to appear and disappear, no need
-    // await screen.findByText(/fetching.../i);
-    // await waitForElementToBeRemoved(() => screen.getByText(/fetching.../i));
 
     // assert searchTerm in second post's title
     const title = await screen.findByRole('heading', {

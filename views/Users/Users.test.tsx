@@ -9,7 +9,7 @@ describe('Users View', () => {
     customRender(<UsersView />);
 
     // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));
+    await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));
 
     // assert title
     const title = screen.getByRole('heading', {

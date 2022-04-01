@@ -19,7 +19,7 @@ describe('Post View', () => {
     customRender(<PostView />, { wrapperProps: { router } });
 
     // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.getByText(/loading.../i));
+    await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));
   });
 
   afterEach(() => {

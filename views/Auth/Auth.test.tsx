@@ -163,17 +163,23 @@ describe('Auth View login and register buttons', () => {
     const emailInput = screen.getByRole('textbox', {
       name: /email/i,
     });
-    await userEvent.type(emailInput, fakeUser.email);
+    await act(async () => {
+      await userEvent.type(emailInput, fakeUser.email);
+    });
 
     // fill password
     const passwordField = screen.getByLabelText(/^password$/i);
-    await userEvent.type(passwordField, fakePassword);
+    await act(async () => {
+      await userEvent.type(passwordField, fakePassword);
+    });
 
     // click login
     const loginButton = screen.getByRole('button', {
       name: /^login$/i,
     });
-    await userEvent.click(loginButton);
+    await act(async () => {
+      await userEvent.click(loginButton);
+    });
 
     // assert login signIn arguments
     await waitFor(() =>
@@ -189,7 +195,9 @@ describe('Auth View login and register buttons', () => {
     const facebookButton = screen.getByRole('button', {
       name: /login with facebook/i,
     });
-    await userEvent.click(facebookButton);
+    await act(async () => {
+      await userEvent.click(facebookButton);
+    });
 
     // assert fb signIn arguments
     await waitFor(() => expect(mockedSignIn).toHaveBeenCalledWith(providers.facebook.id));
@@ -199,7 +207,9 @@ describe('Auth View login and register buttons', () => {
     const googleButton = screen.getByRole('button', {
       name: /login with google/i,
     });
-    await userEvent.click(googleButton);
+    await act(async () => {
+      await userEvent.click(googleButton);
+    });
 
     // assert google signIn arguments
     await waitFor(() => expect(mockedSignIn).toHaveBeenCalledWith(providers.google.id));
@@ -216,41 +226,47 @@ describe('Auth View login and register buttons', () => {
     const nameInput = screen.getByRole('textbox', {
       name: /^name$/i,
     });
-    await userEvent.type(nameInput, fakeUser.name);
+    await act(async () => {
+      await userEvent.type(nameInput, fakeUser.name);
+    });
 
     // fill username
     const usernameInput = screen.getByRole('textbox', {
       name: /username/i,
     });
-    await userEvent.type(usernameInput, fakeUser.username);
+    await act(async () => {
+      await userEvent.type(usernameInput, fakeUser.username);
+    });
 
     // fill email
     const emailInput = screen.getByRole('textbox', {
       name: /email/i,
     });
-    await userEvent.type(emailInput, fakeUser.email);
+    await act(async () => {
+      await userEvent.type(emailInput, fakeUser.email);
+    });
 
     // fill password
     const passwordField = screen.getByLabelText(/^password$/i);
-    await userEvent.type(passwordField, fakePassword);
+    await act(async () => {
+      await userEvent.type(passwordField, fakePassword);
+    });
 
     // fill confirm password
     const confirmPasswordField = screen.getByLabelText(/confirm password/i);
-    await userEvent.type(confirmPasswordField, fakePassword);
+    await act(async () => {
+      await userEvent.type(confirmPasswordField, fakePassword);
+    });
 
     // click register
     const registerButton = screen.getByRole('button', {
       name: /register/i,
     });
-    await userEvent.click(registerButton);
+    await act(async () => {
+      await userEvent.click(registerButton);
+    });
 
     // assert redirect to /auth/login/
     await waitFor(() => expect(router.push).toHaveBeenCalledWith(Routes.SITE.LOGIN));
-
-    // missing msw mock for useCreateUser, to await it
-    // { isLoading } = useCreateUser(); is state
-    // act fix...
-    await screen.findByText(/register\.\.\./i);
-    await waitForElementToBeRemoved(() => screen.getByText(/register\.\.\./i));
   });
 });

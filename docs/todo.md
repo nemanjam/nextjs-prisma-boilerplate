@@ -82,6 +82,7 @@
 - test coverage setup
 - userEvent Auth and Home
 - fix loading... escape . regex `await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));`
+- AuthView all await userEvent wrapped in act(), why?
 
 ### Questions
 
