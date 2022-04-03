@@ -7,7 +7,7 @@ import {
 import { fakeUser } from 'test/server/fake-data';
 
 describe('useUpdateUser', () => {
-  test('successful mutation hook', async () => {
+  test('successful update mutation hook', async () => {
     const username = 'updatedUsername';
 
     const { result, waitFor } = renderHook(() => useUpdateUser(), {
@@ -19,7 +19,7 @@ describe('useUpdateUser', () => {
     const mutationVariables: UserUpdateFormType = {
       id: fakeUser.id,
       user: { ...fakeUser, username },
-      setProgress: jest.fn(), // onUploadProgress undefined msw
+      setProgress: jest.fn(), // onUploadProgress undefined msw, not supported in msw
     };
     mutate(mutationVariables);
 
