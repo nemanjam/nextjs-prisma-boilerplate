@@ -31,5 +31,6 @@ export const useMe = () => {
     },
   });
 
-  return { me: query.data, isLoadingMe: query.isLoading };
+  const { data, isLoading, ...rest } = query;
+  return { me: data, isLoadingMe: isLoading, ...rest };
 };

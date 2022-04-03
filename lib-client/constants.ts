@@ -13,6 +13,7 @@ export const Routes = {
     POSTS: '/api/posts/',
     USERS: '/api/users/',
     PROFILE: '/api/users/profile/',
+    SESSION: '/api/auth/session/',
   },
   STATIC: {
     AVATARS: '/uploads/avatars/',

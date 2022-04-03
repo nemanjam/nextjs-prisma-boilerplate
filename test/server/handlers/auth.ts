@@ -7,7 +7,7 @@ import { ClientUser } from 'types';
 const authHandlers = [
   // useSession, getSession
   rest.get<DefaultRequestBody, PathParams, Session>(
-    '/api/auth/session',
+    Routes.API.SESSION,
     (req, res, ctx) => {
       return res(ctx.status(200), ctx.json(fakeSession));
     }
