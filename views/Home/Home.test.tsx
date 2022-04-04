@@ -45,7 +45,7 @@ describe('Home View', () => {
 
   test('finds post with submited search term', async () => {
     // find input, type in it and submit
-    const searchTerm = 'thisIsSearchTerm';
+    const searchTerm = fakePosts.items[0].title;
     const searchInput = screen.getByRole('textbox', {
       name: /search/i,
     });

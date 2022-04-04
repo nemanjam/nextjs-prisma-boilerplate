@@ -56,15 +56,18 @@ const postsHandlers = [
 
         // 2.
         case !!searchTerm:
-          // insert searchTerm at second posts title, return only second
           const _fakePosts = {
-            ...fakePosts,
-            items: [
-              {
-                ...fakePosts.items[1],
-                title: `${searchTerm} ${fakePosts.items[1].title}`,
-              },
-            ],
+            // return one user by title
+            items: fakePosts.items.filter((post) => post.title === searchTerm),
+            pagination: {
+              total: 1,
+              pagesCount: 1,
+              currentPage: 1,
+              perPage: 1,
+              from: 1,
+              to: 1,
+              hasMore: false,
+            },
           };
           return res(ctx.status(200), ctx.json(_fakePosts));
 

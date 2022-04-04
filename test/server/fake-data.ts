@@ -88,6 +88,7 @@ export const fakePostWithAuthor: PostWithAuthor = createPostsWithAuthor(
   fakeUser
 )[0];
 
+// unused
 export const createFakeImageFile = ({
   name = 'image.jpg',
   size = 1024,
