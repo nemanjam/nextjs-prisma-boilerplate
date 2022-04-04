@@ -5,7 +5,7 @@ import { GetUsersQueryParams } from 'pages/api/users';
 import { fakeUsers } from 'test/server/fake-data';
 
 describe('useUsers', () => {
-  test('successful query hook', async () => {
+  test('successful query users hook', async () => {
     const page = 1;
     const username = fakeUsers.items[0].username;
 

@@ -6,7 +6,7 @@ import QueryKeys from 'lib-client/react-query/queryKeys';
 import { GetPostsQueryParams } from 'pages/api/posts';
 
 describe('usePosts', () => {
-  test('successful query hook', async () => {
+  test('successful query posts hook', async () => {
     const page = 1;
     const title = fakePosts.items[0].title; // msw supports only title
 

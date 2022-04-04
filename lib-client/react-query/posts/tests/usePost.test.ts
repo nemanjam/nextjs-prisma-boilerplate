@@ -4,7 +4,7 @@ import { usePost } from 'lib-client/react-query/posts/usePost';
 import { fakePostWithAuthor } from 'test/server/fake-data';
 
 describe('usePost', () => {
-  test('successful query hook', async () => {
+  test('successful query post hook', async () => {
     const { result, waitFor } = renderHook(() => usePost(fakePostWithAuthor.id), {
       wrapper: createWrapper(),
     });

@@ -80,7 +80,8 @@ const usersHandlers = [
       if (fakeUser.id !== userId) throw new Error('Invalid fake user.id.');
 
       if (userId) {
-        const user = req.body as ClientUser; // UserUpdateType, incomplete
+        const user = req.body as ClientUser; // parse from FormData formUserUpdateType, incomplete
+        // console.log('user', user);
         return res(ctx.status(200), ctx.json({ ...fakeUser, ...user }));
       }
     }

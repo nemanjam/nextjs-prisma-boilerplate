@@ -7,7 +7,7 @@ import {
 import { fakeUser } from 'test/server/fake-data';
 
 describe('useUpdateUser', () => {
-  test('successful update mutation hook', async () => {
+  test('successful update user mutation hook', async () => {
     const username = 'updatedUsername';
 
     const { result, waitFor } = renderHook(() => useUpdateUser(), {
@@ -25,6 +25,6 @@ describe('useUpdateUser', () => {
 
     await waitFor(() => result.current.isSuccess);
 
-    expect(result.current.data.username).toBe(fakeUser.username);
+    expect(result.current.data.username).toBe(username);
   });
 });

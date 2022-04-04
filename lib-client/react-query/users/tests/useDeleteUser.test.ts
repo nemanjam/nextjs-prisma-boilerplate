@@ -4,7 +4,7 @@ import { useDeleteUser } from 'lib-client/react-query/users/useDeleteUser';
 import { fakeUser } from 'test/server/fake-data';
 
 describe('useDeleteUser', () => {
-  test('successful delete mutation hook', async () => {
+  test('successful delete user mutation hook', async () => {
     const userId = fakeUser.id;
 
     const { result, waitFor } = renderHook(() => useDeleteUser(), {
