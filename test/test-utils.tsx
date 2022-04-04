@@ -3,6 +3,7 @@ import { render, RenderOptions } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Wrapper, { WrapperProps } from 'test/Wrapper';
 import { fakeSession } from 'test/server/fake-data';
+import { SessionProvider } from 'next-auth/react';
 
 const createTestQueryClient = () =>
   new QueryClient({
@@ -38,7 +39,10 @@ export const customRender = (ui: ReactElement, options: CustomRenderOptionsType 
 export const createWrapper = () => {
   const testQueryClient = createTestQueryClient();
 
+  // SessionProvider for useSession in useMe
   return ({ children }: { children: ReactNode }) => (
-    <QueryClientProvider client={testQueryClient}>{children}</QueryClientProvider>
+    <SessionProvider session={fakeSession} refetchInterval={5 * 60}>
+      <QueryClientProvider client={testQueryClient}>{children}</QueryClientProvider>
+    </SessionProvider>
   );
 };

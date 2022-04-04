@@ -23,10 +23,13 @@ const updateUser = async ({ id, user, setProgress }: UserUpdateFormType) => {
 
   const config = {
     headers: { 'content-type': 'multipart/form-data' },
-    onUploadProgress: (event: ProgressEvent) => {
-      const _progress = Math.round((event.loaded * 100) / event.total);
-      setProgress(_progress);
-    },
+    // fix for onUploadProgress not supported in msw
+    ...(process.env.NODE_ENV !== 'test' && {
+      onUploadProgress: (event: ProgressEvent) => {
+        const _progress = Math.round((event.loaded * 100) / event.total);
+        setProgress(_progress);
+      },
+    }),
   };
 
   const { data } = await axiosInstance.patch<ClientUser>(

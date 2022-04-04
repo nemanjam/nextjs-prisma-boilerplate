@@ -15,8 +15,11 @@ const getUser = async (id: string) => {
 };
 
 // for logged in user only
+/**
+ * gets entire user object based on user.id in session
+ */
 export const useMe = () => {
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSession(); // needs provider
   const id = session?.user?.id;
 
   const query = useQuery<ClientUser, AxiosError>(QueryKeys.ME, () => getUser(id), {

@@ -5,14 +5,15 @@ import { fakeUser } from 'test/server/fake-data';
 
 describe('useMe', () => {
   test('successful query hook', async () => {
+    // useMe calls useSession() that needs SessionProvider
+
     const { result, waitFor } = renderHook(() => useMe(), {
       wrapper: createWrapper(),
     });
 
-    // const { data: session, status } = useSession(); // this breaks
-
     await waitFor(() => result.current.isSuccess);
 
+    // assert fakeUser is fetched based on fakeUser.id in session
     expect(result.current.me.username).toBe(fakeUser.username);
   });
 });

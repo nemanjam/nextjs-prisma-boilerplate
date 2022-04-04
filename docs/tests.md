@@ -281,3 +281,13 @@ fireEvent.keyPress(input, { key: 'Enter', charCode: 13 });
 ```
 
 - problem: msw handler not fired and console logging, solution: order of handlers is wrong, route is overridden by other handler, move it to top, **actually:** routes overlap, must be in same handler with switch statement, Next.js handles priority by default
+
+- useSession in useMe needs SessionProvider to call msw `/api/auth/session/` endpoint
+
+```ts
+const { result, waitFor } = renderHook(() => useMe(), {
+  wrapper: createWrapper(), // here
+});
+```
+
+- who sets `process.env.NODE_ENV === 'test'`
