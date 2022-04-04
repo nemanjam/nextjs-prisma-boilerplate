@@ -1,9 +1,9 @@
 import { ReactElement, ReactNode } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient } from 'react-query';
 import Wrapper, { WrapperProps } from 'test/Wrapper';
 import { fakeSession } from 'test/server/fake-data';
-import { SessionProvider } from 'next-auth/react';
+import HookWrapper, { HookWrapperProps } from 'test/HookWrapper';
 
 const createTestQueryClient = () =>
   new QueryClient({
@@ -36,13 +36,19 @@ export const customRender = (ui: ReactElement, options: CustomRenderOptionsType 
   });
 };
 
-export const createWrapper = () => {
+type WrapperPropsType = Partial<Omit<HookWrapperProps, 'children'>>;
+
+export const createWrapper = (wrapperProps: WrapperPropsType = {}) => {
   const testQueryClient = createTestQueryClient();
 
-  // SessionProvider for useSession in useMe
+  const defaultWrapperProps = {
+    queryClient: testQueryClient,
+    session: fakeSession,
+  };
+
   return ({ children }: { children: ReactNode }) => (
-    <SessionProvider session={fakeSession} refetchInterval={5 * 60}>
-      <QueryClientProvider client={testQueryClient}>{children}</QueryClientProvider>
-    </SessionProvider>
+    <HookWrapper {...defaultWrapperProps} {...wrapperProps}>
+      {children}
+    </HookWrapper>
   );
 };

@@ -31,7 +31,7 @@
 - test `await queryClient.prefetchQuery([QueryKeys.POSTS_PROFILE, profile.username, 1]...`
 - reusable guard or HOC for protected routes, getServerSideProps too
 - where to go next doc: markdown editor with image inline and upload, comments, likes, follow, tags, categories
-- extract clear types in a single place, form, request, response, api - models
+- extract clear types in a single place, form, request, response, api - models, organize, consistent naming
 - maybe arrays in navbar for mobile
 - declerative navbar lesson
 - tests
