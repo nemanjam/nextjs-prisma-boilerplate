@@ -8,9 +8,9 @@ import {
   PostCreateType,
 } from 'lib-client/react-query/posts/useCreatePost';
 
-// same like auth/useCreateUser
 describe('useCreatePost', () => {
-  test('successful create mutation hook', async () => {
+  // same as auth/useCreateUser
+  test('successful create post mutation hook', async () => {
     const title = 'createdTitle';
 
     const router = createMockRouter({
