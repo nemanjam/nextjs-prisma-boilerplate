@@ -85,7 +85,7 @@ export const fakePosts: PaginatedResponse<PostWithAuthor> = {
 export const fakePost: Post = createPosts(1)[0];
 export const fakePostWithAuthor: PostWithAuthor = createPostsWithAuthor(
   createPosts(1),
-  fakeUser
+  fakeUser // logged in user must be used everywhere
 )[0];
 
 // unused

@@ -16,13 +16,14 @@ import { mommentFormats } from 'lib-server/constants';
 import { ClientUser } from 'types';
 import { Routes } from 'lib-client/constants';
 import Alert from 'components/Alert';
+import Loading from 'components/Loading';
 
 type UserItemProps = {
   user: ClientUser;
 };
 
 const UserItem: FC<UserItemProps> = ({ user }) => {
-  const { me } = useMe();
+  const { me, isLoadingMe } = useMe();
   const b = withBem('user-item');
 
   const { mutate: deleteUser, ...restDelete } = useDeleteUser();
@@ -34,6 +35,8 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
 
   // use this instead of {pathname, query} to prevent hard refresh
   const settingsHref = `${Routes.SITE.SETTINGS}${user.username}/`;
+
+  if (isLoadingMe) return <Loading />;
 
   const isAdmin = getIsAdmin(me);
 

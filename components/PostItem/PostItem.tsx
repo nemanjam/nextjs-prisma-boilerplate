@@ -11,9 +11,10 @@ import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import Alert from 'components/Alert';
 import { getAvatarPath, uploadsImageLoader } from 'lib-client/imageLoaders';
+import Loading from 'components/Loading';
 
 const PostItem: FC<PostProps> = ({ post }) => {
-  const { me } = useMe();
+  const { me, isLoadingMe } = useMe();
   const b = withBem('post-item');
 
   const { mutate: updatePost, ...restUpdate } = useUpdatePost();
@@ -32,6 +33,8 @@ const PostItem: FC<PostProps> = ({ post }) => {
     pathname: '/[username]',
     query: { username: author.username },
   };
+
+  if (isLoadingMe) return <Loading />;
 
   const isOwnerOrAdmin = getIsPostOwner(me, post) || getIsAdmin(me);
 
