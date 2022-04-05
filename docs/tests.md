@@ -291,3 +291,7 @@ const { result, waitFor } = renderHook(() => useMe(), {
 ```
 
 - who sets `process.env.NODE_ENV === 'test'`
+
+- hooks test examples [github](https://github.com/juliencrn/usehooks-ts/tree/master/lib/src)
+
+- useViewport hook test [github](https://github.com/juliencrn/usehooks-ts/blob/master/lib/src/useWindowSize/useWindowSize.test.ts)
