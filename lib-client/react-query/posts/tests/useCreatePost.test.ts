@@ -36,5 +36,7 @@ describe('useCreatePost', () => {
 
     // assert redirect /post/drafts onSuccess
     expect(router.push).toHaveBeenCalledWith(Routes.SITE.DRAFTS);
+
+    jest.clearAllMocks();
   });
 });

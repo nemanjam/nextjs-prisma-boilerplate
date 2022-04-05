@@ -56,7 +56,6 @@
 - maybe shell script for migration container
 - postgres expose external env var in d-c.yml
 - new next.js dockerfile? https://nextjs.org/docs/advanced-features/output-file-tracing
-- migrate react query to v4
 - add role attributes for accesibility in one go, a11...
 - update resume react testing
 - find practical github repo code example for jest and cypress
@@ -84,6 +83,7 @@
 - fix loading... escape . regex `await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));`
 - AuthView all await userEvent wrapped in act(), why?
 - hooks error tests (and handling)
+- migrate react query to v4
 
 ### Questions
 

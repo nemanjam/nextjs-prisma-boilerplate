@@ -1,7 +1,7 @@
 import { FC, MutableRefObject, useImperativeHandle } from 'react';
 import { useTheme } from 'next-themes';
 import { withBem } from 'utils/bem';
-import { useHasMounted } from 'components/hooks';
+import { useIsMounted } from 'components/hooks';
 import { themes } from 'lib-client/constants';
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 };
 
 const ThemeChanger: FC<Props> = ({ childRef }) => {
-  const hasMounted = useHasMounted();
+  const isMounted = useIsMounted();
   const { theme, setTheme } = useTheme();
 
   const b = withBem('theme-changer');
@@ -26,7 +26,7 @@ const ThemeChanger: FC<Props> = ({ childRef }) => {
 
   const getThemeAlias = (theme: string) => theme.toLowerCase().replace('theme-', '');
 
-  if (!hasMounted) return null;
+  if (!isMounted) return null;
 
   return <span className={b()}>{getThemeAlias(theme)}</span>;
 };

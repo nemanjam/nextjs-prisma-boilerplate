@@ -21,6 +21,7 @@ import QueryKeys from 'lib-client/react-query/queryKeys';
 import ProgressBar from 'components/ProgressBar';
 import Alert from 'components/Alert';
 import Loading from 'components/Loading';
+import { useIsMounted } from 'components/hooks';
 
 // don't put id in form, validation  needs to diff on client and server
 // id is in route param
@@ -38,6 +39,8 @@ interface SettingsFormData {
 const Settings: FC = () => {
   const [progress, setProgress] = useState(0);
   const b = withBem('settings');
+
+  const isMounted = useIsMounted();
 
   const [isAvatarLoading, setIsAvatarLoading] = useState(true);
   const [isHeaderLoading, setIsHeaderLoading] = useState(true);
@@ -108,7 +111,7 @@ const Settings: FC = () => {
           avatar,
         } as SettingsFormData);
 
-        setIsAvatarLoading(false);
+        isMounted && setIsAvatarLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -124,7 +127,7 @@ const Settings: FC = () => {
           header,
         } as SettingsFormData);
 
-        setIsHeaderLoading(false);
+        isMounted && setIsHeaderLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -137,7 +140,7 @@ const Settings: FC = () => {
     if (!headerFile && isHeaderLoading && user) {
       runHeader(user);
     }
-  }, [user, avatarFile, headerFile, isAvatarLoading, isHeaderLoading]);
+  }, [user, avatarFile, headerFile, isAvatarLoading, isHeaderLoading, isMounted]);
 
   const dropzoneOptions: DropzoneOptions = {
     accept: 'image/png, image/jpg, image/jpeg',

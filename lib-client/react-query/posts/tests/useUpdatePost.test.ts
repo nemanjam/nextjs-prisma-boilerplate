@@ -25,6 +25,7 @@ describe('useUpdatePost', () => {
 
     await waitFor(() => result.current.isSuccess);
 
+    // assert parsed FormData
     expect(result.current.data.title).toBe(title);
   });
 });

@@ -1,4 +1,4 @@
-import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { act, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import { customRender } from 'test/test-utils';
 import PostView from 'views/Post';
 import { fakePostWithAuthor } from 'test/server/fake-data';
@@ -53,7 +53,9 @@ describe('Post View', () => {
     const deleteButton = screen.getByRole('button', {
       name: /delete/i,
     });
-    await userEvent.click(deleteButton);
+    await act(async () => {
+      await userEvent.click(deleteButton);
+    });
 
     // assert redirect to home '/'
     await waitFor(() => expect(router.push).toHaveBeenCalledWith(Routes.SITE.HOME));
