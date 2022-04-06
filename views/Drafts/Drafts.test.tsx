@@ -8,7 +8,7 @@ describe('Drafts View', () => {
     customRender(<DraftsView />);
 
     // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));
+    await waitForElementToBeRemoved(() => screen.getAllByText(/loading\.\.\./i));
 
     // assert title
     const title = screen.getByRole('heading', {

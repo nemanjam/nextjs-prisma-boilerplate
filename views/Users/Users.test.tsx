@@ -8,8 +8,8 @@ describe('Users View', () => {
   test('renders pagination section and users cards list', async () => {
     customRender(<UsersView />);
 
-    // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));
+    // wait for loaders to disappear (page and UserItem)
+    await waitForElementToBeRemoved(() => screen.getAllByText(/loading\.\.\./i));
 
     // assert title
     const title = screen.getByRole('heading', {

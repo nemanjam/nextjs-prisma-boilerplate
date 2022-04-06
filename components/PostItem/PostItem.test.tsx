@@ -1,16 +1,22 @@
 import { act, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import { customRender } from 'test/test-utils';
 import PostItem from 'components/PostItem';
-import { fakePostWithAuthor } from 'test/server/fake-data';
+import { fakePostWithAuthor as initFakePostWithAuthor } from 'test/server/fake-data';
 import { Routes } from 'lib-client/constants';
 import userEvent from '@testing-library/user-event';
+import { createMockRouter } from 'test/Wrapper';
 import { NextRouter } from 'next/router';
 
 describe('PostItem', () => {
+  // show Publish button
+  const fakePostWithAuthor = { ...initFakePostWithAuthor, published: false };
   let router: NextRouter = null;
 
   beforeEach(async () => {
-    customRender(<PostItem post={fakePostWithAuthor} />);
+    router = createMockRouter({
+      push: jest.fn(),
+    });
+    customRender(<PostItem post={fakePostWithAuthor} />, { wrapperProps: { router } });
 
     // wait for useMe loader
     await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));
@@ -20,7 +26,7 @@ describe('PostItem', () => {
     jest.clearAllMocks();
   });
 
-  test('renders post title, user links and buttons', async () => {
+  test('renders post-item title, user links and buttons', async () => {
     // links
     const userLinkRegex = RegExp(fakePostWithAuthor.author.username, 'i');
     const postLinkRegex = RegExp(
@@ -70,18 +76,27 @@ describe('PostItem', () => {
     );
   });
 
-  // replace this
-  xtest('delete button mutation redirects to Home onSuccess', async () => {
-    // click delete
-    const deleteButton = screen.getByRole('button', {
-      name: /delete/i,
+  test('publish button mutation redirects to Post page onSuccess', async () => {
+    // click publish
+    const publishButton = screen.getByRole('button', {
+      name: /publish/i,
     });
     await act(async () => {
-      await userEvent.click(deleteButton);
+      await userEvent.click(publishButton);
     });
 
-    // assert redirect to home '/'
-    await waitFor(() => expect(router.push).toHaveBeenCalledWith(Routes.SITE.HOME));
+    // assert redirect to /username/post/:id
+    // useUpdatePost - {query: { username: data.author.username, id: data.id }},
+    await waitFor(() =>
+      expect(router.push).toHaveBeenCalledWith(
+        expect.objectContaining({
+          query: {
+            username: fakePostWithAuthor.author.username,
+            id: fakePostWithAuthor.id,
+          },
+        })
+      )
+    );
   });
 
   test.todo('Publish button mutation');
