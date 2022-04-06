@@ -1,7 +1,7 @@
 import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { customRender } from 'test/test-utils';
 import UserItem from 'components/UserItem';
-import { fakeUser, fakePosts } from 'test/server/fake-data';
+import { fakeUser } from 'test/server/fake-data';
 import { Routes } from 'lib-client/constants';
 
 describe('UserItem', () => {

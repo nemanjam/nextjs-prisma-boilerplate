@@ -28,7 +28,11 @@ const ThemeChanger: FC<Props> = ({ childRef }) => {
 
   if (!isMounted) return null;
 
-  return <span className={b()}>{getThemeAlias(theme)}</span>;
+  return (
+    <span data-testid="theme-changer" className={b()}>
+      {getThemeAlias(theme)}
+    </span>
+  );
 };
 
 export default ThemeChanger;
