@@ -1,8 +1,16 @@
 import { FC, MutableRefObject, useEffect, useRef } from 'react';
-import { act, screen, waitForElementToBeRemoved } from '@testing-library/react';
+import { act, screen } from '@testing-library/react';
 import { customRender } from 'test/test-utils';
 import ThemeChanger from 'components/ThemeChanger';
 import { themes } from 'lib-client/constants';
+
+// mock themes array
+// must be here, important
+jest.mock('lib-client/constants', () => ({
+  ...(jest.requireActual('lib-client/constants') as {}),
+  themes: ['theme-first', 'theme-second', 'theme-third'], // must be here, important
+}));
+const mockedThemes = jest.mocked(themes, true);
 
 type Props = {
   setRef: (ref: MutableRefObject<any>) => void;
@@ -18,29 +26,31 @@ const TestThemeChanger: FC<Props> = ({ setRef }) => {
   return <ThemeChanger childRef={childRef} />;
 };
 
-const testThemes = ['theme-first', 'theme-second', 'theme-third'];
-
 describe('ThemeChanger', () => {
-  // mock themes array
-  jest.mock('lib-client/constants', () => ({
-    ...(jest.requireActual('lib-client/constants') as {}),
-    themes: testThemes,
-  }));
-  const mockedThemes = jest.mocked(themes, true);
-
-  test('changes css class', async () => {
+  test('changes theme label', async () => {
     let childRef: MutableRefObject<any> = null;
     customRender(<TestThemeChanger setRef={(ref) => (childRef = ref)} />);
 
     const themeSpan = screen.getByTestId(/theme\-changer/i);
     expect(themeSpan).toHaveTextContent('system');
+    // no class on root here
 
     act(() => {
       childRef.current.handleChange();
     });
 
-    // expect(themeSpan).toHaveTextContent('system');
+    // assert span content
+    expect(themeSpan).toHaveTextContent(mockedThemes[0].replace('theme-', ''));
+    // assert class on root element
+    expect(document.documentElement).toHaveClass(mockedThemes[0]);
 
-    screen.debug();
+    act(() => {
+      childRef.current.handleChange();
+    });
+
+    // assert span content
+    expect(themeSpan).toHaveTextContent(mockedThemes[1].replace('theme-', ''));
+    // assert class on root element
+    expect(document.documentElement).toHaveClass(mockedThemes[1]);
   });
 });

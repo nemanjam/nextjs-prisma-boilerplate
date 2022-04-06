@@ -299,3 +299,5 @@ const { result, waitFor } = renderHook(() => useMe(), {
 - assert element content `expect(screen.getByTestId('my-test-id')).toHaveTextContent('some text');`
 
 - problem: cant find element by role, solution: `getByRole()` is in describe block instead od test block
+
+- :root element <html /> `screen.debug(document.documentElement)`, assert class `expect(element).toHaveClass('some-class')`
