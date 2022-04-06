@@ -74,6 +74,8 @@ describe('PostItem', () => {
       // with or without '/'
       expect.stringMatching(editButtonLinkRegex)
     );
+
+    // delete, publish buttons
   });
 
   test('publish button mutation redirects to Post page onSuccess', async () => {

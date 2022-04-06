@@ -49,7 +49,7 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
           loader={uploadsImageLoader}
           layout="fill"
           src={getHeaderImagePath(user)}
-          alt={user.name}
+          alt="header image"
           objectFit="cover"
           objectPosition="center"
         />
@@ -88,6 +88,7 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
                   </a>
                 </Link>
                 <Button
+                  data-testid="delete-button"
                   variant="secondary"
                   onClick={() => {
                     deleteUser(user.id);

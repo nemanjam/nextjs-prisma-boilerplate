@@ -295,3 +295,7 @@ const { result, waitFor } = renderHook(() => useMe(), {
 - hooks test examples [github](https://github.com/juliencrn/usehooks-ts/tree/master/lib/src)
 
 - useViewport hook test [github](https://github.com/juliencrn/usehooks-ts/blob/master/lib/src/useWindowSize/useWindowSize.test.ts)
+
+- assert element content `expect(screen.getByTestId('my-test-id')).toHaveTextContent('some text');`
+
+- problem: cant find element by role, solution: `getByRole()` is in describe block instead od test block
