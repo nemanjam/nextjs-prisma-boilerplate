@@ -40,8 +40,12 @@ const SearchInput: FC<Props> = ({ onSearchSubmit, isFetching }) => {
           id="search"
           type="text"
           className={getErrorClass(errors.search?.message)}
+          aria-errormessage="search-err-msg-id"
+          aria-invalid="true"
         />
-        <p className={getErrorClass(errors.search?.message)}>{errors.search?.message}</p>
+        <p id="search-err-msg-id" className={getErrorClass(errors.search?.message)}>
+          {errors.search?.message}
+        </p>
       </div>
     </form>
   );

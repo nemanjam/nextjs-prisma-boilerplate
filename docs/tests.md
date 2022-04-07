@@ -301,3 +301,33 @@ const { result, waitFor } = renderHook(() => useMe(), {
 - problem: cant find element by role, solution: `getByRole()` is in describe block instead od test block
 
 - :root element <html /> `screen.debug(document.documentElement)`, assert class `expect(element).toHaveClass('some-class')`
+
+- search input validation error message test [toHaveErrorMessage docs github](https://github.com/testing-library/jest-dom#tohaveerrormessage)
+- [Bruno Antunes Youtube](https://www.youtube.com/watch?v=MhFSuOjU624)
+
+```tsx
+// aria tags for toHaveErrorMessage()
+<input
+  aria-errormessage="search-err-msg-id"
+  aria-invalid="true"
+/>
+<p id="search-err-msg-id">err msg</p>
+
+// no error message regex `.+` - at least 1 char
+expect(searchInput).not.toHaveErrorMessage(/.+/i);
+```
+
+- test happy path form onSubmit
+
+```tsx
+// mock
+const onSubmit = jest.fn();
+// clear
+afterEach(() => {
+  onSubmit.mockClear();
+});
+// pass
+customRender(<SearchInput onSearchSubmit={onSubmit} />);
+// assert
+expect(onSubmit).toHaveBeenCalledWith(inputText);
+```

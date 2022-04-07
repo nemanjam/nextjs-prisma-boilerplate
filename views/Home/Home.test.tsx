@@ -53,8 +53,8 @@ describe('Home View', () => {
     // fix this?
     await act(async () => {
       await userEvent.type(searchInput, searchTerm);
+      fireEvent.submit(searchInput);
     });
-    fireEvent.submit(searchInput);
 
     // wait for fetching indicator to appear and disappear, no need
 
