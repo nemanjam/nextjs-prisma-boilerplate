@@ -28,6 +28,7 @@ describe('SearchInput', () => {
 
     // assert inputText in onSubmit
     expect(onSubmit).toHaveBeenCalledWith(inputText);
+    expect(onSubmit).toHaveBeenCalledTimes(1);
   });
 
   test('between 3 and 20 chars validation', async () => {

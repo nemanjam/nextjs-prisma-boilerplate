@@ -1,4 +1,4 @@
-import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { act, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { customRender } from 'test/test-utils';
 import CreateView from 'views/Create';
@@ -78,7 +78,65 @@ describe('Create View', () => {
     );
   });
 
-  test.todo('form and validation');
+  // form tests
+
+  test('happy path create submit', async () => {
+    const onSubmit = jest.fn();
+
+    customRender(<CreateView testOnSubmit={onSubmit} />);
+
+    // get fields
+    const titleInput = screen.getByRole('textbox', {
+      name: /title/i,
+    });
+    const contentTextArea = screen.getByRole('textbox', {
+      name: /content/i,
+    });
+    // get create button
+    const createButton = screen.getByRole('button', {
+      name: /create/i,
+    });
+
+    await act(async () => {
+      // valid input
+      await userEvent.type(titleInput, fakePost.title);
+      await userEvent.type(contentTextArea, fakePost.content);
+      // click create
+      await userEvent.click(createButton);
+    });
+
+    // assert onSubmit data
+    expect(onSubmit).toHaveBeenCalledTimes(1);
+    expect(onSubmit).toHaveBeenCalledWith({
+      title: fakePost.title,
+      content: fakePost.content,
+    });
+  });
+
+  test('required messages onSubmit blank fields', async () => {
+    customRender(<CreateView />);
+
+    // get fields
+    const titleInput = screen.getByRole('textbox', {
+      name: /title/i,
+    });
+    const contentTextArea = screen.getByRole('textbox', {
+      name: /content/i,
+    });
+    // get create button
+    const createButton = screen.getByRole('button', {
+      name: /create/i,
+    });
+
+    // click create
+    await act(async () => {
+      await userEvent.click(createButton);
+    });
+
+    // assert validation required error messages
+    expect(titleInput).toHaveErrorMessage(/must contain at least 6 character/i);
+    expect(contentTextArea).toHaveErrorMessage(/must contain at least 6 character/i);
+  });
 
   test.todo('http error 500');
 });

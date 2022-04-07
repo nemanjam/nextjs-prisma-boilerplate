@@ -84,8 +84,10 @@
 - AuthView all await userEvent wrapped in act(), why?
 - hooks error tests (and handling)
 - migrate react query to v4, react 18
-- test form, node api, cypress, ci
+- test form, node api, cypress, ci, error 500
 - seed link in footer
+- each form should be separate component, easier to test
+- parse FormData for test
 
 ### Questions
 

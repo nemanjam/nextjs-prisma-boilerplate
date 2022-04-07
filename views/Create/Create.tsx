@@ -17,7 +17,11 @@ interface CreatePostFormData {
   content: string;
 }
 
-const Create: FC = () => {
+type Props = {
+  testOnSubmit?: (data: CreatePostFormData) => void;
+};
+
+const Create: FC<Props> = ({ testOnSubmit }) => {
   const b = withBem('create');
   const router = useRouter();
 
@@ -29,6 +33,8 @@ const Create: FC = () => {
   const { mutate: createPost, ...restCreate } = useCreatePost();
 
   const onSubmit = async ({ title, content }: CreatePostFormData) => {
+    // just for testing
+    process.env.NODE_ENV === 'test' && testOnSubmit?.({ title, content });
     isUpdate
       ? updatePost({ id: post.id, post: { title, content } })
       : createPost({ title, content });
@@ -77,8 +83,12 @@ const Create: FC = () => {
           autoFocus
           type="text"
           className={getErrorClass(errors.title?.message)}
+          aria-errormessage="create-title-err-msg-id"
+          aria-invalid="true"
         />
-        <p className={getErrorClass(errors.title?.message)}>{errors.title?.message}</p>
+        <p id="create-title-err-msg-id" className={getErrorClass(errors.title?.message)}>
+          {errors.title?.message}
+        </p>
       </div>
 
       <div className={b('form-field')}>
@@ -88,8 +98,13 @@ const Create: FC = () => {
           id="content"
           rows={8}
           className={getErrorClass(errors.content?.message)}
+          aria-errormessage="create-content-err-msg-id"
+          aria-invalid="true"
         />
-        <p className={getErrorClass(errors.content?.message)}>
+        <p
+          id="create-content-err-msg-id"
+          className={getErrorClass(errors.content?.message)}
+        >
           {errors.content?.message}
         </p>
       </div>

@@ -322,7 +322,7 @@ expect(searchInput).not.toHaveErrorMessage(/.+/i);
 ```tsx
 // mock
 const onSubmit = jest.fn();
-// clear
+// clear just that mock
 afterEach(() => {
   onSubmit.mockClear();
 });
@@ -330,4 +330,20 @@ afterEach(() => {
 customRender(<SearchInput onSearchSubmit={onSubmit} />);
 // assert
 expect(onSubmit).toHaveBeenCalledWith(inputText);
+```
+
+- clear one and all mocks
+
+```ts
+// must be declared in describe scope to be cleaned in afterEach()
+const onSubmit = jest.fn();
+
+// ones with jest.clearAllMocks(); can be defined in local test scope
+
+afterEach(() => {
+  // one
+  onSubmit.mockClear();
+  // all
+  jest.clearAllMocks();
+});
 ```
