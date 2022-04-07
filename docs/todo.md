@@ -83,7 +83,9 @@
 - fix loading... escape . regex `await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));`
 - AuthView all await userEvent wrapped in act(), why?
 - hooks error tests (and handling)
-- migrate react query to v4
+- migrate react query to v4, react 18
+- test form, node api, cypress, ci
+- seed link in footer
 
 ### Questions
 
