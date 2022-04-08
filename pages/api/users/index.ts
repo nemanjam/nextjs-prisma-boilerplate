@@ -64,7 +64,7 @@ export type GetUsersQueryParams = {
   sortDirection?: SortDirectionType;
 };
 
-const defaultLimit = 3;
+const defaultLimit = parseInt(process.env.NEXT_PUBLIC_USERS_PER_PAGE);
 
 export const getUsers = async (
   query: QueryParamsType

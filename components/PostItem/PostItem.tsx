@@ -20,6 +20,8 @@ const PostItem: FC<PostProps> = ({ post }) => {
   const { mutate: updatePost, ...restUpdate } = useUpdatePost();
   const { mutate: deletePost, ...restDelete } = useDeletePost();
 
+  if (isLoadingMe || !post) return <Loading isItem />;
+
   const { author } = post;
 
   const postHref = {
@@ -33,8 +35,6 @@ const PostItem: FC<PostProps> = ({ post }) => {
     pathname: '/[username]',
     query: { username: author.username },
   };
-
-  if (isLoadingMe) return <Loading isItem />;
 
   const isOwnerOrAdmin = getIsPostOwner(me, post) || getIsAdmin(me);
 

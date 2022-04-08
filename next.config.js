@@ -22,6 +22,7 @@ module.exports = {
     // used in axios instance, just rename it
     NEXT_PUBLIC_BASE_URL: `${process.env.NEXTAUTH_URL}/`,
     NEXT_PUBLIC_POSTS_PER_PAGE: 5,
+    NEXT_PUBLIC_USERS_PER_PAGE: 3,
   },
   // runtime, server, private
   serverRuntimeConfig: {

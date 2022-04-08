@@ -85,6 +85,8 @@
 - parse FormData for test
 - one youtube lesson for english
 - seed redirect Home, signOut() redirects, needs localStorage, probably not
+- delete 4. user on new page, force prerender, change page - current page state in component `data.pagination.total page useEffect calc` in Profile and Users
+- on delete user cascade posts not working, posts remain
 
 ### Questions
 

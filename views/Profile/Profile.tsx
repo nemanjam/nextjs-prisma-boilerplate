@@ -39,6 +39,17 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
     }
   );
 
+  // reusable hook home, profile, drafts, users
+  // decrement page if no posts on that page
+  useEffect(() => {
+    const perPage = parseInt(process.env.NEXT_PUBLIC_POSTS_PER_PAGE);
+    const total = data?.pagination?.total;
+
+    if (total > 0 && page > 1 && total - (page - 1) * perPage === 0) {
+      setPage((oldPage) => oldPage - 1);
+    }
+  }, [data, page]);
+
   useEffect(() => {
     if (prevSearchTerm !== searchTerm) {
       setPage(1);
@@ -55,7 +66,7 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
     state: page,
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading || !profile) return <Loading />;
 
   return (
     <div className={b()}>

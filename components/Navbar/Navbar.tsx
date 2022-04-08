@@ -24,6 +24,7 @@ import { useMe } from 'lib-client/react-query/auth/useMe';
 import { ClientUser } from 'types';
 import ThemeChanger from 'components/ThemeChanger';
 import fullTwConfig from 'utils/tw-config';
+import Loading from 'components/Loading';
 
 const isActive: (router: NextRouter, pathname: string) => boolean = (router, pathname) =>
   router.asPath === pathname;
@@ -283,8 +284,10 @@ const Navbar: FC = () => {
     }
   }, [isMobile, mobileMenuOpen]);
 
-  const { me } = useMe();
+  const { me, isLoadingMe } = useMe();
   const _onHamburgerClick = () => setMobileMenuOpen((prevOpen) => !prevOpen);
+
+  if (isLoadingMe) return <Loading isItem />;
 
   const args = {
     router,

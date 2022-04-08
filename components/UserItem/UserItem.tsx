@@ -28,6 +28,8 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
 
   const { mutate: deleteUser, ...restDelete } = useDeleteUser();
 
+  if (isLoadingMe || !user) return <Loading isItem />;
+
   const userHref = {
     pathname: '/[username]',
     query: { username: user.username },
@@ -35,8 +37,6 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
 
   // use this instead of {pathname, query} to prevent hard refresh
   const settingsHref = `${Routes.SITE.SETTINGS}${user.username}/`;
-
-  if (isLoadingMe) return <Loading isItem />;
 
   const isAdmin = getIsAdmin(me);
 
