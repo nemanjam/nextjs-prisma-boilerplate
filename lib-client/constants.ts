@@ -14,6 +14,7 @@ export const Routes = {
     USERS: '/api/users/',
     PROFILE: '/api/users/profile/',
     SESSION: '/api/auth/session/',
+    SEED: '/api/seed/',
   },
   STATIC: {
     AVATARS: '/uploads/avatars/',

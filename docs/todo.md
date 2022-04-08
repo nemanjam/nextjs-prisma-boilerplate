@@ -88,6 +88,7 @@
 - seed link in footer
 - each form should be separate component, easier to test
 - parse FormData for test
+- one youtube lesson for english
 
 ### Questions
 

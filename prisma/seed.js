@@ -132,14 +132,15 @@ const deleteAllTables = async () => {
   await prisma.user.deleteMany();
 };
 
+// just require file, or fn will be called 2 times
 async function main() {
   console.log('Start seeding ...');
   console.log('DATABASE_URL:', process.env.DATABASE_URL);
   console.log('avatarsFolderAbsolutePath:', avatarsFolderAbsolutePath);
 
-  await deleteAllTables();
   await deleteAllAvatars();
   await deleteAllHeaderImages();
+  await deleteAllTables();
 
   const users = createUsers(numberOfUsers);
 

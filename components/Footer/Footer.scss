@@ -1,8 +1,10 @@
 .footer {
-  @apply flex justify-center items-center h-[var(--footer-height)];
+  @apply h-[var(--footer-height)];
   @apply bg-th-base-200 text-th-base-content;
 
-  &__content {
-    // @apply bg-th-primary;
+  @apply flex justify-between items-center px-4;
+
+  &__seed-link {
+    @apply link-primary text-sm;
   }
 }

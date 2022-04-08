@@ -60,3 +60,7 @@ export const redirectHome = {
 export const isUrl = (str: string) => {
   return /^https?:\/\//gi.test(str);
 };
+
+export const sleep = (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
