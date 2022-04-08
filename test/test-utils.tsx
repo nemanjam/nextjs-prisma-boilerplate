@@ -12,6 +12,12 @@ const createTestQueryClient = () =>
         retry: false,
       },
     },
+    // silence react-query errors
+    logger: {
+      log: console.log,
+      warn: console.warn,
+      error: () => {},
+    },
   });
 
 type CustomRenderOptionsType = Omit<RenderOptions, 'wrapper'> & {

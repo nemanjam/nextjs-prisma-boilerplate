@@ -22,7 +22,7 @@ export const useMe = () => {
   const { data: session, status } = useSession(); // needs provider
   const id = session?.user?.id;
 
-  const query = useQuery<ClientUser, AxiosError>(QueryKeys.ME, () => getUser(id), {
+  const query = useQuery<ClientUser, AxiosError>([QueryKeys.ME], () => getUser(id), {
     enabled: status !== 'loading',
     onError: (error) => {
       console.error('me query error: ', error.response);

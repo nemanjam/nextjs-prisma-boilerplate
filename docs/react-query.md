@@ -60,3 +60,27 @@ const settingsHref = {
 - `keepPreviousData` and `useQuery` is v3, `usePaginatedQuery` is v2
 - official [example](https://github.dev/tannerlinsley/react-query)
 - Udemy [example](https://github.dev/bonnie/udemy-REACT-QUERY)
+
+### v4 migration
+
+- [docs](https://react-query-beta.tanstack.com/guides/migrating-to-react-query-4)
+
+- QueryKeys array, not a string
+
+```ts
+// queries
+useQuery<ClientUser, AxiosError>([QueryKeys.ME], fn);
+// mutations
+queryClient.invalidateQueries([QueryKeys.POSTS_DRAFTS]);
+```
+
+- remove setLogger, new logger option
+
+```ts
+// v3
+import { setLogger } from 'react-query';
+setLogger(customLogger);
+// v4
+const queryClient = new QueryClient();
+const queryClient = new QueryClient({ logger: customLogger });
+```

@@ -51,7 +51,7 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
     });
 
     if (response.ok) {
-      await queryClient.invalidateQueries(QueryKeys.ME);
+      await queryClient.invalidateQueries([QueryKeys.ME]);
       await router.push(response.url);
     }
   };

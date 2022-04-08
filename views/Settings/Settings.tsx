@@ -106,12 +106,14 @@ const Settings: FC = () => {
         const avatarUrl = getAvatarPath(user);
         const avatar = await getImage(avatarUrl);
 
+        if (!isMounted) return;
+
         reset({
           ...getValues(),
           avatar,
         } as SettingsFormData);
 
-        isMounted && setIsAvatarLoading(false);
+        setIsAvatarLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -122,12 +124,14 @@ const Settings: FC = () => {
         const headerUrl = getHeaderImagePath(user);
         const header = await getImage(headerUrl);
 
+        if (!isMounted) return;
+
         reset({
           ...getValues(),
           header,
         } as SettingsFormData);
 
-        isMounted && setIsHeaderLoading(false);
+        setIsHeaderLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -179,7 +183,7 @@ const Settings: FC = () => {
           } else {
             await Promise.all([
               queryClient.invalidateQueries([QueryKeys.USER, user.id]),
-              queryClient.invalidateQueries(QueryKeys.ME),
+              queryClient.invalidateQueries([QueryKeys.ME]),
             ]);
           }
         },

@@ -25,7 +25,7 @@ export const useCreatePost = () => {
         console.error(error);
       },
       onSuccess: async () => {
-        await queryClient.invalidateQueries(QueryKeys.POSTS_DRAFTS);
+        await queryClient.invalidateQueries([QueryKeys.POSTS_DRAFTS]);
         await router.push(Routes.SITE.DRAFTS);
       },
     }

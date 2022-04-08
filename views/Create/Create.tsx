@@ -28,6 +28,7 @@ const Create: FC<Props> = ({ testOnSubmit }) => {
   const id = Number(router.query?.id?.[0]);
   const { data: post, isLoading } = usePost(id);
   const isUpdate = !!post;
+  const isEnabled = !isNaN(id);
 
   const { mutate: updatePost, ...restUpdate } = useUpdatePost();
   const { mutate: createPost, ...restCreate } = useCreatePost();
@@ -65,7 +66,7 @@ const Create: FC<Props> = ({ testOnSubmit }) => {
   // invalid id in url
   if (id && !post) return <NextError statusCode={404} />;
 
-  if (isLoading) return <Loading />;
+  if (isLoading && isEnabled) return <Loading />;
 
   return (
     <form className={b()} onSubmit={handleSubmit(onSubmit)}>

@@ -33,9 +33,9 @@ export const useUpdatePost = () => {
       },
       onSuccess: async (data) => {
         await Promise.all([
-          queryClient.invalidateQueries(QueryKeys.POSTS_DRAFTS),
-          queryClient.invalidateQueries(QueryKeys.POSTS_HOME),
-          queryClient.invalidateQueries(QueryKeys.POSTS_PROFILE),
+          queryClient.invalidateQueries([QueryKeys.POSTS_DRAFTS]),
+          queryClient.invalidateQueries([QueryKeys.POSTS_HOME]),
+          queryClient.invalidateQueries([QueryKeys.POSTS_PROFILE]),
           queryClient.invalidateQueries([QueryKeys.POST, data.id]),
         ]);
 

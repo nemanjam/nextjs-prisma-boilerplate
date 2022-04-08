@@ -1,5 +1,4 @@
 import '@testing-library/jest-dom';
-import { setLogger } from 'react-query';
 import { server } from 'test/server';
 import { Blob } from 'blob-polyfill';
 
@@ -27,10 +26,3 @@ global.Blob = Blob;
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
-
-// silence react-query errors
-setLogger({
-  log: console.log,
-  warn: console.warn,
-  error: () => {},
-});

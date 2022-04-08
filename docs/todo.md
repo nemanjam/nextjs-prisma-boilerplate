@@ -77,18 +77,14 @@
 - handle http error in HomeView, both getServerSideProps and useQuery, ErrorBoundary, error handling and error testing same thing
 - return ClientUser from all api endpoints
 - update callback links on Facebook and Google for Oracle
-- test Settings view
 - test coverage setup
-- userEvent Auth and Home
-- fix loading... escape . regex `await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));`
-- AuthView all await userEvent wrapped in act(), why?
 - hooks error tests (and handling)
 - migrate react query to v4, react 18
 - test form, node api, cypress, ci, error 500
-- seed link in footer
 - each form should be separate component, easier to test
 - parse FormData for test
 - one youtube lesson for english
+- seed redirect Home, signOut() redirects, needs localStorage, probably not
 
 ### Questions
 
@@ -165,3 +161,8 @@
 - soft delete for reseed, or logger, no
 - msw not called at all?, done
 - maybe put uploads paths in Routes object, done
+- seed link in footer, done
+- fix loading... escape . regex `await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));`, done
+- test Settings view, done
+- userEvent Auth and Home, done
+- AuthView all await userEvent wrapped in act(), why?, done

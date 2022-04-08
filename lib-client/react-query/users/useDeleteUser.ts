@@ -20,7 +20,7 @@ export const useDeleteUser = () => {
         console.error(error);
       },
       onSuccess: async () => {
-        await queryClient.invalidateQueries(QueryKeys.USERS);
+        await queryClient.invalidateQueries([QueryKeys.USERS]);
       },
     }
   );
