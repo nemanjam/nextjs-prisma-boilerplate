@@ -26,7 +26,6 @@ export const useCreateSeed = () => {
         // clear everything
         signOut();
         queryClient.clear();
-        // await router.push(Routes.SITE.HOME);
       },
     }
   );

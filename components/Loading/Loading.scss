@@ -1,2 +1,8 @@
 .loading {
+  // h2 font
+  @apply text-xl font-bold;
+
+  &--is-item {
+    @apply text-base font-normal;
+  }
 }

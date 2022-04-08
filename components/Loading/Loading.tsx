@@ -1,10 +1,18 @@
 import React, { FC } from 'react';
 import { withBem } from 'utils/bem';
 
-const Loading: FC = () => {
+type Props = {
+  isItem?: boolean;
+};
+
+const Loading: FC<Props> = ({ isItem = false }) => {
   const b = withBem('loading');
 
-  return <h2 className={b()}>Loading...</h2>;
+  const modifiers = {
+    'is-item': isItem,
+  };
+
+  return <div className={b(null, modifiers)}>Loading...</div>;
 };
 
 export default Loading;

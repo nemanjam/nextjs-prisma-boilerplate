@@ -34,7 +34,7 @@ const PostItem: FC<PostProps> = ({ post }) => {
     query: { username: author.username },
   };
 
-  if (isLoadingMe) return <Loading />;
+  if (isLoadingMe) return <Loading isItem />;
 
   const isOwnerOrAdmin = getIsPostOwner(me, post) || getIsAdmin(me);
 
