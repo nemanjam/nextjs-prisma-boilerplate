@@ -37,9 +37,21 @@ s.address()
 
 - fix auth url
 
-```
+```ts
+// .env.development
+PROTOCOL=http
+// without '/'
 NEXTAUTH_URL=https://3001-jade-gayal-p7d8xqgb.ws-eu25.gitpod.io
-NEXT_PUBLIC_BASE_URL=https://3001-jade-gayal-p7d8xqgb.ws-eu25.gitpod.io/
+
+// .env.local
+DATABASE_URL=postgresql://postgres_user:postgres-external...
+```
+
+```ts
+// workspace url example
+https://nemanjam-nextjsprismaboi-u7qkzmc70mh.ws-eu39.gitpod.io/
+// website url example
+https://3001-nemanjam-nextjsprismaboi-u7qkzmc70mh.ws-eu39.gitpod.io/
 ```
 
 ### Run on Repl.it

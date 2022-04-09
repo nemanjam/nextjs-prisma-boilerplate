@@ -45,26 +45,26 @@ app.prepare().then(() => {
 // must be here, cannot import in production
 function printLoadedEnvVariables() {
   const { serverRuntimeConfig } = getConfig();
-  const seprator = '--------------';
+  const separator = '--------------';
 
   const vars = {
-    '-node': seprator,
+    '-node': separator,
     NODE_ENV: process.env.NODE_ENV,
     PORT: process.env.PORT,
-    'env-buildime': seprator,
+    'env-buildime': separator,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
-    '.env': seprator,
+    '.env': separator,
     PROTOCOL: process.env.PROTOCOL,
     HOSTNAME: process.env.HOSTNAME,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    '.env.local-db': seprator,
+    '.env.local-db': separator,
     // POSTGRES_USER: process.env.POSTGRES_USER,
     // POSTGRES_HOSTNAME: process.env.POSTGRES_HOSTNAME,
     // POSTGRES_PORT: process.env.POSTGRES_PORT,
     // POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
     // POSTGRES_DB: process.env.POSTGRES_DB,
     DATABASE_URL: process.env.DATABASE_URL,
-    '-serverRuntimeConfig': seprator,
+    '-serverRuntimeConfig': separator,
     SECRET: serverRuntimeConfig.SECRET,
     FACEBOOK_CLIENT_ID: serverRuntimeConfig.FACEBOOK_CLIENT_ID,
     FACEBOOK_CLIENT_SECRET: serverRuntimeConfig.FACEBOOK_CLIENT_SECRET,
