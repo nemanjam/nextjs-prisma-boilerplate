@@ -12,10 +12,14 @@ const Dropdown: FC<Props> = ({ children, items }) => {
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const b = withBem('dropdown');
 
+  const handleClick = () => {
+    setIsActive((prevIsActive) => !prevIsActive);
+  };
+
   return (
     <div className={b()}>
       <div className={b('container')}>
-        <span onClick={() => setIsActive(!isActive)} className={b('anchor')}>
+        <span onClick={handleClick} className={b('anchor')}>
           {children}
         </span>
 

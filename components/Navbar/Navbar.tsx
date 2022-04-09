@@ -166,9 +166,8 @@ const getAllItems = ({
     </Dropdown>
   ),
   justAvatar: me && (
-    <span className={b('just-avatar-wrapper')}>
+    <span key="justAvatar" className={b('just-avatar-wrapper')}>
       <Image
-        key="justAvatar"
         loader={uploadsImageLoader}
         src={getAvatarPath(me)}
         width={96}

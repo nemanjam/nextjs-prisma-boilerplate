@@ -15,7 +15,8 @@ const useDetectOutsideClick = (
     const onClick = (e) => {
       // If the active element exists and is clicked outside of
       if (el.current !== null && !el.current.contains(e.target)) {
-        setIsActive(!isActive);
+        // todo: fix this
+        // setIsActive((prevIsActive) => !prevIsActive); // only closes
       }
     };
 
