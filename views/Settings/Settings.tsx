@@ -80,7 +80,7 @@ const Settings: FC = () => {
     },
   });
 
-  const { register, handleSubmit, formState, reset, getValues, setValue } = methods;
+  const { register, handleSubmit, formState, reset, getValues } = methods;
   const { errors, dirtyFields } = formState;
 
   // async load user too
@@ -107,9 +107,11 @@ const Settings: FC = () => {
           const avatarUrl = getAvatarPath(user);
           const avatar = await getImage(avatarUrl);
 
-          if (!isMounted) return;
-
-          setValue('avatar', avatar);
+          // reset resets formState.isDirty..., setValue doesnt
+          reset({
+            ...getValues(),
+            avatar,
+          } as SettingsFormData);
           setIsAvatarLoading(false);
           break;
 
@@ -117,9 +119,10 @@ const Settings: FC = () => {
           const headerUrl = getHeaderImagePath(user);
           const header = await getImage(headerUrl);
 
-          if (!isMounted) return;
-
-          setValue('header', header);
+          reset({
+            ...getValues(),
+            header,
+          } as SettingsFormData);
           setIsHeaderLoading(false);
           break;
       }
@@ -128,12 +131,20 @@ const Settings: FC = () => {
     }
   };
 
+  // all default values in one useEffect...?
   useEffect(() => {
     const run = async () => {
       if (!avatarFile && isAvatarLoading && user) {
         await loadImageIntoForm(user, 'avatar');
       }
+    };
+    if (isMounted) {
+      run();
+    }
+  }, [user, avatarFile, isAvatarLoading, isMounted]);
 
+  useEffect(() => {
+    const run = async () => {
       if (!headerFile && isHeaderLoading && user) {
         await loadImageIntoForm(user, 'header');
       }
@@ -142,7 +153,7 @@ const Settings: FC = () => {
     if (isMounted) {
       run();
     }
-  }, [user, avatarFile, headerFile, isAvatarLoading, isHeaderLoading, isMounted]);
+  }, [user, headerFile, isHeaderLoading, isMounted]);
 
   const dropzoneOptions: DropzoneOptions = {
     accept: 'image/png, image/jpg, image/jpeg',

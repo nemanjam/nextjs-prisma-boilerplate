@@ -42,6 +42,7 @@ const DropzoneSingle: FC<IFileInputProps> = ({
 
   useEffect(() => {
     register(name);
+
     return () => {
       unregister(name);
     };

@@ -39,7 +39,6 @@
 - all in daisy ui
 - @tailwindcss/line-clamp plugin to limmit posts length
 - custom font maybe
-- reseed app button in footer
 - footer styling
 - login neutral button color, dark theme
 - active button border, focus ring...
@@ -65,13 +64,10 @@
 - separate test config for react and backend api
 - mocks, spyes, describe
 - unit, integration
-- msw
-- setup logged in user in test-utils render
 - skeletons, react suspense
 - work organisation md doc
 - handle success, loading, error, empty states
-- ErrorBoundary
-- msw param routes?
+- ErrorBoundary, Suspense loading
 - tests: render 200 and 500, mutation, component - unit, forms, hooks, API backend, cypress with real db
 - Github Action CI for tests
 - handle http error in HomeView, both getServerSideProps and useQuery, ErrorBoundary, error handling and error testing same thing
@@ -85,11 +81,10 @@
 - parse FormData for test
 - one youtube lesson for english
 - seed redirect Home, signOut() redirects, needs localStorage, probably not
-- on delete user cascade posts not working, posts remain
 - gitpod env
 - container with vs code for replicating bugs - Gitpod Self-Hosted container
 - testing-lib/react-hooks ReactDom warning
-- avatar thrown out of the form state???
+- avatar thrown out of the form state??? form.reset() not working...
 
 ### Questions
 
@@ -172,3 +167,8 @@
 - userEvent Auth and Home, done
 - AuthView all await userEvent wrapped in act(), why?, done
 - delete 4. user on new page, force prerender, change page - current page state in component `data.pagination.total page useEffect calc` in Profile and Users, done useDecrementPage
+- on delete user cascade posts not working, posts remain, done
+- setup logged in user in test-utils render, done
+- msw, done
+- msw param routes, done
+- reseed app button in footer, done
