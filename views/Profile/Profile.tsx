@@ -18,6 +18,7 @@ import SearchInput from 'components/SearchInput';
 import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
 import NoItems from 'components/NoItems';
 import Loading from 'components/Loading';
+import useDecrementPage from 'components/hooks/useDecrementPage';
 
 type ProfileProps = {
   profile: ClientUser;
@@ -39,16 +40,12 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
     }
   );
 
-  // reusable hook home, profile, drafts, users
-  // decrement page if no posts on that page
-  useEffect(() => {
-    const perPage = parseInt(process.env.NEXT_PUBLIC_POSTS_PER_PAGE);
-    const total = data?.pagination?.total;
-
-    if (total > 0 && page > 1 && total - (page - 1) * perPage === 0) {
-      setPage((oldPage) => oldPage - 1);
-    }
-  }, [data, page]);
+  useDecrementPage({
+    page,
+    total: data?.pagination?.total,
+    itemsType: 'posts',
+    setPage,
+  });
 
   useEffect(() => {
     if (prevSearchTerm !== searchTerm) {

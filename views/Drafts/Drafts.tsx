@@ -7,6 +7,7 @@ import QueryKeys from 'lib-client/react-query/queryKeys';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import NoItems from 'components/NoItems';
 import Loading from 'components/Loading';
+import useDecrementPage from 'components/hooks/useDecrementPage';
 
 const Drafts: FC = () => {
   const b = withBem('drafts');
@@ -17,6 +18,13 @@ const Drafts: FC = () => {
     QueryKeys.POSTS_DRAFTS,
     { page, userId: me?.id, published: false }
   );
+
+  useDecrementPage({
+    page,
+    total: data?.pagination?.total,
+    itemsType: 'posts',
+    setPage,
+  });
 
   if (isLoading) return <Loading />;
 

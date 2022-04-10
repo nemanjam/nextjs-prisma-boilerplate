@@ -8,6 +8,7 @@ import usePrevious from 'components/hooks/usePrevious';
 import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
 import NoItems from 'components/NoItems';
 import Loading from 'components/Loading';
+import useDecrementPage from 'components/hooks/useDecrementPage';
 
 const Users: FC = () => {
   const b = withBem('users');
@@ -26,6 +27,13 @@ const Users: FC = () => {
       setPage(1);
     }
   }, [prevSearchTerm, searchTerm]);
+
+  useDecrementPage({
+    page,
+    total: data?.pagination?.total,
+    itemsType: 'users',
+    setPage,
+  });
 
   const isSearchFetching = useCalcIsFetching({
     isFetching,

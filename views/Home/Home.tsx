@@ -10,6 +10,7 @@ import usePrevious from 'components/hooks/usePrevious';
 import PreviewTheme from 'components/PreviewTheme';
 import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
 import Loading from 'components/Loading';
+import useDecrementPage from 'components/hooks/useDecrementPage';
 
 const Home: FC = () => {
   const b = withBem('home');
@@ -28,6 +29,13 @@ const Home: FC = () => {
       setPage(1);
     }
   }, [prevSearchTerm, searchTerm]);
+
+  useDecrementPage({
+    page,
+    total: data?.pagination?.total,
+    itemsType: 'posts',
+    setPage,
+  });
 
   const isSearchFetching = useCalcIsFetching({
     isFetching,
