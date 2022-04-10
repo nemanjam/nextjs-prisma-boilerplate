@@ -80,7 +80,7 @@ const Settings: FC = () => {
     },
   });
 
-  const { register, handleSubmit, formState, reset, getValues } = methods;
+  const { register, handleSubmit, formState, reset, getValues, setValue } = methods;
   const { errors, dirtyFields } = formState;
 
   // async load user too
@@ -100,49 +100,47 @@ const Settings: FC = () => {
 
   // set initial value for avatar, header async
   // images should be in form state and not in React Query state
-  useEffect(() => {
-    const runAvatar = async (user: ClientUser) => {
-      try {
-        const avatarUrl = getAvatarPath(user);
-        const avatar = await getImage(avatarUrl);
+  const loadImageIntoForm = async (user: ClientUser, image: 'avatar' | 'header') => {
+    try {
+      switch (image) {
+        case 'avatar':
+          const avatarUrl = getAvatarPath(user);
+          const avatar = await getImage(avatarUrl);
 
-        if (!isMounted) return;
+          if (!isMounted) return;
 
-        reset({
-          ...getValues(),
-          avatar,
-        } as SettingsFormData);
+          setValue('avatar', avatar);
+          setIsAvatarLoading(false);
+          break;
 
-        setIsAvatarLoading(false);
-      } catch (error) {
-        console.error(error);
+        case 'header':
+          const headerUrl = getHeaderImagePath(user);
+          const header = await getImage(headerUrl);
+
+          if (!isMounted) return;
+
+          setValue('header', header);
+          setIsHeaderLoading(false);
+          break;
       }
-    };
-
-    const runHeader = async (user: ClientUser) => {
-      try {
-        const headerUrl = getHeaderImagePath(user);
-        const header = await getImage(headerUrl);
-
-        if (!isMounted) return;
-
-        reset({
-          ...getValues(),
-          header,
-        } as SettingsFormData);
-
-        setIsHeaderLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    if (!avatarFile && isAvatarLoading && user) {
-      runAvatar(user);
+    } catch (error) {
+      console.error(error);
     }
+  };
 
-    if (!headerFile && isHeaderLoading && user) {
-      runHeader(user);
+  useEffect(() => {
+    const run = async () => {
+      if (!avatarFile && isAvatarLoading && user) {
+        await loadImageIntoForm(user, 'avatar');
+      }
+
+      if (!headerFile && isHeaderLoading && user) {
+        await loadImageIntoForm(user, 'header');
+      }
+    };
+
+    if (isMounted) {
+      run();
     }
   }, [user, avatarFile, headerFile, isAvatarLoading, isHeaderLoading, isMounted]);
 

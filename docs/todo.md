@@ -88,8 +88,9 @@
 - delete 4. user on new page, force prerender, change page - current page state in component `data.pagination.total page useEffect calc` in Profile and Users
 - on delete user cascade posts not working, posts remain
 - gitpod env
-- container with vs code for replicating bugs
+- container with vs code for replicating bugs - Gitpod Self-Hosted container
 - testing-lib/react-hooks ReactDom warning
+- avatar thrown out of the form state???
 
 ### Questions
 
