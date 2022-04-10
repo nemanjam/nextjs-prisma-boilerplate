@@ -85,7 +85,6 @@
 - parse FormData for test
 - one youtube lesson for english
 - seed redirect Home, signOut() redirects, needs localStorage, probably not
-- delete 4. user on new page, force prerender, change page - current page state in component `data.pagination.total page useEffect calc` in Profile and Users
 - on delete user cascade posts not working, posts remain
 - gitpod env
 - container with vs code for replicating bugs - Gitpod Self-Hosted container
@@ -172,3 +171,4 @@
 - test Settings view, done
 - userEvent Auth and Home, done
 - AuthView all await userEvent wrapped in act(), why?, done
+- delete 4. user on new page, force prerender, change page - current page state in component `data.pagination.total page useEffect calc` in Profile and Users, done useDecrementPage

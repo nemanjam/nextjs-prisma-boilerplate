@@ -4,7 +4,7 @@ CREATE TABLE "posts" (
     "title" TEXT NOT NULL,
     "content" TEXT,
     "published" BOOLEAN NOT NULL DEFAULT false,
-    "authorId" TEXT,
+    "authorId" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -52,8 +52,8 @@ CREATE TABLE "accounts" (
 CREATE TABLE "sessions" (
     "id" TEXT NOT NULL,
     "session_token" TEXT NOT NULL,
-    "user_id" TEXT NOT NULL,
     "expires" TIMESTAMP(3) NOT NULL,
+    "user_id" TEXT NOT NULL,
 
     CONSTRAINT "sessions_pkey" PRIMARY KEY ("id")
 );
@@ -84,7 +84,7 @@ CREATE UNIQUE INDEX "verificationtokens_token_key" ON "verificationtokens"("toke
 CREATE UNIQUE INDEX "verificationtokens_identifier_token_key" ON "verificationtokens"("identifier", "token");
 
 -- AddForeignKey
-ALTER TABLE "posts" ADD CONSTRAINT "posts_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "posts" ADD CONSTRAINT "posts_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "accounts" ADD CONSTRAINT "accounts_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;

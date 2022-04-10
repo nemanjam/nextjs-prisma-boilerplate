@@ -84,3 +84,5 @@ setLogger(customLogger);
 const queryClient = new QueryClient();
 const queryClient = new QueryClient({ logger: customLogger });
 ```
+
+- loading, error and empty state [hashnode](https://blog.whereisthemouse.com/good-practices-for-loading-error-and-empty-states-in-react)

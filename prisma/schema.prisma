@@ -22,8 +22,8 @@ model Post {
   title       String
   content     String?
   published   Boolean @default(false)
-  author      User?   @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId    String?
+  authorId    String
+  author      User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
   createdAt   DateTime  @default(now()) @map(name: "created_at")
   updatedAt   DateTime  @updatedAt @map(name: "updated_at")
   // hero image, tag, category, comments, likes
@@ -55,6 +55,7 @@ model User {
 model Account {
   id                 String  @id @default(cuid())
   userId             String  @map("user_id")
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   type               String
   provider           String
   providerAccountId  String  @map("provider_account_id")
@@ -66,8 +67,6 @@ model Account {
   id_token           String?
   session_state      String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   @@unique([provider, providerAccountId])
   @@map("accounts")
 }
@@ -75,8 +74,8 @@ model Account {
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique @map("session_token")
-  userId       String   @map("user_id")
   expires      DateTime  
+  userId       String   @map("user_id")
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
