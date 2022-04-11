@@ -14,8 +14,8 @@ export default class ApiError extends Error {
   }
 }
 
-export const handleError = (error: any, req: NextApiRequest, res: NextApiResponse) => {
-  console.log('handled error: ', error);
+export const handleApiError = (error: any, req: NextApiRequest, res: NextApiResponse) => {
+  console.error('handled API error: ', error);
   const isProd = process.env.NODE_ENV === 'production';
 
   const response = {
@@ -26,4 +26,8 @@ export const handleError = (error: any, req: NextApiRequest, res: NextApiRespons
   };
   // if status > 399 => error
   res.status(error.statusCode || 500).json(response);
+};
+
+export const handleSsrError = (error: any, req: NextApiRequest, res: NextApiResponse) => {
+  console.error('handled SSR error: ', error);
 };

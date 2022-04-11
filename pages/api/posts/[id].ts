@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { withValidation } from 'next-validations';
 import nc, { ncOptions } from 'lib-server/nc';
-import prisma, { getMe } from 'lib-server/prisma';
+import prisma, { excludeFromPost, getMe } from 'lib-server/prisma';
 import { requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
 import { postUpdateSchema } from 'lib-server/validation';
-import { PostWithAuthor } from 'types';
+import { PostWithAuthor, PostWithUser } from 'types';
 
 const handler = nc(ncOptions);
 const getId = (req: NextApiRequest) => Number(req.query.id as string);
@@ -16,8 +16,9 @@ const validatePostUpdate = withValidation({
   mode: 'body',
 });
 
-export const getPostWithAuthorById = async (id: number): Promise<PostWithAuthor> => {
-  // returns null for not found
+export const getPostWithAuthorById = async (id: number): Promise<PostWithUser> => {
+  // zod validate id
+
   const post = await prisma.post.findUnique({
     where: {
       id,
@@ -26,18 +27,18 @@ export const getPostWithAuthorById = async (id: number): Promise<PostWithAuthor>
       author: true,
     },
   });
-  // don't throw from function but from api, it will be unhandled
+
+  if (!post) throw new ApiError('Post not found.', 404);
+
   return post;
 };
 
 // GET, PATCH, DELETE /api/post/:id
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
+  console.log('here ------------');
   const post = await getPostWithAuthorById(getId(req));
-
-  if (!post) throw new ApiError('Post not found.', 404);
-
-  res.status(200).json(post);
+  res.status(200).json(excludeFromPost(post));
 });
 
 handler.patch(
@@ -76,7 +77,7 @@ handler.patch(
       },
     });
 
-    res.status(200).json(post);
+    res.status(200).json(excludeFromPost(post));
   }
 );
 
@@ -88,8 +89,7 @@ handler.delete(requireAuth, async (req: NextApiRequest, res: NextApiResponse) =>
       author: true,
     },
   });
-
-  res.status(204).json(post);
+  res.status(204).json(excludeFromPost(post));
 });
 
 export default handler;

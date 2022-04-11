@@ -107,7 +107,7 @@ const Post: FC = () => {
                 variant="secondary"
                 onClick={() => {
                   deletePost(post.id, {
-                    onSuccess: async () => await router.push(Routes.SITE.HOME),
+                    onSuccess: async () => router.back(),
                   });
                 }}
               >

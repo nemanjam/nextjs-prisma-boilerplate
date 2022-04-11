@@ -6,6 +6,8 @@ import { getPostsWithAuthor } from 'pages/api/posts';
 import HomeView from 'views/Home';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
+import { ssrNcHandler } from '@lib-server/nc';
+import { PaginatedResponse, PostWithAuthor } from 'types';
 
 const Home: FC = () => {
   return (
@@ -19,11 +21,12 @@ const Home: FC = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const callback = async () => await getPostsWithAuthor({});
+  const posts = ssrNcHandler<PaginatedResponse<PostWithAuthor>>(req, res, callback);
+
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery([QueryKeys.POSTS_HOME, 1], () =>
-    getPostsWithAuthor({})
-  );
+  await queryClient.prefetchQuery([QueryKeys.POSTS_HOME, 1], () => posts);
 
   return {
     props: {

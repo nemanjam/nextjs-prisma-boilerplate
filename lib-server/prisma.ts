@@ -1,6 +1,7 @@
-import { PrismaClient } from '@prisma/client';
+import { Post, PrismaClient, User } from '@prisma/client';
 import { getSession, GetSessionParams } from 'next-auth/react';
-import { ClientUser } from 'types';
+import { ClientUser, PostWithAuthor } from 'types';
+import ApiError from 'lib-server/error';
 
 // PrismaClient is attached to the `global` object in development to prevent
 // exhausting your database connection limit.
@@ -19,6 +20,9 @@ if (process.env.NODE_ENV === 'production') {
   prisma = global.prisma;
 }
 
+/**
+ * https://www.prisma.io/docs/concepts/components/prisma-client/excluding-fields
+ */
 export const exclude = <T, Key extends keyof T>(
   model: T,
   ...keys: Key[]
@@ -31,16 +35,31 @@ export const exclude = <T, Key extends keyof T>(
   return model;
 };
 
-export const getMe = async (params: GetSessionParams) => {
+export const excludeFromPost = (
+  post: Post & {
+    author: User;
+  }
+): PostWithAuthor => {
+  return {
+    ...post,
+    author: exclude(post.author, 'password'),
+  };
+};
+
+export const excludeFromUser = (user: User): ClientUser => {
+  return exclude(user, 'password');
+};
+
+export const getMe = async (params: GetSessionParams): Promise<ClientUser> => {
   const session = await getSession(params);
   const id = session?.user?.id;
 
-  if (!id) return null;
+  if (!id) throw new ApiError(`Invalid session.user.id: ${id}.`, 400);
 
   // filter password
   const me = await prisma.user.findUnique({ where: { id } });
 
-  return exclude(me, 'password') as ClientUser;
+  return excludeFromUser(me);
 };
 
 export default prisma;

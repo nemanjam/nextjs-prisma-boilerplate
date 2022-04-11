@@ -1,11 +1,14 @@
 import React, { FC } from 'react';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, NextApiRequest, NextApiResponse } from 'next';
 import PageLayout from 'layouts/PageLayout';
 import PostView from 'views/Post';
 import { getPostWithAuthorById } from 'pages/api/posts/[id]';
 import { dehydrate, QueryClient } from 'react-query';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
+import { excludeFromPost } from '@lib-server/prisma';
+import { ssrNcHandler } from '@lib-server/nc';
+import { PostWithUser } from 'types';
 
 type Props = {
   title?: string;
@@ -24,10 +27,11 @@ const Post: FC<Props> = ({ title, updatedAt }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
   const id = Number(params?.id);
-  // try catch...
-  const post = await getPostWithAuthorById(id);
+
+  const callback = async () => await getPostWithAuthorById(id);
+  const post = await ssrNcHandler<PostWithUser>(req, res, callback);
 
   if (!post) {
     return {
@@ -36,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery([QueryKeys.POST, id], () => post);
+  await queryClient.prefetchQuery([QueryKeys.POST, id], () => excludeFromPost(post));
 
   return {
     props: {

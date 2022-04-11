@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { withValidation } from 'next-validations';
-import prisma from 'lib-server/prisma';
+import prisma, { excludeFromPost } from 'lib-server/prisma';
 import nc, { ncOptions } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
 import { getSession } from 'next-auth/react';
@@ -125,7 +125,7 @@ export const getPostsWithAuthor = async (
   // console.log('totalCount', totalCount);
 
   const result = {
-    items: posts,
+    items: posts.map((post) => excludeFromPost(post)),
     pagination: {
       total: totalCount,
       pagesCount: Math.ceil(totalCount / limit),

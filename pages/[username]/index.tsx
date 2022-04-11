@@ -9,6 +9,8 @@ import { User } from '@prisma/client';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
 import { getAvatarPathAbsolute } from 'lib-client/imageLoaders';
+import { ssrNcHandler } from '@lib-server/nc';
+import { PaginatedResponse, PostWithAuthor } from 'types';
 
 type ProfileProps = {
   profile: User;
@@ -29,8 +31,9 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const profile = await getUserByIdOrUsernameOrEmail(params);
+export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
+  const callback1 = async () => await getUserByIdOrUsernameOrEmail(params);
+  const profile = await ssrNcHandler<User>(req, res, callback1);
 
   if (!profile) {
     return {
@@ -40,9 +43,14 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   const query = { username: profile.username };
 
+  const callback2 = async () => await getPostsWithAuthor(query);
+  // <PaginatedResponse<PostWithAuthor>>
+  const posts = await ssrNcHandler(req, res, callback2);
+
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery([QueryKeys.POSTS_PROFILE, profile.username, 1], () =>
-    getPostsWithAuthor(query)
+  await queryClient.prefetchQuery(
+    [QueryKeys.POSTS_PROFILE, profile.username, 1],
+    () => posts
   );
 
   return {

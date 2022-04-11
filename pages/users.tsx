@@ -6,6 +6,8 @@ import { getUsers } from 'pages/api/users';
 import UsersView from 'views/Users';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
+import { ssrNcHandler } from '@lib-server/nc';
+import { ClientUser, PaginatedResponse } from 'types';
 
 const Users: FC = () => {
   return (
@@ -18,9 +20,12 @@ const Users: FC = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const callback = async () => await getUsers({}); // use api defaults
+  const users = await ssrNcHandler<PaginatedResponse<ClientUser>>(req, res, callback);
+
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery([QueryKeys.USERS, 1], () => getUsers({})); // use api defaults
+  await queryClient.prefetchQuery([QueryKeys.USERS, 1], () => users);
 
   return {
     props: {

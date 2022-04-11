@@ -11,6 +11,8 @@ import {
 import { getMe } from 'lib-server/prisma';
 import { redirectLogin, redirectNotFound } from 'utils';
 import CustomHead from 'components/CustomHead';
+import { ssrNcHandler } from '@lib-server/nc';
+import { ClientUser } from 'types';
 
 const Settings: FC = () => {
   return (
@@ -23,8 +25,9 @@ const Settings: FC = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params, req }) => {
-  const me = await getMe({ req });
+export const getServerSideProps: GetServerSideProps = async ({ params, req, res }) => {
+  const callback1 = async () => await getMe({ req });
+  const me = await ssrNcHandler<ClientUser>(req, res, callback1);
 
   if (!me) {
     return redirectLogin;
@@ -42,7 +45,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req }) =>
     _params = { id: me.id };
   }
 
-  const user = await getUserByIdOrUsernameOrEmail(_params);
+  const callback2 = async () => await getUserByIdOrUsernameOrEmail(_params);
+  const user = await ssrNcHandler<ClientUser>(req, res, callback2);
 
   if (!user) {
     return redirectNotFound;

@@ -1,10 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { withValidation } from 'next-validations';
-import prisma, { exclude } from 'lib-server/prisma';
+import prisma, { exclude, excludeFromUser } from 'lib-server/prisma';
 import nc, { ncOptions } from 'lib-server/nc';
 import ApiError from 'lib-server/error';
 import { userGetSchema } from 'lib-server/validation';
 import { ClientUser, QueryParamsType } from 'types';
+import { User } from '@prisma/client';
 
 const handler = nc(ncOptions);
 
@@ -24,7 +25,7 @@ export type GetUserQueryParams = {
 // query so it can be validated with schema
 export const getUserByIdOrUsernameOrEmail = async (
   query: QueryParamsType
-): Promise<ClientUser> => {
+): Promise<User> => {
   const validationResult = userGetSchema.safeParse(query);
   if (!validationResult.success) return; // throw 404 in getServerSideProps
 
@@ -33,7 +34,12 @@ export const getUserByIdOrUsernameOrEmail = async (
   const user = await prisma.user.findFirst({
     where: { OR: [{ id }, { username }, { email }] },
   });
-  return exclude(user, 'password');
+
+  if (!user) {
+    throw new ApiError(`User not found.`, 404);
+  }
+
+  return user;
 };
 
 /**
@@ -43,12 +49,7 @@ export const getUserByIdOrUsernameOrEmail = async (
  */
 handler.get(validateUserGet(), async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await getUserByIdOrUsernameOrEmail(req.query);
-
-  if (!user) {
-    throw new ApiError(`User not found.`, 404);
-  }
-
-  res.status(200).json(user);
+  res.status(200).json(excludeFromUser(user));
 });
 
 export default handler;

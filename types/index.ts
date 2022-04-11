@@ -1,10 +1,19 @@
 import { User, Post } from '@prisma/client';
+import { IncomingMessage } from 'http';
+import { NextApiRequestCookies } from 'next/dist/server/api-utils';
 
 // remove password on client
 export type ClientUser = Omit<User, 'password'>;
 
 export type PostWithAuthor = Post & {
   author: ClientUser;
+};
+
+/**
+ * has pasword
+ */
+export type PostWithUser = Post & {
+  author: User;
 };
 
 export type PaginatedResponse<T> = {
@@ -20,8 +29,18 @@ export type PaginatedResponse<T> = {
   };
 };
 
+/**
+ * api NextApiRequest req.query
+ */
 export type QueryParamsType = {
   [key: string]: string | string[];
+};
+
+/**
+ * getServerSideProps req
+ */
+export type NextReq = IncomingMessage & {
+  cookies: NextApiRequestCookies;
 };
 
 // ------------------- not used any more
