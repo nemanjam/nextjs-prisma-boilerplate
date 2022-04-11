@@ -61,7 +61,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-dropzone": "^12.0.4",
-    "react-hook-form": "^7.29.0",
+    "react-hook-form": "^8.0.0-alpha.2",
     "react-icons": "^4.3.1",
     "react-query": "^4.0.0-beta.2",
     "sass": "^1.50.0",

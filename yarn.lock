@@ -5291,10 +5291,10 @@ react-error-boundary@^3.1.0:
   dependencies:
     "@babel/runtime" "^7.12.5"
 
-react-hook-form@^7.29.0:
-  version "7.29.0"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.29.0.tgz#5e7e41a483b70731720966ed8be52163ea1fecf1"
-  integrity sha512-NcJqWRF6el5HMW30fqZRt27s+lorvlCCDbTpAyHoodQeYWXgQCvZJJQLC1kRMKdrJknVH0NIg3At6TUzlZJFOQ==
+react-hook-form@8.0.0-alpha.2:
+  version "8.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-8.0.0-alpha.2.tgz#b6f85e1ac7d38f527d049204c65ccae0e741ae8f"
+  integrity sha512-w0XDMqsedBDvpIzjy71PvfEdTbcdUYOCaa2TR0SIjVWspFPbZvnX/E8O1pF61Lo2z6IWtwbkongreHrFHFAiaA==
 
 react-icons@^4.3.1:
   version "4.3.1"

@@ -83,26 +83,26 @@ const Settings: FC = () => {
   const { register, handleSubmit, formState, reset, getValues } = methods;
   const { errors, dirtyFields } = formState;
 
-  // async load user too
-  useEffect(() => {
-    if (!isLoading && user) {
-      reset({
-        ...getValues(),
-        username: user.username,
-        name: user.name,
-        bio: user.bio,
-      } as SettingsFormData);
-    }
-  }, [user, isLoading]);
-
   const avatarFile = getValues('avatar');
   const headerFile = getValues('header');
 
   // set initial value for avatar, header async
   // images should be in form state and not in React Query state
-  const loadImageIntoForm = async (user: ClientUser, image: 'avatar' | 'header') => {
+  const loadDataIntoForm = async (
+    user: ClientUser,
+    field: 'avatar' | 'header' | 'text'
+  ) => {
     try {
-      switch (image) {
+      switch (field) {
+        case 'text':
+          reset({
+            ...getValues(),
+            username: user.username,
+            name: user.name,
+            bio: user.bio,
+          } as SettingsFormData);
+          break;
+
         case 'avatar':
           const avatarUrl = getAvatarPath(user);
           const avatar = await getImage(avatarUrl);
@@ -131,29 +131,33 @@ const Settings: FC = () => {
     }
   };
 
-  // all default values in one useEffect...?
+  // load all async default values into the form
   useEffect(() => {
     const run = async () => {
+      if (!isLoading && user) {
+        await loadDataIntoForm(user, 'text');
+      }
+
       if (!avatarFile && isAvatarLoading && user) {
-        await loadImageIntoForm(user, 'avatar');
+        await loadDataIntoForm(user, 'avatar');
       }
-    };
-    if (isMounted) {
-      run();
-    }
-  }, [user, avatarFile, isAvatarLoading, isMounted]);
 
-  useEffect(() => {
-    const run = async () => {
       if (!headerFile && isHeaderLoading && user) {
-        await loadImageIntoForm(user, 'header');
+        await loadDataIntoForm(user, 'header');
       }
     };
-
     if (isMounted) {
       run();
     }
-  }, [user, headerFile, isHeaderLoading, isMounted]);
+  }, [
+    isLoading,
+    user,
+    avatarFile,
+    isAvatarLoading,
+    headerFile,
+    isHeaderLoading,
+    isMounted,
+  ]);
 
   const dropzoneOptions: DropzoneOptions = {
     accept: 'image/png, image/jpg, image/jpeg',
