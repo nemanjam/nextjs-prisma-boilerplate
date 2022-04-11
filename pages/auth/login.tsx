@@ -26,9 +26,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   // leave session, doesn't need user or !user.id, !user.email
   const session = await getSession({ req });
 
-  if (session) {
-    return redirectHome;
-  }
+  if (session) return redirectHome;
 
   const providers = await getProviders();
   return { props: { providers } };

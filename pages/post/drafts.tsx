@@ -28,9 +28,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
   const id = session?.user?.id;
 
-  if (!id) {
-    return redirectLogin;
-  }
+  if (!id) return redirectLogin;
 
   const query = {
     userId: id,

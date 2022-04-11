@@ -26,9 +26,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
   const callback1 = async () => await getMe({ req });
   const me = await ssrNcHandler<ClientUser>(req, res, callback1);
 
-  if (!me) {
-    return redirectLogin;
-  }
+  if (!me) return redirectLogin;
 
   const id = Number(params?.id?.[0]);
 
@@ -41,9 +39,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
   const callback2 = async () => await getPostWithAuthorById(id);
   const post = await ssrNcHandler<PostWithUser>(req, res, callback2);
 
-  if (!post) {
-    return redirectNotFound;
-  }
+  if (!post) return redirectNotFound;
 
   if (!(post.author.id === me.id || me.role === 'admin')) {
     return redirectNotFound;

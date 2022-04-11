@@ -8,6 +8,7 @@ export const Routes = {
     LOGIN: '/auth/login/',
     SETTINGS: '/settings/',
     USERS: '/users/',
+    _500: '/500/',
   },
   API: {
     POSTS: '/api/posts/',

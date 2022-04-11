@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { ZodError } from 'zod';
 
 export default class ApiError extends Error {
   public readonly statusCode: number;
@@ -11,6 +12,10 @@ export default class ApiError extends Error {
     this.isOperational = isOperational;
 
     Error.captureStackTrace(this, this.constructor);
+  }
+
+  static ZodErrorToApiError(error: ZodError): ApiError {
+    return new this(error.toString(), 400);
   }
 }
 

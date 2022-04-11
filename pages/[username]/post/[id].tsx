@@ -9,6 +9,7 @@ import CustomHead from 'components/CustomHead';
 import { excludeFromPost } from '@lib-server/prisma';
 import { ssrNcHandler } from '@lib-server/nc';
 import { PostWithUser } from 'types';
+import { redirectNotFound } from 'utils';
 
 type Props = {
   title?: string;
@@ -33,11 +34,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, params 
   const callback = async () => await getPostWithAuthorById(id);
   const post = await ssrNcHandler<PostWithUser>(req, res, callback);
 
-  if (!post) {
-    return {
-      notFound: true,
-    };
-  }
+  if (!post) return redirectNotFound;
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([QueryKeys.POST, id], () => excludeFromPost(post));

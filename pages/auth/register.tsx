@@ -20,9 +20,7 @@ const Register: FC = () => {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
-  if (session) {
-    return redirectHome;
-  }
+  if (session) return redirectHome;
 
   return { props: {} };
 };

@@ -43,6 +43,13 @@ export const redirectNotFound = {
   notFound: true,
 } as const;
 
+export const redirect500 = {
+  redirect: {
+    permanent: false,
+    destination: Routes.SITE._500,
+  },
+};
+
 export const redirectLogin = {
   redirect: {
     permanent: false,

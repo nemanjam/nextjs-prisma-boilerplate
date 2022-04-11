@@ -29,9 +29,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
   const callback1 = async () => await getMe({ req });
   const me = await ssrNcHandler<ClientUser>(req, res, callback1);
 
-  if (!me) {
-    return redirectLogin;
-  }
+  if (!me) return redirectLogin;
+
   // if my username trim url
 
   let _params: GetUserQueryParams = {};
@@ -48,9 +47,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
   const callback2 = async () => await getUserByIdOrUsernameOrEmail(_params);
   const user = await ssrNcHandler<ClientUser>(req, res, callback2);
 
-  if (!user) {
-    return redirectNotFound;
-  }
+  if (!user) return redirectNotFound;
 
   const subKey = _params?.username || _params?.id;
 

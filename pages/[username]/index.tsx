@@ -11,6 +11,7 @@ import CustomHead from 'components/CustomHead';
 import { getAvatarPathAbsolute } from 'lib-client/imageLoaders';
 import { ssrNcHandler } from '@lib-server/nc';
 import { PaginatedResponse, PostWithAuthor } from 'types';
+import { redirectNotFound } from 'utils';
 
 type ProfileProps = {
   profile: User;
@@ -35,11 +36,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, params 
   const callback1 = async () => await getUserByIdOrUsernameOrEmail(params);
   const profile = await ssrNcHandler<User>(req, res, callback1);
 
-  if (!profile) {
-    return {
-      notFound: true,
-    };
-  }
+  if (!profile) return redirectNotFound;
 
   const query = { username: profile.username };
 

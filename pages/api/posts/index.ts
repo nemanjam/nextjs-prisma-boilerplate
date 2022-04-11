@@ -43,7 +43,11 @@ export const getPostsWithAuthor = async (
   query: QueryParamsType
 ): Promise<PaginatedResponse<PostWithAuthor>> => {
   const validationResult = postsGetSchema.safeParse(query);
-  if (!validationResult.success) return; // throw 404 in getServerSideProps
+  if (!validationResult.success) {
+    throw ApiError.ZodErrorToApiError(validationResult.error);
+    // console.log('validationResult', validationResult);
+    // return; // throw 404 in getServerSideProps
+  }
 
   const {
     page = 1,
