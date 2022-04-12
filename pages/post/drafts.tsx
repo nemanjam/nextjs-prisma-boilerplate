@@ -6,7 +6,7 @@ import { dehydrate, QueryClient } from 'react-query';
 import DraftsView from 'views/Drafts';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { getPostsWithAuthor } from 'pages/api/posts';
-import { redirectLogin } from 'utils';
+import { redirect500, redirectLogin } from 'utils';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
 import { PaginatedResponse, PostWithAuthor } from 'types';
@@ -37,6 +37,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
   const callback = async () => await getPostsWithAuthor(query);
   const posts = await ssrNcHandler<PaginatedResponse<PostWithAuthor>>(req, res, callback);
+
+  if (!posts) return redirect500;
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([QueryKeys.POSTS_DRAFTS, 1], () => posts);

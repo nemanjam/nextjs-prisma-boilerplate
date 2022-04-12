@@ -11,7 +11,7 @@ import CustomHead from 'components/CustomHead';
 import { getAvatarPathAbsolute } from 'lib-client/imageLoaders';
 import { ssrNcHandler } from '@lib-server/nc';
 import { PaginatedResponse, PostWithAuthor } from 'types';
-import { redirectNotFound } from 'utils';
+import { redirect500, redirectNotFound } from 'utils';
 
 type ProfileProps = {
   profile: User;
@@ -43,6 +43,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, params 
   const callback2 = async () => await getPostsWithAuthor(query);
   // <PaginatedResponse<PostWithAuthor>>
   const posts = await ssrNcHandler(req, res, callback2);
+
+  if (!posts) return redirect500;
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(

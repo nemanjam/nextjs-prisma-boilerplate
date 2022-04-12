@@ -88,6 +88,7 @@
 - zod validate ids
 - throw from all api's zod..., ZodError to ApiError convert fn
 - \_error.tsx, Custom500.tsx pages?
+- cv testing, react query, next, react, tailwind, architectures, databases, devcontainers, traefik, homelab
 
 ### Questions
 
