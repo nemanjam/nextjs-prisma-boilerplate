@@ -14,7 +14,7 @@ export default class ApiError extends Error {
     Error.captureStackTrace(this, this.constructor);
   }
 
-  static ZodErrorToApiError(error: ZodError): ApiError {
+  static fromZodError(error: ZodError): ApiError {
     return new this(error.toString(), 400);
   }
 }

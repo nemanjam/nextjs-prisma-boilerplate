@@ -4,11 +4,16 @@ import nc, { ncOptions } from 'lib-server/nc';
 import prisma, { excludeFromPost, getMe } from 'lib-server/prisma';
 import { requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
-import { postUpdateSchema } from 'lib-server/validation';
-import { PostWithAuthor, PostWithUser } from 'types';
+import { postIdNumberSchema, postUpdateSchema } from 'lib-server/validation';
+import { PostWithUser } from 'types';
 
 const handler = nc(ncOptions);
 const getId = (req: NextApiRequest) => Number(req.query.id as string);
+
+const validatePostIdNumber = (id: number) => {
+  const result = postIdNumberSchema.safeParse({ id });
+  if (!result.success) throw ApiError.fromZodError((result as any).error);
+};
 
 const validatePostUpdate = withValidation({
   schema: postUpdateSchema,
@@ -17,7 +22,7 @@ const validatePostUpdate = withValidation({
 });
 
 export const getPostWithAuthorById = async (id: number): Promise<PostWithUser> => {
-  // zod validate id
+  validatePostIdNumber(id);
 
   const post = await prisma.post.findUnique({
     where: {
@@ -36,7 +41,6 @@ export const getPostWithAuthorById = async (id: number): Promise<PostWithUser> =
 // GET, PATCH, DELETE /api/post/:id
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log('here ------------');
   const post = await getPostWithAuthorById(getId(req));
   res.status(200).json(excludeFromPost(post));
 });
@@ -46,6 +50,11 @@ handler.patch(
   validatePostUpdate(),
   async (req: NextApiRequest, res: NextApiResponse) => {
     const id = getId(req);
+    validatePostIdNumber(id);
+
+    const result = postIdNumberSchema.safeParse({ id });
+    if (!result.success) throw ApiError.fromZodError((result as any).error);
+
     const { title, content, published } = req.body;
     const me = await getMe({ req });
 
@@ -82,13 +91,18 @@ handler.patch(
 );
 
 handler.delete(requireAuth, async (req: NextApiRequest, res: NextApiResponse) => {
-  // todo: handle 404
+  const id = getId(req);
+  validatePostIdNumber(id);
+
   const post = await prisma.post.delete({
-    where: { id: getId(req) },
+    where: { id },
     include: {
       author: true,
     },
   });
+
+  if (!post) throw new ApiError(`Post with id:${id} not found.`, 404);
+
   res.status(204).json(excludeFromPost(post));
 });
 

@@ -6,12 +6,17 @@ import { profileImagesUpload } from 'lib-server/middleware/upload';
 import nc, { ncOptions } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
-import { userUpdateSchema } from 'lib-server/validation';
+import { userIdCuidSchema, userUpdateSchema } from 'lib-server/validation';
 
 type MulterRequest = NextApiRequest & { files: any };
 
 const handler = nc(ncOptions);
 const getId = (req: NextApiRequest) => req.query.id as string;
+
+const validateUserIdCuid = (id: string) => {
+  const result = userIdCuidSchema.safeParse({ id });
+  if (!result.success) throw ApiError.fromZodError((result as any).error);
+};
 
 const validateUserUpdate = withValidation({
   schema: userUpdateSchema,
@@ -20,6 +25,7 @@ const validateUserUpdate = withValidation({
 });
 
 export const getUserById = async (id: string) => {
+  validateUserIdCuid(id);
   const user = await prisma.user.findUnique({ where: { id } });
   return user;
 };
@@ -41,6 +47,8 @@ handler.patch(
   async (req: NextApiRequest, res: NextApiResponse) => {
     const { body, files } = req as MulterRequest;
     const id = getId(req);
+    validateUserIdCuid(id);
+
     const { name, username, password } = body; // email reconfirm...
 
     const me = await getMe({ req });
@@ -74,8 +82,11 @@ export const config = {
 };
 
 handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
+  const id = getId(req);
+  validateUserIdCuid(id);
+
   // delete posts too, cascade defined in schema
-  const user = await prisma.user.delete({ where: { id: getId(req) } });
+  const user = await prisma.user.delete({ where: { id } });
 
   if (!user) throw new ApiError('User not found.', 404);
 

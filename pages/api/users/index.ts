@@ -70,7 +70,8 @@ export const getUsers = async (
   query: QueryParamsType
 ): Promise<PaginatedResponse<ClientUser>> => {
   const validationResult = usersGetSchema.safeParse(query);
-  if (!validationResult.success) return;
+  if (!validationResult.success)
+    throw ApiError.fromZodError((validationResult as any).error);
 
   const {
     page = 1,

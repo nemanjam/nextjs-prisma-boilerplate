@@ -10,7 +10,6 @@ import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
 import { getAvatarPathAbsolute } from 'lib-client/imageLoaders';
 import { ssrNcHandler } from '@lib-server/nc';
-import { PaginatedResponse, PostWithAuthor } from 'types';
 import { redirect500, redirectNotFound } from 'utils';
 
 type ProfileProps = {

@@ -148,7 +148,7 @@ describe('Auth View', () => {
 
 // mock signIn()
 jest.mock('next-auth/react', () => ({
-  ...(jest.requireActual('next-auth/react') as {}), // cast just for spread
+  ...(jest.requireActual('next-auth/react') as Record<string, unknown>), // cast just for spread
   signIn: jest.fn().mockReturnValue({ ok: false }),
 }));
 const mockedSignIn = jest.mocked(signIn, true); // just for type .mockClear();

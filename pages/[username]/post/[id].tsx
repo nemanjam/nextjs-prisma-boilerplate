@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { GetServerSideProps, NextApiRequest, NextApiResponse } from 'next';
+import { GetServerSideProps } from 'next';
 import PageLayout from 'layouts/PageLayout';
 import PostView from 'views/Post';
 import { getPostWithAuthorById } from 'pages/api/posts/[id]';

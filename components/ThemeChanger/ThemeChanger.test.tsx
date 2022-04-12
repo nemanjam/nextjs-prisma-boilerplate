@@ -7,7 +7,7 @@ import { themes } from 'lib-client/constants';
 // mock themes array
 // must be here, important
 jest.mock('lib-client/constants', () => ({
-  ...(jest.requireActual('lib-client/constants') as {}),
+  ...(jest.requireActual('lib-client/constants') as Record<string, unknown>),
   themes: ['theme-first', 'theme-second', 'theme-third'], // must be here, important
 }));
 const mockedThemes = jest.mocked(themes, true);

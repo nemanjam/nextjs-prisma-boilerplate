@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { withValidation } from 'next-validations';
-import prisma, { exclude, excludeFromUser } from 'lib-server/prisma';
+import prisma, { excludeFromUser } from 'lib-server/prisma';
 import nc, { ncOptions } from 'lib-server/nc';
 import ApiError from 'lib-server/error';
 import { userGetSchema } from 'lib-server/validation';
-import { ClientUser, QueryParamsType } from 'types';
+import { QueryParamsType } from 'types';
 import { User } from '@prisma/client';
 
 const handler = nc(ncOptions);
@@ -27,7 +27,8 @@ export const getUserByIdOrUsernameOrEmail = async (
   query: QueryParamsType
 ): Promise<User> => {
   const validationResult = userGetSchema.safeParse(query);
-  if (!validationResult.success) return; // throw 404 in getServerSideProps
+  if (!validationResult.success)
+    throw ApiError.fromZodError((validationResult as any).error);
 
   const { id, username, email } = validationResult.data;
 

@@ -109,7 +109,7 @@ async function getUser({ email, password }) {
   if (!result.success) {
     return {
       user: null,
-      error: new ApiError(`Validation error: ${(result as any).error[0].message}.`, 401),
+      error: ApiError.fromZodError((result as any).error),
     };
   }
 

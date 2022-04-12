@@ -42,12 +42,10 @@ const defaultLimit = parseInt(process.env.NEXT_PUBLIC_POSTS_PER_PAGE);
 export const getPostsWithAuthor = async (
   query: QueryParamsType
 ): Promise<PaginatedResponse<PostWithAuthor>> => {
+  //
   const validationResult = postsGetSchema.safeParse(query);
-  if (!validationResult.success) {
-    throw ApiError.ZodErrorToApiError(validationResult.error);
-    // console.log('validationResult', validationResult);
-    // return; // throw 404 in getServerSideProps
-  }
+  if (!validationResult.success)
+    throw ApiError.fromZodError((validationResult as any).error);
 
   const {
     page = 1,

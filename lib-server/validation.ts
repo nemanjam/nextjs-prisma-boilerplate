@@ -129,3 +129,13 @@ const searchMin = 3,
 export const postSearchSchema = z.object({
   search: z.string().min(searchMin).max(searchMax).optional().or(z.literal('')),
 });
+
+const numberIdMax = 10 ** 20;
+
+export const postIdNumberSchema = z.object({
+  id: z.number().int().lte(numberIdMax), // id: number, not a string
+});
+
+export const userIdCuidSchema = z.object({
+  id: z.string().cuid(),
+});
