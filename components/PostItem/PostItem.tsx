@@ -11,7 +11,7 @@ import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
 import Alert from 'components/Alert';
 import { getAvatarPath, uploadsImageLoader } from 'lib-client/imageLoaders';
 import Loading from 'components/Loading';
-import { MeContext } from 'lib-client/MeContext';
+import { MeContext } from 'lib-client/providers/Me';
 
 const PostItem: FC<PostProps> = ({ post }) => {
   const { me } = useContext(MeContext);

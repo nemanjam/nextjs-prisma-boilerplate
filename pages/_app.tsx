@@ -6,7 +6,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from 'next-themes';
 import { themes } from 'lib-client/constants';
-import MeProvider from 'lib-client/MeContext';
+import MeProvider from 'lib-client/providers/Me';
 
 import 'styles/index.scss';
 

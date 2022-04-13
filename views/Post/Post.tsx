@@ -14,7 +14,7 @@ import { usePost } from 'lib-client/react-query/posts/usePost';
 import { Routes } from 'lib-client/constants';
 import Alert from 'components/Alert';
 import Loading from 'components/Loading';
-import { MeContext } from 'lib-client/MeContext';
+import { MeContext } from 'lib-client/providers/Me';
 
 const Post: FC = () => {
   const b = withBem('post');

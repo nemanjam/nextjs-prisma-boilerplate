@@ -7,7 +7,7 @@ import QueryKeys from 'lib-client/react-query/queryKeys';
 import NoItems from 'components/NoItems';
 import Loading from 'components/Loading';
 import useDecrementPage from 'components/hooks/useDecrementPage';
-import { MeContext } from 'lib-client/MeContext';
+import { MeContext } from 'lib-client/providers/Me';
 
 const Drafts: FC = () => {
   const b = withBem('drafts');

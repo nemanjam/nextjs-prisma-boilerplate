@@ -21,7 +21,7 @@ import ProgressBar from 'components/ProgressBar';
 import Alert from 'components/Alert';
 import Loading from 'components/Loading';
 import { useIsMounted } from 'components/hooks';
-import { MeContext } from 'lib-client/MeContext';
+import { MeContext } from 'lib-client/providers/Me';
 
 // don't put id in form, validation  needs to diff on client and server
 // id is in route param

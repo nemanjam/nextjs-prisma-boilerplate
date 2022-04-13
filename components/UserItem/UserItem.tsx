@@ -16,7 +16,7 @@ import { ClientUser } from 'types';
 import { Routes } from 'lib-client/constants';
 import Alert from 'components/Alert';
 import Loading from 'components/Loading';
-import { MeContext } from 'lib-client/MeContext';
+import { MeContext } from 'lib-client/providers/Me';
 
 type UserItemProps = {
   user: ClientUser;
