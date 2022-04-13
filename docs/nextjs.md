@@ -61,3 +61,21 @@ Error: Optional route parameters are not yet supported ("[[id]]").
 ### Problem - solution
 
 - problem: client and server props not same, solution: delete `.next` folder
+
+### MeContext
+
+- to avoid loading state in child components, easier error handling with suspense and ErrorBoundaries
+- all fetching in Views layer
+
+- React 18 FC and children [stackoverflow](https://stackoverflow.com/questions/71788254/react-18-typescript-children-fc)
+
+```ts
+import * as React from 'react';
+
+type Props = {
+  children?: React.ReactNode
+};
+const Component: React.FC<Props> = ({children}) => {...}
+```
+
+- context and provider nice [example](https://dev.to/alexander7161/react-context-api-with-typescript-example-j7a)

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import moment from 'moment';
@@ -8,19 +8,19 @@ import { PostProps, getIsAdmin, getIsPostOwner } from 'components/PostItem';
 import Button from 'components/Button';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
-import { useMe } from 'lib-client/react-query/auth/useMe';
 import Alert from 'components/Alert';
 import { getAvatarPath, uploadsImageLoader } from 'lib-client/imageLoaders';
 import Loading from 'components/Loading';
+import { MeContext } from 'lib-client/MeContext';
 
 const PostItem: FC<PostProps> = ({ post }) => {
-  const { me, isLoadingMe } = useMe();
+  const { me } = useContext(MeContext);
   const b = withBem('post-item');
 
   const { mutate: updatePost, ...restUpdate } = useUpdatePost();
   const { mutate: deletePost, ...restDelete } = useDeletePost();
 
-  if (isLoadingMe || !post) return <Loading isItem />;
+  if (!post) return <Loading isItem />; // todo: fix this
 
   const { author } = post;
 

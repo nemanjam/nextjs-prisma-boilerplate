@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useContext, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { NextRouter, useRouter } from 'next/router';
@@ -20,11 +20,10 @@ import {
   RiAccountBoxLine,
 } from 'react-icons/ri';
 import { IoPeopleOutline, IoSettingsOutline } from 'react-icons/io5';
-import { useMe } from 'lib-client/react-query/auth/useMe';
 import { ClientUser } from 'types';
 import ThemeChanger from 'components/ThemeChanger';
 import fullTwConfig from 'utils/tw-config';
-import Loading from 'components/Loading';
+import { MeContext } from 'lib-client/MeContext';
 
 const isActive: (router: NextRouter, pathname: string) => boolean = (router, pathname) =>
   router.asPath === pathname;
@@ -283,10 +282,9 @@ const Navbar: FC = () => {
     }
   }, [isMobile, mobileMenuOpen]);
 
-  const { me, isLoadingMe } = useMe();
-  const _onHamburgerClick = () => setMobileMenuOpen((prevOpen) => !prevOpen);
+  const { me } = useContext(MeContext);
 
-  if (isLoadingMe) return <Loading isItem />;
+  const _onHamburgerClick = () => setMobileMenuOpen((prevOpen) => !prevOpen);
 
   const args = {
     router,

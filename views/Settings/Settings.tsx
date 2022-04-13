@@ -1,4 +1,4 @@
-import { useState, useEffect, FC } from 'react';
+import { useState, useEffect, FC, useContext } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,12 +16,12 @@ import {
 import { useUser } from 'lib-client/react-query/users/useUser';
 import { getAvatarPath, getHeaderImagePath } from 'lib-client/imageLoaders';
 import { ClientUser } from 'types';
-import { useMe } from 'lib-client/react-query/auth/useMe';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import ProgressBar from 'components/ProgressBar';
 import Alert from 'components/Alert';
 import Loading from 'components/Loading';
 import { useIsMounted } from 'components/hooks';
+import { MeContext } from 'lib-client/MeContext';
 
 // don't put id in form, validation  needs to diff on client and server
 // id is in route param
@@ -48,7 +48,7 @@ const Settings: FC = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const { me, isLoadingMe } = useMe();
+  const { me } = useContext(MeContext);
 
   const id = me?.id;
   const { username } = router.query;
@@ -204,7 +204,7 @@ const Settings: FC = () => {
     );
   };
 
-  if (isLoading || isLoadingMe) return <Loading />;
+  if (isLoading) return <Loading />;
 
   return (
     <FormProvider {...methods}>

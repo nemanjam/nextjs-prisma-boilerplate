@@ -89,6 +89,11 @@
 - throw from all api's zod..., ZodError to ApiError convert fn
 - \_error.tsx, Custom500.tsx pages?
 - cv testing, react query, next, react, tailwind, architectures, databases, devcontainers, traefik, homelab
+- empty state, home, profile...
+- types, models folder
+- user context
+- me in QueryCache in getServerSideProps
+- fix tests after MeContext
 
 ### Questions
 

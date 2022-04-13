@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { withBem } from 'utils/bem';
@@ -12,14 +12,15 @@ import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
 import { usePost } from 'lib-client/react-query/posts/usePost';
 import { Routes } from 'lib-client/constants';
-import { useMe } from 'lib-client/react-query/auth/useMe';
 import Alert from 'components/Alert';
 import Loading from 'components/Loading';
+import { MeContext } from 'lib-client/MeContext';
 
 const Post: FC = () => {
   const b = withBem('post');
 
-  const { me, isLoadingMe } = useMe();
+  const { me } = useContext(MeContext);
+
   const router = useRouter();
   // getServerSideProps will validate id
   const id = Number(router.query?.id);
@@ -31,7 +32,7 @@ const Post: FC = () => {
   const { mutate: deletePost, ...restDelete } = useDeletePost();
 
   // must be here for post to be defined below
-  if (isLoading || isLoadingMe) return <Loading />;
+  if (isLoading) return <Loading />;
 
   const { author } = post;
 

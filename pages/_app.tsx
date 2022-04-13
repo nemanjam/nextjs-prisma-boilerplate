@@ -6,6 +6,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from 'next-themes';
 import { themes } from 'lib-client/constants';
+import MeProvider from 'lib-client/MeContext';
 
 import 'styles/index.scss';
 
@@ -21,7 +22,9 @@ const App = ({
         <IconContext.Provider value={{ className: 'react-icons' }}>
           <QueryClientProvider client={queryClient}>
             <Hydrate state={dehydratedState}>
-              <Component {...pageProps} />
+              <MeProvider>
+                <Component {...pageProps} />
+              </MeProvider>
             </Hydrate>
             <ReactQueryDevtools />
           </QueryClientProvider>

@@ -1,17 +1,17 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { withBem } from 'utils/bem';
 import PostItem from 'components/PostItem';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import Pagination from 'components/Pagination';
 import QueryKeys from 'lib-client/react-query/queryKeys';
-import { useMe } from 'lib-client/react-query/auth/useMe';
 import NoItems from 'components/NoItems';
 import Loading from 'components/Loading';
 import useDecrementPage from 'components/hooks/useDecrementPage';
+import { MeContext } from 'lib-client/MeContext';
 
 const Drafts: FC = () => {
   const b = withBem('drafts');
-  const { me } = useMe();
+  const { me } = useContext(MeContext);
 
   const [page, setPage] = useState(1);
   const { data, isLoading, isFetching, isPreviousData } = usePosts(

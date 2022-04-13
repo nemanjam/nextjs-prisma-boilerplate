@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import moment from 'moment';
@@ -11,24 +11,24 @@ import {
 import { getIsAdmin } from 'components/PostItem';
 import Button from 'components/Button';
 import { useDeleteUser } from 'lib-client/react-query/users/useDeleteUser';
-import { useMe } from 'lib-client/react-query/auth/useMe';
 import { mommentFormats } from 'lib-server/constants';
 import { ClientUser } from 'types';
 import { Routes } from 'lib-client/constants';
 import Alert from 'components/Alert';
 import Loading from 'components/Loading';
+import { MeContext } from 'lib-client/MeContext';
 
 type UserItemProps = {
   user: ClientUser;
 };
 
 const UserItem: FC<UserItemProps> = ({ user }) => {
-  const { me, isLoadingMe } = useMe();
+  const { me } = useContext(MeContext);
   const b = withBem('user-item');
 
   const { mutate: deleteUser, ...restDelete } = useDeleteUser();
 
-  if (isLoadingMe || !user) return <Loading isItem />;
+  if (!user) return <Loading isItem />; // todo: fix this
 
   const userHref = {
     pathname: '/[username]',
