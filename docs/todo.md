@@ -89,10 +89,9 @@
 - throw from all api's zod..., ZodError to ApiError convert fn
 - \_error.tsx, Custom500.tsx pages?
 - cv testing, react query, next, react, tailwind, architectures, databases, devcontainers, traefik, homelab
-- empty state, home, profile...
+- empty state, home, profile... data.items: []
 - types, models folder
-- user context
-- me in QueryCache in getServerSideProps
+- me in QueryCache in getServerSideProps, no, should be client side if updated on client, just whole screen loader
 - fix tests after MeContext
 
 ### Questions
@@ -101,6 +100,8 @@
 - where to place and call printLoadedEnvVariables() ?
 - absolute positioning or negative margin, css reddit question
 - jest.mock() vs jest.spyOn()?
+- exports from index.ts
+- ReactElement vs JSX.Element vs ReactNode
 
 ## Done
 
@@ -181,3 +182,4 @@
 - msw, done
 - msw param routes, done
 - reseed app button in footer, done
+- user context and provider, done

@@ -9,3 +9,8 @@
 ### Custom fonts Tailwind
 
 - youtube [tutorial](https://www.youtube.com/watch?v=sOnBG2wUm1s)
+
+### Loader animation
+
+- [tutorial](https://blog.hubspot.com/website/css-loading-animation), [Codepen](https://codepen.io/Bilal1909/pen/pobgJae), no, must use tailwind.config.js for animations
+- Spinner Flowbite [examples](https://flowbite.com/docs/components/spinner/)

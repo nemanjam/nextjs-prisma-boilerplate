@@ -5,7 +5,7 @@ import Loading from 'components/Loading';
 
 // context
 type ContextProps = {
-  me: ClientUser;
+  me: ClientUser | null;
 };
 
 const defaultValue: ContextProps = { me: null };
@@ -25,7 +25,7 @@ const MeProvider: FC<ProviderProps> = ({ children }) => {
         me,
       }}
     >
-      {!isLoadingMe ? children : <Loading />}
+      {!isLoadingMe ? children : <Loading loaderType="screen" />}
     </MeContext.Provider>
   );
 };

@@ -1,0 +1,29 @@
+.spinner {
+  // default size-base, variant-primary
+  @apply animate-spin;
+  @apply inline mr-2;
+
+  &--size-sm {
+    @apply w-6 h-6;
+  }
+
+  &--size-base {
+    @apply w-10 h-10;
+  }
+
+  &--size-lg {
+    @apply w-16 h-16;
+  }
+
+  &--primary {
+    @apply fill-th-primary text-th-base-200;
+  }
+
+  &--secondary {
+    @apply fill-th-secondary text-th-secondary-content;
+  }
+
+  &--neutral {
+    @apply fill-th-neutral text-th-neutral-content;
+  }
+}

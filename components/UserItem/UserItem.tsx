@@ -28,7 +28,7 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
 
   const { mutate: deleteUser, ...restDelete } = useDeleteUser();
 
-  if (!user) return <Loading isItem />; // todo: fix this
+  if (!user) return <Loading loaderType="item" />; // todo: fix this
 
   const userHref = {
     pathname: '/[username]',

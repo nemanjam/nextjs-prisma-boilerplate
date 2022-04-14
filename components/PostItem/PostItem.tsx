@@ -20,7 +20,7 @@ const PostItem: FC<PostProps> = ({ post }) => {
   const { mutate: updatePost, ...restUpdate } = useUpdatePost();
   const { mutate: deletePost, ...restDelete } = useDeletePost();
 
-  if (!post) return <Loading isItem />; // todo: fix this
+  if (!post) return <Loading loaderType="item" />; // todo: fix this
 
   const { author } = post;
 
