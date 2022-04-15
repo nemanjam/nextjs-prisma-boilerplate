@@ -79,3 +79,5 @@ const Component: React.FC<Props> = ({children}) => {...}
 ```
 
 - context and provider nice [example](https://dev.to/alexander7161/react-context-api-with-typescript-example-j7a)
+
+- use `// use await queryClient.refetchQueries([QueryKeys.ME])` to refetch me after login, no need to pass refetch to context

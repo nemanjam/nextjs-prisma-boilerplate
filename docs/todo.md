@@ -85,7 +85,6 @@
 - container with vs code for replicating bugs - Gitpod Self-Hosted container
 - testing-lib/react-hooks ReactDom warning
 - avatar thrown out of the form state??? form.reset() not working...
-- zod validate ids
 - throw from all api's zod..., ZodError to ApiError convert fn
 - \_error.tsx, Custom500.tsx pages?
 - cv testing, react query, next, react, tailwind, architectures, databases, devcontainers, traefik, homelab
@@ -93,6 +92,7 @@
 - types, models folder
 - me in QueryCache in getServerSideProps, no, should be client side if updated on client, just whole screen loader
 - fix tests after MeContext
+- fix me refetch after login
 
 ### Questions
 
@@ -183,3 +183,7 @@
 - msw param routes, done
 - reseed app button in footer, done
 - user context and provider, done
+- fix Settings password Zod, solution: Zod is fine, prevent Firefox from prepopulating saved password `<input autoComplete="new-password" />`, done
+- implement Spinner loader, done
+- remove padding top from PageLayout, recalculate min-height for content h-100%, done
+- zod validate ids, done

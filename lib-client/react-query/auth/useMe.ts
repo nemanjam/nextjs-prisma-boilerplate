@@ -14,9 +14,9 @@ const getUser = async (id: string) => {
   return data;
 };
 
-// for logged in user only
 /**
- * gets entire user object based on user.id in session
+ * gets entire user object based on user.id in session,
+ * used only in MeProvider and accessed via context
  */
 export const useMe = () => {
   const { data: session, status } = useSession(); // needs provider
@@ -34,6 +34,5 @@ export const useMe = () => {
     },
   });
 
-  const { data, isLoading, ...rest } = query;
-  return { me: data, isLoadingMe: isLoading, ...rest };
+  return query;
 };

@@ -86,3 +86,5 @@ const queryClient = new QueryClient({ logger: customLogger });
 ```
 
 - loading, error and empty state [hashnode](https://blog.whereisthemouse.com/good-practices-for-loading-error-and-empty-states-in-react)
+
+- use `// use await queryClient.refetchQueries([QueryKeys.ME])` to refetch me, no need to pass refetch to context

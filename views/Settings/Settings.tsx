@@ -198,6 +198,7 @@ const Settings: FC = () => {
               queryClient.invalidateQueries([QueryKeys.USER, user.id]),
               queryClient.invalidateQueries([QueryKeys.ME]),
             ]);
+            await queryClient.refetchQueries([QueryKeys.ME]); // refetch me, but after
           }
         },
       }
@@ -288,6 +289,7 @@ const Settings: FC = () => {
             id="password"
             type="password"
             className={getErrorClass(errors.password?.message)}
+            autoComplete="new-password"
           />
           <p className={getErrorClass(errors.password?.message)}>
             {errors.password?.message}
