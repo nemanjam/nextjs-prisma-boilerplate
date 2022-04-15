@@ -1,13 +1,18 @@
 .page-layout {
   @apply relative min-h-screen;
 
+  // now content has real 100% height for Spinner
+  &__navbar-placeholder {
+    @apply h-[var(--real-navbar-height)];
+  }
+
   &__content {
     @apply container max-w-4xl min-w-min mx-auto;
-    @apply min-h-[calc(100vh-var(--footer-height))] pt-[calc(var(--layout-content-pt)+1rem)];
-    @apply px-2 sm:px-4 lg:px-0 pb-2 sm:pb-4;
+    @apply min-h-[var(--layout-content-min-h)];
+    @apply p-[var(--layout-content-p)] sm:p-[var(--layout-content-p-sm)] lg:px-0;
 
     &--no-padding-top {
-      @apply pt-[var(--layout-content-pt)];
+      @apply pt-0;
     }
   }
 }

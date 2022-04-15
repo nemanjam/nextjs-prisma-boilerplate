@@ -14,6 +14,7 @@ const PageLayout: FC<Props> = ({ children, noPaddingTop }) => {
   return (
     <div className={b()}>
       <Navbar />
+      <div className={b('navbar-placeholder')} />
       <main className={b('content', { 'no-padding-top': noPaddingTop })}>{children}</main>
       <Footer />
     </div>

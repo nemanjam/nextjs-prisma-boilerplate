@@ -10,7 +10,20 @@
 :root {
   --navbar-height: 3.5rem;
   --footer-height: 3.5rem;
-  --layout-content-pt: calc(var(--navbar-height) + 1px); // 1px border-bottom
+  --real-navbar-height: calc(var(--navbar-height) + 1px); // 1px border-bottom
+
+  // calc it here
+  --layout-content-min-h: calc(100vh - var(--real-navbar-height) - var(--footer-height));
+  --layout-content-p: 0.5rem;
+  --layout-content-p-sm: 1rem;
+
+  // real content without padding-y, for Spinner container h-100% e.g
+  --available-content-min-h: calc(
+    var(--layout-content-min-h) - calc(var(--layout-content-p) * 2)
+  );
+  --available-content-min-h-sm: calc(
+    var(--layout-content-min-h) - calc(var(--layout-content-p-sm) * 2)
+  );
 
   @apply bg-th-base-100 text-th-base-content;
 }
