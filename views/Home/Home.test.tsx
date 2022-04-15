@@ -14,7 +14,7 @@ describe('Home View', () => {
     customRender(<HomeView />);
 
     // wait for loaders to disappear (page and PostItem)
-    await waitForElementToBeRemoved(() => screen.getAllByText(/loading\.\.\./i));
+    await waitForElementToBeRemoved(() => screen.getAllByTestId(/loading/i));
   });
 
   test('renders title, pagination section and posts list', async () => {

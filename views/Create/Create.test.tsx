@@ -49,7 +49,7 @@ describe('Create View', () => {
     customRender(<CreateView />, { wrapperProps: { router } });
 
     // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));
+    await waitForElementToBeRemoved(() => screen.getByTestId(/loading/i));
 
     // edit title
     const titleInput = screen.getByRole('textbox', {

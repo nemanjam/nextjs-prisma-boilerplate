@@ -18,7 +18,7 @@ describe('Settings View', () => {
     customRender(<SettingsView />, { wrapperProps: { router } });
 
     // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));
+    await waitForElementToBeRemoved(() => screen.getByTestId(/loading/i));
 
     // wait for isHeaderLoading and isAvatarLoading
     await waitForElementToBeRemoved(() => [

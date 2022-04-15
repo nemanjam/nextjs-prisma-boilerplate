@@ -2,7 +2,6 @@ import { createContext, FC } from 'react';
 import { ClientUser } from 'types';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import Loading from 'components/Loading';
-import { promise } from 'zod';
 
 // context
 type ContextProps = {
@@ -18,7 +17,6 @@ type ProviderProps = {
 };
 
 const MeProvider: FC<ProviderProps> = ({ children }) => {
-  // use await queryClient.refetchQueries([QueryKeys.ME]); to refetch
   const { data, isLoading } = useMe();
 
   return (

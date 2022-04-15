@@ -35,7 +35,11 @@ const Loading: FC<Props> = ({ loaderType = 'page', ...spinnerProps }) => {
       break;
   }
 
-  return <div className={b(null, modifiers)}>{content}</div>;
+  return (
+    <div data-testid="loading" className={b(null, modifiers)}>
+      {content}
+    </div>
+  );
 };
 
 export default Loading;

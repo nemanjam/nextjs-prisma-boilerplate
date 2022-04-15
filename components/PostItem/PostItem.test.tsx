@@ -19,7 +19,7 @@ describe('PostItem', () => {
     customRender(<PostItem post={fakePostWithAuthor} />, { wrapperProps: { router } });
 
     // wait for useMe loader
-    await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));
+    await waitForElementToBeRemoved(() => screen.getByTestId(/loading/i));
   });
 
   afterEach(() => {

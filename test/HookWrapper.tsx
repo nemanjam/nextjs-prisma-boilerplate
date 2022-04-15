@@ -17,6 +17,7 @@ export type HookWrapperProps = {
  * used only in tests
  */
 // SessionProvider for useSession in useMe
+// MeProvider is not used in hooks
 // RouterContext for redirect onSuccess
 const HookWrapper = ({ children, session, queryClient, router }: HookWrapperProps) => {
   return (

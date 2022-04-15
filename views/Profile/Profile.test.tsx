@@ -10,7 +10,7 @@ describe('Profile View', () => {
     customRender(<ProfileView profile={fakeUser} />);
 
     // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.getAllByText(/loading\.\.\./i));
+    await waitForElementToBeRemoved(() => screen.getAllByTestId(/loading/i));
 
     // assert title
     const title = screen.getByRole('heading', {

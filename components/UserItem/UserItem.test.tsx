@@ -10,7 +10,7 @@ describe('UserItem', () => {
     customRender(<UserItem user={fakeUser} />);
 
     // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.getByText(/loading\.\.\./i));
+    await waitForElementToBeRemoved(() => screen.getByTestId(/loading/i));
 
     const userLinkRegex = RegExp(fakeUser.username, 'i');
     const settingsLinkRegex = RegExp(`${Routes.SITE.SETTINGS}${fakeUser.username}`, 'i');

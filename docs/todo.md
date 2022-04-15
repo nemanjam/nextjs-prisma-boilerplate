@@ -93,6 +93,7 @@
 - me in QueryCache in getServerSideProps, no, should be client side if updated on client, just whole screen loader
 - fix tests after MeContext
 - fix me refetch after login
+- maybe install `react-use` package
 
 ### Questions
 

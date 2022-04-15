@@ -7,6 +7,7 @@ import { IconContext } from 'react-icons';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from 'next-themes';
 import { themes as defaultThemes } from 'lib-client/constants';
+import MeProvider from 'lib-client/providers/Me';
 
 export type WrapperProps = {
   children: ReactNode;
@@ -35,8 +36,11 @@ const Wrapper = ({
           <IconContext.Provider value={{ className: 'react-icons' }}>
             <QueryClientProvider client={queryClient}>
               <Hydrate state={dehydratedState}>
-                {/* component, not a page */}
-                {children}
+                {/* takes user from msw - users */}
+                <MeProvider>
+                  {/* component, not a page */}
+                  {children}
+                </MeProvider>
               </Hydrate>
             </QueryClientProvider>
           </IconContext.Provider>
