@@ -198,7 +198,6 @@ const Settings: FC = () => {
               queryClient.invalidateQueries([QueryKeys.USER, user.id]),
               queryClient.invalidateQueries([QueryKeys.ME]),
             ]);
-            await queryClient.refetchQueries([QueryKeys.ME]); // refetch me, but after
           }
         },
       }

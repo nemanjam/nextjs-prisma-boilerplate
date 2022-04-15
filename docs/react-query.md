@@ -88,3 +88,10 @@ const queryClient = new QueryClient({ logger: customLogger });
 - loading, error and empty state [hashnode](https://blog.whereisthemouse.com/good-practices-for-loading-error-and-empty-states-in-react)
 
 - use `// use await queryClient.refetchQueries([QueryKeys.ME])` to refetch me, no need to pass refetch to context
+
+- problem: refetching ME with undefined `id`, solution: `me.id` must be part of the key for fetcher function to use new id arg, Github [discussion](https://github.com/tannerlinsley/react-query/discussions/3514), `useMe` is in `MeProvider` it's mounted on every page
+
+```ts
+// clear keys and cache
+queryClient.removeQueries([QueryKeys.ME]);
+```

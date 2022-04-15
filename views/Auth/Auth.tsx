@@ -51,8 +51,7 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
     });
 
     if (response.ok) {
-      await queryClient.invalidateQueries([QueryKeys.ME]);
-      await queryClient.refetchQueries([QueryKeys.ME]); // refetch me
+      queryClient.removeQueries([QueryKeys.ME]); // MeProvider will mount useMe here too
       await router.push(response.url);
     }
   };

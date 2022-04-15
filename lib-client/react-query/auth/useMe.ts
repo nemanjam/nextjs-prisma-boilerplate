@@ -6,6 +6,7 @@ import { Routes } from 'lib-client/constants';
 import axiosInstance from 'lib-client/react-query/axios';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { AxiosError } from 'axios';
+import { filterEmpty } from 'utils';
 
 const getUser = async (id: string) => {
   if (!id) return null;
@@ -22,17 +23,23 @@ export const useMe = () => {
   const { data: session, status } = useSession(); // needs provider
   const id = session?.user?.id;
 
-  const query = useQuery<ClientUser, AxiosError>([QueryKeys.ME], () => getUser(id), {
-    enabled: status !== 'loading',
-    onError: (error) => {
-      console.error('me query error: ', error.response);
+  const query = useQuery<ClientUser, AxiosError>(
+    filterEmpty([QueryKeys.ME, id]),
+    () => getUser(id),
+    {
+      enabled: status !== 'loading',
+      onError: (error) => {
+        console.error('me query error: ', error.response);
 
-      // id exists but not valid session, clear it
-      if (id && error.response.status === 404) {
-        signOut();
-      }
-    },
-  });
+        // id exists but not valid session, clear it
+        if (id && error.response.status === 404) {
+          signOut();
+        }
+      },
+    }
+  );
+
+  // no need to prefetch because every page is under MeProvider
 
   return query;
 };
