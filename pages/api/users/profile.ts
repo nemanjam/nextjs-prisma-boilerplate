@@ -5,7 +5,7 @@ import nc, { ncOptions } from 'lib-server/nc';
 import ApiError from 'lib-server/error';
 import { userGetSchema } from 'lib-server/validation';
 import { QueryParamsType } from 'types';
-import { ClientUser } from 'types/models/response';
+import { ClientUser } from 'types/models/User';
 
 const handler = nc(ncOptions);
 

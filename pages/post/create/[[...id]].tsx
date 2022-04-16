@@ -9,7 +9,8 @@ import QueryKeys from 'lib-client/react-query/queryKeys';
 import { Redirects } from 'lib-client/constants';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
-import { ClientUser, PostWithAuthor } from 'types/models/response';
+import { ClientUser } from 'types/models/User';
+import { PostWithAuthor } from 'types/models/Post';
 
 const Create: FC = () => {
   return (

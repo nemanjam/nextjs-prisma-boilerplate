@@ -11,14 +11,10 @@ import { usePost } from 'lib-client/react-query/posts/usePost';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import Alert from 'components/Alert';
 import Loading from 'components/Loading';
-
-interface CreatePostFormData {
-  title: string;
-  content: string;
-}
+import { PostCreateFormData } from 'types/models/Post';
 
 type Props = {
-  testOnSubmit?: (data: CreatePostFormData) => void;
+  testOnSubmit?: (data: PostCreateFormData) => void;
 };
 
 const Create: FC<Props> = ({ testOnSubmit }) => {
@@ -33,7 +29,7 @@ const Create: FC<Props> = ({ testOnSubmit }) => {
   const { mutate: updatePost, ...restUpdate } = useUpdatePost();
   const { mutate: createPost, ...restCreate } = useCreatePost();
 
-  const onSubmit = async ({ title, content }: CreatePostFormData) => {
+  const onSubmit = async ({ title, content }: PostCreateFormData) => {
     // just for testing
     process.env.NODE_ENV === 'test' && testOnSubmit?.({ title, content });
     isUpdate
@@ -42,7 +38,7 @@ const Create: FC<Props> = ({ testOnSubmit }) => {
   };
 
   const { register, handleSubmit, formState, getValues, reset } =
-    useForm<CreatePostFormData>({
+    useForm<PostCreateFormData>({
       resolver: zodResolver(postCreateSchema),
       defaultValues: {
         title: '',
@@ -57,7 +53,7 @@ const Create: FC<Props> = ({ testOnSubmit }) => {
         ...getValues(),
         title: post.title,
         content: post.content,
-      } as CreatePostFormData);
+      } as PostCreateFormData);
     }
   }, [post, isLoading]);
 

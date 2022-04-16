@@ -8,32 +8,16 @@ import DropzoneSingle from 'components/DropzoneSingle';
 import { useQueryClient } from 'react-query';
 import { getErrorClass, withBem } from 'utils/bem';
 import Button from 'components/Button';
-import {
-  getImage,
-  UserUpdateType,
-  useUpdateUser,
-} from 'lib-client/react-query/users/useUpdateUser';
+import { getImage, useUpdateUser } from 'lib-client/react-query/users/useUpdateUser';
 import { useUser } from 'lib-client/react-query/users/useUser';
 import { getAvatarPath, getHeaderImagePath } from 'lib-client/imageLoaders';
-import { ClientUser } from 'types/models/response';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import ProgressBar from 'components/ProgressBar';
 import Alert from 'components/Alert';
 import Loading from 'components/Loading';
 import { useIsMounted } from 'components/hooks';
 import { MeContext } from 'lib-client/providers/Me';
-
-// don't put id in form, validation  needs to diff on client and server
-// id is in route param
-interface SettingsFormData {
-  name: string;
-  username: string;
-  avatar: File;
-  header: File;
-  bio: string;
-  password: string;
-  confirmPassword: string;
-}
+import { UserUpdateData, UserUpdateFormData, ClientUser } from 'types/models/User';
 
 // admin can edit other users
 const Settings: FC = () => {
@@ -67,7 +51,7 @@ const Settings: FC = () => {
     };
   }, [progress, setProgress]);
 
-  const methods = useForm<SettingsFormData>({
+  const methods = useForm<UserUpdateFormData>({
     resolver: zodResolver(userUpdateSchema),
     defaultValues: {
       username: '',
@@ -100,7 +84,7 @@ const Settings: FC = () => {
             username: user.username,
             name: user.name,
             bio: user.bio,
-          } as SettingsFormData);
+          } as UserUpdateFormData);
           break;
 
         case 'avatar':
@@ -111,7 +95,7 @@ const Settings: FC = () => {
           reset({
             ...getValues(),
             avatar,
-          } as SettingsFormData);
+          } as UserUpdateFormData);
           setIsAvatarLoading(false);
           break;
 
@@ -122,7 +106,7 @@ const Settings: FC = () => {
           reset({
             ...getValues(),
             header,
-          } as SettingsFormData);
+          } as UserUpdateFormData);
           setIsHeaderLoading(false);
           break;
       }
@@ -176,10 +160,10 @@ const Settings: FC = () => {
     error,
   } = useUpdateUser();
 
-  const onSubmit = (data: SettingsFormData) => {
+  const onSubmit = (data: UserUpdateFormData) => {
     if (Object.keys(dirtyFields).length === 0) return;
 
-    const updatedFields = {} as UserUpdateType;
+    const updatedFields = {} as UserUpdateData;
     Object.keys(data).forEach((key) => {
       // send only dirty fileds
       if (Object.keys(dirtyFields).includes(key) && !['confirmPassword'].includes(key)) {

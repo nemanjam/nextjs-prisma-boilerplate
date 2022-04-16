@@ -9,7 +9,8 @@ import { getPostsWithAuthor } from 'pages/api/posts';
 import { Redirects } from 'lib-client/constants';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
-import { PaginatedResponse, PostWithAuthor } from 'types/models/response';
+import { PaginatedResponse } from 'types';
+import { PostWithAuthor } from 'types/models/Post';
 
 const Drafts: FC = () => {
   return (

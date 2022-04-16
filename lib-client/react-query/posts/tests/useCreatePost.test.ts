@@ -3,10 +3,8 @@ import { createWrapper } from 'test/test-utils';
 import { fakePost } from 'test/server/fake-data';
 import { createMockRouter } from 'test/Wrapper';
 import { Routes } from 'lib-client/constants';
-import {
-  useCreatePost,
-  PostCreateType,
-} from 'lib-client/react-query/posts/useCreatePost';
+import { useCreatePost } from 'lib-client/react-query/posts/useCreatePost';
+import { PostCreateData } from 'types/models/Post';
 
 describe('useCreatePost', () => {
   // same as auth/useCreateUser
@@ -23,7 +21,7 @@ describe('useCreatePost', () => {
 
     const { mutate } = result.current;
 
-    const mutationVariables: PostCreateType = {
+    const mutationVariables: PostCreateData = {
       title,
       content: fakePost.content,
     };

@@ -1,9 +1,10 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { createWrapper } from 'test/test-utils';
-import { useCreateUser, UserCreateType } from 'lib-client/react-query/auth/useCreateUser';
+import { useCreateUser } from 'lib-client/react-query/auth/useCreateUser';
 import { fakeUser } from 'test/server/fake-data';
 import { createMockRouter } from 'test/Wrapper';
 import { Routes } from 'lib-client/constants';
+import { UserCreateData } from 'types/models/User';
 
 describe('useCreateUser', () => {
   test('successful create mutation hook', async () => {
@@ -19,7 +20,7 @@ describe('useCreateUser', () => {
 
     const { mutate } = result.current;
 
-    const mutationVariables: UserCreateType = {
+    const mutationVariables: UserCreateData = {
       username,
       name: fakeUser.name,
       email: fakeUser.email,

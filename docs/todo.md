@@ -98,6 +98,7 @@
 - tomorrow:
   - types, models folder
   - react query error handling, axios interceptor, 4 states
+  - types in api
 
 ### Questions
 
@@ -107,6 +108,7 @@
 - jest.mock() vs jest.spyOn()?
 - exports from index.ts
 - ReactElement vs JSX.Element vs ReactNode, ask this
+- types for reusing Login and Register form
 
 ## Done
 

@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
-import { PaginatedResponse, PostWithAuthor } from 'types/models/response';
+import { PostWithAuthor } from 'types/models/Post';
+import { PaginatedResponse } from 'types';
 import { Routes } from 'lib-client/constants';
 import axiosInstance from 'lib-client/react-query/axios';
 import { GetPostsQueryParams } from 'pages/api/posts';

@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { PostWithAuthor } from 'types/models/response';
+import { PostWithAuthor } from 'types/models/Post';
 import { AxiosError } from 'axios';
 import { Routes } from 'lib-client/constants';
 import axiosInstance from 'lib-client/react-query/axios';

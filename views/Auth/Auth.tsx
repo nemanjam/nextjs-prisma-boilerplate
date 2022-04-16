@@ -12,14 +12,7 @@ import Button from 'components/Button';
 import { useCreateUser } from 'lib-client/react-query/auth/useCreateUser';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import Alert from 'components/Alert';
-
-interface AuthFormData {
-  email: string;
-  password: string;
-  confirmPassword?: string;
-  name?: string;
-  username?: string;
-}
+import { UserCreateFormData } from 'types/models/User';
 
 type Props = {
   isRegisterForm?: boolean;
@@ -35,7 +28,7 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
   const queryClient = useQueryClient();
   const { mutate: createUser, isLoading, isError, error } = useCreateUser();
 
-  const { register, handleSubmit, formState } = useForm<AuthFormData>({
+  const { register, handleSubmit, formState } = useForm<UserCreateFormData>({
     resolver: zodResolver(isRegisterForm ? userRegisterSchema : userLoginSchema),
   });
   const { errors } = formState;
@@ -43,7 +36,7 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
   // axios post to /api/auth/callback/credentials
   // custom request with csrf token...
   // https://next-auth.js.org/configuration/pages#credentials-sign-in
-  const onSubmitLogin = async ({ email, password }: AuthFormData) => {
+  const onSubmitLogin = async ({ email, password }: UserCreateFormData) => {
     const response = await signIn('credentials', {
       email,
       password,
@@ -56,7 +49,12 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
     }
   };
 
-  const onSubmitRegister = async ({ name, username, email, password }: AuthFormData) => {
+  const onSubmitRegister = async ({
+    name,
+    username,
+    email,
+    password,
+  }: UserCreateFormData) => {
     createUser({ name, username, email, password });
   };
 

@@ -20,7 +20,7 @@ import {
   RiAccountBoxLine,
 } from 'react-icons/ri';
 import { IoPeopleOutline, IoSettingsOutline } from 'react-icons/io5';
-import { ClientUser } from 'types/models/response';
+import { ClientUser } from 'types/models/User';
 import ThemeChanger from 'components/ThemeChanger';
 import fullTwConfig from 'utils/tw-config';
 import { MeContext } from 'lib-client/providers/Me';

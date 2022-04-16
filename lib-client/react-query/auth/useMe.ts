@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { useSession } from 'next-auth/react';
 import { signOut } from 'next-auth/react';
-import { ClientUser } from 'types/models/response';
+import { ClientUser } from 'types/models/User';
 import { Routes } from 'lib-client/constants';
 import axiosInstance from 'lib-client/react-query/axios';
 import QueryKeys, { filterEmptyKeys } from 'lib-client/react-query/queryKeys';

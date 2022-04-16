@@ -1,21 +1,9 @@
-import { Dispatch, SetStateAction } from 'react';
 import { useMutation } from 'react-query';
-import { User } from '@prisma/client';
 import axiosInstance from 'lib-client/react-query/axios';
 import { Routes } from 'lib-client/constants';
-import { ClientUser } from 'types/models/response';
+import { ClientUser, UserUpdateMutationData } from 'types/models/User';
 
-export type UserUpdateType = Partial<
-  Pick<User, 'username' | 'name' | 'bio' | 'image' | 'headerImage' | 'password'>
->;
-
-export type UserUpdateFormType = {
-  id: string;
-  user: UserUpdateType;
-  setProgress: Dispatch<SetStateAction<number>>;
-};
-
-const updateUser = async ({ id, user, setProgress }: UserUpdateFormType) => {
+const updateUser = async ({ id, user, setProgress }: UserUpdateMutationData) => {
   const formData = new FormData();
   Object.keys(user).forEach((key) => {
     formData.append(key, user[key]);
@@ -41,7 +29,7 @@ const updateUser = async ({ id, user, setProgress }: UserUpdateFormType) => {
 };
 
 export const useUpdateUser = () => {
-  const mutation = useMutation<ClientUser, Error, UserUpdateFormType, unknown>(
+  const mutation = useMutation<ClientUser, Error, UserUpdateMutationData, unknown>(
     (data) => updateUser(data),
     {
       onError: (error) => {

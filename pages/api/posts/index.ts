@@ -5,7 +5,8 @@ import nc, { ncOptions } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
 import { getSession } from 'next-auth/react';
 import { postCreateSchema, postsGetSchema } from 'lib-server/validation';
-import { PostWithAuthor, PaginatedResponse } from 'types/models/response';
+import { PostWithAuthor } from 'types/models/Post';
+import { PaginatedResponse } from 'types';
 import { QueryParamsType } from 'types';
 import ApiError from 'lib-server/error';
 

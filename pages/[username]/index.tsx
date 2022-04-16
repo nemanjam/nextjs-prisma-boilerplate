@@ -10,7 +10,7 @@ import CustomHead from 'components/CustomHead';
 import { getAvatarPathAbsolute } from 'lib-client/imageLoaders';
 import { ssrNcHandler } from '@lib-server/nc';
 import { Redirects } from 'lib-client/constants';
-import { ClientUser } from 'types/models/response';
+import { ClientUser } from 'types/models/User';
 
 type ProfileProps = {
   profile: ClientUser;

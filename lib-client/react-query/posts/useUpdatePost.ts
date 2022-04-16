@@ -1,19 +1,11 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { useRouter } from 'next/router';
-import { Post } from '@prisma/client';
 import axiosInstance from 'lib-client/react-query/axios';
 import { Routes } from 'lib-client/constants';
-import { PostWithAuthor } from 'types/models/response';
+import { PostWithAuthor, PostUpdateMutationData } from 'types/models/Post';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 
-export type PostUpdateType = Partial<Pick<Post, 'title' | 'content' | 'published'>>;
-
-export type PostUpdateFormType = {
-  post: PostUpdateType;
-  id: number;
-};
-
-const updatePost = async ({ id, post }) => {
+const updatePost = async ({ id, post }: PostUpdateMutationData) => {
   const { data } = await axiosInstance.patch<PostWithAuthor>(
     `${Routes.API.POSTS}${id}`,
     post
@@ -25,7 +17,7 @@ export const useUpdatePost = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  const mutation = useMutation<PostWithAuthor, Error, PostUpdateFormType, unknown>(
+  const mutation = useMutation<PostWithAuthor, Error, PostUpdateMutationData, unknown>(
     (data) => updatePost(data),
     {
       onError: (error) => {

@@ -1,10 +1,8 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { createWrapper } from 'test/test-utils';
-import {
-  UserUpdateFormType,
-  useUpdateUser,
-} from 'lib-client/react-query/users/useUpdateUser';
+import { useUpdateUser } from 'lib-client/react-query/users/useUpdateUser';
 import { fakeUser } from 'test/server/fake-data';
+import { UserUpdateMutationData } from 'types/models/User';
 
 describe('useUpdateUser', () => {
   test('successful update user mutation hook', async () => {
@@ -16,7 +14,7 @@ describe('useUpdateUser', () => {
 
     const { mutate } = result.current;
 
-    const mutationVariables: UserUpdateFormType = {
+    const mutationVariables: UserUpdateMutationData = {
       id: fakeUser.id,
       user: { ...fakeUser, username },
       setProgress: jest.fn(), // onUploadProgress undefined msw, not supported in msw

@@ -1,10 +1,8 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { createWrapper } from 'test/test-utils';
-import {
-  PostUpdateFormType,
-  useUpdatePost,
-} from 'lib-client/react-query/posts/useUpdatePost';
+import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import { fakePostWithAuthor } from 'test/server/fake-data';
+import { PostUpdateMutationData } from 'types/models/Post';
 
 describe('useUpdatePost', () => {
   // same as useUpdateUser
@@ -17,7 +15,7 @@ describe('useUpdatePost', () => {
 
     const { mutate } = result.current;
 
-    const mutationVariables: PostUpdateFormType = {
+    const mutationVariables: PostUpdateMutationData = {
       id: fakePostWithAuthor.id,
       post: { title, content: fakePostWithAuthor.content },
     };

@@ -5,7 +5,7 @@ import prisma, { excludeFromPost, getMe } from 'lib-server/prisma';
 import { requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
 import { postIdNumberSchema, postUpdateSchema } from 'lib-server/validation';
-import { PostWithAuthor } from 'types/models/response';
+import { PostWithAuthor } from 'types/models/Post';
 
 const handler = nc(ncOptions);
 const getId = (req: NextApiRequest) => Number(req.query.id as string);
