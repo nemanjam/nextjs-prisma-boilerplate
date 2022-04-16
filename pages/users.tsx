@@ -8,7 +8,7 @@ import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
 import { ClientUser, PaginatedResponse } from 'types/models/response';
-import { redirect500 } from 'utils';
+import { Redirects } from 'lib-client/constants';
 
 const Users: FC = () => {
   return (
@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const callback = async () => await getUsers({}); // use api defaults
   const users = await ssrNcHandler<PaginatedResponse<ClientUser>>(req, res, callback);
 
-  if (!users) return redirect500;
+  if (!users) return Redirects._500;
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([QueryKeys.USERS, 1], () => users);

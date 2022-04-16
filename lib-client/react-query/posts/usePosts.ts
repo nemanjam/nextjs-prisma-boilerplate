@@ -5,8 +5,7 @@ import { PaginatedResponse, PostWithAuthor } from 'types/models/response';
 import { Routes } from 'lib-client/constants';
 import axiosInstance from 'lib-client/react-query/axios';
 import { GetPostsQueryParams } from 'pages/api/posts';
-import { QueryKeysType } from 'lib-client/react-query/queryKeys';
-import { filterEmpty } from 'utils';
+import { filterEmptyKeys, QueryKeysType } from 'lib-client/react-query/queryKeys';
 
 // usePaginatedQuery, first page hydrated method from getServerSideProps
 
@@ -23,7 +22,7 @@ export const usePosts = (queryKey: QueryKeysType, params: GetPostsQueryParams) =
   const { page, username, searchTerm } = params;
 
   const query = useQuery<PaginatedResponse<PostWithAuthor>, AxiosError>(
-    filterEmpty([queryKey, username, searchTerm, page]),
+    filterEmptyKeys([queryKey, username, searchTerm, page]),
     () => getPosts(params),
     {
       keepPreviousData: true,
@@ -37,7 +36,7 @@ export const usePosts = (queryKey: QueryKeysType, params: GetPostsQueryParams) =
   useEffect(() => {
     if (hasMore) {
       queryClient.prefetchQuery(
-        filterEmpty([queryKey, username, searchTerm, page + 1]),
+        filterEmptyKeys([queryKey, username, searchTerm, page + 1]),
         () => getPosts({ ...params, page: page + 1 })
       );
     }

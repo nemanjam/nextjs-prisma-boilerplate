@@ -23,6 +23,34 @@ export const Routes = {
   },
 } as const;
 
+// ----------- redirects getServerSideProps
+
+export const Redirects = {
+  NOT_FOUND: {
+    notFound: true,
+  },
+  _500: {
+    redirect: {
+      permanent: false,
+      destination: Routes.SITE._500,
+    },
+  },
+  LOGIN: {
+    redirect: {
+      permanent: false,
+      destination: Routes.SITE.LOGIN,
+    },
+  },
+  HOME: {
+    redirect: {
+      permanent: false,
+      destination: Routes.SITE.HOME,
+    },
+  },
+} as const;
+
+// ----------- themes array
+
 export const themes = [
   'theme-light',
   'theme-dark',

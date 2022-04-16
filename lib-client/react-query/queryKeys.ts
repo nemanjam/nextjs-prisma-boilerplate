@@ -10,4 +10,8 @@ const QueryKeys = {
 
 export type QueryKeysType = typeof QueryKeys[keyof typeof QueryKeys];
 
+export const filterEmptyKeys = (queryKey: Array<string | number>) => {
+  return queryKey.filter((item) => item || item === 0);
+};
+
 export default QueryKeys;

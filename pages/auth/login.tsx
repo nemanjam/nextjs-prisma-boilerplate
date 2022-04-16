@@ -4,7 +4,7 @@ import { getSession } from 'next-auth/react';
 import { getProviders, ClientSafeProvider } from 'next-auth/react';
 import AuthLayout from 'layouts/AuthLayout';
 import AuthView from 'views/Auth';
-import { redirectHome } from 'utils';
+import { Redirects } from 'lib-client/constants';
 import CustomHead from 'components/CustomHead';
 
 type Props = {
@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   // leave session, doesn't need user or !user.id, !user.email
   const session = await getSession({ req });
 
-  if (session) return redirectHome;
+  if (session) return Redirects.HOME;
 
   const providers = await getProviders();
   return { props: { providers } };

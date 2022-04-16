@@ -7,7 +7,7 @@ import { dehydrate, QueryClient } from 'react-query';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
-import { redirectNotFound } from 'utils';
+import { Redirects } from 'lib-client/constants';
 import { PostWithAuthor } from 'types/models/response';
 
 type Props = {
@@ -33,7 +33,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, params 
   const callback = async () => await getPostWithAuthorById(id);
   const post = await ssrNcHandler<PostWithAuthor>(req, res, callback);
 
-  if (!post) return redirectNotFound;
+  if (!post) return Redirects.NOT_FOUND;
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([QueryKeys.POST, id], () => post);

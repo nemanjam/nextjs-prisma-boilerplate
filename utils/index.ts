@@ -1,5 +1,3 @@
-import { Routes } from 'lib-client/constants';
-
 export const uniqueString = (length: number) => {
   let result = '';
   const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -12,56 +10,11 @@ export const uniqueString = (length: number) => {
 
 export const isBrowser = () => typeof window !== 'undefined';
 
-type ObjectWithDates = { createdAt: Date; updatedAt: Date };
-type ObjectWithStrings = {
-  createdAt: string;
-  updatedAt: string;
-};
-
-export const datesToStrings = <T extends ObjectWithDates>(
-  _object: T
-): Omit<T, keyof ObjectWithDates> & ObjectWithStrings => {
-  return {
-    ..._object,
-    createdAt: _object.createdAt.toISOString(),
-    updatedAt: _object.updatedAt.toISOString(),
-  };
-};
-
 /**
  * min, max included
  */
 export const getRandomInteger = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-export const filterEmpty = (queryKey: Array<unknown>) => {
-  return queryKey.filter((item) => item || item === 0);
-};
-
-export const redirectNotFound = {
-  notFound: true,
-} as const;
-
-export const redirect500 = {
-  redirect: {
-    permanent: false,
-    destination: Routes.SITE._500,
-  },
-};
-
-export const redirectLogin = {
-  redirect: {
-    permanent: false,
-    destination: Routes.SITE.LOGIN,
-  },
-};
-
-export const redirectHome = {
-  redirect: {
-    permanent: false,
-    destination: Routes.SITE.HOME,
-  },
 };
 
 export const isUrl = (str: string) => {

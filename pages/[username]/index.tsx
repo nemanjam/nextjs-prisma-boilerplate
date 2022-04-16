@@ -9,7 +9,7 @@ import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
 import { getAvatarPathAbsolute } from 'lib-client/imageLoaders';
 import { ssrNcHandler } from '@lib-server/nc';
-import { redirect500, redirectNotFound } from 'utils';
+import { Redirects } from 'lib-client/constants';
 import { ClientUser } from 'types/models/response';
 
 type ProfileProps = {
@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, params 
   const callback1 = async () => await getUserByIdOrUsernameOrEmail(params);
   const profile = await ssrNcHandler<ClientUser>(req, res, callback1);
 
-  if (!profile) return redirectNotFound;
+  if (!profile) return Redirects.NOT_FOUND;
 
   const query = { username: profile.username };
 
@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, params 
   // <PaginatedResponse<PostWithAuthor>>
   const posts = await ssrNcHandler(req, res, callback2);
 
-  if (!posts) return redirect500;
+  if (!posts) return Redirects._500;
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(

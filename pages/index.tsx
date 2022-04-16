@@ -8,7 +8,7 @@ import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
 import { PaginatedResponse, PostWithAuthor } from 'types/models/response';
-import { redirect500 } from 'utils';
+import { Redirects } from 'lib-client/constants';
 
 const Home: FC = () => {
   return (
@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const callback = async () => await getPostsWithAuthor({});
   const posts = ssrNcHandler<PaginatedResponse<PostWithAuthor>>(req, res, callback);
 
-  if (!posts) return redirect500;
+  if (!posts) return Redirects._500;
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([QueryKeys.POSTS_HOME, 1], () => posts);

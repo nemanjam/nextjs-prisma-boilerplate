@@ -9,7 +9,7 @@ import {
   GetUserQueryParams,
 } from 'pages/api/users/profile';
 import { getMe } from 'lib-server/prisma';
-import { redirectLogin, redirectNotFound } from 'utils';
+import { Redirects } from 'lib-client/constants';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
 import { ClientUser } from 'types/models/response';
@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
   const callback1 = async () => await getMe({ req });
   const me = await ssrNcHandler<ClientUser>(req, res, callback1);
 
-  if (!me) return redirectLogin;
+  if (!me) return Redirects.LOGIN;
 
   // if my username trim url
 
@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
     if (me.role === 'admin') {
       _params = { username: params?.username[0] };
     } else {
-      return redirectNotFound;
+      return Redirects.NOT_FOUND;
     }
   } else {
     _params = { id: me.id };
@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
   const callback2 = async () => await getUserByIdOrUsernameOrEmail(_params);
   const user = await ssrNcHandler<ClientUser>(req, res, callback2);
 
-  if (!user) return redirectNotFound;
+  if (!user) return Redirects.NOT_FOUND;
 
   const subKey = _params?.username || _params?.id;
 

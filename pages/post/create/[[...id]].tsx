@@ -6,7 +6,7 @@ import PageLayout from 'layouts/PageLayout';
 import { getMe } from 'lib-server/prisma';
 import { getPostWithAuthorById } from 'pages/api/posts/[id]';
 import QueryKeys from 'lib-client/react-query/queryKeys';
-import { redirectLogin, redirectNotFound } from 'utils';
+import { Redirects } from 'lib-client/constants';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
 import { ClientUser, PostWithAuthor } from 'types/models/response';
@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
   const callback1 = async () => await getMe({ req });
   const me = await ssrNcHandler<ClientUser>(req, res, callback1);
 
-  if (!me) return redirectLogin;
+  if (!me) return Redirects.LOGIN;
 
   const id = Number(params?.id?.[0]);
 
@@ -39,10 +39,10 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
   const callback2 = async () => await getPostWithAuthorById(id);
   const post = await ssrNcHandler<PostWithAuthor>(req, res, callback2);
 
-  if (!post) return redirectNotFound;
+  if (!post) return Redirects.NOT_FOUND;
 
   if (!(post.author.id === me.id || me.role === 'admin')) {
-    return redirectNotFound;
+    return Redirects.NOT_FOUND;
   }
 
   const queryClient = new QueryClient();

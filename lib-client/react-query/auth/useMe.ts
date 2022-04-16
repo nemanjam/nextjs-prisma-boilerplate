@@ -4,9 +4,8 @@ import { signOut } from 'next-auth/react';
 import { ClientUser } from 'types/models/response';
 import { Routes } from 'lib-client/constants';
 import axiosInstance from 'lib-client/react-query/axios';
-import QueryKeys from 'lib-client/react-query/queryKeys';
+import QueryKeys, { filterEmptyKeys } from 'lib-client/react-query/queryKeys';
 import { AxiosError } from 'axios';
-import { filterEmpty } from 'utils';
 
 const getUser = async (id: string) => {
   if (!id) return null;
@@ -24,7 +23,7 @@ export const useMe = () => {
   const id = session?.user?.id;
 
   const query = useQuery<ClientUser, AxiosError>(
-    filterEmpty([QueryKeys.ME, id]),
+    filterEmptyKeys([QueryKeys.ME, id]),
     () => getUser(id),
     {
       enabled: status !== 'loading',
