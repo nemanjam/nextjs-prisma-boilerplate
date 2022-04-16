@@ -2,15 +2,14 @@ import { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import { PaginatedResponse } from 'types';
-import { ClientUser } from 'types/models/User';
+import { ClientUser, UsersGetSearchQueryParams } from 'types/models/User';
 import { Routes } from 'lib-client/constants';
 import axiosInstance from 'lib-client/react-query/axios';
-import { GetUsersQueryParams } from 'pages/api/users';
 import QueryKeys, { filterEmptyKeys } from 'lib-client/react-query/queryKeys';
 
 // usePaginatedQuery, first page hydrated method from getServerSideProps
 
-const getUsers = async (params: GetUsersQueryParams) => {
+const getUsers = async (params: UsersGetSearchQueryParams) => {
   const { data } = await axiosInstance.get<PaginatedResponse<ClientUser>>(
     Routes.API.USERS,
     { params }
@@ -18,7 +17,7 @@ const getUsers = async (params: GetUsersQueryParams) => {
   return data;
 };
 
-export const useUsers = (params: GetUsersQueryParams) => {
+export const useUsers = (params: UsersGetSearchQueryParams) => {
   const queryClient = useQueryClient();
   const { page, searchTerm } = params;
 

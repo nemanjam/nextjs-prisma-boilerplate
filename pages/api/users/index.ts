@@ -2,14 +2,14 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { hash } from 'bcryptjs';
 import { withValidation } from 'next-validations';
 import prisma, { excludeFromUser } from 'lib-server/prisma';
-import nc, { ncOptions } from 'lib-server/nc';
+import { apiHandler } from 'lib-server/nc';
 import ApiError from 'lib-server/error';
 import { usersGetSchema, userRegisterSchema } from 'lib-server/validation';
-import { QueryParamsType } from 'types';
+import { QueryParamsType, SortDirection } from 'types';
 import { PaginatedResponse } from 'types';
 import { ClientUser } from 'types/models/User';
 
-const handler = nc(ncOptions);
+const handler = apiHandler();
 
 const validateUserRegister = withValidation({
   schema: userRegisterSchema.innerType().omit({
@@ -31,7 +31,7 @@ const validateUsersGet = withValidation({
  */
 handler.post(
   validateUserRegister(),
-  async (req: NextApiRequest, res: NextApiResponse) => {
+  async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
     const { name, username, email, password: _password } = req.body;
 
     const _user = await prisma.user.findFirst({
@@ -55,15 +55,6 @@ handler.post(
     res.status(201).json(excludeFromUser(user));
   }
 );
-
-type SortDirectionType = 'asc' | 'desc';
-
-export type GetUsersQueryParams = {
-  page: number;
-  limit?: number;
-  searchTerm?: string;
-  sortDirection?: SortDirectionType;
-};
 
 const defaultLimit = parseInt(process.env.NEXT_PUBLIC_USERS_PER_PAGE);
 
@@ -112,7 +103,7 @@ export const getUsers = async (
     skip: (page - 1) * limit,
     take: limit,
     orderBy: {
-      createdAt: sortDirection as SortDirectionType,
+      createdAt: sortDirection as SortDirection,
     },
   });
 
@@ -132,9 +123,12 @@ export const getUsers = async (
   return result;
 };
 
-handler.get(validateUsersGet(), async (req: NextApiRequest, res: NextApiResponse) => {
-  const users = await getUsers(req.query);
-  res.status(200).json(users);
-});
+handler.get(
+  validateUsersGet(),
+  async (req: NextApiRequest, res: NextApiResponse<PaginatedResponse<ClientUser>>) => {
+    const users = await getUsers(req.query);
+    res.status(200).json(users);
+  }
+);
 
 export default handler;

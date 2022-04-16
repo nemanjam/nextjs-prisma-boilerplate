@@ -98,7 +98,7 @@
 - tomorrow:
   - types, models folder
   - react query error handling, axios interceptor, 4 states
-  - types in api
+  - types in api `handler.get(async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>)`
 
 ### Questions
 

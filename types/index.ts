@@ -1,6 +1,8 @@
 import { IncomingMessage } from 'http';
 import { NextApiRequestCookies } from 'next/dist/server/api-utils';
 
+// ------------ Shared types
+
 /**
  * paginated response for posts and users
  */
@@ -16,6 +18,10 @@ export type PaginatedResponse<T> = {
     hasMore: boolean;
   };
 };
+
+export type SortDirection = 'asc' | 'desc';
+
+// ------------ Next.js types
 
 /**
  * api NextApiRequest req.query

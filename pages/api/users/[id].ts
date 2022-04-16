@@ -3,14 +3,15 @@ import { hash } from 'bcryptjs';
 import { withValidation } from 'next-validations';
 import prisma, { excludeFromUser, getMe } from 'lib-server/prisma';
 import { profileImagesUpload } from 'lib-server/middleware/upload';
-import nc, { ncOptions } from 'lib-server/nc';
+import { apiHandler } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
 import { userIdCuidSchema, userUpdateSchema } from 'lib-server/validation';
+import { ClientUser } from 'types/models/User';
 
 type MulterRequest = NextApiRequest & { files: any };
 
-const handler = nc(ncOptions);
+const handler = apiHandler();
 const getId = (req: NextApiRequest) => req.query.id as string;
 
 const validateUserIdCuid = (id: string) => {
@@ -32,7 +33,7 @@ export const getUserById = async (id: string) => {
 
 // GET /api/users/:id
 // only for me query
-handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
+handler.get(async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
   const user = await getUserById(getId(req));
 
   if (!user) throw new ApiError('User not found.', 404);
@@ -44,7 +45,7 @@ handler.patch(
   requireAuth,
   profileImagesUpload,
   validateUserUpdate(),
-  async (req: NextApiRequest, res: NextApiResponse) => {
+  async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
     const { body, files } = req as MulterRequest;
     const id = getId(req);
     validateUserIdCuid(id);
@@ -81,7 +82,7 @@ export const config = {
   },
 };
 
-handler.delete(async (req: NextApiRequest, res: NextApiResponse) => {
+handler.delete(async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
   const id = getId(req);
   validateUserIdCuid(id);
 

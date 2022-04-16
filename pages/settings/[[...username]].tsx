@@ -4,15 +4,13 @@ import { dehydrate, QueryClient } from 'react-query';
 import PageLayout from 'layouts/PageLayout';
 import SettingsView from 'views/Settings';
 import QueryKeys from 'lib-client/react-query/queryKeys';
-import {
-  getUserByIdOrUsernameOrEmail,
-  GetUserQueryParams,
-} from 'pages/api/users/profile';
+import { getUserByIdOrUsernameOrEmail } from 'pages/api/users/profile';
 import { getMe } from 'lib-server/prisma';
 import { Redirects } from 'lib-client/constants';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
 import { ClientUser } from 'types/models/User';
+import { QueryParamsType } from 'types';
 
 const Settings: FC = () => {
   return (
@@ -33,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
 
   // if my username trim url
 
-  let _params: GetUserQueryParams = {};
+  let _params: QueryParamsType = {};
   if (params?.username) {
     if (me.role === 'admin') {
       _params = { username: params?.username[0] };

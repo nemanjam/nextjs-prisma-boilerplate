@@ -15,6 +15,15 @@ export const ncOptions = {
   },
 };
 
+/**
+ * single instance must be default exported from file
+ */
+export const apiHandler = () => {
+  return nc<NextApiRequest, NextApiResponse>(ncOptions);
+};
+
+// ---------- getServerSideProps error handler
+
 export type NextApiRequestWithResult<T> = NextApiRequest & { result: T };
 
 export const ssrNcHandler = async <T extends unknown>(
@@ -47,6 +56,3 @@ export const ssrNcHandler = async <T extends unknown>(
 };
 
 export default nc;
-// attachParams: true, // req.params
-// res.status(501).json({ error: `Error: ${error.message}` });
-// res.status(405).json({ error: `Method '${req.method}' not allowed` });

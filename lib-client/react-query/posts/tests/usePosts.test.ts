@@ -3,14 +3,14 @@ import { createWrapper } from 'test/test-utils';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import { fakePosts } from 'test/server/fake-data';
 import QueryKeys from 'lib-client/react-query/queryKeys';
-import { GetPostsQueryParams } from 'pages/api/posts';
+import { PostsGetSearchQueryParams } from 'types/models/Post';
 
 describe('usePosts', () => {
   test('successful query posts hook', async () => {
     const page = 1;
     const title = fakePosts.items[0].title; // msw supports only title
 
-    const params: GetPostsQueryParams = { page, searchTerm: title };
+    const params: PostsGetSearchQueryParams = { page, searchTerm: title };
 
     const { result, waitFor } = renderHook(() => usePosts(QueryKeys.POSTS_HOME, params), {
       wrapper: createWrapper(),

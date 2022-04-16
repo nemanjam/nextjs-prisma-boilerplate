@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import nc, { ncOptions } from 'lib-server/nc';
+import { apiHandler } from 'lib-server/nc';
 
-const handler = nc(ncOptions);
+const handler = apiHandler();
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   require('../../../prisma/seed.js');

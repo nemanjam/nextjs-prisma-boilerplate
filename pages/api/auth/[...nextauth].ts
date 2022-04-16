@@ -8,14 +8,14 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { User, Account } from 'next-auth/core/types';
 import prisma from 'lib-server/prisma';
 import { compare } from 'bcryptjs';
-import nc, { ncOptions } from 'lib-server/nc';
+import { apiHandler } from 'lib-server/nc';
 import ApiError from 'lib-server/error';
 import { userLoginSchema } from 'lib-server/validation';
 import { Routes } from 'lib-client/constants';
 import { ClientUser } from 'types/models/User';
 
 const { serverRuntimeConfig } = getConfig();
-const handler = nc(ncOptions);
+const handler = apiHandler();
 
 handler.use(
   (req: NextApiRequest, res: NextApiResponse): NextApiHandler =>

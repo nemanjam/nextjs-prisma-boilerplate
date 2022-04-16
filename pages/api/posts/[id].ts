@@ -1,13 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { withValidation } from 'next-validations';
-import nc, { ncOptions } from 'lib-server/nc';
+import { apiHandler } from 'lib-server/nc';
 import prisma, { excludeFromPost, getMe } from 'lib-server/prisma';
 import { requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
 import { postIdNumberSchema, postUpdateSchema } from 'lib-server/validation';
 import { PostWithAuthor } from 'types/models/Post';
 
-const handler = nc(ncOptions);
+const handler = apiHandler();
 const getId = (req: NextApiRequest) => Number(req.query.id as string);
 
 const validatePostIdNumber = (id: number) => {
@@ -40,7 +40,7 @@ export const getPostWithAuthorById = async (id: number): Promise<PostWithAuthor>
 
 // GET, PATCH, DELETE /api/post/:id
 
-handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
+handler.get(async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>) => {
   const post = await getPostWithAuthorById(getId(req));
   res.status(200).json(post);
 });
@@ -48,7 +48,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
 handler.patch(
   requireAuth,
   validatePostUpdate(),
-  async (req: NextApiRequest, res: NextApiResponse) => {
+  async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>) => {
     const id = getId(req);
     validatePostIdNumber(id);
 
@@ -90,20 +90,23 @@ handler.patch(
   }
 );
 
-handler.delete(requireAuth, async (req: NextApiRequest, res: NextApiResponse) => {
-  const id = getId(req);
-  validatePostIdNumber(id);
+handler.delete(
+  requireAuth,
+  async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>) => {
+    const id = getId(req);
+    validatePostIdNumber(id);
 
-  const post = await prisma.post.delete({
-    where: { id },
-    include: {
-      author: true,
-    },
-  });
+    const post = await prisma.post.delete({
+      where: { id },
+      include: {
+        author: true,
+      },
+    });
 
-  if (!post) throw new ApiError(`Post with id:${id} not found.`, 404);
+    if (!post) throw new ApiError(`Post with id:${id} not found.`, 404);
 
-  res.status(204).json(excludeFromPost(post));
-});
+    res.status(204).json(excludeFromPost(post));
+  }
+);
 
 export default handler;

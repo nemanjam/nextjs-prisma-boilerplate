@@ -1,15 +1,15 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { createWrapper } from 'test/test-utils';
 import { useUsers } from 'lib-client/react-query/users/useUsers';
-import { GetUsersQueryParams } from 'pages/api/users';
 import { fakeUsers } from 'test/server/fake-data';
+import { UsersGetSearchQueryParams } from 'types/models/User';
 
 describe('useUsers', () => {
   test('successful query users hook', async () => {
     const page = 1;
     const username = fakeUsers.items[0].username;
 
-    const params: GetUsersQueryParams = { page, searchTerm: username };
+    const params: UsersGetSearchQueryParams = { page, searchTerm: username };
 
     const { result, waitFor } = renderHook(() => useUsers(params), {
       wrapper: createWrapper(),

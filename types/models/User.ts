@@ -1,5 +1,6 @@
 import { User } from '@prisma/client';
 import { Dispatch, SetStateAction } from 'react';
+import { SortDirection } from 'types';
 
 // --------- Response types ----------
 // used in queries and api responses
@@ -17,13 +18,13 @@ export type ClientUser = Omit<User, 'password'>;
  */
 export type UserCreateData = Pick<User, 'name' | 'username' | 'email' | 'password'>;
 
-export interface UserCreateFormData {
+export type UserCreateFormData = {
   email: string;
   password: string;
   confirmPassword?: string;
   name?: string;
   username?: string;
-}
+};
 
 /**
  * update user
@@ -40,7 +41,7 @@ export type UserUpdateMutationData = {
 
 // don't put id in form, validation needs to diff on client and server
 // id is in route param
-export interface UserUpdateFormData {
+export type UserUpdateFormData = {
   name: string;
   username: string;
   avatar: File;
@@ -48,4 +49,20 @@ export interface UserUpdateFormData {
   bio: string;
   password: string;
   confirmPassword: string;
-}
+};
+
+// --------- Query params request types ----------
+// used in queries and api args validation
+
+export type UsersGetSearchQueryParams = {
+  page: number;
+  limit?: number;
+  searchTerm?: string;
+  sortDirection?: SortDirection;
+};
+
+export type UserGetQueryParams = {
+  id?: string;
+  username?: string;
+  email?: string;
+};

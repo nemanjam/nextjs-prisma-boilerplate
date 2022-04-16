@@ -1,13 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { withValidation } from 'next-validations';
 import prisma, { excludeFromUser } from 'lib-server/prisma';
-import nc, { ncOptions } from 'lib-server/nc';
+import { apiHandler } from 'lib-server/nc';
 import ApiError from 'lib-server/error';
 import { userGetSchema } from 'lib-server/validation';
 import { QueryParamsType } from 'types';
 import { ClientUser } from 'types/models/User';
 
-const handler = nc(ncOptions);
+const handler = apiHandler();
 
 const validateUserGet = withValidation({
   schema: userGetSchema,
@@ -48,9 +48,12 @@ export const getUserByIdOrUsernameOrEmail = async (
  * single user by username or email
  * so /api/users can return users array
  */
-handler.get(validateUserGet(), async (req: NextApiRequest, res: NextApiResponse) => {
-  const user = await getUserByIdOrUsernameOrEmail(req.query);
-  res.status(200).json(user);
-});
+handler.get(
+  validateUserGet(),
+  async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
+    const user = await getUserByIdOrUsernameOrEmail(req.query);
+    res.status(200).json(user);
+  }
+);
 
 export default handler;

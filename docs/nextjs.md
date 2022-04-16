@@ -3,6 +3,34 @@
 - next-connect [example](https://github.com/hoangvvo/nextjs-mongodb-app)
 - youtube [tutorial](https://www.youtube.com/watch?v=TvCu_oK083U)
 - youtube [code](https://github.dev/bmvantunes/youtube-2020-july-next-api-routes-next-connect)
+- types for req, res: [Github Readme](https://github.com/hoangvvo/next-connect#typescript)
+
+```ts
+// this wil type all handler.get() .post() .use() ...
+const handler = nc<NextApiRequest, NextApiResponse>();
+
+// each .post() individualy
+interface ExtendedRequest {
+  user: string;
+}
+interface ExtendedResponse {
+  cookie(name: string, value: string): void;
+}
+
+handler.post<ExtendedRequest, ExtendedResponse>((req, res) => {
+  req.user = 'Anakin';
+  res.cookie('sid', '8108');
+});
+```
+
+- actualy type `json(body: UserOrPost)` like this:
+
+```ts
+handler.get(async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>) => {
+  const post = await getPostWithAuthorById(getId(req));
+  res.status(200).json(post);
+});
+```
 
 ### Responsive Navbar
 
