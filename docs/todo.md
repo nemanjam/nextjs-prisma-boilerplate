@@ -89,11 +89,14 @@
 - \_error.tsx, Custom500.tsx pages?
 - cv testing, react query, next, react, tailwind, architectures, databases, devcontainers, traefik, homelab
 - empty state, home, profile... data.items: []
-- types, models folder
 - me in QueryCache in getServerSideProps, no, should be client side if updated on client, just whole screen loader
 - fix tests after MeContext
 - fix me refetch after login
 - maybe install `react-use` package
+- fix dropdown outside click
+- tomorrow:
+  - types, models folder
+  - react query error handling, axios interceptor, 4 states
 
 ### Questions
 
