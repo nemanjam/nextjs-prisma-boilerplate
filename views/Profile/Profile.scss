@@ -3,6 +3,7 @@
 
   &__user-card {
     @apply border-x border-b border-th-base-200;
+    @apply -mx-[var(--layout-content-p)] sm:mx-0;
   }
 
   &__header-image {

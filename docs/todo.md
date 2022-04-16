@@ -72,7 +72,7 @@
 - Github Action CI for tests
 - handle http error in HomeView, both getServerSideProps and useQuery, ErrorBoundary, error handling and error testing same thing
 - return ClientUser from all api endpoints
-- update callback links on Facebook and Google for Oracle
+- update callback url on Facebook and Google for Oracle
 - test coverage setup
 - hooks error tests (and handling)
 - migrate react query to v4, react 18
@@ -85,15 +85,15 @@
 - container with vs code for replicating bugs - Gitpod Self-Hosted container
 - testing-lib/react-hooks ReactDom warning
 - avatar thrown out of the form state??? form.reset() not working...
-- throw from all api's zod..., ZodError to ApiError convert fn
+- zod.safeParse.error type
 - \_error.tsx, Custom500.tsx pages?
 - cv testing, react query, next, react, tailwind, architectures, databases, devcontainers, traefik, homelab
 - empty state, home, profile... data.items: []
-- me in QueryCache in getServerSideProps, no, should be client side if updated on client, just whole screen loader
 - fix tests after MeContext
-- fix me refetch after login
+- hide login blink
 - maybe install `react-use` package
 - fix dropdown outside click
+- hooks tests renderHook from rtl instead of rtl/react-hooks
 - tomorrow:
   - types, models folder
   - react query error handling, axios interceptor, 4 states
@@ -191,3 +191,7 @@
 - implement Spinner loader, done
 - remove padding top from PageLayout, recalculate min-height for content h-100%, done
 - zod validate ids, done
+- remove padding on profile sm, layout no horizontal padding prop, done
+- me in QueryCache in getServerSideProps, no, should be client side if updated on client, just whole screen loader, wont do
+- fix me refetch after login, done
+- throw from all api's zod..., ZodError to ApiError convert fn, done
