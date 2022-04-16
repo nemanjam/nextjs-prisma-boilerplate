@@ -9,7 +9,7 @@ import {
   uploadsImageLoader,
 } from 'lib-client/imageLoaders';
 import { mommentFormats } from 'lib-server/constants';
-import { ClientUser } from 'types';
+import { ClientUser } from 'types/models/response';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import Pagination from 'components/Pagination';
 import QueryKeys from 'lib-client/react-query/queryKeys';

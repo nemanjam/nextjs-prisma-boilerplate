@@ -3,13 +3,13 @@ import { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import CreateView from 'views/Create';
 import PageLayout from 'layouts/PageLayout';
-import { excludeFromPost, getMe } from 'lib-server/prisma';
+import { getMe } from 'lib-server/prisma';
 import { getPostWithAuthorById } from 'pages/api/posts/[id]';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { redirectLogin, redirectNotFound } from 'utils';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
-import { ClientUser, PostWithUser } from 'types';
+import { ClientUser, PostWithAuthor } from 'types/models/response';
 
 const Create: FC = () => {
   return (
@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
     };
 
   const callback2 = async () => await getPostWithAuthorById(id);
-  const post = await ssrNcHandler<PostWithUser>(req, res, callback2);
+  const post = await ssrNcHandler<PostWithAuthor>(req, res, callback2);
 
   if (!post) return redirectNotFound;
 
@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
   }
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery([QueryKeys.POST, post.id], () => excludeFromPost(post));
+  await queryClient.prefetchQuery([QueryKeys.POST, post.id], () => post);
 
   return {
     props: {

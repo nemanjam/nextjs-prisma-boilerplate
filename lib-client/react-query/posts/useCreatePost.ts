@@ -4,7 +4,7 @@ import { Post } from '@prisma/client';
 import { AxiosError } from 'axios';
 import axiosInstance from 'lib-client/react-query/axios';
 import { Routes } from 'lib-client/constants';
-import { PostWithAuthor } from 'types';
+import { PostWithAuthor } from 'types/models/response';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 
 export type PostCreateType = Pick<Post, 'title' | 'content'>;

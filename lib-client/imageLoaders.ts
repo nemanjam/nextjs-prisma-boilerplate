@@ -1,5 +1,5 @@
 import { ImageLoaderProps } from 'next/image';
-import { ClientUser } from 'types';
+import { ClientUser } from 'types/models/response';
 import { isUrl } from 'utils';
 import { Routes } from 'lib-client/constants';
 

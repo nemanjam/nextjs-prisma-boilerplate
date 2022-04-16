@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useRef, useState } from 'react';
+import React, { FC, ReactNode, useContext, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { NextRouter, useRouter } from 'next/router';
@@ -20,7 +20,7 @@ import {
   RiAccountBoxLine,
 } from 'react-icons/ri';
 import { IoPeopleOutline, IoSettingsOutline } from 'react-icons/io5';
-import { ClientUser } from 'types';
+import { ClientUser } from 'types/models/response';
 import ThemeChanger from 'components/ThemeChanger';
 import fullTwConfig from 'utils/tw-config';
 import { MeContext } from 'lib-client/providers/Me';
@@ -48,7 +48,7 @@ const getAllItems = ({
   onHamburgerClick,
   mobileMenuOpen,
   isGetDropdownItems,
-}: ItemsArgs) => ({
+}: ItemsArgs): Record<string, ReactNode> => ({
   home: (
     <Link key="home" href={Routes.SITE.HOME}>
       <a>
@@ -198,9 +198,9 @@ const objectFilter = (obj, predicate) =>
 
 const filterAllItems = ({ argsArray, ...restArgs }: FilterItemsArgs) =>
   argsArray?.length > 0
-    ? Object.values(
+    ? (Object.values(
         objectFilter(getAllItems(restArgs), ([key]) => argsArray.includes(key))
-      )
+      ) as ReactNode[])
     : [];
 
 // main nav definition

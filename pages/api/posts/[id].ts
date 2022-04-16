@@ -5,7 +5,7 @@ import prisma, { excludeFromPost, getMe } from 'lib-server/prisma';
 import { requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
 import { postIdNumberSchema, postUpdateSchema } from 'lib-server/validation';
-import { PostWithUser } from 'types';
+import { PostWithAuthor } from 'types/models/response';
 
 const handler = nc(ncOptions);
 const getId = (req: NextApiRequest) => Number(req.query.id as string);
@@ -21,7 +21,7 @@ const validatePostUpdate = withValidation({
   mode: 'body',
 });
 
-export const getPostWithAuthorById = async (id: number): Promise<PostWithUser> => {
+export const getPostWithAuthorById = async (id: number): Promise<PostWithAuthor> => {
   validatePostIdNumber(id);
 
   const post = await prisma.post.findUnique({
@@ -33,16 +33,16 @@ export const getPostWithAuthorById = async (id: number): Promise<PostWithUser> =
     },
   });
 
-  if (!post) throw new ApiError('Post not found.', 404);
+  if (!post) throw new ApiError(`Post with id: ${id} not found.`, 404);
 
-  return post;
+  return excludeFromPost(post);
 };
 
 // GET, PATCH, DELETE /api/post/:id
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   const post = await getPostWithAuthorById(getId(req));
-  res.status(200).json(excludeFromPost(post));
+  res.status(200).json(post);
 });
 
 handler.patch(

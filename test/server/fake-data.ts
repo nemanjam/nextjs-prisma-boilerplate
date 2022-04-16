@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { Session } from 'next-auth';
-import { ClientUser } from 'types';
+import { ClientUser } from 'types/models/response';
 import { Post } from '@prisma/client';
-import { PaginatedResponse, PostWithAuthor } from 'types';
+import { PaginatedResponse, PostWithAuthor } from 'types/models/response';
 
 const { lorem } = faker;
 const numberOfPosts = 10;

@@ -3,7 +3,7 @@ import { useMutation } from 'react-query';
 import { User } from '@prisma/client';
 import axiosInstance from 'lib-client/react-query/axios';
 import { Routes } from 'lib-client/constants';
-import { ClientUser } from 'types';
+import { ClientUser } from 'types/models/response';
 
 export type UserUpdateType = Partial<
   Pick<User, 'username' | 'name' | 'bio' | 'image' | 'headerImage' | 'password'>

@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query';
 import { useRouter } from 'next/router';
-import { ClientUser } from 'types';
+import { ClientUser } from 'types/models/response';
 import { Routes } from 'lib-client/constants';
 import { AxiosError } from 'axios';
 import axiosInstance from 'lib-client/react-query/axios';

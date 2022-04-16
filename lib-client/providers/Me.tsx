@@ -1,5 +1,5 @@
 import { createContext, FC } from 'react';
-import { ClientUser } from 'types';
+import { ClientUser } from 'types/models/response';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import Loading from 'components/Loading';
 

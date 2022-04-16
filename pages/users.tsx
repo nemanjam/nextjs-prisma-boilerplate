@@ -7,7 +7,7 @@ import UsersView from 'views/Users';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
-import { ClientUser, PaginatedResponse } from 'types';
+import { ClientUser, PaginatedResponse } from 'types/models/response';
 import { redirect500 } from 'utils';
 
 const Users: FC = () => {

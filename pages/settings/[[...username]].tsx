@@ -12,7 +12,7 @@ import { getMe } from 'lib-server/prisma';
 import { redirectLogin, redirectNotFound } from 'utils';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
-import { ClientUser } from 'types';
+import { ClientUser } from 'types/models/response';
 
 const Settings: FC = () => {
   return (

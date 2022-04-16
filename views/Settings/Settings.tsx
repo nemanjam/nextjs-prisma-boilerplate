@@ -15,7 +15,7 @@ import {
 } from 'lib-client/react-query/users/useUpdateUser';
 import { useUser } from 'lib-client/react-query/users/useUser';
 import { getAvatarPath, getHeaderImagePath } from 'lib-client/imageLoaders';
-import { ClientUser } from 'types';
+import { ClientUser } from 'types/models/response';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import ProgressBar from 'components/ProgressBar';
 import Alert from 'components/Alert';

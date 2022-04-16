@@ -1,4 +1,4 @@
-import { PostWithAuthor, ClientUser } from 'types';
+import { PostWithAuthor, ClientUser } from 'types/models/response';
 
 // pages/[username]/post/[id].tsx - page
 // views/Post/Post.tsx - view

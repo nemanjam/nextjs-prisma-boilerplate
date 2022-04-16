@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
-import { ClientUser, PaginatedResponse } from 'types';
+import { ClientUser, PaginatedResponse } from 'types/models/response';
 import { Routes } from 'lib-client/constants';
 import axiosInstance from 'lib-client/react-query/axios';
 import { GetUsersQueryParams } from 'pages/api/users';

@@ -5,7 +5,7 @@ import nc, { ncOptions } from 'lib-server/nc';
 import ApiError from 'lib-server/error';
 import { userGetSchema } from 'lib-server/validation';
 import { QueryParamsType } from 'types';
-import { User } from '@prisma/client';
+import { ClientUser } from 'types/models/response';
 
 const handler = nc(ncOptions);
 
@@ -25,7 +25,7 @@ export type GetUserQueryParams = {
 // query so it can be validated with schema
 export const getUserByIdOrUsernameOrEmail = async (
   query: QueryParamsType
-): Promise<User> => {
+): Promise<ClientUser> => {
   const validationResult = userGetSchema.safeParse(query);
   if (!validationResult.success)
     throw ApiError.fromZodError((validationResult as any).error);
@@ -40,7 +40,7 @@ export const getUserByIdOrUsernameOrEmail = async (
     throw new ApiError(`User not found.`, 404);
   }
 
-  return user;
+  return excludeFromUser(user);
 };
 
 /**
@@ -50,7 +50,7 @@ export const getUserByIdOrUsernameOrEmail = async (
  */
 handler.get(validateUserGet(), async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await getUserByIdOrUsernameOrEmail(req.query);
-  res.status(200).json(excludeFromUser(user));
+  res.status(200).json(user);
 });
 
 export default handler;

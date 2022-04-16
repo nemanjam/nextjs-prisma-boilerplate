@@ -94,6 +94,7 @@
 - maybe install `react-use` package
 - fix dropdown outside click
 - hooks tests renderHook from rtl instead of rtl/react-hooks
+- fix types `yarn type-check`, Navbar ReactNode, ReactElement, JSX.Element []
 - tomorrow:
   - types, models folder
   - react query error handling, axios interceptor, 4 states
@@ -105,7 +106,7 @@
 - absolute positioning or negative margin, css reddit question
 - jest.mock() vs jest.spyOn()?
 - exports from index.ts
-- ReactElement vs JSX.Element vs ReactNode
+- ReactElement vs JSX.Element vs ReactNode, ask this
 
 ## Done
 

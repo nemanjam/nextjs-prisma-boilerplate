@@ -1,6 +1,6 @@
 import { Post, PrismaClient, User } from '@prisma/client';
 import { getSession, GetSessionParams } from 'next-auth/react';
-import { ClientUser, PostWithAuthor } from 'types';
+import { ClientUser, PostWithAuthor } from 'types/models/response';
 import ApiError from 'lib-server/error';
 
 // PrismaClient is attached to the `global` object in development to prevent

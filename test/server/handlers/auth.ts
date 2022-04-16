@@ -2,7 +2,7 @@ import { DefaultRequestBody, PathParams, rest } from 'msw';
 import { Session } from 'next-auth';
 import { fakeSession } from 'test/server/fake-data';
 import { Routes } from 'lib-client/constants';
-import { ClientUser } from 'types';
+import { ClientUser } from 'types/models/response';
 
 const authHandlers = [
   // useSession, getSession

@@ -12,7 +12,7 @@ import nc, { ncOptions } from 'lib-server/nc';
 import ApiError from 'lib-server/error';
 import { userLoginSchema } from 'lib-server/validation';
 import { Routes } from 'lib-client/constants';
-import { ClientUser } from 'types';
+import { ClientUser } from 'types/models/response';
 
 const { serverRuntimeConfig } = getConfig();
 const handler = nc(ncOptions);

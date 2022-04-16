@@ -5,15 +5,15 @@ import { dehydrate, QueryClient } from 'react-query';
 import ProfileView from 'views/Profile';
 import { getUserByIdOrUsernameOrEmail } from 'pages/api/users/profile';
 import { getPostsWithAuthor } from 'pages/api/posts';
-import { User } from '@prisma/client';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
 import { getAvatarPathAbsolute } from 'lib-client/imageLoaders';
 import { ssrNcHandler } from '@lib-server/nc';
 import { redirect500, redirectNotFound } from 'utils';
+import { ClientUser } from 'types/models/response';
 
 type ProfileProps = {
-  profile: User;
+  profile: ClientUser;
 };
 
 const Profile: FC<ProfileProps> = ({ profile }) => {
@@ -33,7 +33,7 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
   const callback1 = async () => await getUserByIdOrUsernameOrEmail(params);
-  const profile = await ssrNcHandler<User>(req, res, callback1);
+  const profile = await ssrNcHandler<ClientUser>(req, res, callback1);
 
   if (!profile) return redirectNotFound;
 

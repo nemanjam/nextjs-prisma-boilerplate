@@ -1,5 +1,5 @@
 import { DefaultRequestBody, PathParams, rest } from 'msw';
-import { ClientUser, PaginatedResponse } from 'types';
+import { ClientUser, PaginatedResponse } from 'types/models/response';
 import { fakeUser, fakeUsers } from 'test/server/fake-data';
 import { Routes } from 'lib-client/constants';
 import { resolve } from 'path';

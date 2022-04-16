@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { Post } from '@prisma/client';
 import axiosInstance from 'lib-client/react-query/axios';
 import { Routes } from 'lib-client/constants';
-import { PostWithAuthor } from 'types';
+import { PostWithAuthor } from 'types/models/response';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 
 export type PostUpdateType = Partial<Pick<Post, 'title' | 'content' | 'published'>>;

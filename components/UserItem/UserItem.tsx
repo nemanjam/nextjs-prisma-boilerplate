@@ -12,7 +12,7 @@ import { getIsAdmin } from 'components/PostItem';
 import Button from 'components/Button';
 import { useDeleteUser } from 'lib-client/react-query/users/useDeleteUser';
 import { mommentFormats } from 'lib-server/constants';
-import { ClientUser } from 'types';
+import { ClientUser } from 'types/models/response';
 import { Routes } from 'lib-client/constants';
 import Alert from 'components/Alert';
 import Loading from 'components/Loading';

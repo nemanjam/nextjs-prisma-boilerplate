@@ -7,7 +7,7 @@ import HomeView from 'views/Home';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
-import { PaginatedResponse, PostWithAuthor } from 'types';
+import { PaginatedResponse, PostWithAuthor } from 'types/models/response';
 import { redirect500 } from 'utils';
 
 const Home: FC = () => {

@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import axiosInstance from 'lib-client/react-query/axios';
 import { AxiosError } from 'axios';
 import { Routes } from 'lib-client/constants';
-import { PostWithAuthor } from 'types';
+import { PostWithAuthor } from 'types/models/response';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 
 const deletePost = async (id: number) => {
