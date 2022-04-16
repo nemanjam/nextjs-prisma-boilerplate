@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import { createWrapper } from 'test/test-utils';
 import { useCreateUser } from 'lib-client/react-query/auth/useCreateUser';
 import { fakeUser } from 'test/server/fake-data';
@@ -14,7 +14,7 @@ describe('useCreateUser', () => {
       push: jest.fn(),
     });
 
-    const { result, waitFor } = renderHook(() => useCreateUser(), {
+    const { result } = renderHook(() => useCreateUser(), {
       wrapper: createWrapper({ router }),
     });
 

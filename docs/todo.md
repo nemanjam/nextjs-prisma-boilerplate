@@ -94,11 +94,8 @@
 - maybe install `react-use` package
 - fix dropdown outside click
 - hooks tests renderHook from rtl instead of rtl/react-hooks
-- fix types `yarn type-check`, Navbar ReactNode, ReactElement, JSX.Element []
 - tomorrow:
-  - types, models folder
   - react query error handling, axios interceptor, 4 states
-  - types in api `handler.get(async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>)`
 
 ### Questions
 
@@ -198,3 +195,6 @@
 - me in QueryCache in getServerSideProps, no, should be client side if updated on client, just whole screen loader, wont do
 - fix me refetch after login, done
 - throw from all api's zod..., ZodError to ApiError convert fn, done
+- types, models folder, done
+- types in api `handler.get(async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>)`, done
+- fix types `yarn type-check`, Navbar ReactNode, ReactElement, JSX.Element [], done

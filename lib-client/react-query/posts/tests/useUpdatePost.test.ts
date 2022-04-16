@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import { createWrapper } from 'test/test-utils';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import { fakePostWithAuthor } from 'test/server/fake-data';
@@ -9,7 +9,7 @@ describe('useUpdatePost', () => {
   test('successful update post mutation hook', async () => {
     const title = 'updatedTitle';
 
-    const { result, waitFor } = renderHook(() => useUpdatePost(), {
+    const { result } = renderHook(() => useUpdatePost(), {
       wrapper: createWrapper(),
     });
 

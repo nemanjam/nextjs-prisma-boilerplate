@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import { createWrapper } from 'test/test-utils';
 import { useDeleteUser } from 'lib-client/react-query/users/useDeleteUser';
 import { fakeUser } from 'test/server/fake-data';
@@ -7,7 +7,7 @@ describe('useDeleteUser', () => {
   test('successful delete user mutation hook', async () => {
     const userId = fakeUser.id;
 
-    const { result, waitFor } = renderHook(() => useDeleteUser(), {
+    const { result } = renderHook(() => useDeleteUser(), {
       wrapper: createWrapper(),
     });
 

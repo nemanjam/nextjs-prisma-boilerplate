@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import { createWrapper } from 'test/test-utils';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import { fakePosts } from 'test/server/fake-data';
@@ -12,7 +12,7 @@ describe('usePosts', () => {
 
     const params: PostsGetSearchQueryParams = { page, searchTerm: title };
 
-    const { result, waitFor } = renderHook(() => usePosts(QueryKeys.POSTS_HOME, params), {
+    const { result } = renderHook(() => usePosts(QueryKeys.POSTS_HOME, params), {
       wrapper: createWrapper(),
     });
 

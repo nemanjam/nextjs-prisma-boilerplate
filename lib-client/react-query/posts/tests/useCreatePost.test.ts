@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import { createWrapper } from 'test/test-utils';
 import { fakePost } from 'test/server/fake-data';
 import { createMockRouter } from 'test/Wrapper';
@@ -15,7 +15,7 @@ describe('useCreatePost', () => {
       push: jest.fn(),
     });
 
-    const { result, waitFor } = renderHook(() => useCreatePost(), {
+    const { result } = renderHook(() => useCreatePost(), {
       wrapper: createWrapper({ router }),
     });
 

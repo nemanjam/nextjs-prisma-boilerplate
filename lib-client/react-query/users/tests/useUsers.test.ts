@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import { createWrapper } from 'test/test-utils';
 import { useUsers } from 'lib-client/react-query/users/useUsers';
 import { fakeUsers } from 'test/server/fake-data';
@@ -11,7 +11,7 @@ describe('useUsers', () => {
 
     const params: UsersGetSearchQueryParams = { page, searchTerm: username };
 
-    const { result, waitFor } = renderHook(() => useUsers(params), {
+    const { result } = renderHook(() => useUsers(params), {
       wrapper: createWrapper(),
     });
 

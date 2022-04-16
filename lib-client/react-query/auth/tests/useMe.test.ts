@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import { createWrapper } from 'test/test-utils';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 import { fakeUser } from 'test/server/fake-data';
@@ -7,7 +7,7 @@ describe('useMe', () => {
   test('successful query hook', async () => {
     // useMe calls useSession() that needs SessionProvider
 
-    const { result, waitFor } = renderHook(() => useMe(), {
+    const { result } = renderHook(() => useMe(), {
       wrapper: createWrapper(),
     });
 

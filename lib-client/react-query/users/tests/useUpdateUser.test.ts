@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import { createWrapper } from 'test/test-utils';
 import { useUpdateUser } from 'lib-client/react-query/users/useUpdateUser';
 import { fakeUser } from 'test/server/fake-data';
@@ -8,7 +8,7 @@ describe('useUpdateUser', () => {
   test('successful update user mutation hook', async () => {
     const username = 'updatedUsername';
 
-    const { result, waitFor } = renderHook(() => useUpdateUser(), {
+    const { result } = renderHook(() => useUpdateUser(), {
       wrapper: createWrapper(),
     });
 
