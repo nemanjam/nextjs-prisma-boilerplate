@@ -1,4 +1,4 @@
-import { act, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import { customRender } from 'test/test-utils';
 import AuthView from 'views/Auth';
 import { Routes } from 'lib-client/constants';

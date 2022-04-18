@@ -107,6 +107,17 @@
 - ReactElement vs JSX.Element vs ReactNode, ask this
 - types for reusing Login and Register form
 
+### Overview
+
+- Suspense, ErrorBoundary
+- CI
+- error tests
+- node tests
+- cypress, with docker db?
+- basic readme
+- fix errors: login blink, settings form reset, image backend
+- deployment with ssh actions
+
 ## Done
 
 - admin role - done, maybe type admin | user in prisma
