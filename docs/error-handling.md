@@ -11,3 +11,11 @@
 - [stackoverflow example](https://stackoverflow.com/questions/66763973/how-to-handle-errors-inside-getserversideprops-in-next-js-using-next-connect)
 - [handler.run(req, res)](https://github.com/hoangvvo/next-connect#handlerrunreq-res)
 - [req.result example](https://github.com/hoangvvo/next-connect/issues/147)
+
+### ErrorBoundary and Suspense - frontend - loading, data, empty, error states
+
+- Hashnode [tutorial](https://blog.whereisthemouse.com/good-practices-for-loading-error-and-empty-states-in-react)
+- Tkdodo, React Query Error Handling, ErrorBoundary [tutorial](https://tkdodo.eu/blog/react-query-error-handling)
+- React Query reset ErrorBoundary, enable Suspense [docs](https://react-query-beta.tanstack.com/guides/suspense)
+- ErrorBoundary, Suspense Render-as-you-fetch example (queryClient.prefetchQuery) [Codesandbox](https://codesandbox.io/s/github/tannerlinsley/react-query/tree/master/examples/suspense?file=/src/index.js)
+- SWR Suspense [example](https://github.dev/vercel/swr/tree/main/examples/suspense)

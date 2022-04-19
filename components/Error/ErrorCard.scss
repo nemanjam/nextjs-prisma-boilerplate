@@ -1,0 +1,34 @@
+.error-card {
+  @apply flex flex-col gap-2 xs:gap-4 p-4 rounded-md;
+  @apply w-full max-w-xs xs:max-w-md mx-4 xs:mx-0;
+  @apply bg-th-base-200;
+
+  &__content {
+    @apply flex flex-col gap-4 items-center;
+    @apply xs:flex-row;
+  }
+
+  &__icon {
+    @apply h-16 w-16 xs:h-20 xs:w-20 text-th-accent shrink-0;
+  }
+
+  &__message {
+    @apply self-start xs:self-center;
+
+    & > span {
+      @apply mr-2;
+    }
+  }
+
+  &__label {
+    @apply font-bold;
+  }
+
+  &__try-again-link {
+    @apply link-primary;
+  }
+
+  &--item {
+    @apply text-sm xs:text-base;
+  }
+}

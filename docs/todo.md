@@ -94,6 +94,7 @@
 - maybe install `react-use` package
 - fix dropdown outside click
 - hooks tests renderHook from rtl instead of rtl/react-hooks
+- SettingsView test fails because of react-hook-form
 - tomorrow:
   - react query error handling, axios interceptor, 4 states
 

@@ -9,7 +9,6 @@ import SearchInput from 'components/SearchInput';
 import usePrevious from 'components/hooks/usePrevious';
 import PreviewTheme from 'components/PreviewTheme';
 import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
-import Loading from 'components/Loading';
 import useDecrementPage from 'components/hooks/useDecrementPage';
 
 const Home: FC = () => {
@@ -19,7 +18,7 @@ const Home: FC = () => {
   const prevSearchTerm = usePrevious(searchTerm);
 
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, isPreviousData } = usePosts(QueryKeys.POSTS_HOME, {
+  const { data, isFetching, isPreviousData } = usePosts(QueryKeys.POSTS_HOME, {
     page,
     ...(searchTerm && { searchTerm }),
   });
@@ -46,8 +45,6 @@ const Home: FC = () => {
     isFetching,
     state: page,
   });
-
-  if (isLoading) return <Loading />;
 
   return (
     <div className={b()}>

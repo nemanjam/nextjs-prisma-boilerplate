@@ -1,21 +1,16 @@
-.loading {
+.error-fallback {
   @apply flex justify-center items-center;
-
-  // default modifier assigned with prop default value
 
   &--screen {
     @apply h-screen w-screen;
   }
 
   &--page {
-    // use recalculated min-h from layout content
     @apply min-h-[var(--available-content-min-h)] sm:min-h-[var(--available-content-min-h-sm)];
-    @apply text-xl font-bold;
   }
 
   &--item {
-    @apply h-56 border border-th-base-200;
-    @apply text-base font-normal;
+    @apply py-2 xs:py-0 xs:h-56 border border-th-base-200;
 
     &:not(:last-child) {
       @apply mb-4;

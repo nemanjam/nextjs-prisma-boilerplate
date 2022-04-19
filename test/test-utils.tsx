@@ -4,11 +4,13 @@ import { QueryClient } from 'react-query';
 import Wrapper, { WrapperProps } from 'test/Wrapper';
 import { fakeSession } from 'test/server/fake-data';
 import HookWrapper, { HookWrapperProps } from 'test/HookWrapper';
+import { defaultOptions } from 'pages/_app';
 
 const createTestQueryClient = () =>
   new QueryClient({
     defaultOptions: {
       queries: {
+        ...defaultOptions.queries,
         retry: false,
       },
     },

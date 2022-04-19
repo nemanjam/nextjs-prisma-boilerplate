@@ -1,7 +1,6 @@
 import { createContext, FC } from 'react';
 import { ClientUser } from 'types/models/User';
 import { useMe } from 'lib-client/react-query/auth/useMe';
-import Loading from 'components/Loading';
 
 // context
 type ContextProps = {
@@ -17,17 +16,9 @@ type ProviderProps = {
 };
 
 const MeProvider: FC<ProviderProps> = ({ children }) => {
-  const { data, isLoading } = useMe();
+  const { data } = useMe();
 
-  return (
-    <MeContext.Provider
-      value={{
-        me: data,
-      }}
-    >
-      {isLoading ? <Loading loaderType="screen" /> : children}
-    </MeContext.Provider>
-  );
+  return <MeContext.Provider value={{ me: data }}>{children}</MeContext.Provider>;
 };
 
 export default MeProvider;

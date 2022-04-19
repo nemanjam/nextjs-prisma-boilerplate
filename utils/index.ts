@@ -21,6 +21,9 @@ export const isUrl = (str: string) => {
   return /^https?:\/\//gi.test(str);
 };
 
-export const sleep = (ms: number) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+/**
+ * in seconds
+ */
+export const sleep = (seconds: number) => {
+  return new Promise<void>((resolve) => setTimeout(resolve, seconds * 1000));
 };
