@@ -16,4 +16,14 @@
       @apply mb-4;
     }
   }
+
+  &__message {
+    & > span {
+      @apply mr-2;
+    }
+  }
+
+  &__label {
+    @apply font-bold;
+  }
 }

@@ -1,22 +1,3 @@
 .not-found {
   @apply flex justify-center items-center min-h-screen w-full;
-
-  &__container {
-    @apply flex flex-col gap-4 p-4 rounded-md;
-    @apply w-full max-w-xs xs:max-w-md mx-4 xs:mx-0;
-    @apply bg-th-base-200;
-  }
-
-  &__content {
-    @apply flex flex-col gap-4 items-center;
-    @apply xs:flex-row;
-  }
-
-  &__icon {
-    @apply h-20 w-20 text-th-accent shrink-0;
-  }
-
-  &__home-link {
-    @apply link-primary;
-  }
 }

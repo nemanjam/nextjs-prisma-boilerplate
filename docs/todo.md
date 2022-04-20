@@ -95,8 +95,8 @@
 - fix dropdown outside click
 - hooks tests renderHook from rtl instead of rtl/react-hooks
 - SettingsView test fails because of react-hook-form
-- tomorrow:
-  - react query error handling, axios interceptor, 4 states
+- react query error handling, axios interceptor, 4 states
+- remove all Loading, disable Suspense on some mutations
 
 ### Questions
 
@@ -210,3 +210,5 @@
 - types, models folder, done
 - types in api `handler.get(async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>)`, done
 - fix types `yarn type-check`, Navbar ReactNode, ReactElement, JSX.Element [], done
+- reuse ErrorCard for boundaries, 500 and 404, done
+- global responsive fonts bellow xs, done

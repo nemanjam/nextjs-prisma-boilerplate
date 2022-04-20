@@ -9,26 +9,18 @@
   }
 
   &__icon {
-    @apply h-16 w-16 xs:h-20 xs:w-20 text-th-accent shrink-0;
+    & > svg {
+      @apply h-16 w-16 xs:h-20 xs:w-20 text-th-accent shrink-0;
+    }
   }
 
   &__message {
     @apply self-start xs:self-center;
+  }
 
-    & > span {
-      @apply mr-2;
+  &__link {
+    & > a {
+      @apply link-primary;
     }
-  }
-
-  &__label {
-    @apply font-bold;
-  }
-
-  &__try-again-link {
-    @apply link-primary;
-  }
-
-  &--item {
-    @apply text-sm xs:text-base;
   }
 }
