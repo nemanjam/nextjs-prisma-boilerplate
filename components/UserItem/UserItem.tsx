@@ -15,7 +15,6 @@ import { mommentFormats } from 'lib-server/constants';
 import { ClientUser } from 'types/models/User';
 import { Routes } from 'lib-client/constants';
 import Alert from 'components/Alert';
-import Loading from 'components/Loading';
 import { MeContext } from 'lib-client/providers/Me';
 
 type UserItemProps = {
@@ -26,9 +25,8 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
   const { me } = useContext(MeContext);
   const b = withBem('user-item');
 
+  // has only mutations, users passed via prop
   const { mutate: deleteUser, ...restDelete } = useDeleteUser();
-
-  if (!user) return <Loading loaderType="item" />; // todo: fix this
 
   const userHref = {
     pathname: '/[username]',

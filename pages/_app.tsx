@@ -5,6 +5,7 @@ import { IconContext } from 'react-icons';
 import {
   DefaultOptions,
   Hydrate,
+  QueryCache,
   QueryClient,
   QueryClientProvider,
   QueryErrorResetBoundary,
@@ -25,14 +26,21 @@ export const defaultOptions: DefaultOptions = {
     suspense: true,
     useErrorBoundary: true,
   },
+  mutations: {
+    useErrorBoundary: false,
+  },
 };
+
+export const queryCache = new QueryCache({
+  onError: (error) => console.error('global error handler:', error),
+});
 
 const App = ({
   Component,
   pageProps: { session, dehydratedState, ...pageProps },
 }: AppProps) => {
   const { reset } = useQueryErrorResetBoundary();
-  const [queryClient] = useState(() => new QueryClient({ defaultOptions }));
+  const [queryClient] = useState(() => new QueryClient({ defaultOptions, queryCache }));
 
   const fallbackRender = (fallbackProps: FallbackProps) => (
     <ErrorFallback {...fallbackProps} fallbackType="screen" />

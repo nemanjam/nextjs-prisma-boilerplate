@@ -7,7 +7,6 @@ import SearchInput from 'components/SearchInput';
 import usePrevious from 'components/hooks/usePrevious';
 import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
 import NoItems from 'components/NoItems';
-import Loading from 'components/Loading';
 import useDecrementPage from 'components/hooks/useDecrementPage';
 
 const Users: FC = () => {
@@ -17,7 +16,7 @@ const Users: FC = () => {
   const prevSearchTerm = usePrevious(searchTerm);
 
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, isPreviousData } = useUsers({
+  const { data, isFetching, isPreviousData } = useUsers({
     page,
     ...(searchTerm && { searchTerm }),
   });
@@ -44,8 +43,6 @@ const Users: FC = () => {
     isFetching,
     state: page,
   });
-
-  if (isLoading) return <Loading />;
 
   return (
     <div className={b()}>

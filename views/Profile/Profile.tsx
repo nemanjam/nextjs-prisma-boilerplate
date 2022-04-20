@@ -17,7 +17,6 @@ import usePrevious from 'components/hooks/usePrevious';
 import SearchInput from 'components/SearchInput';
 import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
 import NoItems from 'components/NoItems';
-import Loading from 'components/Loading';
 import useDecrementPage from 'components/hooks/useDecrementPage';
 
 type ProfileProps = {
@@ -31,14 +30,11 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
   const prevSearchTerm = usePrevious(searchTerm);
 
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, isPreviousData } = usePosts(
-    QueryKeys.POSTS_PROFILE,
-    {
-      page,
-      username: profile.username,
-      ...(searchTerm && { searchTerm }),
-    }
-  );
+  const { data, isFetching, isPreviousData } = usePosts(QueryKeys.POSTS_PROFILE, {
+    page,
+    username: profile.username,
+    ...(searchTerm && { searchTerm }),
+  });
 
   useDecrementPage({
     page,
@@ -62,8 +58,6 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
     isFetching,
     state: page,
   });
-
-  if (isLoading || !profile) return <Loading />;
 
   return (
     <div className={b()}>

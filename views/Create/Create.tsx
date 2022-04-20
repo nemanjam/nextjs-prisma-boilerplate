@@ -10,7 +10,6 @@ import { useCreatePost } from 'lib-client/react-query/posts/useCreatePost';
 import { usePost } from 'lib-client/react-query/posts/usePost';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import Alert from 'components/Alert';
-import Loading from 'components/Loading';
 import { PostCreateFormData } from 'types/models/Post';
 
 type Props = {
@@ -22,7 +21,7 @@ const Create: FC<Props> = ({ testOnSubmit }) => {
   const router = useRouter();
 
   const id = Number(router.query?.id?.[0]);
-  const { data: post, isLoading } = usePost(id);
+  const { data: post } = usePost(id);
   const isUpdate = !!post;
   const isEnabled = !isNaN(id);
 
@@ -48,21 +47,21 @@ const Create: FC<Props> = ({ testOnSubmit }) => {
 
   // async load post like user in Settings form
   useEffect(() => {
-    if (!isLoading && post) {
+    if (post) {
       reset({
         ...getValues(),
         title: post.title,
         content: post.content,
       } as PostCreateFormData);
     }
-  }, [post, isLoading]);
+  }, [post]);
 
   const { errors } = formState;
 
   // invalid id in url
   if (id && !post) return <NextError statusCode={404} />;
 
-  if (isLoading && isEnabled) return <Loading />;
+  // maybe disabled query is stuck in loading state...
 
   return (
     <form className={b()} onSubmit={handleSubmit(onSubmit)}>

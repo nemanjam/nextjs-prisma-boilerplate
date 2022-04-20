@@ -9,6 +9,7 @@ import { defaultOptions } from 'pages/_app';
 const createTestQueryClient = () =>
   new QueryClient({
     defaultOptions: {
+      ...defaultOptions,
       queries: {
         ...defaultOptions.queries,
         retry: false,

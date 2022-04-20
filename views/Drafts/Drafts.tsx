@@ -5,7 +5,6 @@ import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import Pagination from 'components/Pagination';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import NoItems from 'components/NoItems';
-import Loading from 'components/Loading';
 import useDecrementPage from 'components/hooks/useDecrementPage';
 import { MeContext } from 'lib-client/providers/Me';
 
@@ -14,10 +13,11 @@ const Drafts: FC = () => {
   const { me } = useContext(MeContext);
 
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, isPreviousData } = usePosts(
-    QueryKeys.POSTS_DRAFTS,
-    { page, userId: me?.id, published: false }
-  );
+  const { data, isFetching, isPreviousData } = usePosts(QueryKeys.POSTS_DRAFTS, {
+    page,
+    userId: me?.id,
+    published: false,
+  });
 
   useDecrementPage({
     page,
@@ -25,8 +25,6 @@ const Drafts: FC = () => {
     itemsType: 'posts',
     setPage,
   });
-
-  if (isLoading) return <Loading />;
 
   return (
     <div className={b()}>

@@ -13,7 +13,6 @@ import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
 import { usePost } from 'lib-client/react-query/posts/usePost';
 import { Routes } from 'lib-client/constants';
 import Alert from 'components/Alert';
-import Loading from 'components/Loading';
 import { MeContext } from 'lib-client/providers/Me';
 
 const Post: FC = () => {
@@ -26,13 +25,10 @@ const Post: FC = () => {
   const id = Number(router.query?.id);
 
   // redirect on delete
-  const { data: post, isLoading, isFetching } = usePost(id);
+  const { data: post, isFetching } = usePost(id);
 
   const { mutate: updatePost, ...restUpdate } = useUpdatePost();
   const { mutate: deletePost, ...restDelete } = useDeletePost();
-
-  // must be here for post to be defined below
-  if (isLoading) return <Loading />;
 
   const { author } = post;
 

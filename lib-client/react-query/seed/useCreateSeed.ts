@@ -19,6 +19,7 @@ export const useCreateSeed = () => {
   const mutation = useMutation<SeedResponseType, AxiosError, void, unknown>(
     () => createSeed(),
     {
+      useErrorBoundary: true, // the only mutation to use ErrorBoundary
       onError: (error) => {
         console.error(error);
       },

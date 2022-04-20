@@ -14,7 +14,6 @@ import { getAvatarPath, getHeaderImagePath } from 'lib-client/imageLoaders';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import ProgressBar from 'components/ProgressBar';
 import Alert from 'components/Alert';
-import Loading from 'components/Loading';
 import { useIsMounted } from 'components/hooks';
 import { MeContext } from 'lib-client/providers/Me';
 import { UserUpdateData, UserUpdateFormData, ClientUser } from 'types/models/User';
@@ -39,7 +38,7 @@ const Settings: FC = () => {
   const isOtherUser = username?.length > 0;
   const params = isOtherUser ? { username: username[0] } : { id };
 
-  const { data: user, isLoading } = useUser(params);
+  const { data: user } = useUser(params);
 
   useEffect(() => {
     let timer = null;
@@ -118,7 +117,7 @@ const Settings: FC = () => {
   // load all async default values into the form
   useEffect(() => {
     const run = async () => {
-      if (!isLoading && user) {
+      if (user) {
         await loadDataIntoForm(user, 'text');
       }
 
@@ -133,15 +132,7 @@ const Settings: FC = () => {
     if (isMounted) {
       run();
     }
-  }, [
-    isLoading,
-    user,
-    avatarFile,
-    isAvatarLoading,
-    headerFile,
-    isHeaderLoading,
-    isMounted,
-  ]);
+  }, [user, avatarFile, isAvatarLoading, headerFile, isHeaderLoading, isMounted]);
 
   const dropzoneOptions: DropzoneOptions = {
     accept: 'image/png, image/jpg, image/jpeg',
@@ -187,8 +178,6 @@ const Settings: FC = () => {
       }
     );
   };
-
-  if (isLoading) return <Loading />;
 
   return (
     <FormProvider {...methods}>

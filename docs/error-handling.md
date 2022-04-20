@@ -19,3 +19,67 @@
 - React Query reset ErrorBoundary, enable Suspense [docs](https://react-query-beta.tanstack.com/guides/suspense)
 - ErrorBoundary, Suspense Render-as-you-fetch example (queryClient.prefetchQuery) [Codesandbox](https://codesandbox.io/s/github/tannerlinsley/react-query/tree/master/examples/suspense?file=/src/index.js)
 - SWR Suspense [example](https://github.dev/vercel/swr/tree/main/examples/suspense)
+
+- enable Suspense and ErrorBoundary in React Query -`suspense: true`, `useErrorBoundary: true`, thats it
+
+- disable globaly ErrorBoundary for a mutation `useErrorBoundary: false` for `isError`, `error` for local Alert
+
+```ts
+// _app.tsx
+export const defaultOptions: DefaultOptions = {
+  queries: {
+    suspense: true,
+    useErrorBoundary: true,
+  },
+  mutations: {
+    useErrorBoundary: false, // this too
+  },
+};
+
+export const queryCache = new QueryCache({
+  onError: (error) => console.error('global error handler:', error),
+});
+
+
+const { reset } = useQueryErrorResetBoundary();
+const [queryClient] = useState(() => new QueryClient({ defaultOptions, queryCache }));
+
+const fallbackRender = (fallbackProps: FallbackProps) => (
+  <ErrorFallback {...fallbackProps} fallbackType="screen" />
+);
+
+return (
+<QueryErrorResetBoundary>
+  <ErrorBoundary fallbackRender={fallbackRender} onReset={reset}>
+    <Suspense fallback={<Loading loaderType="screen" />}>
+    ...
+    </Suspense>
+  </ErrorBoundary>
+</QueryErrorResetBoundary>
+);
+
+// test-utils.tsx
+// add to wrapper too...
+const createTestQueryClient = () =>
+  new QueryClient({
+    defaultOptions: {
+      ...defaultOptions,
+      queries: {
+        ...defaultOptions.queries,
+        retry: false, // override just this
+      },
+    },
+```
+
+- useMe overrides default error handler from defaultOptions, React Query default, useHook and mutation options granularity
+
+```ts
+onError: (error) => {
+    console.error('me query error: ', error.response);
+
+    // id exists but not valid session, clear it
+    if (id && error.response.status === 404) {
+        signOut();
+    }
+},
+```
