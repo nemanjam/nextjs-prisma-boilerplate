@@ -15,7 +15,7 @@ describe('useDeletePost', () => {
     const { mutate } = result.current;
     mutate(postId);
 
-    await waitFor(() => result.current.isSuccess);
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     // assert returns deleted post
     expect(result.current.data.title).toBe(fakePostWithAuthor.title);

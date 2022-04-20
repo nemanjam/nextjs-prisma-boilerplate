@@ -15,7 +15,7 @@ describe('useUsers', () => {
       wrapper: createWrapper(),
     });
 
-    await waitFor(() => result.current.isSuccess);
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     expect(result.current.data.pagination.currentPage).toBe(page);
     expect(result.current.data.pagination.total).toBe(1);

@@ -96,9 +96,9 @@
 - hooks tests renderHook from rtl instead of rtl/react-hooks
 - SettingsView test fails because of react-hook-form
 - react query error handling, axios interceptor, 4 states
-- remove all Loading, disable Suspense on some mutations
+- remove all Loading, disable ErrorBoundaries on some mutations
 - add Suspense and ErrorBoundaries to test wrapper
-- fix waitFor for renderHook
+- fix waitFor(loading) in components
 
 ### Questions
 
@@ -214,3 +214,4 @@
 - fix types `yarn type-check`, Navbar ReactNode, ReactElement, JSX.Element [], done
 - reuse ErrorCard for boundaries, 500 and 404, done
 - global responsive fonts bellow xs, done
+- fix waitFor for renderHook, done

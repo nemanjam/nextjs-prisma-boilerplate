@@ -27,7 +27,7 @@ describe('useCreatePost', () => {
     };
     mutate(mutationVariables);
 
-    await waitFor(() => result.current.isSuccess);
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     // data is response on success, like in query
     expect(result.current.data.title).toBe(title);

@@ -28,7 +28,7 @@ describe('useCreateUser', () => {
     };
     mutate(mutationVariables);
 
-    await waitFor(() => result.current.isSuccess);
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     // data is response on success
     expect(result.current.data.username).toBe(username);

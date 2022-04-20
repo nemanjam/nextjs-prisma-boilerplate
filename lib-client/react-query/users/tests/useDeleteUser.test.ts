@@ -14,7 +14,7 @@ describe('useDeleteUser', () => {
     const { mutate } = result.current;
     mutate(userId);
 
-    await waitFor(() => result.current.isSuccess);
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     // assert returns deleted user
     expect(result.current.data.username).toBe(fakeUser.username);

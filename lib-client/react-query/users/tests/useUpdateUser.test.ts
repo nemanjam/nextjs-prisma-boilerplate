@@ -21,7 +21,7 @@ describe('useUpdateUser', () => {
     };
     mutate(mutationVariables);
 
-    await waitFor(() => result.current.isSuccess);
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     expect(result.current.data.username).toBe(username);
   });

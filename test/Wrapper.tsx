@@ -1,13 +1,22 @@
-import { ReactNode } from 'react';
+import { FC, ReactNode, Suspense } from 'react';
 import { NextRouter } from 'next/router';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import { SessionProvider } from 'next-auth/react';
 import { Session } from 'next-auth';
 import { IconContext } from 'react-icons';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+  QueryErrorResetBoundary,
+  useQueryErrorResetBoundary,
+} from 'react-query';
 import { ThemeProvider } from 'next-themes';
 import { themes as defaultThemes } from 'lib-client/constants';
 import MeProvider from 'lib-client/providers/Me';
+import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
+import Loading from 'components/Loading';
+import ErrorFallback from 'components/Error';
 
 export type WrapperProps = {
   children: ReactNode;
@@ -21,32 +30,43 @@ export type WrapperProps = {
 /**
  * used only in tests
  */
-const Wrapper = ({
+const Wrapper: FC<WrapperProps> = ({
   children,
   session,
   queryClient,
   dehydratedState,
   themes = defaultThemes,
   router,
-}: WrapperProps) => {
+}) => {
+  const { reset } = useQueryErrorResetBoundary();
+  const fallbackRender = (fallbackProps: FallbackProps) => (
+    <ErrorFallback {...fallbackProps} fallbackType="screen" />
+  );
+
   return (
-    <RouterContext.Provider value={{ ...createMockRouter(), ...router }}>
-      <SessionProvider session={session} refetchInterval={5 * 60}>
-        <ThemeProvider themes={themes} attribute="class">
-          <IconContext.Provider value={{ className: 'react-icons' }}>
-            <QueryClientProvider client={queryClient}>
-              <Hydrate state={dehydratedState}>
-                {/* takes user from msw - users */}
-                <MeProvider>
-                  {/* component, not a page */}
-                  {children}
-                </MeProvider>
-              </Hydrate>
-            </QueryClientProvider>
-          </IconContext.Provider>
-        </ThemeProvider>
-      </SessionProvider>
-    </RouterContext.Provider>
+    <QueryErrorResetBoundary>
+      <ErrorBoundary fallbackRender={fallbackRender} onReset={reset}>
+        <Suspense fallback={<Loading loaderType="screen" />}>
+          <RouterContext.Provider value={{ ...createMockRouter(), ...router }}>
+            <SessionProvider session={session} refetchInterval={5 * 60}>
+              <ThemeProvider themes={themes} attribute="class">
+                <IconContext.Provider value={{ className: 'react-icons' }}>
+                  <QueryClientProvider client={queryClient}>
+                    <Hydrate state={dehydratedState}>
+                      {/* takes user from msw - users */}
+                      <MeProvider>
+                        {/* component, not a page */}
+                        {children}
+                      </MeProvider>
+                    </Hydrate>
+                  </QueryClientProvider>
+                </IconContext.Provider>
+              </ThemeProvider>
+            </SessionProvider>
+          </RouterContext.Provider>
+        </Suspense>
+      </ErrorBoundary>
+    </QueryErrorResetBoundary>
   );
 };
 

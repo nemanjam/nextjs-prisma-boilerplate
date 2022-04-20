@@ -21,7 +21,7 @@ describe('useUpdatePost', () => {
     };
     mutate(mutationVariables);
 
-    await waitFor(() => result.current.isSuccess);
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     // assert parsed FormData
     expect(result.current.data.title).toBe(title);
