@@ -27,6 +27,8 @@ export type WrapperProps = {
   router?: Partial<NextRouter>;
 };
 
+const TestLoading = () => <div data-testid="loading">loading</div>;
+
 /**
  * used only in tests
  */
@@ -46,7 +48,7 @@ const Wrapper: FC<WrapperProps> = ({
   return (
     <QueryErrorResetBoundary>
       <ErrorBoundary fallbackRender={fallbackRender} onReset={reset}>
-        <Suspense fallback={<Loading loaderType="screen" />}>
+        <Suspense fallback={<TestLoading />}>
           <RouterContext.Provider value={{ ...createMockRouter(), ...router }}>
             <SessionProvider session={session} refetchInterval={5 * 60}>
               <ThemeProvider themes={themes} attribute="class">

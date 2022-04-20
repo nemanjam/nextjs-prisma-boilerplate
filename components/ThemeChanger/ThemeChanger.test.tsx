@@ -27,7 +27,7 @@ const TestThemeChanger: FC<Props> = ({ setRef }) => {
 };
 
 describe('ThemeChanger', () => {
-  test('changes theme class and label', () => {
+  test('changes theme class and label', async () => {
     let childRef: MutableRefObject<any> = null;
     customRender(<TestThemeChanger setRef={(ref) => (childRef = ref)} />);
 

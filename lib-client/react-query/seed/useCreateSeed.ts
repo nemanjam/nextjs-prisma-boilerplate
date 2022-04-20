@@ -19,7 +19,6 @@ export const useCreateSeed = () => {
   const mutation = useMutation<SeedResponseType, AxiosError, void, unknown>(
     () => createSeed(),
     {
-      useErrorBoundary: true, // the only mutation to use ErrorBoundary
       onSuccess: async () => {
         // clear everything
         signOut();
