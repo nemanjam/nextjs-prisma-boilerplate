@@ -25,24 +25,30 @@
 - disable globaly ErrorBoundary for a mutation `useErrorBoundary: false` for `isError`, `error` for local Alert
 
 ```ts
-// _app.tsx
-export const defaultOptions: DefaultOptions = {
-  queries: {
-    suspense: true,
-    useErrorBoundary: true,
+// lib-client/react-query/queryClientConfig.ts
+
+const queryClientConfig: QueryClientConfig = {
+  defaultOptions: {
+    queries: {
+      suspense: true,
+      useErrorBoundary: true,
+    },
+    mutations: {
+      useErrorBoundary: false,
+    },
   },
-  mutations: {
-    useErrorBoundary: false, // this too
-  },
+  queryCache: new QueryCache({
+    onError: (error) => console.error('global Query error handler:', error),
+  }),
+  mutationCache: new MutationCache({
+    onError: (error) => console.error('global Mutation error handler:', error),
+  }),
 };
 
-export const queryCache = new QueryCache({
-  onError: (error) => console.error('global error handler:', error),
-});
 
-
+// _app.tsx
 const { reset } = useQueryErrorResetBoundary();
-const [queryClient] = useState(() => new QueryClient({ defaultOptions, queryCache }));
+const [queryClient] = useState(() => new QueryClient(queryClientConfig));
 
 const fallbackRender = (fallbackProps: FallbackProps) => (
   <ErrorFallback {...fallbackProps} fallbackType="screen" />
@@ -62,13 +68,16 @@ return (
 // add to wrapper too...
 const createTestQueryClient = () =>
   new QueryClient({
+    ...queryClientConfig,
     defaultOptions: {
-      ...defaultOptions,
+      ...queryClientConfig.defaultOptions,
       queries: {
-        ...defaultOptions.queries,
-        retry: false, // override just this
+        ...queryClientConfig.defaultOptions.queries,
+        retry: false,
       },
     },
+    ...
+});
 ```
 
 - useMe overrides default error handler from defaultOptions, React Query default, useHook and mutation options granularity

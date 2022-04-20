@@ -17,9 +17,6 @@ export const useCreateUser = () => {
   const mutation = useMutation<ClientUser, AxiosError, UserCreateData, unknown>(
     (data) => createUser(data),
     {
-      onError: (error) => {
-        console.error(error);
-      },
       onSuccess: async () => {
         await router.push(Routes.SITE.LOGIN);
       },

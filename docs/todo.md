@@ -97,6 +97,8 @@
 - SettingsView test fails because of react-hook-form
 - react query error handling, axios interceptor, 4 states
 - remove all Loading, disable Suspense on some mutations
+- add Suspense and ErrorBoundaries to test wrapper
+- fix waitFor for renderHook
 
 ### Questions
 

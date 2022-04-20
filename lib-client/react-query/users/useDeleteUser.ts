@@ -16,9 +16,6 @@ export const useDeleteUser = () => {
   const mutation = useMutation<ClientUser, AxiosError, string, unknown>(
     (id) => deleteUser(id),
     {
-      onError: (error) => {
-        console.error(error);
-      },
       onSuccess: async () => {
         await queryClient.invalidateQueries([QueryKeys.USERS]);
       },

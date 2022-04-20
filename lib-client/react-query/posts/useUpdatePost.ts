@@ -20,9 +20,6 @@ export const useUpdatePost = () => {
   const mutation = useMutation<PostWithAuthor, Error, PostUpdateMutationData, unknown>(
     (data) => updatePost(data),
     {
-      onError: (error) => {
-        console.error(error);
-      },
       onSuccess: async (data) => {
         await Promise.all([
           queryClient.invalidateQueries([QueryKeys.POSTS_DRAFTS]),

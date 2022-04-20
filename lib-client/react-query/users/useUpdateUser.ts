@@ -30,14 +30,7 @@ const updateUser = async ({ id, user, setProgress }: UserUpdateMutationData) => 
 
 export const useUpdateUser = () => {
   const mutation = useMutation<ClientUser, Error, UserUpdateMutationData, unknown>(
-    (data) => updateUser(data),
-    {
-      onError: (error) => {
-        console.error(error);
-      },
-      // implemented in Settings component
-      // onSuccess: async (data) => {},
-    }
+    (data) => updateUser(data)
   );
 
   return mutation;

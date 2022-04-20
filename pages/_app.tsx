@@ -3,9 +3,7 @@ import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import { IconContext } from 'react-icons';
 import {
-  DefaultOptions,
   Hydrate,
-  QueryCache,
   QueryClient,
   QueryClientProvider,
   QueryErrorResetBoundary,
@@ -18,29 +16,16 @@ import MeProvider from 'lib-client/providers/Me';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
 import Loading from 'components/Loading';
 import ErrorFallback from 'components/Error';
+import queryClientConfig from 'lib-client/react-query/queryClientConfig';
 
 import 'styles/index.scss';
-
-export const defaultOptions: DefaultOptions = {
-  queries: {
-    suspense: true,
-    useErrorBoundary: true,
-  },
-  mutations: {
-    useErrorBoundary: false,
-  },
-};
-
-export const queryCache = new QueryCache({
-  onError: (error) => console.error('global error handler:', error),
-});
 
 const App = ({
   Component,
   pageProps: { session, dehydratedState, ...pageProps },
 }: AppProps) => {
   const { reset } = useQueryErrorResetBoundary();
-  const [queryClient] = useState(() => new QueryClient({ defaultOptions, queryCache }));
+  const [queryClient] = useState(() => new QueryClient(queryClientConfig));
 
   const fallbackRender = (fallbackProps: FallbackProps) => (
     <ErrorFallback {...fallbackProps} fallbackType="screen" />

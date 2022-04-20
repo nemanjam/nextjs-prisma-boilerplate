@@ -18,9 +18,6 @@ export const useCreatePost = () => {
   const mutation = useMutation<PostWithAuthor, AxiosError, PostCreateData, unknown>(
     (post) => createPost(post),
     {
-      onError: (error) => {
-        console.error(error);
-      },
       onSuccess: async () => {
         await queryClient.invalidateQueries([QueryKeys.POSTS_DRAFTS]);
         await router.push(Routes.SITE.DRAFTS);

@@ -16,9 +16,6 @@ export const useDeletePost = () => {
   const mutation = useMutation<PostWithAuthor, AxiosError, number, unknown>(
     (id) => deletePost(id),
     {
-      onError: (error) => {
-        console.error(error);
-      },
       onSuccess: async (data) => {
         await Promise.all([
           queryClient.invalidateQueries([QueryKeys.POSTS_DRAFTS]),

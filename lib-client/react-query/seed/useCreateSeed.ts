@@ -20,9 +20,6 @@ export const useCreateSeed = () => {
     () => createSeed(),
     {
       useErrorBoundary: true, // the only mutation to use ErrorBoundary
-      onError: (error) => {
-        console.error(error);
-      },
       onSuccess: async () => {
         // clear everything
         signOut();
