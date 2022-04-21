@@ -1,11 +1,9 @@
-import React, { FC, ReactNode, Suspense } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { withBem } from 'utils/bem';
 import Navbar from 'components/Navbar';
 import Footer from 'components/Footer';
-import { QueryErrorResetBoundary, useQueryErrorResetBoundary } from 'react-query';
-import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
-import ErrorFallback from 'components/Error';
-import Loading from 'components/Loading';
+import SuspenseWrapper from 'lib-client/providers/SuspenseWrapper';
+import MeProvider from 'lib-client/providers/Me';
 
 type Props = {
   children: ReactNode;
@@ -14,28 +12,23 @@ type Props = {
 
 const PageLayout: FC<Props> = ({ children, noPaddingTop }) => {
   const b = withBem('page-layout');
-  const { reset } = useQueryErrorResetBoundary();
-
-  const fallbackRender = (fallbackProps: FallbackProps) => (
-    <ErrorFallback {...fallbackProps} fallbackType="page" />
-  );
 
   return (
-    <div className={b()}>
-      <Navbar />
-      <div className={b('navbar-placeholder')} />
+    <MeProvider>
+      <div className={b()}>
+        <Navbar />
+        <div className={b('navbar-placeholder')} />
 
-      <main className={b('content', { 'no-padding-top': noPaddingTop })}>
-        {/* Views (page) level loading and error handling*/}
-        <QueryErrorResetBoundary>
-          <ErrorBoundary fallbackRender={fallbackRender} onReset={reset}>
-            <Suspense fallback={<Loading loaderType="page" />}>{children}</Suspense>
-          </ErrorBoundary>
-        </QueryErrorResetBoundary>
-      </main>
+        <main className={b('content', { 'no-padding-top': noPaddingTop })}>
+          {/* Views (page) level loading and error handling*/}
+          <SuspenseWrapper errorFallbackType="page" loaderType="page">
+            {children}
+          </SuspenseWrapper>
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </MeProvider>
   );
 };
 

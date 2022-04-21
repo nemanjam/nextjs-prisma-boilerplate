@@ -33,7 +33,7 @@ export const customRender = (ui: ReactElement, options: CustomRenderOptionsType 
   const testQueryClient = createTestQueryClient();
 
   // dehydratedState: unknown; queryClient.setCache()... - for pages
-  // fake-data.ts file maybe common with seed maybe
+  // fake-data.ts file maybe common with seed
 
   const defaultWrapperProps = {
     queryClient: testQueryClient,

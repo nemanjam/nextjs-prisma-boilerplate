@@ -4,6 +4,10 @@ import { Blob } from 'blob-polyfill';
 
 console.log('jest.setup.ts loaded...');
 
+// The current testing environment is not configured to support act(…)
+// doesnt work
+globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+
 // TypeError: window.matchMedia is not a function
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

@@ -357,6 +357,6 @@ customRender(<Footer />);
 // either wait for loader to disappear
 await waitForElementToBeRemoved(() => screen.getByTestId(/loading/i));
 
-// or retry firs element
+// or retry first element - preferred solution
 const contentText = screen.findByText(/footer 2022/i);
 ```

@@ -1,4 +1,4 @@
-import { act, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import { customRender } from 'test/test-utils';
 import PostItem from 'components/PostItem';
 import { fakePostWithAuthor as initFakePostWithAuthor } from 'test/server/fake-data';
@@ -17,9 +17,6 @@ describe('PostItem', () => {
       push: jest.fn(),
     });
     customRender(<PostItem post={fakePostWithAuthor} />, { wrapperProps: { router } });
-
-    // wait for useMe loader
-    await waitForElementToBeRemoved(() => screen.getByTestId(/loading/i));
   });
 
   afterEach(() => {
@@ -39,7 +36,7 @@ describe('PostItem', () => {
     );
 
     // assert post's title
-    const title = screen.getByRole('heading', {
+    const title = await screen.findByRole('heading', {
       name: RegExp(`${fakePostWithAuthor.title}`, 'i'),
     });
     expect(title).toBeInTheDocument();
@@ -80,7 +77,7 @@ describe('PostItem', () => {
 
   test('publish button mutation redirects to Post page onSuccess', async () => {
     // click publish
-    const publishButton = screen.getByRole('button', {
+    const publishButton = await screen.findByRole('button', {
       name: /publish/i,
     });
     await act(async () => {

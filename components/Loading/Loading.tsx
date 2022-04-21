@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import { withBem } from 'utils/bem';
 import { Spinner, SpinnerProps } from 'components/Loading';
+import { FallbackType } from 'types';
 
 type Props = {
-  loaderType?: 'item' | 'page' | 'screen';
+  loaderType: FallbackType | 'test';
 } & Pick<SpinnerProps, 'size' | 'variant'>;
 
-const Loading: FC<Props> = ({ loaderType = 'page', ...spinnerProps }) => {
+const Loading: FC<Props> = ({ loaderType, ...spinnerProps }) => {
   const b = withBem('loading');
 
   const modifiers = {
@@ -30,16 +31,16 @@ const Loading: FC<Props> = ({ loaderType = 'page', ...spinnerProps }) => {
       content = <Spinner className={b('screen')} size="lg" {...spinnerProps} />;
       break;
 
+    case 'test':
+      content = <span data-testid="loading">Loading</span>;
+      break;
+
     default:
       content = null;
       break;
   }
 
-  return (
-    <div data-testid="loading" className={b(null, modifiers)}>
-      {content}
-    </div>
-  );
+  return <div className={b(null, modifiers)}>{content}</div>;
 };
 
 export default Loading;

@@ -108,4 +108,31 @@ const Component: React.FC<Props> = ({children}) => {...}
 
 - context and provider nice [example](https://dev.to/alexander7161/react-context-api-with-typescript-example-j7a)
 
-- use `// use await queryClient.refetchQueries([QueryKeys.ME])` to refetch me after login, no need to pass refetch to context
+- use `await queryClient.refetchQueries([QueryKeys.ME])` to refetch me after login, no need to pass refetch to context
+
+- 1. Error: This Suspense boundary received an update before it finished hydrating.
+     hydratation error, switched to client side rendering, startTransition
+     useMe fetching in MeProvider must NOT be ABOVE pages
+     solution - move MeProvider to PageLayout
+
+- 2. Error: inconsistent state Server: x, Client: y
+     solution - check isMount {isMounted ? children : null}
+     something not passed in getServerSideProps, and fetched in useQuery
+
+```ts
+/**
+ * Must NOT be used ABOVE pages (_app.tsx). Use it in Layouts.
+ * Only passes 'me'.
+ */
+const MeProvider: FC<ProviderProps> = ({ children }) => {
+  // prevent inconsistent state Server:x , Client:y error
+  const isMounted = useIsMounted();
+  const { data } = useMe();
+
+  return (
+    <MeContext.Provider value={{ me: data }}>
+      {isMounted ? children : null}
+    </MeContext.Provider>
+  );
+};
+```

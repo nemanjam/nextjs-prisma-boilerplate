@@ -12,14 +12,11 @@ import { fakePosts } from 'test/server/fake-data';
 describe('Home View', () => {
   beforeEach(async () => {
     customRender(<HomeView />);
-
-    // wait for loaders to disappear (page and PostItem)
-    await waitForElementToBeRemoved(() => screen.getAllByTestId(/loading/i));
   });
 
   test('renders title, pagination section and posts list', async () => {
     // assert title
-    const title = screen.getByRole('heading', {
+    const title = await screen.findByRole('heading', {
       name: /home/i,
     });
     expect(title).toBeInTheDocument();
@@ -46,7 +43,7 @@ describe('Home View', () => {
   test('finds post with submited search term', async () => {
     // find input, type in it and submit
     const searchTerm = fakePosts.items[0].title;
-    const searchInput = screen.getByRole('textbox', {
+    const searchInput = await screen.findByRole('textbox', {
       name: /search/i,
     });
 

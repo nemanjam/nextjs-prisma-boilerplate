@@ -1,9 +1,4 @@
-import {
-  act,
-  fireEvent,
-  screen,
-  waitForElementToBeRemoved,
-} from '@testing-library/react';
+import { act, fireEvent, screen } from '@testing-library/react';
 import { customRender } from 'test/test-utils';
 import SearchInput from 'components/SearchInput';
 import userEvent from '@testing-library/user-event';
@@ -20,10 +15,9 @@ describe('SearchInput', () => {
     const inputText = 'abcde';
 
     customRender(<SearchInput onSearchSubmit={onSubmit} />);
-    await waitForElementToBeRemoved(() => screen.getAllByTestId(/loading/i));
 
     // get search input
-    const searchInput = screen.getByRole('textbox', {
+    const searchInput = await screen.findByRole('textbox', {
       name: /search/i,
     });
 
@@ -40,10 +34,9 @@ describe('SearchInput', () => {
 
   test('between 3 and 20 chars validation', async () => {
     customRender(<SearchInput />);
-    await waitForElementToBeRemoved(() => screen.getAllByTestId(/loading/i));
 
     // get search input
-    const searchInput = screen.getByRole('textbox', {
+    const searchInput = await screen.findByRole('textbox', {
       name: /search/i,
     });
 

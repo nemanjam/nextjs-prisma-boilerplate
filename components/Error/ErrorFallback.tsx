@@ -3,9 +3,10 @@ import { FallbackProps } from 'react-error-boundary';
 import { withBem } from 'utils/bem';
 import ErrorCard from 'components/Error/ErrorCard';
 import { BiError } from 'react-icons/bi';
+import { FallbackType } from 'types';
 
 export type ErrorFallbackProps = {
-  fallbackType?: 'screen' | 'page' | 'item';
+  fallbackType: FallbackType;
 } & FallbackProps;
 
 // screen, page, item, same as loading
