@@ -352,7 +352,7 @@ afterEach(() => {
 
 - when wrapped with Suspense and `suspense: true` in React Query initially always loader is dispalyed
 - `await screen.findByText()` IS solution because you need to wait a bit more, or you will get empty `<body><div/></body>`
-- point - wait for final wanted elements, not all intermidiate loaders one by one
+- **point** - wait for final wanted elements with `findById`, not all intermidiate loaders one by one with `waitForToBeRemoved`
 
 ```ts
 customRender(<Footer />);
