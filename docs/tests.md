@@ -351,6 +351,8 @@ afterEach(() => {
 ### Suspense
 
 - when wrapped with Suspense and `suspense: true` in React Query initially always loader is dispalyed
+- `await screen.findByText()` IS solution because you need to wait a bit more, or you will get empty `<body><div/></body>`
+- point - wait for final wanted elements, not all intermidiate loaders one by one
 
 ```ts
 customRender(<Footer />);
@@ -358,5 +360,5 @@ customRender(<Footer />);
 await waitForElementToBeRemoved(() => screen.getByTestId(/loading/i));
 
 // or retry first element - preferred solution
-const contentText = screen.findByText(/footer 2022/i);
+const contentText = await screen.findByText(/footer 2022/i);
 ```

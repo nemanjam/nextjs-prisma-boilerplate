@@ -1,4 +1,4 @@
-import { screen, waitForElementToBeRemoved } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { customRender } from 'test/test-utils';
 import ProfileView from 'views/Profile';
 import { fakeUser, fakePosts } from 'test/server/fake-data';
@@ -9,11 +9,8 @@ describe('Profile View', () => {
     // first user is admin
     customRender(<ProfileView profile={fakeUser} />);
 
-    // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.getAllByTestId(/loading/i));
-
     // assert title
-    const title = screen.getByRole('heading', {
+    const title = await screen.findByRole('heading', {
       name: RegExp(`${fakeUser.name}`, 'i'),
     });
     expect(title).toBeInTheDocument();

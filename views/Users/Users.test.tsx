@@ -1,4 +1,4 @@
-import { screen, waitForElementToBeRemoved } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { customRender } from 'test/test-utils';
 import UsersView from 'views/Users';
 import { fakeUsers } from 'test/server/fake-data';
@@ -8,11 +8,8 @@ describe('Users View', () => {
   test('renders pagination section and users cards list', async () => {
     customRender(<UsersView />);
 
-    // wait for loaders to disappear (page and UserItem)
-    await waitForElementToBeRemoved(() => screen.getAllByTestId(/loading/i));
-
     // assert title
-    const title = screen.getByRole('heading', {
+    const title = await screen.findByRole('heading', {
       name: /users/i,
     });
     expect(title).toBeInTheDocument();

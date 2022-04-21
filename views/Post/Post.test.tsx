@@ -1,4 +1,4 @@
-import { act, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import { customRender } from 'test/test-utils';
 import PostView from 'views/Post';
 import { fakePostWithAuthor } from 'test/server/fake-data';
@@ -14,12 +14,9 @@ describe('Post View', () => {
     router = createMockRouter({
       query: { id: [fakePostWithAuthor.id.toString()] },
       pathname: `/${fakePostWithAuthor.author.username}${Routes.SITE.POST}`,
-      push: jest.fn(),
+      back: jest.fn(),
     });
     customRender(<PostView />, { wrapperProps: { router } });
-
-    // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.getByTestId(/loading/i));
   });
 
   afterEach(() => {
@@ -28,7 +25,7 @@ describe('Post View', () => {
 
   test('renders post title, username link and edit link', async () => {
     // assert post's title
-    const title = screen.getByRole('heading', {
+    const title = await screen.findByRole('heading', {
       name: RegExp(`${fakePostWithAuthor.title}`, 'i'),
     });
     expect(title).toBeInTheDocument();
@@ -50,15 +47,15 @@ describe('Post View', () => {
 
   test('delete button mutation redirects to Home onSuccess', async () => {
     // click delete
-    const deleteButton = screen.getByRole('button', {
+    const deleteButton = await screen.findByRole('button', {
       name: /delete/i,
     });
     await act(async () => {
       await userEvent.click(deleteButton);
     });
 
-    // assert redirect to home '/'
-    await waitFor(() => expect(router.push).toHaveBeenCalledWith(Routes.SITE.HOME));
+    // assert redirect to previous page
+    await waitFor(() => expect(router.back).toHaveBeenCalledTimes(1));
   });
 
   test.todo('Publish button mutation');

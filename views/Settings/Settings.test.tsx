@@ -17,14 +17,9 @@ describe('Settings View', () => {
     });
     customRender(<SettingsView />, { wrapperProps: { router } });
 
-    // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.getByTestId(/loading/i));
-
-    // wait for isHeaderLoading and isAvatarLoading
-    await waitForElementToBeRemoved(() => [
-      screen.getByTestId(/header\-placeholder/i),
-      screen.getByTestId(/avatar\-placeholder/i),
-    ]);
+    // wait for Dropzone images to load
+    await screen.findByTestId(/header\-loaded/i);
+    await screen.findByTestId(/avatar\-loaded/i);
   });
 
   test('renders user settings view', async () => {
@@ -89,6 +84,7 @@ describe('Settings View', () => {
     expect(resetButton).toBeInTheDocument();
   });
 
+  // todo: this fails because useUpdateUser
   test('update user mutation on success changes name field value', async () => {
     const updatedName = `Updated ${fakeUser.name}`;
 

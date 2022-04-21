@@ -194,9 +194,10 @@ const Settings: FC = () => {
               imageClassName="max-h-44"
               altText="header-image"
               dropzoneOptions={dropzoneOptions}
+              data-testid="header-loaded"
             />
           ) : (
-            <div data-testid="header-placeholder" className={b('header-placeholder')} />
+            <div className={b('header-placeholder')} />
           )}
           <p className={getErrorClass(errors.header?.message)}>
             {errors.header?.message}
@@ -234,9 +235,10 @@ const Settings: FC = () => {
               label="Avatar"
               altText="avatar-image"
               dropzoneOptions={dropzoneOptions}
+              data-testid="avatar-loaded"
             />
           ) : (
-            <div data-testid="avatar-placeholder" className={b('avatar-placeholder')} />
+            <div className={b('avatar-placeholder')} />
           )}
           <p className={getErrorClass(errors.avatar?.message)}>
             {errors.avatar?.message}

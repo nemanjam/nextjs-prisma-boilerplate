@@ -1,9 +1,4 @@
-import {
-  act,
-  fireEvent,
-  screen,
-  waitForElementToBeRemoved,
-} from '@testing-library/react';
+import { act, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { customRender } from 'test/test-utils';
 import HomeView from 'views/Home';

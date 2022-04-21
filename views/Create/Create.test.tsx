@@ -1,4 +1,4 @@
-import { act, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { customRender } from 'test/test-utils';
 import CreateView from 'views/Create';
@@ -18,7 +18,7 @@ describe('Create View', () => {
     customRender(<CreateView />, { wrapperProps: { router } });
 
     // fill out form
-    const titleInput = screen.getByRole('textbox', {
+    const titleInput = await screen.findByRole('textbox', {
       name: /title/i,
     });
     const contentTextArea = screen.getByRole('textbox', {
@@ -48,11 +48,8 @@ describe('Create View', () => {
     });
     customRender(<CreateView />, { wrapperProps: { router } });
 
-    // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.getByTestId(/loading/i));
-
     // edit title
-    const titleInput = screen.getByRole('textbox', {
+    const titleInput = await screen.findByRole('textbox', {
       name: /title/i,
     });
     await userEvent.clear(titleInput);
@@ -86,7 +83,7 @@ describe('Create View', () => {
     customRender(<CreateView testOnSubmit={onSubmit} />);
 
     // get fields
-    const titleInput = screen.getByRole('textbox', {
+    const titleInput = await screen.findByRole('textbox', {
       name: /title/i,
     });
     const contentTextArea = screen.getByRole('textbox', {
@@ -117,7 +114,7 @@ describe('Create View', () => {
     customRender(<CreateView />);
 
     // get fields
-    const titleInput = screen.getByRole('textbox', {
+    const titleInput = await screen.findByRole('textbox', {
       name: /title/i,
     });
     const contentTextArea = screen.getByRole('textbox', {

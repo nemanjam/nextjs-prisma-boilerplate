@@ -37,7 +37,7 @@ describe('Auth View', () => {
     customRender(<AuthView isRegisterForm={false} providers={providers} />);
 
     // assert title
-    const title = screen.getByRole('heading', {
+    const title = await screen.findByRole('heading', {
       name: /login/i,
     });
     expect(title).toBeInTheDocument();
@@ -91,7 +91,7 @@ describe('Auth View', () => {
     customRender(<AuthView isRegisterForm />);
 
     // assert title
-    const title = screen.getByRole('heading', {
+    const title = await screen.findByRole('heading', {
       name: /register/i,
     });
     expect(title).toBeInTheDocument();
@@ -160,7 +160,7 @@ describe('Auth View login and register buttons', () => {
     customRender(<AuthView isRegisterForm={false} providers={providers} />);
 
     // fill email
-    const emailInput = screen.getByRole('textbox', {
+    const emailInput = await screen.findByRole('textbox', {
       name: /email/i,
     });
     await act(async () => {
@@ -223,7 +223,7 @@ describe('Auth View login and register buttons', () => {
     customRender(<AuthView isRegisterForm />, { wrapperProps: { router } });
 
     // fill name
-    const nameInput = screen.getByRole('textbox', {
+    const nameInput = await screen.findByRole('textbox', {
       name: /^name$/i,
     });
     await act(async () => {

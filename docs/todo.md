@@ -109,12 +109,14 @@
 - exports from index.ts
 - ReactElement vs JSX.Element vs ReactNode, ask this
 - types for reusing Login and Register form
+- fix FormData useUpdateuser hook test
+- fix act not supported in env
 
 ### Overview
 
 - Suspense, ErrorBoundary
 - CI
-- error tests
+- error tests, now i have ErrorBoundaries and error handling
 - node tests
 - cypress, with docker db?
 - basic readme
