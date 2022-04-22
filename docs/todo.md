@@ -75,12 +75,10 @@
 - update callback url on Facebook and Google for Oracle
 - test coverage setup
 - hooks error tests (and handling)
-- migrate react query to v4, react 18
 - test form, node api, cypress, ci, error 500
 - each form should be separate component, easier to test
 - parse FormData for test
 - one youtube lesson for english
-- seed redirect Home, signOut() redirects, needs localStorage, probably not
 - gitpod env
 - container with vs code for replicating bugs - Gitpod Self-Hosted container
 - testing-lib/react-hooks ReactDom warning
@@ -90,10 +88,19 @@
 - cv testing, react query, next, react, tailwind, architectures, databases, devcontainers, traefik, homelab
 - empty state, home, profile... data.items: []
 - hide login blink
-- maybe install `react-use` package
-- fix dropdown outside click
 - SettingsView test fails because of react-hook-form
 - react query error handling, axios interceptor, 4 states
+
+### Overview
+
+- Suspense, ErrorBoundary, almost done, test with api 400
+- CI
+- error tests, now i have ErrorBoundaries and error handling, almost done
+- node tests
+- cypress, with docker db?
+- basic readme
+- fix errors: login blink, settings form reset, dropdown click, image backend
+- deployment with ssh actions
 
 ### Questions
 
@@ -107,17 +114,6 @@
 - fix FormData useUpdateuser hook test
 - fix act not supported in env
 - screenshots for all items (mutatuons), pages, screen error handling and alerts
-
-### Overview
-
-- Suspense, ErrorBoundary
-- CI
-- error tests, now i have ErrorBoundaries and error handling
-- node tests
-- cypress, with docker db?
-- basic readme
-- fix errors: login blink, settings form reset, dropdown click, image backend
-- deployment with ssh actions
 
 ## Done
 
@@ -218,3 +214,7 @@
 - remove all Loading, disable ErrorBoundaries on some mutations, done
 - add Suspense and ErrorBoundaries to test wrapper, done
 - fix waitFor(loading) in components, done
+- fix dropdown outside click, reused in navbar too, on 2 places, done
+- maybe install `react-use` package, no
+- seed redirect Home, signOut() redirects, needs localStorage, probably not
+- migrate react query to v4, react 18, done
