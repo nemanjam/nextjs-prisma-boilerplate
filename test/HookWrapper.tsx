@@ -5,6 +5,7 @@ import { SessionProvider } from 'next-auth/react';
 import { Session } from 'next-auth';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { createMockRouter } from 'test/Wrapper';
+import SuspenseWrapper from 'lib-client/providers/SuspenseWrapper';
 
 export type HookWrapperProps = {
   children: ReactNode;
@@ -16,16 +17,19 @@ export type HookWrapperProps = {
 /**
  * used only in tests
  */
+// SuspenseWrapper for Suspense and ErrorBoundary in useQuery
 // SessionProvider for useSession in useMe
 // MeProvider is not used in hooks
 // RouterContext for redirect onSuccess
 const HookWrapper = ({ children, session, queryClient, router }: HookWrapperProps) => {
   return (
-    <RouterContext.Provider value={{ ...createMockRouter(), ...router }}>
-      <SessionProvider session={session} refetchInterval={5 * 60}>
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      </SessionProvider>
-    </RouterContext.Provider>
+    <SuspenseWrapper errorFallbackType="test" loaderType="test">
+      <RouterContext.Provider value={{ ...createMockRouter(), ...router }}>
+        <SessionProvider session={session} refetchInterval={5 * 60}>
+          <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        </SessionProvider>
+      </RouterContext.Provider>
+    </SuspenseWrapper>
   );
 };
 

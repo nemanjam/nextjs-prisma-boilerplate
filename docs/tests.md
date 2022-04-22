@@ -373,3 +373,31 @@ const mockedConsoleError = jest.spyOn(console, 'error').mockImplementation();
 ...
 mockedConsoleError.mockRestore(); // clean
 ```
+
+- test error 500 useQuery, must be wrapped with `<SuspenseWrapper />`, and ` suspense: true, useErrorBoundary: true` is in `queryClientConfig` so `result.current.isError` is undefined, you must assert message text on ErrorBoundary **component**, hook is rendered inside a component, use `import { screen } from '@testing-library/react'` screen from rtl import
+
+- only for mutations ErrorBoundary is disabled `useErrorBoundary: false`
+
+```ts
+// result.current=null
+
+test('fail 500 query user hook', async () => {
+  const mockedConsoleError = jest.spyOn(console, 'error').mockImplementation();
+
+  const params: UserGetQueryParams = { username: fakeUser.username };
+
+  // return 500 from msw
+  errorHandler500();
+  renderHook(() => useUser(params), {
+    wrapper: createWrapper(),
+  });
+
+  // uses ErrorBoundary, isError is undefined
+  // queries: { suspense: true, useErrorBoundary: true }
+  // assert ErrorBoundary and message and not result.current.isError
+  const errorBoundaryMessage = await screen.findByTestId(/error\-boundary\-test/i);
+  expect(errorBoundaryMessage).toHaveTextContent(errorMessage500);
+
+  mockedConsoleError.mockRestore();
+});
+```
