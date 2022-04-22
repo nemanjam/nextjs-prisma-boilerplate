@@ -3,13 +3,12 @@ import userEvent from '@testing-library/user-event';
 import { customRender } from 'test/test-utils';
 import HomeView from 'views/Home';
 import { fakePosts } from 'test/server/fake-data';
+import { errorHandler500 } from 'test/server';
 
 describe('Home View', () => {
-  beforeEach(async () => {
-    customRender(<HomeView />);
-  });
-
   test('renders title, pagination section and posts list', async () => {
+    customRender(<HomeView />);
+
     // assert title
     const title = await screen.findByRole('heading', {
       name: /home/i,
@@ -36,6 +35,8 @@ describe('Home View', () => {
   });
 
   test('finds post with submited search term', async () => {
+    customRender(<HomeView />);
+
     // find input, type in it and submit
     const searchTerm = fakePosts.items[0].title;
     const searchInput = await screen.findByRole('textbox', {
@@ -58,5 +59,20 @@ describe('Home View', () => {
 
     // enough, don't recreate entire backend, use e2e tests
     // assert non existing term
+  });
+
+  test('1 renders ErrorBoundary on 500', async () => {
+    // silence error output in tests
+    const mockedConsoleError = jest.spyOn(console, 'error').mockImplementation();
+
+    // return 500 from msw
+    errorHandler500();
+    customRender(<HomeView />);
+
+    // assert ErrorBoundary and message
+    const errorBoundaryMessage = await screen.findByTestId(/error\-boundary\-test/i);
+    expect(errorBoundaryMessage).toHaveTextContent('Request failed with status code 500');
+
+    mockedConsoleError.mockRestore();
   });
 });

@@ -8,7 +8,7 @@ import {
   getHeaderImagePath,
   uploadsImageLoader,
 } from 'lib-client/imageLoaders';
-import { getIsAdmin } from 'components/PostItem';
+import { getIsAdmin } from 'lib-client/permissions';
 import Button from 'components/Button';
 import { useDeleteUser } from 'lib-client/react-query/users/useDeleteUser';
 import { mommentFormats } from 'lib-server/constants';

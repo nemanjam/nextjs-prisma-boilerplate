@@ -31,7 +31,7 @@ const Wrapper: FC<WrapperProps> = ({
   router,
 }) => {
   return (
-    <SuspenseWrapper errorFallbackType="screen" loaderType="test">
+    <SuspenseWrapper errorFallbackType="test" loaderType="test">
       <RouterContext.Provider value={{ ...createMockRouter(), ...router }}>
         <SessionProvider session={session} refetchInterval={5 * 60}>
           <ThemeProvider themes={themes} attribute="class">

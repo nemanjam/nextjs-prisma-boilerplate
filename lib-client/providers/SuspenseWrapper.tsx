@@ -8,7 +8,7 @@ import { FallbackType } from 'types';
 type Props = {
   children: ReactNode;
   errorFallbackType: FallbackType;
-  loaderType: FallbackType | 'test';
+  loaderType: FallbackType;
 };
 
 // used in _app.tsx, PageLayout and test Wrapper

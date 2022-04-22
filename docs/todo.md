@@ -89,16 +89,11 @@
 - \_error.tsx, Custom500.tsx pages?
 - cv testing, react query, next, react, tailwind, architectures, databases, devcontainers, traefik, homelab
 - empty state, home, profile... data.items: []
-- fix tests after MeContext
 - hide login blink
 - maybe install `react-use` package
 - fix dropdown outside click
-- hooks tests renderHook from rtl instead of rtl/react-hooks
 - SettingsView test fails because of react-hook-form
 - react query error handling, axios interceptor, 4 states
-- remove all Loading, disable ErrorBoundaries on some mutations
-- add Suspense and ErrorBoundaries to test wrapper
-- fix waitFor(loading) in components
 
 ### Questions
 
@@ -111,6 +106,7 @@
 - types for reusing Login and Register form
 - fix FormData useUpdateuser hook test
 - fix act not supported in env
+- screenshots for all items (mutatuons), pages, screen error handling and alerts
 
 ### Overview
 
@@ -120,7 +116,7 @@
 - node tests
 - cypress, with docker db?
 - basic readme
-- fix errors: login blink, settings form reset, image backend
+- fix errors: login blink, settings form reset, dropdown click, image backend
 - deployment with ssh actions
 
 ## Done
@@ -217,3 +213,8 @@
 - reuse ErrorCard for boundaries, 500 and 404, done
 - global responsive fonts bellow xs, done
 - fix waitFor for renderHook, done
+- fix tests after MeContext, done
+- hooks tests renderHook from rtl instead of rtl/react-hooks, done
+- remove all Loading, disable ErrorBoundaries on some mutations, done
+- add Suspense and ErrorBoundaries to test wrapper, done
+- fix waitFor(loading) in components, done

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { withBem } from 'utils/bem';
 import moment from 'moment';
 import { useRouter } from 'next/router';
-import { getIsAdmin, getIsPostOwner } from 'components/PostItem';
+import { getIsAdmin, getIsPostOwner } from 'lib-client/permissions';
 import { getAvatarPath, uploadsImageLoader } from 'lib-client/imageLoaders';
 import { mommentFormats } from 'lib-server/constants';
 import Button from 'components/Button';

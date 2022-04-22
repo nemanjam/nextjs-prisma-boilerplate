@@ -40,4 +40,4 @@ export type NextReq = IncomingMessage & {
 /**
  * ErrorBoundary and Loader fallback type
  */
-export type FallbackType = 'screen' | 'page' | 'item';
+export type FallbackType = 'screen' | 'page' | 'item' | 'test';

@@ -362,3 +362,7 @@ await waitForElementToBeRemoved(() => screen.getByTestId(/loading/i));
 // or retry first element - preferred solution
 const contentText = await screen.findByText(/footer 2022/i);
 ```
+
+### Error 500 handlers
+
+- cant listen with 2 handlers on same route

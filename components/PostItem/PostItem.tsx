@@ -4,23 +4,25 @@ import Image from 'next/image';
 import moment from 'moment';
 import { Routes } from 'lib-client/constants';
 import { withBem } from 'utils/bem';
-import { PostProps, getIsAdmin, getIsPostOwner } from 'components/PostItem';
+import { getIsAdmin, getIsPostOwner } from 'lib-client/permissions';
 import Button from 'components/Button';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
 import Alert from 'components/Alert';
 import { getAvatarPath, uploadsImageLoader } from 'lib-client/imageLoaders';
-import Loading from 'components/Loading';
 import { MeContext } from 'lib-client/providers/Me';
+import { PostWithAuthor } from 'types/models/Post';
 
-const PostItem: FC<PostProps> = ({ post }) => {
+type Props = {
+  post: PostWithAuthor;
+};
+
+const PostItem: FC<Props> = ({ post }) => {
   const { me } = useContext(MeContext);
   const b = withBem('post-item');
 
   const { mutate: updatePost, ...restUpdate } = useUpdatePost();
   const { mutate: deletePost, ...restDelete } = useDeletePost();
-
-  if (!post) return <Loading loaderType="item" />; // todo: fix this
 
   const { author } = post;
 
