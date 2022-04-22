@@ -47,3 +47,5 @@ export const errorHandler500 = () => {
     rest.delete('*', handler500)
   );
 };
+
+export const errorMessage500 = 'Request failed with status code 500';

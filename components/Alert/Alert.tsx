@@ -19,7 +19,11 @@ const Alert: FC<Props> = ({ message, variant = 'info', className }) => {
 
   const _className = className ? ` ${className}` : '';
 
-  return <div className={b(null, modifiers) + _className}>{message}</div>;
+  return (
+    <div data-testid="alert" className={b(null, modifiers) + _className}>
+      {message}
+    </div>
+  );
 };
 
 export default Alert;

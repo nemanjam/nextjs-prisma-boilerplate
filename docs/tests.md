@@ -366,3 +366,10 @@ const contentText = await screen.findByText(/footer 2022/i);
 ### Error 500 handlers
 
 - cant listen with 2 handlers on same route
+- mock console.log(), error(), warn()
+
+```ts
+const mockedConsoleError = jest.spyOn(console, 'error').mockImplementation();
+...
+mockedConsoleError.mockRestore(); // clean
+```

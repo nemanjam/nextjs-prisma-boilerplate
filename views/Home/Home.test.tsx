@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { customRender } from 'test/test-utils';
 import HomeView from 'views/Home';
 import { fakePosts } from 'test/server/fake-data';
-import { errorHandler500 } from 'test/server';
+import { errorHandler500, errorMessage500 } from 'test/server';
 
 describe('Home View', () => {
   test('renders title, pagination section and posts list', async () => {
@@ -61,7 +61,7 @@ describe('Home View', () => {
     // assert non existing term
   });
 
-  test('1 renders ErrorBoundary on 500', async () => {
+  test('renders ErrorBoundary on 500', async () => {
     // silence error output in tests
     const mockedConsoleError = jest.spyOn(console, 'error').mockImplementation();
 
@@ -71,7 +71,7 @@ describe('Home View', () => {
 
     // assert ErrorBoundary and message
     const errorBoundaryMessage = await screen.findByTestId(/error\-boundary\-test/i);
-    expect(errorBoundaryMessage).toHaveTextContent('Request failed with status code 500');
+    expect(errorBoundaryMessage).toHaveTextContent(errorMessage500);
 
     mockedConsoleError.mockRestore();
   });

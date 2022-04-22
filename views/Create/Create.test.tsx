@@ -5,6 +5,7 @@ import CreateView from 'views/Create';
 import { fakePost, fakePostWithAuthor } from 'test/server/fake-data';
 import { Routes } from 'lib-client/constants';
 import { createMockRouter } from 'test/Wrapper';
+import { errorHandler500, errorMessage500 } from 'test/server';
 
 describe('Create View', () => {
   afterEach(() => {
@@ -135,5 +136,34 @@ describe('Create View', () => {
     expect(contentTextArea).toHaveErrorMessage(/must contain at least 6 character/i);
   });
 
-  test.todo('http error 500');
+  // same as create post test, but with 500
+  test('create post mutation onError 500 shows alert', async () => {
+    const mockedConsoleError = jest.spyOn(console, 'error').mockImplementation();
+
+    // return 500 from msw
+    errorHandler500();
+    customRender(<CreateView />);
+
+    // fill out form
+    const titleInput = await screen.findByRole('textbox', {
+      name: /title/i,
+    });
+    const contentTextArea = screen.getByRole('textbox', {
+      name: /content/i,
+    });
+    await userEvent.type(titleInput, fakePost.title);
+    await userEvent.type(contentTextArea, fakePost.content);
+
+    // click create
+    const createButton = screen.getByRole('button', {
+      name: /create/i,
+    });
+    await userEvent.click(createButton);
+
+    // assert Alert and message
+    const alert = await screen.findByTestId(/alert/i);
+    expect(alert).toHaveTextContent(errorMessage500);
+
+    mockedConsoleError.mockRestore();
+  });
 });
