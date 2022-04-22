@@ -1,26 +1,42 @@
-import { useState, useEffect, MutableRefObject, Dispatch, SetStateAction } from 'react';
+import {
+  useState,
+  useEffect,
+  MutableRefObject,
+  Dispatch,
+  SetStateAction,
+  useRef,
+} from 'react';
 
-/**
- * Hook for handling closing when clicking outside of an element
- * @param {React.node} el
- * @param {boolean} initialState
- */
-const useDetectOutsideClick = (
-  el: MutableRefObject<any>,
-  initialState: boolean
-): [boolean, Dispatch<SetStateAction<boolean>>] => {
-  const [isActive, setIsActive] = useState(initialState);
+type HookReturnType = {
+  menuRef: MutableRefObject<any>;
+  anchorRef: MutableRefObject<any>;
+  isActive: boolean;
+  setIsActive: Dispatch<SetStateAction<boolean>>;
+};
+
+// 2 seters problem
+// both handlers triggered on first click
+const useDetectOutsideClick = (): HookReturnType => {
+  const menuRef = useRef(null);
+  // anchorRef is optional
+  const anchorRef = useRef(null);
+  // state and setter must be exposed outside of hook
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     const onClick = (e) => {
-      // If the active element exists and is clicked outside of
-      if (el.current !== null && !el.current.contains(e.target)) {
-        // todo: fix this
-        // setIsActive((prevIsActive) => !prevIsActive); // only closes
+      const isInsideAnchor =
+        anchorRef.current !== null && anchorRef.current.contains(e.target);
+
+      const isOutsideMenu =
+        menuRef.current !== null && !menuRef.current.contains(e.target);
+
+      if (!isInsideAnchor && isOutsideMenu) {
+        setIsActive(false); // only closes
       }
     };
 
-    // If the item is active (ie open) then listen for clicks outside
+    // only if menu is open listen for clicks outside
     if (isActive) {
       window.addEventListener('click', onClick);
     }
@@ -28,9 +44,9 @@ const useDetectOutsideClick = (
     return () => {
       window.removeEventListener('click', onClick);
     };
-  }, [isActive, el]);
+  }, [isActive, menuRef, anchorRef]);
 
-  return [isActive, setIsActive];
+  return { menuRef, anchorRef, isActive, setIsActive };
 };
 
 export default useDetectOutsideClick;

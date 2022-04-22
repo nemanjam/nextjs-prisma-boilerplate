@@ -8,22 +8,22 @@ type Props = {
 };
 
 const Dropdown: FC<Props> = ({ children, items }) => {
-  const dropdownRef = useRef(null);
-  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const { menuRef, anchorRef, isActive, setIsActive } = useDetectOutsideClick();
   const b = withBem('dropdown');
 
-  const handleClick = () => {
+  const handleAvatarClick = () => {
+    // both closes and opens
     setIsActive((prevIsActive) => !prevIsActive);
   };
 
   return (
     <div className={b()}>
       <div className={b('container')}>
-        <span onClick={handleClick} className={b('anchor')}>
+        <span onClick={handleAvatarClick} ref={anchorRef} className={b('anchor')}>
           {children}
         </span>
 
-        <nav ref={dropdownRef} className={b('menu', { active: isActive })}>
+        <nav ref={menuRef} className={b('menu', { active: isActive })}>
           <ul className={b('list')}>
             {items?.length > 0 &&
               items.map((item, index) => (

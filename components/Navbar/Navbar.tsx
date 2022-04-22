@@ -260,8 +260,7 @@ const Navbar: FC = () => {
   const sm = parseInt(fullTwConfig.theme.screens.sm, 10);
   const isMobile = width < sm; // 640px
 
-  const navRef = useRef(null);
-  const [isActive, setIsActive] = useDetectOutsideClick(navRef, false);
+  const { menuRef: navRef, isActive, setIsActive } = useDetectOutsideClick();
 
   // forward mobileMenuOpen to isActive
   useEffect(() => {
