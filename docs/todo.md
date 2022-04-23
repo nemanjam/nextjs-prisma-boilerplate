@@ -88,19 +88,15 @@
 - cv testing, react query, next, react, tailwind, architectures, databases, devcontainers, traefik, homelab
 - empty state, home, profile... data.items: []
 - SettingsView test fails because of react-hook-form
-- react query error handling, axios interceptor, 4 states
-- fix test lint errors on build
-- revrite yarn scripts with :, script.sh
+- rewrite yarn scripts with :, script.sh
 
 ### Overview
 
-- Suspense, ErrorBoundary, almost done, test with api 400
 - CI
-- error tests, now i have ErrorBoundaries and error handling, almost done
 - node tests
 - cypress, with docker db?
 - basic readme
-- fix errors: login blink, settings form reset, dropdown click, image backend
+- fix errors: settings form reset, image backend
 - deployment with ssh actions
 
 ### Questions
@@ -221,3 +217,7 @@
 - migrate react query to v4, react 18, done
 - hide login blink, fixed by itself, done
 - switch blue theme as default, set as env variable, done
+- react query error handling, axios interceptor, 4 states, done
+- fix test lint errors on build, disabled for now
+- Suspense, ErrorBoundary, test with api 400, ssr works then csr fails..., done
+- error tests, now i have ErrorBoundaries and error handling, done

@@ -401,3 +401,25 @@ test('fail 500 query user hook', async () => {
   mockedConsoleError.mockRestore();
 });
 ```
+
+- error handling with Axios interceptor for transforming error, for sideeffects React Query global handler is enough
+
+```ts
+const queryClientConfig: QueryClientConfig = {
+  defaultOptions: {
+    queries: {
+      suspense: true,
+      useErrorBoundary: true,
+    },
+    mutations: {
+      useErrorBoundary: false,
+    },
+  },
+  queryCache: new QueryCache({
+    onError: (error) => console.error('global Query error handler:', error),
+  }),
+  mutationCache: new MutationCache({
+    onError: (error) => console.error('global Mutation error handler:', error),
+  }),
+};
+```
