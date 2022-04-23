@@ -23,10 +23,24 @@ function convertThemeColorsToRgb(theme) {
   return resultObject;
 }
 
+// Next.js env vars are available here
+const isDefaultTheme = (selector, index) => {
+  const defaultThemeSelector = `.${process.env.DEFAULT_THEME}`;
+
+  const isValidTheme = Object.entries(themes)
+    .map(([selector]) => selector)
+    .includes(defaultThemeSelector);
+
+  // if not specified or invalid, first is default
+  if (!process.env.DEFAULT_THEME || !isValidTheme) return index === 0;
+
+  return selector === defaultThemeSelector;
+};
+
 const mainFunction = ({ addBase }) => {
   const resultThemes = {};
   Object.entries(themes).forEach(([selector, theme], index) => {
-    const _selector = index === 0 ? ':root' : selector;
+    const _selector = isDefaultTheme(selector, index) ? ':root' : selector;
     resultThemes[_selector] = convertThemeColorsToRgb(theme);
   });
 

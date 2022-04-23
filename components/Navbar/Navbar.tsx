@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useContext, useEffect, useRef, useState } from 'react';
+import React, { FC, ReactNode, useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { NextRouter, useRouter } from 'next/router';

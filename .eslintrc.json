@@ -40,6 +40,9 @@
     "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-empty-interface": "off",
-    "no-console": "warn"
+    "no-console": "warn",
+    // tests
+    "testing-library/no-node-access": "warn",
+    "testing-library/no-unnecessary-act": "warn"
   }
 }

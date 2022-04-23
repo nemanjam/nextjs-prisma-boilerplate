@@ -16,7 +16,6 @@ describe('PostItem', () => {
     router = createMockRouter({
       push: jest.fn(),
     });
-    customRender(<PostItem post={fakePostWithAuthor} />, { wrapperProps: { router } });
   });
 
   afterEach(() => {
@@ -24,10 +23,12 @@ describe('PostItem', () => {
   });
 
   test('renders post-item title, user links and buttons', async () => {
+    customRender(<PostItem post={fakePostWithAuthor} />, { wrapperProps: { router } });
+
     // links
     const userLinkRegex = RegExp(fakePostWithAuthor.author.username, 'i');
     const postLinkRegex = RegExp(
-      `${fakePostWithAuthor.author.username}\/post\/${fakePostWithAuthor.id}`,
+      `${fakePostWithAuthor.author.username}/post/${fakePostWithAuthor.id}`,
       'i'
     );
     const editButtonLinkRegex = RegExp(
@@ -76,6 +77,8 @@ describe('PostItem', () => {
   });
 
   test('publish button mutation redirects to Post page onSuccess', async () => {
+    customRender(<PostItem post={fakePostWithAuthor} />, { wrapperProps: { router } });
+
     // click publish
     const publishButton = await screen.findByRole('button', {
       name: /publish/i,

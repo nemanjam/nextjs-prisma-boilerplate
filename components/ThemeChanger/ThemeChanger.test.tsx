@@ -32,7 +32,7 @@ describe('ThemeChanger', () => {
     customRender(<TestThemeChanger setRef={(ref) => (childRef = ref)} />);
 
     // wait for loader to disappear and isMounted=true
-    const themeSpan = await screen.findByTestId(/theme\-changer/i);
+    const themeSpan = await screen.findByTestId(/theme-changer/i);
     expect(themeSpan).toHaveTextContent('system');
     // no class on root here
 

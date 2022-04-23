@@ -87,9 +87,10 @@
 - \_error.tsx, Custom500.tsx pages?
 - cv testing, react query, next, react, tailwind, architectures, databases, devcontainers, traefik, homelab
 - empty state, home, profile... data.items: []
-- hide login blink
 - SettingsView test fails because of react-hook-form
 - react query error handling, axios interceptor, 4 states
+- fix test lint errors on build
+- revrite yarn scripts with :, script.sh
 
 ### Overview
 
@@ -218,3 +219,5 @@
 - maybe install `react-use` package, no
 - seed redirect Home, signOut() redirects, needs localStorage, probably not
 - migrate react query to v4, react 18, done
+- hide login blink, fixed by itself, done
+- switch blue theme as default, set as env variable, done

@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef, FC } from 'react';
+import React, { ReactNode, FC } from 'react';
 import { useDetectOutsideClick } from 'components/hooks';
 import { withBem } from 'utils/bem';
 
