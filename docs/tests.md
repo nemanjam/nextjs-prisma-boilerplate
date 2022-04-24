@@ -423,3 +423,21 @@ const queryClientConfig: QueryClientConfig = {
   }),
 };
 ```
+
+### Node.js Api unit testing
+
+- Prisma client is mocked, singleton or dependency injection
+- Prisma [docs](https://www.prisma.io/docs/guides/testing/unit-testing)
+
+### Node.js Api integration testing
+
+- test database in Docker
+- Prisma [docs](https://www.prisma.io/docs/guides/testing/integration-testing)
+- connect to test db with `env.test.local`, `DATABASE_URL`
+
+- Hashnode Github Actions integration [tutorial](https://blog.ludicroushq.com/a-better-way-to-run-integration-tests-with-prisma-and-postgresql), [Github](https://github.com/ludicroushq/prisma-integration-test-example)
+- replaces PrismaClient with mock `prisma/__mocks__/index.ts` and `jest.mock('./prisma/index');` (real file)
+- run Postgres directly in Github Actions
+- `.env.test` and `.env.dev`?
+
+- Dev.to [tutorial](https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i) - 2 containers Node.js and Postgres

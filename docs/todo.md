@@ -89,6 +89,7 @@
 - empty state, home, profile... data.items: []
 - SettingsView test fails because of react-hook-form
 - rewrite yarn scripts with :, script.sh
+- add seed Postgres container inside Github Actions directly
 
 ### Overview
 
