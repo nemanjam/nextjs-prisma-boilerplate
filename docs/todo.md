@@ -111,6 +111,8 @@
 - fix FormData useUpdateuser hook test
 - fix act not supported in env
 - screenshots for all items (mutatuons), pages, screen error handling and alerts
+- supertest vs axios?
+- clearMocks vs resetMocks vs restoreMocks
 
 ## Done
 
