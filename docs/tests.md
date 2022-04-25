@@ -444,3 +444,10 @@ const queryClientConfig: QueryClientConfig = {
 - Dev.to [tutorial](https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i) - 2 containers Node.js and Postgres
 
 - docs example [testing-express](https://github.com/prisma/prisma-examples/tree/latest/typescript/testing-express), integration tests, supertest, sqlite
+
+### Multiple Jest projects - client, server
+
+- [tutorial](https://homoly.me/posts/organizing-tests-with-jest-projects)
+- [stackoverflow](https://stackoverflow.com/questions/47192083/how-do-you-setup-multiple-jest-configs-within-a-single-project)
+- [gist example](https://gist.github.com/wldcordeiro/6dc2eb97a26a52d548ed4aa86f2fc5c0)
+- [base config](https://orlandobayo.com/blog/monorepo-testing-using-jest/)

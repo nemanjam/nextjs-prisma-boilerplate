@@ -5,7 +5,7 @@ import PageLayout from 'layouts/PageLayout';
 import SettingsView from 'views/Settings';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { getUserByIdOrUsernameOrEmail } from 'pages/api/users/profile';
-import { getMe } from 'lib-server/prisma';
+import { getMe } from 'pages/api/users/[id]';
 import { Redirects } from 'lib-client/constants';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';

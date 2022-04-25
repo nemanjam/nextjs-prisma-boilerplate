@@ -1,11 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { withValidation } from 'next-validations';
 import { apiHandler } from 'lib-server/nc';
-import prisma, { excludeFromPost, getMe } from 'lib-server/prisma';
+import prisma, { excludeFromPost } from 'lib-server/prisma';
 import { requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
 import { postIdNumberSchema, postUpdateSchema } from 'lib-server/validation';
 import { PostWithAuthor } from 'types/models/Post';
+import { getMe } from 'pages/api/users/[id]';
 
 const handler = apiHandler();
 const getId = (req: NextApiRequest) => Number(req.query.id as string);

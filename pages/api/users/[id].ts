@@ -1,13 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { hash } from 'bcryptjs';
 import { withValidation } from 'next-validations';
-import prisma, { excludeFromUser, getMe } from 'lib-server/prisma';
+import prisma, { excludeFromUser } from 'lib-server/prisma';
 import { profileImagesUpload } from 'lib-server/middleware/upload';
 import { apiHandler } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
 import { userIdCuidSchema, userUpdateSchema } from 'lib-server/validation';
 import { ClientUser } from 'types/models/User';
+import { getSession, GetSessionParams } from 'next-auth/react';
 
 type MulterRequest = NextApiRequest & { files: any };
 
@@ -24,6 +25,17 @@ const validateUserUpdate = withValidation({
   type: 'Zod',
   mode: 'body',
 });
+
+export const getMe = async (params: GetSessionParams): Promise<ClientUser> => {
+  const session = await getSession(params);
+  const id = session?.user?.id;
+
+  if (!id) throw new ApiError(`Invalid session.user.id: ${id}.`, 400);
+
+  const me = await prisma.user.findUnique({ where: { id } });
+
+  return excludeFromUser(me);
+};
 
 export const getUserById = async (id: string) => {
   validateUserIdCuid(id);
