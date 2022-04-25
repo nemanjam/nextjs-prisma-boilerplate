@@ -1,4 +1,5 @@
 module.exports = {
+  rootDir: __dirname,
   preset: 'ts-jest',
   moduleDirectories: ['<rootDir>', 'node_modules'], // fixes baseUrl absolute imports
   globals: {
