@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { createWrapper } from 'test/test-utils';
-import { fakePost } from 'test/server/fake-data';
-import { createMockRouter } from 'test/Wrapper';
+import { createWrapper } from 'test-client/test-utils';
+import { fakePost } from 'test-client/server/fake-data';
+import { createMockRouter } from 'test-client/Wrapper';
 import { Routes } from 'lib-client/constants';
 import { useCreatePost } from 'lib-client/react-query/posts/useCreatePost';
 import { PostCreateData } from 'types/models/Post';

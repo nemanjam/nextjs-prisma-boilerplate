@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { createWrapper } from 'test/test-utils';
+import { createWrapper } from 'test-client/test-utils';
 import { useUsers } from 'lib-client/react-query/users/useUsers';
-import { fakeUsers } from 'test/server/fake-data';
+import { fakeUsers } from 'test-client/server/fake-data';
 import { UsersGetSearchQueryParams } from 'types/models/User';
 
 describe('useUsers', () => {

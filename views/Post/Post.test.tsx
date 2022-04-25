@@ -1,8 +1,8 @@
 import { act, screen, waitFor } from '@testing-library/react';
-import { customRender } from 'test/test-utils';
+import { customRender } from 'test-client/test-utils';
 import PostView from 'views/Post';
-import { fakePostWithAuthor } from 'test/server/fake-data';
-import { createMockRouter } from 'test/Wrapper';
+import { fakePostWithAuthor } from 'test-client/server/fake-data';
+import { createMockRouter } from 'test-client/Wrapper';
 import { Routes } from 'lib-client/constants';
 import userEvent from '@testing-library/user-event';
 import { NextRouter } from 'next/router';

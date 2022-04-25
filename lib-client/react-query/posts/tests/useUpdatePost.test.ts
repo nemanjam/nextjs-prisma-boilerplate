@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { createWrapper } from 'test/test-utils';
+import { createWrapper } from 'test-client/test-utils';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
-import { fakePostWithAuthor } from 'test/server/fake-data';
+import { fakePostWithAuthor } from 'test-client/server/fake-data';
 import { PostUpdateMutationData } from 'types/models/Post';
 
 describe('useUpdatePost', () => {

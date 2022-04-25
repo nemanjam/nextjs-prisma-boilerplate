@@ -4,7 +4,7 @@ import { RouterContext } from 'next/dist/shared/lib/router-context';
 import { SessionProvider } from 'next-auth/react';
 import { Session } from 'next-auth';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { createMockRouter } from 'test/Wrapper';
+import { createMockRouter } from 'test-client/Wrapper';
 import SuspenseWrapper from 'lib-client/providers/SuspenseWrapper';
 
 export type HookWrapperProps = {

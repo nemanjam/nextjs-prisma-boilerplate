@@ -428,6 +428,7 @@ const queryClientConfig: QueryClientConfig = {
 
 - Prisma client is mocked, singleton or dependency injection
 - Prisma [docs](https://www.prisma.io/docs/guides/testing/unit-testing)
+- controller needs to be isolated from db to be unit test
 
 ### Node.js Api integration testing
 
@@ -441,3 +442,5 @@ const queryClientConfig: QueryClientConfig = {
 - `.env.test` and `.env.dev`?
 
 - Dev.to [tutorial](https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i) - 2 containers Node.js and Postgres
+
+- docs example [testing-express](https://github.com/prisma/prisma-examples/tree/latest/typescript/testing-express), integration tests, supertest, sqlite

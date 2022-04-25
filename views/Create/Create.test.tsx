@@ -1,11 +1,11 @@
 import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { customRender } from 'test/test-utils';
+import { customRender } from 'test-client/test-utils';
 import CreateView from 'views/Create';
-import { fakePost, fakePostWithAuthor } from 'test/server/fake-data';
+import { fakePost, fakePostWithAuthor } from 'test-client/server/fake-data';
 import { Routes } from 'lib-client/constants';
-import { createMockRouter } from 'test/Wrapper';
-import { errorHandler500, errorMessage500 } from 'test/server';
+import { createMockRouter } from 'test-client/Wrapper';
+import { errorHandler500, errorMessage500 } from 'test-client/server';
 
 describe('Create View', () => {
   afterEach(() => {

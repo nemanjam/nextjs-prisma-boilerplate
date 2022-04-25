@@ -1,9 +1,9 @@
 import { act, screen, waitFor } from '@testing-library/react';
-import { customRender } from 'test/test-utils';
+import { customRender } from 'test-client/test-utils';
 import AuthView from 'views/Auth';
 import { Routes } from 'lib-client/constants';
-import { createMockRouter } from 'test/Wrapper';
-import { fakeUser } from 'test/server/fake-data';
+import { createMockRouter } from 'test-client/Wrapper';
+import { fakeUser } from 'test-client/server/fake-data';
 import userEvent from '@testing-library/user-event';
 import { signIn, ClientSafeProvider } from 'next-auth/react';
 

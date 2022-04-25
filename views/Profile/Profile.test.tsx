@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
-import { customRender } from 'test/test-utils';
+import { customRender } from 'test-client/test-utils';
 import ProfileView from 'views/Profile';
-import { fakeUser, fakePosts } from 'test/server/fake-data';
+import { fakeUser, fakePosts } from 'test-client/server/fake-data';
 
 describe('Profile View', () => {
   // almost same like HomeView

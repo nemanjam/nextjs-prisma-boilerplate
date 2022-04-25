@@ -1,5 +1,5 @@
 import { act, fireEvent, screen } from '@testing-library/react';
-import { customRender } from 'test/test-utils';
+import { customRender } from 'test-client/test-utils';
 import SearchInput from 'components/SearchInput';
 import userEvent from '@testing-library/user-event';
 

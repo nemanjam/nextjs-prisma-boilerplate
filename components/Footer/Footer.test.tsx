@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import { customRender } from 'test/test-utils';
+import { customRender } from 'test-client/test-utils';
 import Footer from 'components/Footer';
 
 // trivial component test example

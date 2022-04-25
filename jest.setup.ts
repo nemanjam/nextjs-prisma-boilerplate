@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { server } from 'test/server';
+import { server } from 'test-client/server';
 import { Blob } from 'blob-polyfill';
 
 console.log('jest.setup.ts loaded...');

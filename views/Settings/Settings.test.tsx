@@ -1,10 +1,10 @@
 import { act, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { customRender } from 'test/test-utils';
+import { customRender } from 'test-client/test-utils';
 import SettingsView from 'views/Settings';
-import { fakeUser } from 'test/server/fake-data';
+import { fakeUser } from 'test-client/server/fake-data';
 import { Routes } from 'lib-client/constants';
-import { createMockRouter } from 'test/Wrapper';
+import { createMockRouter } from 'test-client/Wrapper';
 import { NextRouter } from 'next/router';
 
 describe('Settings View', () => {

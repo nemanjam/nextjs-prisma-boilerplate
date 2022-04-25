@@ -1,9 +1,9 @@
 import { act, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { customRender } from 'test/test-utils';
+import { customRender } from 'test-client/test-utils';
 import HomeView from 'views/Home';
-import { fakePosts } from 'test/server/fake-data';
-import { errorHandler500, errorMessage500 } from 'test/server';
+import { fakePosts } from 'test-client/server/fake-data';
+import { errorHandler500, errorMessage500 } from 'test-client/server';
 
 describe('Home View', () => {
   test('renders title, pagination section and posts list', async () => {

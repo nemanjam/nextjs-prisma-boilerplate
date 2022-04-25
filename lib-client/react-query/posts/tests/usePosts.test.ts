@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { createWrapper } from 'test/test-utils';
+import { createWrapper } from 'test-client/test-utils';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
-import { fakePosts } from 'test/server/fake-data';
+import { fakePosts } from 'test-client/server/fake-data';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { PostsGetSearchQueryParams } from 'types/models/Post';
 

@@ -1,9 +1,9 @@
 import { ReactElement, ReactNode } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { QueryClient } from 'react-query';
-import Wrapper, { WrapperProps } from 'test/Wrapper';
-import { fakeSession } from 'test/server/fake-data';
-import HookWrapper, { HookWrapperProps } from 'test/HookWrapper';
+import Wrapper, { WrapperProps } from 'test-client/Wrapper';
+import { fakeSession } from 'test-client/server/fake-data';
+import HookWrapper, { HookWrapperProps } from 'test-client/HookWrapper';
 import queryClientConfig from 'lib-client/react-query/queryClientConfig';
 
 const createTestQueryClient = () =>

@@ -1,6 +1,6 @@
 import { FC, MutableRefObject, useEffect, useRef } from 'react';
 import { act, screen } from '@testing-library/react';
-import { customRender } from 'test/test-utils';
+import { customRender } from 'test-client/test-utils';
 import ThemeChanger from 'components/ThemeChanger';
 import { themes } from 'lib-client/constants';
 

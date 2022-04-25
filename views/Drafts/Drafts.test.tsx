@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
-import { customRender } from 'test/test-utils';
+import { customRender } from 'test-client/test-utils';
 import DraftsView from 'views/Drafts';
-import { fakePosts } from 'test/server/fake-data';
+import { fakePosts } from 'test-client/server/fake-data';
 
 describe('Drafts View', () => {
   test('renders title, pagination and posts with Publish button', async () => {

@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { createWrapper } from 'test/test-utils';
+import { createWrapper } from 'test-client/test-utils';
 import { useUpdateUser } from 'lib-client/react-query/users/useUpdateUser';
-import { fakeUser } from 'test/server/fake-data';
+import { fakeUser } from 'test-client/server/fake-data';
 import { UserUpdateMutationData } from 'types/models/User';
 
 describe('useUpdateUser', () => {

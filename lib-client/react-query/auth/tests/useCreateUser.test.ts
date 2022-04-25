@@ -1,11 +1,11 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { createWrapper } from 'test/test-utils';
+import { createWrapper } from 'test-client/test-utils';
 import { useCreateUser } from 'lib-client/react-query/auth/useCreateUser';
-import { fakeUser } from 'test/server/fake-data';
-import { createMockRouter } from 'test/Wrapper';
+import { fakeUser } from 'test-client/server/fake-data';
+import { createMockRouter } from 'test-client/Wrapper';
 import { Routes } from 'lib-client/constants';
 import { UserCreateData } from 'types/models/User';
-import { errorHandler500, errorMessage500 } from 'test/server';
+import { errorHandler500, errorMessage500 } from 'test-client/server';
 
 describe('useCreateUser', () => {
   test('successful create mutation hook', async () => {

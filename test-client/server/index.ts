@@ -7,11 +7,11 @@ import {
   RestContext,
   RestRequest,
 } from 'msw';
-import authHandlers from 'test/server/handlers/auth';
-import usersHandlers from 'test/server/handlers/users';
-import postsHandlers from 'test/server/handlers/posts';
+import authHandlers from 'test-client/server/handlers/auth';
+import usersHandlers from 'test-client/server/handlers/users';
+import postsHandlers from 'test-client/server/handlers/posts';
 import { Routes } from 'lib-client/constants';
-import { fakeUser } from 'test/server/fake-data';
+import { fakeUser } from 'test-client/server/fake-data';
 
 const handlers = [...authHandlers, ...usersHandlers, ...postsHandlers];
 

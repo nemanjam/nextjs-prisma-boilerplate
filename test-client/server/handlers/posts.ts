@@ -2,7 +2,7 @@ import { DefaultRequestBody, PathParams, rest } from 'msw';
 import { PaginatedResponse } from 'types';
 import { PostWithAuthor } from 'types/models/Post';
 import { Routes } from 'lib-client/constants';
-import { fakePosts, fakePostWithAuthor } from 'test/server/fake-data';
+import { fakePosts, fakePostWithAuthor } from 'test-client/server/fake-data';
 import { Post } from '@prisma/client';
 
 const postsHandlers = [

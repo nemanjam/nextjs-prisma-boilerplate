@@ -1,7 +1,7 @@
 import { DefaultRequestBody, PathParams, rest } from 'msw';
 import { PaginatedResponse } from 'types';
 import { ClientUser } from 'types/models/User';
-import { fakeUser, fakeUsers } from 'test/server/fake-data';
+import { fakeUser, fakeUsers } from 'test-client/server/fake-data';
 import { Routes } from 'lib-client/constants';
 import { resolve } from 'path';
 import { readFileSync } from 'fs';
