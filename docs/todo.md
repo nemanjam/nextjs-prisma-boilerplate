@@ -92,6 +92,7 @@
 - add seed Postgres container inside Github Actions directly
 - fix typesctipt `strict` and `strictNullChecks`
 - docblocks in api functions
+- dev, prod navbar refresh
 
 ### Overview
 
