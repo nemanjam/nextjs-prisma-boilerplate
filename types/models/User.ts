@@ -51,18 +51,34 @@ export type UserUpdateFormData = {
   confirmPassword: string;
 };
 
+// updateUser service on server
+export type UserUpdateServiceData = Partial<{
+  name: string;
+  username: string;
+  bio: string;
+  password: string;
+  files: any; // this is different
+}>;
+
 // --------- Query params request types ----------
 // used in queries and api args validation
 
-export type UsersGetSearchQueryParams = {
+export type UsersGetSearchQueryParams = Partial<{
   page: number;
-  limit?: number;
-  searchTerm?: string;
-  sortDirection?: SortDirection;
-};
+  limit: number;
+  searchTerm: string;
+  sortDirection: SortDirection;
+}>;
 
-export type UserGetQueryParams = {
-  id?: string;
-  username?: string;
-  email?: string;
+export type UserGetQueryParams = Partial<{
+  id: string;
+  username: string;
+  email: string;
+}>;
+
+// --------- NextAuth authorize() callback args types ----------
+
+export type UserLoginData = {
+  email: string;
+  password: string;
 };

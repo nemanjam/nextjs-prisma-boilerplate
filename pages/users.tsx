@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import PageLayout from 'layouts/PageLayout';
-import { getUsers } from 'pages/api/users';
 import UsersView from 'views/Users';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
@@ -10,6 +9,7 @@ import { ssrNcHandler } from '@lib-server/nc';
 import { ClientUser } from 'types/models/User';
 import { PaginatedResponse } from 'types';
 import { Redirects } from 'lib-client/constants';
+import { getUsers } from '@lib-server/services/users';
 
 const Users: FC = () => {
   return (
@@ -23,7 +23,7 @@ const Users: FC = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const callback = async () => await getUsers({}); // use api defaults
+  const callback = async () => await getUsers(); // use api defaults
   const users = await ssrNcHandler<PaginatedResponse<ClientUser>>(req, res, callback);
 
   if (!users) return Redirects._500;

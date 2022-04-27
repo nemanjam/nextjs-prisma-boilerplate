@@ -92,3 +92,14 @@ onError: (error) => {
     }
 },
 ```
+
+- for `safeParse().error` type `"strict": true` is required in `tsconfig.json` (says in docs)
+
+```ts
+const result = postsGetSchema.safeParse(req.query);
+if (!result.success) throw ApiError.fromZodError(result.error);
+
+// tsconfig.json
+"compilerOptions": {
+  "strict": true, // true required for zod
+```

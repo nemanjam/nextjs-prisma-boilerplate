@@ -39,13 +39,13 @@ export type PostUpdateMutationData = {
 // --------- Query params request types ----------
 // used in queries and api args validation
 
-export type PostsGetSearchQueryParams = {
+export type PostsGetSearchQueryParams = Partial<{
   page: number;
-  limit?: number;
-  userId?: string;
-  email?: string;
-  username?: string;
-  searchTerm?: string;
-  sortDirection?: SortDirection;
-  published?: boolean;
-};
+  limit: number;
+  userId: string;
+  email: string;
+  username: string;
+  searchTerm: string;
+  sortDirection: SortDirection;
+  published: boolean;
+}>;

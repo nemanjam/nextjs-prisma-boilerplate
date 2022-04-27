@@ -6,19 +6,14 @@ import { profileImagesUpload } from 'lib-server/middleware/upload';
 import { apiHandler } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
-import { userIdCuidSchema, userUpdateSchema } from 'lib-server/validation';
-import { ClientUser } from 'types/models/User';
-import { getSession, GetSessionParams } from 'next-auth/react';
+import { userUpdateSchema, validateUserIdCuid } from 'lib-server/validation';
+import { ClientUser, UserUpdateServiceData } from 'types/models/User';
+import { deleteUser, getMe, getUser, updateUser } from '@lib-server/services/users';
 
 type MulterRequest = NextApiRequest & { files: any };
 
 const handler = apiHandler();
 const getId = (req: NextApiRequest) => req.query.id as string;
-
-const validateUserIdCuid = (id: string) => {
-  const result = userIdCuidSchema.safeParse({ id });
-  if (!result.success) throw ApiError.fromZodError((result as any).error);
-};
 
 const validateUserUpdate = withValidation({
   schema: userUpdateSchema,
@@ -26,31 +21,16 @@ const validateUserUpdate = withValidation({
   mode: 'body',
 });
 
-export const getMe = async (params: GetSessionParams): Promise<ClientUser> => {
-  const session = await getSession(params);
-  const id = session?.user?.id;
-
-  if (!id) throw new ApiError(`Invalid session.user.id: ${id}.`, 400);
-
-  const me = await prisma.user.findUnique({ where: { id } });
-
-  return excludeFromUser(me);
-};
-
-export const getUserById = async (id: string) => {
-  validateUserIdCuid(id);
-  const user = await prisma.user.findUnique({ where: { id } });
-  return user;
-};
-
 // GET /api/users/:id
 // only for me query
 handler.get(async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
-  const user = await getUserById(getId(req));
+  const id = getId(req);
+  validateUserIdCuid(id);
+
+  const user = await getUser(id);
 
   if (!user) throw new ApiError('User not found.', 404);
-
-  res.status(200).json(excludeFromUser(user));
+  res.status(200).json(user);
 });
 
 handler.patch(
@@ -58,33 +38,23 @@ handler.patch(
   profileImagesUpload,
   validateUserUpdate(),
   async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
-    const { body, files } = req as MulterRequest;
     const id = getId(req);
     validateUserIdCuid(id);
 
-    const { name, username, password } = body; // email reconfirm...
+    const { body, files } = req as MulterRequest;
+    const { name, username, bio, password } = body;
+    const updateData = {
+      name,
+      username,
+      bio,
+      password,
+      files,
+    } as UserUpdateServiceData;
 
     const me = await getMe({ req });
-    // if session.user.id === id force recreate session
 
-    if (!(me && (me.id === id || me.role === 'admin'))) {
-      throw new ApiError('Not authorized.', 401);
-    }
-
-    const data = {
-      ...(name && { name }),
-      ...(username && { username }),
-      ...(files?.avatar?.length > 0 && { image: files.avatar[0].filename }),
-      ...(files?.header?.length > 0 && { headerImage: files.header[0].filename }),
-      ...(password && { password: await hash(password, 10) }),
-    };
-
-    const user = await prisma.user.update({
-      where: { id },
-      data,
-    });
-
-    res.status(200).json(excludeFromUser(user));
+    const user = await updateUser(id, me, updateData);
+    res.status(200).json(user);
   }
 );
 
@@ -98,12 +68,8 @@ handler.delete(async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => 
   const id = getId(req);
   validateUserIdCuid(id);
 
-  // delete posts too, cascade defined in schema
-  const user = await prisma.user.delete({ where: { id } });
-
-  if (!user) throw new ApiError('User not found.', 404);
-
-  res.status(204).json(excludeFromUser(user));
+  const user = await deleteUser(id);
+  res.status(204).json(user);
 });
 
 export default handler;

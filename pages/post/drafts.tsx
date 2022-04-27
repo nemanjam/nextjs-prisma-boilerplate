@@ -5,12 +5,13 @@ import { getSession } from 'next-auth/react';
 import { dehydrate, QueryClient } from 'react-query';
 import DraftsView from 'views/Drafts';
 import QueryKeys from 'lib-client/react-query/queryKeys';
-import { getPostsWithAuthor } from 'pages/api/posts';
 import { Redirects } from 'lib-client/constants';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
 import { PaginatedResponse } from 'types';
 import { PostWithAuthor } from 'types/models/Post';
+import { getPosts } from '@lib-server/services/posts';
+import { validatePostsSearchQueryParams } from '@lib-server/validation';
 
 const Drafts: FC = () => {
   return (
@@ -33,10 +34,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
   const query = {
     userId: id,
-    published: 'false', // query string
+    published: false,
   };
 
-  const callback = async () => await getPostsWithAuthor(query);
+  const callback = async () => {
+    validatePostsSearchQueryParams(query);
+    return await getPosts(query);
+  };
   const posts = await ssrNcHandler<PaginatedResponse<PostWithAuthor>>(req, res, callback);
 
   if (!posts) return Redirects._500;

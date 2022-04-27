@@ -1,13 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { hash } from 'bcryptjs';
 import { withValidation } from 'next-validations';
-import prisma, { excludeFromUser } from 'lib-server/prisma';
 import { apiHandler } from 'lib-server/nc';
-import ApiError from 'lib-server/error';
 import { usersGetSchema, userRegisterSchema } from 'lib-server/validation';
-import { QueryParamsType, SortDirection } from 'types';
 import { PaginatedResponse } from 'types';
 import { ClientUser } from 'types/models/User';
+import { createUser, getUsers } from '@lib-server/services/users';
 
 const handler = apiHandler();
 
@@ -32,96 +29,10 @@ const validateUsersGet = withValidation({
 handler.post(
   validateUserRegister(),
   async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
-    const { name, username, email, password: _password } = req.body;
-
-    const _user = await prisma.user.findFirst({
-      where: { email },
-    });
-
-    if (_user) throw new ApiError(`Email: ${email} already exists.`, 403);
-
-    const password = await hash(_password, 10);
-
-    const user = await prisma.user.create({
-      data: {
-        name,
-        username,
-        email,
-        password,
-        // role: 'user' // default
-      },
-    });
-
-    res.status(201).json(excludeFromUser(user));
+    const user = await createUser(req.body);
+    res.status(201).json(user);
   }
 );
-
-const defaultLimit = parseInt(process.env.NEXT_PUBLIC_USERS_PER_PAGE);
-
-export const getUsers = async (
-  query: QueryParamsType
-): Promise<PaginatedResponse<ClientUser>> => {
-  const validationResult = usersGetSchema.safeParse(query);
-  if (!validationResult.success)
-    throw ApiError.fromZodError((validationResult as any).error);
-
-  const {
-    page = 1,
-    limit = defaultLimit,
-    searchTerm,
-    sortDirection = 'desc',
-  } = validationResult.data;
-
-  const where = {
-    where: {
-      ...(searchTerm && {
-        OR: [
-          {
-            name: {
-              search: searchTerm,
-            },
-          },
-          {
-            username: {
-              search: searchTerm,
-            },
-          },
-          {
-            email: {
-              search: searchTerm,
-            },
-          },
-        ],
-      }),
-    },
-  };
-
-  const totalCount = await prisma.user.count({ ...where });
-
-  const users = await prisma.user.findMany({
-    ...where,
-    skip: (page - 1) * limit,
-    take: limit,
-    orderBy: {
-      createdAt: sortDirection as SortDirection,
-    },
-  });
-
-  const result = {
-    items: users.map((user) => excludeFromUser(user)),
-    pagination: {
-      total: totalCount,
-      pagesCount: Math.ceil(totalCount / limit),
-      currentPage: page,
-      perPage: limit,
-      from: (page - 1) * limit + 1,
-      to: (page - 1) * limit + users.length,
-      hasMore: page < Math.ceil(totalCount / limit),
-    },
-  };
-
-  return result;
-};
 
 handler.get(
   validateUsersGet(),

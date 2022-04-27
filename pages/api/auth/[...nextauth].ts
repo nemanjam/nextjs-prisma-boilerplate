@@ -7,12 +7,10 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { User, Account } from 'next-auth/core/types';
 import prisma from 'lib-server/prisma';
-import { compare } from 'bcryptjs';
 import { apiHandler } from 'lib-server/nc';
-import ApiError from 'lib-server/error';
-import { userLoginSchema } from 'lib-server/validation';
 import { Routes } from 'lib-client/constants';
 import { ClientUser } from 'types/models/User';
+import { loginUser } from '@lib-server/services/auth';
 
 const { serverRuntimeConfig } = getConfig();
 const handler = apiHandler();
@@ -43,7 +41,7 @@ handler.use(
           },
           // redirect to same page and parse query params, unable to return api res
           async authorize(credentials) {
-            const { user, error } = await getUser(credentials);
+            const { user, error } = await loginUser(credentials);
             if (error) throw error;
             return user;
           },
@@ -100,40 +98,6 @@ async function updateUser(user: User, account: Account) {
   });
 
   return data;
-}
-
-// for rest api? https://next-auth.js.org/getting-started/rest-api
-async function getUser({ email, password }) {
-  const result = userLoginSchema.safeParse({ email, password });
-
-  if (!result.success) {
-    return {
-      user: null,
-      error: ApiError.fromZodError((result as any).error),
-    };
-  }
-
-  const user = await prisma.user.findUnique({
-    where: { email },
-  });
-
-  if (!user) {
-    return {
-      user: null,
-      error: new ApiError(`User with email: ${email} does not exist.`, 404),
-    };
-  }
-
-  const isValid = password && user.password && (await compare(password, user.password));
-
-  if (!isValid) {
-    return {
-      user,
-      error: new ApiError('Invalid password.', 401),
-    };
-  }
-
-  return { user, error: null };
 }
 
 export default handler;

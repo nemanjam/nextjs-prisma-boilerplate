@@ -90,6 +90,8 @@
 - SettingsView test fails because of react-hook-form
 - rewrite yarn scripts with :, script.sh
 - add seed Postgres container inside Github Actions directly
+- fix typesctipt `strict` and `strictNullChecks`
+- docblocks in api functions
 
 ### Overview
 

@@ -1,5 +1,8 @@
 import { z } from 'zod';
 import { isBrowser } from 'utils';
+import ApiError from 'lib-server/error';
+import { PostsGetSearchQueryParams } from 'types/models/Post';
+import { UserGetQueryParams, UsersGetSearchQueryParams } from 'types/models/User';
 
 const passwordMin = 6,
   passwordMax = 20,
@@ -86,6 +89,25 @@ export const usersGetSchema = z.object({
     .or(z.literal('desc')),
 });
 
+// ----------- manual validation with safeParse() -------------
+
+export const validateUserIdCuid = (id: string) => {
+  const result = userIdCuidSchema.safeParse({ id });
+  if (!result.success) throw ApiError.fromZodError((result as any).error);
+};
+
+// 1 user
+export const validateUserSearchQueryParams = (params: UserGetQueryParams) => {
+  const result = userGetSchema.safeParse(params);
+  if (!result.success) throw ApiError.fromZodError((result as any).error);
+};
+
+// n users, unused
+export const validateUsersSearchQueryParams = (params: UsersGetSearchQueryParams) => {
+  const result = usersGetSchema.safeParse(params);
+  if (!result.success) throw ApiError.fromZodError((result as any).error);
+};
+
 // --------------- post ---------------
 
 const titleMin = 6,
@@ -139,3 +161,15 @@ export const postIdNumberSchema = z.object({
 export const userIdCuidSchema = z.object({
   id: z.string().cuid(),
 });
+
+// ----------- manual validation with safeParse() -------------
+
+export const validatePostIdNumber = (id: number) => {
+  const result = postIdNumberSchema.safeParse({ id });
+  if (!result.success) throw ApiError.fromZodError((result as any).error);
+};
+
+export const validatePostsSearchQueryParams = (params: PostsGetSearchQueryParams) => {
+  const result = postsGetSchema.safeParse(params);
+  if (!result.success) throw ApiError.fromZodError((result as any).error);
+};

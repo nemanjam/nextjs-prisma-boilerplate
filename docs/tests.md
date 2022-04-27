@@ -451,3 +451,5 @@ const queryClientConfig: QueryClientConfig = {
 - [stackoverflow](https://stackoverflow.com/questions/47192083/how-do-you-setup-multiple-jest-configs-within-a-single-project)
 - [gist example](https://gist.github.com/wldcordeiro/6dc2eb97a26a52d548ed4aa86f2fc5c0)
 - [base config](https://orlandobayo.com/blog/monorepo-testing-using-jest/)
+
+- for Api unit tests services layer is required

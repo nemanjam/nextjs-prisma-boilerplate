@@ -3,14 +3,15 @@ import { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import CreateView from 'views/Create';
 import PageLayout from 'layouts/PageLayout';
-import { getMe } from 'pages/api/users/[id]';
-import { getPostWithAuthorById } from 'pages/api/posts/[id]';
+import { getMe } from '@lib-server/services/users';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { Redirects } from 'lib-client/constants';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
 import { ClientUser } from 'types/models/User';
 import { PostWithAuthor } from 'types/models/Post';
+import { getPost } from '@lib-server/services/posts';
+import { validatePostIdNumber } from '@lib-server/validation';
 
 const Create: FC = () => {
   return (
@@ -37,7 +38,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
       props: {},
     };
 
-  const callback2 = async () => await getPostWithAuthorById(id);
+  validatePostIdNumber(id);
+  const callback2 = async () => await getPost(id);
   const post = await ssrNcHandler<PostWithAuthor>(req, res, callback2);
 
   if (!post) return Redirects.NOT_FOUND;

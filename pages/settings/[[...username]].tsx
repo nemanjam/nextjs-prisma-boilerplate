@@ -4,13 +4,13 @@ import { dehydrate, QueryClient } from 'react-query';
 import PageLayout from 'layouts/PageLayout';
 import SettingsView from 'views/Settings';
 import QueryKeys from 'lib-client/react-query/queryKeys';
-import { getUserByIdOrUsernameOrEmail } from 'pages/api/users/profile';
-import { getMe } from 'pages/api/users/[id]';
+import { getMe, getUserByIdOrUsernameOrEmail } from '@lib-server/services/users';
 import { Redirects } from 'lib-client/constants';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from '@lib-server/nc';
 import { ClientUser } from 'types/models/User';
 import { QueryParamsType } from 'types';
+import { validateUserSearchQueryParams } from '@lib-server/validation';
 
 const Settings: FC = () => {
   return (
@@ -42,7 +42,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
     _params = { id: me.id };
   }
 
-  const callback2 = async () => await getUserByIdOrUsernameOrEmail(_params);
+  const callback2 = async () => {
+    if (_params.id || _params.username) {
+      validateUserSearchQueryParams(_params);
+    }
+    return await getUserByIdOrUsernameOrEmail(_params);
+  };
   const user = await ssrNcHandler<ClientUser>(req, res, callback2);
 
   if (!user) return Redirects.NOT_FOUND;

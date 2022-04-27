@@ -1,14 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { withValidation } from 'next-validations';
-import prisma, { excludeFromPost } from 'lib-server/prisma';
 import { apiHandler } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
-import { getSession } from 'next-auth/react';
 import { postCreateSchema, postsGetSchema } from 'lib-server/validation';
-import { PostWithAuthor } from 'types/models/Post';
-import { PaginatedResponse, SortDirection } from 'types';
-import { QueryParamsType } from 'types';
+import { PostsGetSearchQueryParams, PostWithAuthor } from 'types/models/Post';
+import { PaginatedResponse } from 'types';
 import ApiError from 'lib-server/error';
+import { getMe } from '@lib-server/services/users';
+import { createPost, getPosts } from '@lib-server/services/posts';
 
 const handler = apiHandler();
 
@@ -24,156 +23,25 @@ const validatePostsGet = withValidation({
   mode: 'query',
 });
 
-const defaultLimit = parseInt(process.env.NEXT_PUBLIC_POSTS_PER_PAGE);
-
-// fn reused in getServerSideProps
-export const getPostsWithAuthor = async (
-  query: QueryParamsType
-): Promise<PaginatedResponse<PostWithAuthor>> => {
-  //
-  const validationResult = postsGetSchema.safeParse(query);
-  if (!validationResult.success)
-    throw ApiError.fromZodError((validationResult as any).error);
-
-  const {
-    page = 1,
-    limit = defaultLimit,
-    searchTerm,
-    userId,
-    email,
-    username,
-    sortDirection = 'desc',
-    published = true,
-  } = validationResult.data;
-
-  const where = {
-    where: {
-      published,
-      ...(username && {
-        author: {
-          OR: [
-            {
-              id: userId,
-            },
-            {
-              email,
-            },
-            {
-              username,
-            },
-          ],
-        },
-      }),
-      ...(searchTerm && {
-        OR: [
-          {
-            title: {
-              search: searchTerm,
-            },
-          },
-          {
-            content: {
-              search: searchTerm,
-            },
-          },
-          {
-            author: {
-              username: {
-                search: searchTerm,
-              },
-            },
-          },
-          {
-            author: {
-              name: {
-                search: searchTerm,
-              },
-            },
-          },
-        ],
-      }),
-    },
-  };
-
-  const totalCount = await prisma.post.count({ ...where });
-
-  let posts = await prisma.post.findMany({
-    ...where,
-    skip: (page - 1) * limit,
-    take: limit,
-    include: {
-      author: true,
-    },
-    orderBy: {
-      updatedAt: sortDirection as SortDirection,
-    },
-  });
-
-  posts = Array.isArray(posts) ? posts : [];
-
-  // console.log('where === ', JSON.stringify(where, null, 2));
-  // console.log('totalCount', totalCount);
-
-  const result = {
-    items: posts.map((post) => excludeFromPost(post)),
-    pagination: {
-      total: totalCount,
-      pagesCount: Math.ceil(totalCount / limit),
-      currentPage: page,
-      perPage: limit,
-      from: (page - 1) * limit + 1, // from item
-      to: (page - 1) * limit + posts.length,
-      hasMore: page < Math.ceil(totalCount / limit),
-    },
-  };
-
-  // Math.ceil(1.4) = 2
-  // 23 1..10, 11..20, 21..23
-
-  return result;
-};
-
 handler.get(
   validatePostsGet(),
   async (
     req: NextApiRequest,
     res: NextApiResponse<PaginatedResponse<PostWithAuthor>>
   ) => {
-    const posts = await getPostsWithAuthor(req.query);
+    const posts = await getPosts(req.query);
     res.status(200).json(posts);
   }
 );
 
 handler.post(
-  requireAuth,
+  requireAuth, // checks session already
   validatePostCreate(),
   async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>) => {
-    const { title, content } = req.body;
-    const session = await getSession({ req });
+    const me = await getMe({ req });
 
-    if (!session?.user?.id) throw new ApiError('Not authorized.', 401);
-
-    const post = await prisma.post.create({
-      data: {
-        title,
-        content,
-        author: { connect: { id: session.user.id as string } },
-      },
-    });
-
-    if (!post) throw new ApiError('Post not created.', 400);
-
-    // convert Post to PostWithAuthor
-    const postWithAuthor = await prisma.post.findUnique({
-      where: {
-        id: post.id,
-      },
-      include: {
-        author: true,
-      },
-    });
-
-    res.status(201).json(postWithAuthor);
+    const post = await createPost(me, req.body);
+    res.status(201).json(post);
   }
 );
 
