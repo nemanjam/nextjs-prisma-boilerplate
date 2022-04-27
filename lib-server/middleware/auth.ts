@@ -1,4 +1,4 @@
-import { getMe } from 'lib-server/prisma';
+import { getMe } from 'pages/api/users/[id]';
 import ApiError from 'lib-server/error';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';

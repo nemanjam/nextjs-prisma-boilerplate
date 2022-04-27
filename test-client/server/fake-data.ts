@@ -1,13 +1,15 @@
 import { faker } from '@faker-js/faker';
 import { Session } from 'next-auth';
-import { Post } from '@prisma/client';
+import { Post, User } from '@prisma/client';
 import { ClientUser } from 'types/models/User';
 import { PaginatedResponse } from 'types';
 import { PostWithAuthor } from 'types/models/Post';
+import { hashSync } from 'bcryptjs';
 
 const { lorem } = faker;
 const numberOfPosts = 10;
 const numberOfUsers = 4;
+const password = hashSync('123456', 10);
 
 // almost same as seed, response types, not db
 const createPosts = (n: number): Post[] => {
@@ -27,27 +29,34 @@ const createPostsWithAuthor = (posts: Post[], author: ClientUser): PostWithAutho
   return posts.map((post) => ({ ...post, authorId: author.id, author }));
 };
 
-const createUsers = (n: number): ClientUser[] => {
-  return Array.from(Array(n).keys()).map((index) => ({
-    id: faker.datatype.uuid(),
-    name: `fakeuser${index} name`,
-    username: `fakeuser${index}`,
-    email: `fakeuser${index}@email.com`,
-    image: index === 3 ? undefined : `avatar${index % 4}.jpg`, // 0...3
-    headerImage: index === 3 ? undefined : `header${index % 4}.jpg`,
-    // password,
-    bio: lorem.sentences(3),
-    // first user is admin
-    role: index === 0 ? 'admin' : 'user',
-    // additional
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    provider: 'credentials',
-    emailVerified: null,
-  }));
-};
+function createUsers(n: number): ClientUser[];
+function createUsers(n: number, isServer: true): User[];
+function createUsers(n: number, isServer = false): User[] | ClientUser[] {
+  const users = Array.from(Array(n).keys()).map((index) => {
+    const user = {
+      id: faker.datatype.uuid(),
+      name: `fakeuser${index} name`,
+      username: `fakeuser${index}`,
+      email: `fakeuser${index}@email.com`,
+      image: index === 3 ? undefined : `avatar${index % 4}.jpg`, // 0...3
+      headerImage: index === 3 ? undefined : `header${index % 4}.jpg`,
+      ...(isServer && { password }),
+      bio: lorem.sentences(3),
+      // first user is admin
+      role: index === 0 ? 'admin' : 'user',
+      // additional
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      provider: 'credentials',
+      emailVerified: null,
+    };
+    return isServer ? (user as User) : (user as ClientUser);
+  });
+  return users;
+}
 
 export const fakeUser: ClientUser = createUsers(1)[0];
+export const fakeServerUser: User = createUsers(1, true)[0];
 
 export const fakeUsers: PaginatedResponse<ClientUser> = {
   items: createUsers(numberOfUsers),
@@ -70,6 +79,7 @@ export const fakeSession: Session = {
   expires: new Date().toISOString(),
 };
 
+// fakePostsWithAuthor
 export const fakePosts: PaginatedResponse<PostWithAuthor> = {
   items: createPostsWithAuthor(createPosts(numberOfPosts), fakeUser),
   pagination: {
