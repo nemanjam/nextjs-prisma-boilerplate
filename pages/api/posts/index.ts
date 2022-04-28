@@ -3,11 +3,10 @@ import { withValidation } from 'next-validations';
 import { apiHandler } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
 import { postCreateSchema, postsGetSchema } from 'lib-server/validation';
-import { PostsGetSearchQueryParams, PostWithAuthor } from 'types/models/Post';
+import { PostWithAuthor } from 'types/models/Post';
 import { PaginatedResponse } from 'types';
-import ApiError from 'lib-server/error';
-import { getMe } from '@lib-server/services/users';
-import { createPost, getPosts } from '@lib-server/services/posts';
+import { getMe } from 'lib-server/services/users';
+import { createPost, getPosts } from 'lib-server/services/posts';
 
 const handler = apiHandler();
 
@@ -29,6 +28,8 @@ handler.get(
     req: NextApiRequest,
     res: NextApiResponse<PaginatedResponse<PostWithAuthor>>
   ) => {
+    // console.log('req.query', req.query);
+    // convert types...
     const posts = await getPosts(req.query);
     res.status(200).json(posts);
   }

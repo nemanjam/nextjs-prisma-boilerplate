@@ -7,11 +7,11 @@ import DraftsView from 'views/Drafts';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import { Redirects } from 'lib-client/constants';
 import CustomHead from 'components/CustomHead';
-import { ssrNcHandler } from '@lib-server/nc';
+import { ssrNcHandler } from 'lib-server/nc';
 import { PaginatedResponse } from 'types';
 import { PostWithAuthor } from 'types/models/Post';
-import { getPosts } from '@lib-server/services/posts';
-import { validatePostsSearchQueryParams } from '@lib-server/validation';
+import { getPosts } from 'lib-server/services/posts';
+import { validatePostsSearchQueryParams } from 'lib-server/validation';
 
 const Drafts: FC = () => {
   return (
@@ -38,8 +38,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   };
 
   const callback = async () => {
-    validatePostsSearchQueryParams(query);
-    return await getPosts(query);
+    const parsedData = validatePostsSearchQueryParams(query);
+    return await getPosts(parsedData);
   };
   const posts = await ssrNcHandler<PaginatedResponse<PostWithAuthor>>(req, res, callback);
 

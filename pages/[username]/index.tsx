@@ -6,15 +6,15 @@ import ProfileView from 'views/Profile';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
 import { getAvatarPathAbsolute } from 'lib-client/imageLoaders';
-import { ssrNcHandler } from '@lib-server/nc';
+import { ssrNcHandler } from 'lib-server/nc';
 import { Redirects } from 'lib-client/constants';
 import { ClientUser } from 'types/models/User';
-import { getPosts } from '@lib-server/services/posts';
-import { getUserByIdOrUsernameOrEmail } from '@lib-server/services/users';
+import { getPosts } from 'lib-server/services/posts';
+import { getUserByIdOrUsernameOrEmail } from 'lib-server/services/users';
 import {
   validatePostsSearchQueryParams,
   validateUserSearchQueryParams,
-} from '@lib-server/validation';
+} from 'lib-server/validation';
 
 type ProfileProps = {
   profile: ClientUser;
@@ -37,8 +37,8 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
   const callback1 = async () => {
-    validateUserSearchQueryParams(params);
-    return await getUserByIdOrUsernameOrEmail(params);
+    const parsedData = validateUserSearchQueryParams(params);
+    return await getUserByIdOrUsernameOrEmail(parsedData);
   };
   const profile = await ssrNcHandler<ClientUser>(req, res, callback1);
 
@@ -47,8 +47,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, params 
   const query = { username: profile.username };
 
   const callback2 = async () => {
-    validatePostsSearchQueryParams(query);
-    return await getPosts(query);
+    const parsedData = validatePostsSearchQueryParams(query);
+    return await getPosts(parsedData);
   };
   const posts = await ssrNcHandler(req, res, callback2); // <PaginatedResponse<PostWithAuthor>>
 

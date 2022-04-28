@@ -3,7 +3,7 @@ import { withValidation } from 'next-validations';
 import { apiHandler } from 'lib-server/nc';
 import { userGetSchema } from 'lib-server/validation';
 import { ClientUser } from 'types/models/User';
-import { getUserByIdOrUsernameOrEmail } from '@lib-server/services/users';
+import { getUserByIdOrUsernameOrEmail } from 'lib-server/services/users';
 
 const handler = apiHandler();
 

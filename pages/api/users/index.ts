@@ -4,7 +4,7 @@ import { apiHandler } from 'lib-server/nc';
 import { usersGetSchema, userRegisterSchema } from 'lib-server/validation';
 import { PaginatedResponse } from 'types';
 import { ClientUser } from 'types/models/User';
-import { createUser, getUsers } from '@lib-server/services/users';
+import { createUser, getUsers } from 'lib-server/services/users';
 
 const handler = apiHandler();
 

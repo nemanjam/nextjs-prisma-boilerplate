@@ -5,11 +5,11 @@ import PostView from 'views/Post';
 import { dehydrate, QueryClient } from 'react-query';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
-import { ssrNcHandler } from '@lib-server/nc';
+import { ssrNcHandler } from 'lib-server/nc';
 import { Redirects } from 'lib-client/constants';
 import { PostWithAuthor } from 'types/models/Post';
-import { getPost } from '@lib-server/services/posts';
-import { validatePostIdNumber } from '@lib-server/validation';
+import { getPost } from 'lib-server/services/posts';
+import { validatePostIdNumber } from 'lib-server/validation';
 
 type Props = {
   title?: string;
@@ -29,16 +29,16 @@ const Post: FC<Props> = ({ title, updatedAt }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
-  const id = Number(params?.id);
-  validatePostIdNumber(id);
-
-  const callback = async () => await getPost(id);
+  const callback = async () => {
+    const id = validatePostIdNumber(params?.id as string);
+    return await getPost(id);
+  };
   const post = await ssrNcHandler<PostWithAuthor>(req, res, callback);
 
   if (!post) return Redirects.NOT_FOUND;
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery([QueryKeys.POST, id], () => post);
+  await queryClient.prefetchQuery([QueryKeys.POST, post.id], () => post);
 
   return {
     props: {

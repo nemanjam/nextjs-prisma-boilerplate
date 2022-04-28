@@ -10,7 +10,7 @@ import prisma from 'lib-server/prisma';
 import { apiHandler } from 'lib-server/nc';
 import { Routes } from 'lib-client/constants';
 import { ClientUser } from 'types/models/User';
-import { loginUser } from '@lib-server/services/auth';
+import { loginUser } from 'lib-server/services/auth';
 
 const { serverRuntimeConfig } = getConfig();
 const handler = apiHandler();

@@ -1,5 +1,5 @@
-import prisma, { excludeFromPost } from '@lib-server/prisma';
-import ApiError from '@lib-server/error';
+import prisma, { excludeFromPost } from 'lib-server/prisma';
+import ApiError from 'lib-server/error';
 import {
   PostCreateData,
   PostsGetSearchQueryParams,

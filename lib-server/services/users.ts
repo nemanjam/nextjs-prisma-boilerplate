@@ -1,5 +1,5 @@
-import ApiError from '@lib-server/error';
-import prisma, { excludeFromUser } from '@lib-server/prisma';
+import ApiError from 'lib-server/error';
+import prisma, { excludeFromUser } from 'lib-server/prisma';
 import { hash } from 'bcryptjs';
 import { getSession, GetSessionParams } from 'next-auth/react';
 import { PaginatedResponse, SortDirection } from 'types';

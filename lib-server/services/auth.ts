@@ -1,6 +1,6 @@
-import ApiError from '@lib-server/error';
-import prisma from '@lib-server/prisma';
-import { userLoginSchema } from '@lib-server/validation';
+import ApiError from 'lib-server/error';
+import prisma from 'lib-server/prisma';
+import { userLoginSchema } from 'lib-server/validation';
 import { User } from '@prisma/client';
 import { compare } from 'bcryptjs';
 import { UserLoginData } from 'types/models/User';

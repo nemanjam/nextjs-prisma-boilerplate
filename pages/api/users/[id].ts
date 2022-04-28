@@ -8,12 +8,11 @@ import { requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
 import { userUpdateSchema, validateUserIdCuid } from 'lib-server/validation';
 import { ClientUser, UserUpdateServiceData } from 'types/models/User';
-import { deleteUser, getMe, getUser, updateUser } from '@lib-server/services/users';
+import { deleteUser, getMe, getUser, updateUser } from 'lib-server/services/users';
 
 type MulterRequest = NextApiRequest & { files: any };
 
 const handler = apiHandler();
-const getId = (req: NextApiRequest) => req.query.id as string;
 
 const validateUserUpdate = withValidation({
   schema: userUpdateSchema,
@@ -24,9 +23,7 @@ const validateUserUpdate = withValidation({
 // GET /api/users/:id
 // only for me query
 handler.get(async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
-  const id = getId(req);
-  validateUserIdCuid(id);
-
+  const id = validateUserIdCuid(req.query.id as string);
   const user = await getUser(id);
 
   if (!user) throw new ApiError('User not found.', 404);
@@ -38,8 +35,7 @@ handler.patch(
   profileImagesUpload,
   validateUserUpdate(),
   async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
-    const id = getId(req);
-    validateUserIdCuid(id);
+    const id = validateUserIdCuid(req.query.id as string);
 
     const { body, files } = req as MulterRequest;
     const { name, username, bio, password } = body;
@@ -65,8 +61,7 @@ export const config = {
 };
 
 handler.delete(async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
-  const id = getId(req);
-  validateUserIdCuid(id);
+  const id = validateUserIdCuid(req.query.id as string);
 
   const user = await deleteUser(id);
   res.status(204).json(user);

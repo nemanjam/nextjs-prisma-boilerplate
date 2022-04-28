@@ -5,12 +5,11 @@ import PageLayout from 'layouts/PageLayout';
 import HomeView from 'views/Home';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
-import { ssrNcHandler } from '@lib-server/nc';
+import { ssrNcHandler } from 'lib-server/nc';
 import { PaginatedResponse } from 'types';
 import { PostWithAuthor } from 'types/models/Post';
 import { Redirects } from 'lib-client/constants';
-import { getPosts } from '@lib-server/services/posts';
-import { validatePostsSearchQueryParams } from '@lib-server/validation';
+import { getPosts } from 'lib-server/services/posts';
 
 const Home: FC = () => {
   return (

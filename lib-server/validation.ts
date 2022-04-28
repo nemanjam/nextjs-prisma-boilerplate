@@ -3,6 +3,7 @@ import { isBrowser } from 'utils';
 import ApiError from 'lib-server/error';
 import { PostsGetSearchQueryParams } from 'types/models/Post';
 import { UserGetQueryParams, UsersGetSearchQueryParams } from 'types/models/User';
+import { QueryParamsType } from 'types';
 
 const passwordMin = 6,
   passwordMax = 20,
@@ -91,21 +92,31 @@ export const usersGetSchema = z.object({
 
 // ----------- manual validation with safeParse() -------------
 
-export const validateUserIdCuid = (id: string) => {
+export const validateUserIdCuid = (id: string): string => {
   const result = userIdCuidSchema.safeParse({ id });
   if (!result.success) throw ApiError.fromZodError((result as any).error);
+
+  return result.data.id;
 };
 
 // 1 user
-export const validateUserSearchQueryParams = (params: UserGetQueryParams) => {
+export const validateUserSearchQueryParams = (
+  params: QueryParamsType
+): UserGetQueryParams => {
   const result = userGetSchema.safeParse(params);
   if (!result.success) throw ApiError.fromZodError((result as any).error);
+
+  return result.data as UserGetQueryParams;
 };
 
 // n users, unused
-export const validateUsersSearchQueryParams = (params: UsersGetSearchQueryParams) => {
+export const validateUsersSearchQueryParams = (
+  params: QueryParamsType
+): UsersGetSearchQueryParams => {
   const result = usersGetSchema.safeParse(params);
   if (!result.success) throw ApiError.fromZodError((result as any).error);
+
+  return result.data as UsersGetSearchQueryParams;
 };
 
 // --------------- post ---------------
@@ -164,12 +175,18 @@ export const userIdCuidSchema = z.object({
 
 // ----------- manual validation with safeParse() -------------
 
-export const validatePostIdNumber = (id: number) => {
+export const validatePostIdNumber = (id: string): number => {
   const result = postIdNumberSchema.safeParse({ id });
   if (!result.success) throw ApiError.fromZodError((result as any).error);
+
+  return result.data.id;
 };
 
-export const validatePostsSearchQueryParams = (params: PostsGetSearchQueryParams) => {
+export const validatePostsSearchQueryParams = (
+  params: QueryParamsType | PostsGetSearchQueryParams
+): PostsGetSearchQueryParams => {
   const result = postsGetSchema.safeParse(params);
   if (!result.success) throw ApiError.fromZodError((result as any).error);
+
+  return result.data as PostsGetSearchQueryParams;
 };

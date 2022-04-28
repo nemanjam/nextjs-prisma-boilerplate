@@ -5,11 +5,11 @@ import PageLayout from 'layouts/PageLayout';
 import UsersView from 'views/Users';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
-import { ssrNcHandler } from '@lib-server/nc';
+import { ssrNcHandler } from 'lib-server/nc';
 import { ClientUser } from 'types/models/User';
 import { PaginatedResponse } from 'types';
 import { Redirects } from 'lib-client/constants';
-import { getUsers } from '@lib-server/services/users';
+import { getUsers } from 'lib-server/services/users';
 
 const Users: FC = () => {
   return (

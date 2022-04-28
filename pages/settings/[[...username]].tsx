@@ -4,13 +4,13 @@ import { dehydrate, QueryClient } from 'react-query';
 import PageLayout from 'layouts/PageLayout';
 import SettingsView from 'views/Settings';
 import QueryKeys from 'lib-client/react-query/queryKeys';
-import { getMe, getUserByIdOrUsernameOrEmail } from '@lib-server/services/users';
+import { getMe, getUserByIdOrUsernameOrEmail } from 'lib-server/services/users';
 import { Redirects } from 'lib-client/constants';
 import CustomHead from 'components/CustomHead';
-import { ssrNcHandler } from '@lib-server/nc';
-import { ClientUser } from 'types/models/User';
+import { ssrNcHandler } from 'lib-server/nc';
+import { ClientUser, UserGetQueryParams } from 'types/models/User';
 import { QueryParamsType } from 'types';
-import { validateUserSearchQueryParams } from '@lib-server/validation';
+import { validateUserSearchQueryParams } from 'lib-server/validation';
 
 const Settings: FC = () => {
   return (
@@ -43,10 +43,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
   }
 
   const callback2 = async () => {
-    if (_params.id || _params.username) {
-      validateUserSearchQueryParams(_params);
-    }
-    return await getUserByIdOrUsernameOrEmail(_params);
+    const parsedData: UserGetQueryParams =
+      _params.id || _params.username ? validateUserSearchQueryParams(_params) : {};
+    return await getUserByIdOrUsernameOrEmail(parsedData);
   };
   const user = await ssrNcHandler<ClientUser>(req, res, callback2);
 
