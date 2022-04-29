@@ -86,7 +86,7 @@ const Settings: FC = () => {
           } as UserUpdateFormData);
           break;
 
-        case 'avatar':
+        case 'avatar': {
           const avatarUrl = getAvatarPath(user);
           const avatar = await getImage(avatarUrl);
 
@@ -97,8 +97,8 @@ const Settings: FC = () => {
           } as UserUpdateFormData);
           setIsAvatarLoading(false);
           break;
-
-        case 'header':
+        }
+        case 'header': {
           const headerUrl = getHeaderImagePath(user);
           const header = await getImage(headerUrl);
 
@@ -108,6 +108,7 @@ const Settings: FC = () => {
           } as UserUpdateFormData);
           setIsHeaderLoading(false);
           break;
+        }
       }
     } catch (error) {
       console.error(error);

@@ -16,7 +16,6 @@ describe('Post View', () => {
       pathname: `/${fakePostWithAuthor.author.username}${Routes.SITE.POST}`,
       back: jest.fn(),
     });
-    customRender(<PostView />, { wrapperProps: { router } });
   });
 
   afterEach(() => {
@@ -24,6 +23,8 @@ describe('Post View', () => {
   });
 
   test('renders post title, username link and edit link', async () => {
+    customRender(<PostView />, { wrapperProps: { router } });
+
     // assert post's title
     const title = await screen.findByRole('heading', {
       name: RegExp(`${fakePostWithAuthor.title}`, 'i'),
@@ -46,6 +47,8 @@ describe('Post View', () => {
   });
 
   test('delete button mutation redirects to Home onSuccess', async () => {
+    customRender(<PostView />, { wrapperProps: { router } });
+
     // click delete
     const deleteButton = await screen.findByRole('button', {
       name: /delete/i,

@@ -16,13 +16,13 @@ const usersHandlers = [
       const userId = req.params.id as string;
 
       switch (userId) {
-        case 'profile':
+        case 'profile': {
           // 1.
           const username = req.url.searchParams.get('username');
           if (username !== fakeUser.username) return res(ctx.status(404));
 
           return res(ctx.status(200), ctx.json(fakeUser));
-
+        }
         default:
           // 2.
           return res(ctx.status(200), ctx.json(fakeUser));
@@ -37,7 +37,7 @@ const usersHandlers = [
 
       switch (true) {
         // 1.
-        case !!searchTerm:
+        case !!searchTerm: {
           const _fakeUsers = {
             // return one user by username
             items: fakeUsers.items.filter((user) => user.username === searchTerm),
@@ -52,7 +52,7 @@ const usersHandlers = [
             },
           };
           return res(ctx.status(200), ctx.json(_fakeUsers));
-
+        }
         // 2.
         default:
           return res(ctx.status(200), ctx.json(fakeUsers));

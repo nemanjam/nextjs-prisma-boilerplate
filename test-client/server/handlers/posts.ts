@@ -47,16 +47,16 @@ const postsHandlers = [
 
       switch (true) {
         // 1.
-        case published === 'false':
+        case published === 'false': {
           // set posts.items.published = false
           const unpublishedPosts = {
             ...fakePosts,
             items: fakePosts.items.map((post) => ({ ...post, published: false })),
           };
           return res(ctx.status(200), ctx.json(unpublishedPosts));
-
+        }
         // 2.
-        case !!searchTerm:
+        case !!searchTerm: {
           const _fakePosts = {
             // return one user by title
             items: fakePosts.items.filter((post) => post.title === searchTerm),
@@ -71,7 +71,7 @@ const postsHandlers = [
             },
           };
           return res(ctx.status(200), ctx.json(_fakePosts));
-
+        }
         // 3.
         default:
           return res(ctx.status(200), ctx.json(fakePosts));

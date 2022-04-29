@@ -1,4 +1,4 @@
-import { act, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { customRender } from 'test-client/test-utils';
 import SettingsView from 'views/Settings';
@@ -18,8 +18,8 @@ describe('Settings View', () => {
     customRender(<SettingsView />, { wrapperProps: { router } });
 
     // wait for Dropzone images to load
-    await screen.findByTestId(/header\-loaded/i);
-    await screen.findByTestId(/avatar\-loaded/i);
+    await screen.findByTestId(/header-loaded/i);
+    await screen.findByTestId(/avatar-loaded/i);
   });
 
   test('renders user settings view', async () => {
@@ -30,7 +30,7 @@ describe('Settings View', () => {
     expect(title).toBeInTheDocument();
 
     // assert header image
-    const headerImage = screen.getByRole('img', { name: /header\-image/i });
+    const headerImage = screen.getByRole('img', { name: /header-image/i });
     expect(headerImage).toBeInTheDocument();
     expect(headerImage).toHaveAttribute(
       'src',
@@ -50,7 +50,7 @@ describe('Settings View', () => {
     expect(nameInput).toBeInTheDocument();
 
     // assert avatar image
-    const avatarImage = screen.getByRole('img', { name: /avatar\-image/i });
+    const avatarImage = screen.getByRole('img', { name: /avatar-image/i });
     expect(avatarImage).toBeInTheDocument();
     expect(avatarImage).toHaveAttribute(
       'src',

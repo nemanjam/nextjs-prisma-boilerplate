@@ -103,3 +103,29 @@ if (!result.success) throw ApiError.fromZodError(result.error);
 "compilerOptions": {
   "strict": true, // true required for zod
 ```
+
+### Suspense and MeProvider
+
+- solution: pass `await queryClient.prefetchQuery([QueryKeys.ME, me.id], () => me);` in every page
+- must be in every page separatelly or entire app will be server side rendered (no static site generation) - Custom App component [Next.js docs](https://nextjs.org/docs/advanced-features/custom-app)
+
+```tsx
+const MeProvider: FC<ProviderProps> = ({ children }) => {
+  // prevent inconsistent state Server:x , Client:y error...
+
+  /* Uncaught Error: This Suspense boundary received an update before it finished hydrating. 
+  This caused the boundary to switch to client rendering. The usual way to fix this is 
+  to wrap the original update in startTransition. */
+
+  const isMounted = useIsMounted();
+  const { data } = useMe();
+
+  return (
+    <MeContext.Provider value={{ me: data }}>
+      {children}
+      {/* this causes navbar flashing */}
+      {/* {isMounted ? children : null} */}
+    </MeContext.Provider>
+  );
+};
+```

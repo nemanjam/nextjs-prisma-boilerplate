@@ -70,7 +70,7 @@ describe('Home View', () => {
     customRender(<HomeView />);
 
     // assert ErrorBoundary and message
-    const errorBoundaryMessage = await screen.findByTestId(/error\-boundary\-test/i);
+    const errorBoundaryMessage = await screen.findByTestId(/error-boundary-test/i);
     expect(errorBoundaryMessage).toHaveTextContent(errorMessage500);
 
     mockedConsoleError.mockRestore();

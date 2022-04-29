@@ -1,7 +1,6 @@
 import { createContext, FC } from 'react';
 import { ClientUser } from 'types/models/User';
 import { useMe } from 'lib-client/react-query/auth/useMe';
-import { useIsMounted } from 'components/hooks';
 
 // context
 type ContextProps = {
@@ -19,17 +18,12 @@ type ProviderProps = {
 /**
  * Must NOT be used ABOVE pages (_app.tsx). Use it in Layouts.
  * Only passes 'me'.
+ * Every page must prefetch me in getServerSideProps separately.
  */
 const MeProvider: FC<ProviderProps> = ({ children }) => {
-  // prevent inconsistent state Server:x , Client:y error
-  const isMounted = useIsMounted();
   const { data } = useMe();
 
-  return (
-    <MeContext.Provider value={{ me: data }}>
-      {isMounted ? children : null}
-    </MeContext.Provider>
-  );
+  return <MeContext.Provider value={{ me: data }}>{children}</MeContext.Provider>;
 };
 
 export default MeProvider;

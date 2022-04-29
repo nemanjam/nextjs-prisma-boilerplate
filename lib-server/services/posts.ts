@@ -85,6 +85,8 @@ export const createPost = async (
 ): Promise<PostWithAuthor> => {
   const { title, content } = createData;
 
+  if (!me) throw new ApiError('You are not logged in.', 401);
+
   const post = await prisma.post.create({
     data: {
       title,

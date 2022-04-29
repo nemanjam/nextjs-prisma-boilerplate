@@ -52,6 +52,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([QueryKeys.POST, post.id], () => post);
+  await queryClient.prefetchQuery([QueryKeys.ME, me.id], () => me);
 
   return {
     props: {

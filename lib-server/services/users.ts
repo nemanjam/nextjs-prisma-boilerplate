@@ -11,13 +11,21 @@ import {
   UserUpdateServiceData,
 } from 'types/models/User';
 
-export const getMe = async (params: GetSessionParams): Promise<ClientUser> => {
+/**
+ *
+ * @returns null on fail, doesn't throw exception, user is not logged in
+ *
+ */
+export const getMe = async (params: GetSessionParams): Promise<ClientUser | null> => {
   const session = await getSession(params);
   const id = session?.user?.id;
 
-  if (!id) throw new ApiError(`Invalid session.user.id: ${id}.`, 400);
+  if (!id) return null;
 
   const me = await prisma.user.findUnique({ where: { id } });
+
+  if (!me) return null;
+
   return excludeFromUser(me);
 };
 
