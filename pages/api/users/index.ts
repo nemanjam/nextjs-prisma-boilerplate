@@ -1,7 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { withValidation } from 'next-validations';
 import { apiHandler } from 'lib-server/nc';
-import { usersGetSchema, userRegisterSchema } from 'lib-server/validation';
+import {
+  usersGetSchema,
+  userRegisterSchema,
+  validateUsersSearchQueryParams,
+} from 'lib-server/validation';
 import { PaginatedResponse } from 'types';
 import { ClientUser } from 'types/models/User';
 import { createUser, getUsers } from 'lib-server/services/users';
@@ -37,7 +41,9 @@ handler.post(
 handler.get(
   validateUsersGet(),
   async (req: NextApiRequest, res: NextApiResponse<PaginatedResponse<ClientUser>>) => {
-    const users = await getUsers(req.query);
+    // just to convert types
+    const parsedData = validateUsersSearchQueryParams(req.query);
+    const users = await getUsers(parsedData);
     res.status(200).json(users);
   }
 );

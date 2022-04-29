@@ -2,7 +2,11 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { withValidation } from 'next-validations';
 import { apiHandler } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
-import { postCreateSchema, postsGetSchema } from 'lib-server/validation';
+import {
+  postCreateSchema,
+  postsGetSchema,
+  validatePostsSearchQueryParams,
+} from 'lib-server/validation';
 import { PostWithAuthor } from 'types/models/Post';
 import { PaginatedResponse } from 'types';
 import { getMe } from 'lib-server/services/users';
@@ -28,9 +32,9 @@ handler.get(
     req: NextApiRequest,
     res: NextApiResponse<PaginatedResponse<PostWithAuthor>>
   ) => {
-    // console.log('req.query', req.query);
-    // convert types...
-    const posts = await getPosts(req.query);
+    // just to convert types
+    const parsedData = validatePostsSearchQueryParams(req.query);
+    const posts = await getPosts(parsedData);
     res.status(200).json(posts);
   }
 );

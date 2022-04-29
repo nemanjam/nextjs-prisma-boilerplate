@@ -68,6 +68,7 @@ export const userUpdateSchema = z
   });
 
 // query params numbers are strings, parse them before validating
+// only req.query are strings, req.body preservs correct types
 const stringToNumber = (numberStr: string): number | void => {
   return numberStr ? parseInt(z.string().parse(numberStr), 10) : undefined;
 };
@@ -109,7 +110,9 @@ export const validateUserSearchQueryParams = (
   return result.data as UserGetQueryParams;
 };
 
-// n users, unused
+// ----------- convert types with safeParse() -------------
+
+// n users
 export const validateUsersSearchQueryParams = (
   params: QueryParamsType
 ): UsersGetSearchQueryParams => {
@@ -166,7 +169,7 @@ export const postSearchSchema = z.object({
 const numberIdMax = 10 ** 20;
 
 export const postIdNumberSchema = z.object({
-  id: z.number().int().lte(numberIdMax), // id: number, not a string
+  id: z.preprocess(stringToNumber, z.number().int().lte(numberIdMax)), // req.query is string
 });
 
 export const userIdCuidSchema = z.object({
@@ -182,8 +185,10 @@ export const validatePostIdNumber = (id: string): number => {
   return result.data.id;
 };
 
+// ----------- convert types with safeParse() -------------
+
 export const validatePostsSearchQueryParams = (
-  params: QueryParamsType | PostsGetSearchQueryParams
+  params: QueryParamsType
 ): PostsGetSearchQueryParams => {
   const result = postsGetSchema.safeParse(params);
   if (!result.success) throw ApiError.fromZodError((result as any).error);

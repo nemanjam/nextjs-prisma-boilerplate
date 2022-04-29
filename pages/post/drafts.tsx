@@ -7,7 +7,7 @@ import QueryKeys from 'lib-client/react-query/queryKeys';
 import { Redirects } from 'lib-client/constants';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from 'lib-server/nc';
-import { PaginatedResponse } from 'types';
+import { PaginatedResponse, QueryParamsType } from 'types';
 import { PostWithAuthor } from 'types/models/Post';
 import { getPosts } from 'lib-server/services/posts';
 import { validatePostsSearchQueryParams } from 'lib-server/validation';
@@ -33,9 +33,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
   if (!me) return Redirects.LOGIN;
 
-  const query = {
+  const query: QueryParamsType = {
     userId: me.id,
-    published: false,
+    published: 'false', // must be string
   };
 
   const callback2 = async () => {

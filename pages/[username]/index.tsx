@@ -15,6 +15,7 @@ import {
   validatePostsSearchQueryParams,
   validateUserSearchQueryParams,
 } from 'lib-server/validation';
+import { QueryParamsType } from 'types';
 
 type ProfileProps = {
   profile: ClientUser;
@@ -44,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, params 
 
   if (!profile) return Redirects.NOT_FOUND;
 
-  const query = { username: profile.username };
+  const query: QueryParamsType = { username: profile.username };
 
   const callback2 = async () => {
     const parsedData = validatePostsSearchQueryParams(query);

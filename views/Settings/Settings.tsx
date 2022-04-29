@@ -43,7 +43,7 @@ const Settings: FC = () => {
   useEffect(() => {
     let timer = null;
     if (progress > 99) {
-      timer = setTimeout(() => setProgress(0), 2000);
+      timer = setTimeout(() => setProgress(0), 1200);
     }
     return () => {
       timer && clearTimeout(timer);
@@ -82,7 +82,7 @@ const Settings: FC = () => {
             ...getValues(),
             username: user.username,
             name: user.name,
-            bio: user.bio,
+            bio: user.bio || '', // handle null
           } as UserUpdateFormData);
           break;
 

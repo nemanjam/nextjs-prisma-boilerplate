@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { withValidation } from 'next-validations';
 import { apiHandler } from 'lib-server/nc';
-import { userGetSchema } from 'lib-server/validation';
+import { userGetSchema, validateUserSearchQueryParams } from 'lib-server/validation';
 import { ClientUser } from 'types/models/User';
 import { getUserByIdOrUsernameOrEmail } from 'lib-server/services/users';
 
@@ -21,7 +21,9 @@ const validateUserGet = withValidation({
 handler.get(
   validateUserGet(),
   async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
-    const user = await getUserByIdOrUsernameOrEmail(req.query);
+    // just to convert types
+    const parsedData = validateUserSearchQueryParams(req.query);
+    const user = await getUserByIdOrUsernameOrEmail(parsedData);
     res.status(200).json(user);
   }
 );
