@@ -1,12 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { hash } from 'bcryptjs';
 import { withValidation } from 'next-validations';
-import prisma, { excludeFromUser } from 'lib-server/prisma';
 import { profileImagesUpload } from 'lib-server/middleware/upload';
 import { apiHandler } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
-import { userUpdateSchema, validateUserIdCuid } from 'lib-server/validation';
+import {
+  userIdCuidSchema,
+  userUpdateSchema,
+  validateUserIdCuid,
+} from 'lib-server/validation';
 import { ClientUser, UserUpdateServiceData } from 'types/models/User';
 import { deleteUser, getMe, getUser, updateUser } from 'lib-server/services/users';
 
@@ -20,19 +22,29 @@ const validateUserUpdate = withValidation({
   mode: 'body',
 });
 
+const validateUserCuid = withValidation({
+  schema: userIdCuidSchema,
+  type: 'Zod',
+  mode: 'query',
+});
+
 // GET /api/users/:id
 // only for me query
-handler.get(async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
-  const id = validateUserIdCuid(req.query.id as string);
-  const user = await getUser(id);
+handler.get(
+  validateUserCuid(),
+  async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
+    const id = validateUserIdCuid(req.query.id as string);
+    const user = await getUser(id);
 
-  if (!user) throw new ApiError('User not found.', 404);
-  res.status(200).json(user);
-});
+    if (!user) throw new ApiError('User not found.', 404);
+    res.status(200).json(user);
+  }
+);
 
 handler.patch(
   requireAuth,
   profileImagesUpload,
+  validateUserCuid(),
   validateUserUpdate(),
   async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
     const id = validateUserIdCuid(req.query.id as string);
@@ -60,11 +72,14 @@ export const config = {
   },
 };
 
-handler.delete(async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
-  const id = validateUserIdCuid(req.query.id as string);
+handler.delete(
+  validateUserCuid(),
+  async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
+    const id = validateUserIdCuid(req.query.id as string);
 
-  const user = await deleteUser(id);
-  res.status(204).json(user);
-});
+    const user = await deleteUser(id);
+    res.status(204).json(user);
+  }
+);
 
 export default handler;

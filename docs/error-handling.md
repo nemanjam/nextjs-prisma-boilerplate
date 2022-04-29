@@ -133,3 +133,13 @@ const MeProvider: FC<ProviderProps> = ({ children }) => {
 ### Validation Api
 
 - **important:** only `req.query` are strings (`[key: string]: string | string[];`), `req.body` preserves correct types (number, boolean), for validation schemas and services argument types
+
+- you can validate id's too with middleware because of `req.query.id`
+
+```ts
+const validateUserCuid = withValidation({
+  schema: userIdCuidSchema,
+  type: 'Zod',
+  mode: 'query',
+});
+```

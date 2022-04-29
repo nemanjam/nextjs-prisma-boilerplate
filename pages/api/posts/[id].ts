@@ -2,7 +2,11 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { withValidation } from 'next-validations';
 import { apiHandler } from 'lib-server/nc';
 import { requireAuth } from 'lib-server/middleware/auth';
-import { postUpdateSchema, validatePostIdNumber } from 'lib-server/validation';
+import {
+  postIdNumberSchema,
+  postUpdateSchema,
+  validatePostIdNumber,
+} from 'lib-server/validation';
 import { PostWithAuthor } from 'types/models/Post';
 import { getMe } from 'lib-server/services/users';
 import { deletePost, getPost, updatePost } from 'lib-server/services/posts';
@@ -15,17 +19,27 @@ const validatePostUpdate = withValidation({
   mode: 'body',
 });
 
+const validatePostId = withValidation({
+  schema: postIdNumberSchema,
+  type: 'Zod',
+  mode: 'query',
+});
+
 // GET, PATCH, DELETE /api/post/:id
 
-handler.get(async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>) => {
-  const id = validatePostIdNumber(req.query.id as string);
+handler.get(
+  validatePostId(),
+  async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>) => {
+    const id = validatePostIdNumber(req.query.id as string);
 
-  const post = await getPost(id);
-  res.status(200).json(post);
-});
+    const post = await getPost(id);
+    res.status(200).json(post);
+  }
+);
 
 handler.patch(
   requireAuth,
+  validatePostId(),
   validatePostUpdate(),
   async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>) => {
     const id = validatePostIdNumber(req.query.id as string);
@@ -38,6 +52,7 @@ handler.patch(
 
 handler.delete(
   requireAuth,
+  validatePostId(),
   async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>) => {
     const id = validatePostIdNumber(req.query.id as string);
 
