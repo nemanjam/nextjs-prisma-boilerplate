@@ -29,7 +29,7 @@ const Users: FC = () => {
 
   useDecrementPage({
     page,
-    total: data?.pagination?.total,
+    total: data?.pagination?.total ?? 0,
     itemsType: 'users',
     setPage,
   });

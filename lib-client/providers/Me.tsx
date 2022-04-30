@@ -8,7 +8,7 @@ type ContextProps = {
 };
 
 const defaultValue: ContextProps = { me: null };
-export const MeContext = createContext<ContextProps | null>(defaultValue);
+export const MeContext = createContext<ContextProps>(defaultValue);
 
 // provider
 type ProviderProps = {
@@ -23,7 +23,7 @@ type ProviderProps = {
 const MeProvider: FC<ProviderProps> = ({ children }) => {
   const { data } = useMe();
 
-  return <MeContext.Provider value={{ me: data }}>{children}</MeContext.Provider>;
+  return <MeContext.Provider value={{ me: data || null }}>{children}</MeContext.Provider>;
 };
 
 export default MeProvider;

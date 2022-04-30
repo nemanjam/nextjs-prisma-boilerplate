@@ -53,6 +53,8 @@ function printLoadedEnvVariables() {
     PORT: process.env.PORT,
     'env-buildime': separator,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+    NEXT_PUBLIC_POSTS_PER_PAGE: process.env.NEXT_PUBLIC_POSTS_PER_PAGE,
+    NEXT_PUBLIC_USERS_PER_PAGE: process.env.NEXT_PUBLIC_USERS_PER_PAGE,
     '.env': separator,
     PROTOCOL: process.env.PROTOCOL,
     HOSTNAME: process.env.HOSTNAME,

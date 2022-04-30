@@ -8,8 +8,26 @@ export const b_ = B({
   classSeparator: ' ',
 });
 
-type WithType = typeof b_.with;
+// --------- repeat types
 
-export const withBem: WithType = b_.with.bind(b_);
+interface Mods {
+  [name: string]: any;
+}
+
+interface BlockFormatter {
+  (mods?: Mods): string;
+  (elem: string | null, mods?: Mods): string; // this: string | null
+}
+
+type ElemFormatter = (mods?: Mods) => string;
+
+interface Formatter {
+  with(block: string): BlockFormatter;
+  with(block: string, elem: string): ElemFormatter;
+}
+
+// ---------------
+
+export const withBem: Formatter['with'] = b_.with.bind(b_);
 
 export const getErrorClass = (value: unknown) => (value ? ' validation-error' : '');

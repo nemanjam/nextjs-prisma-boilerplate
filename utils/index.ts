@@ -17,8 +17,8 @@ export const getRandomInteger = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-export const isUrl = (str: string) => {
-  return /^https?:\/\//gi.test(str);
+export const isUrl = (str: string | null) => {
+  return /^https?:\/\//gi.test(str || '');
 };
 
 /**
@@ -26,4 +26,17 @@ export const isUrl = (str: string) => {
  */
 export const sleep = (seconds: number) => {
   return new Promise<void>((resolve) => setTimeout(resolve, seconds * 1000));
+};
+
+/**
+ * throw if env is not defined
+ */
+export const env = (name: string): string => {
+  const value = process.env[name];
+
+  if (!value) {
+    throw new Error(`Missing: process.env['${name}'].`);
+  }
+
+  return value;
 };

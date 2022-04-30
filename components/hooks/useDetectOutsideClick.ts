@@ -1,15 +1,8 @@
-import {
-  useState,
-  useEffect,
-  MutableRefObject,
-  Dispatch,
-  SetStateAction,
-  useRef,
-} from 'react';
+import { useState, useEffect, Dispatch, SetStateAction, useRef, RefObject } from 'react';
 
 type HookReturnType = {
-  menuRef: MutableRefObject<any>;
-  anchorRef: MutableRefObject<any>;
+  menuRef: RefObject<HTMLElement>;
+  anchorRef: RefObject<HTMLElement>;
   isActive: boolean;
   setIsActive: Dispatch<SetStateAction<boolean>>;
 };
@@ -17,9 +10,9 @@ type HookReturnType = {
 // 2 seters problem
 // both handlers triggered on first click
 const useDetectOutsideClick = (): HookReturnType => {
-  const menuRef = useRef(null);
+  const menuRef = useRef<HTMLElement>(null);
   // anchorRef is optional
-  const anchorRef = useRef(null);
+  const anchorRef = useRef<HTMLElement>(null);
   // state and setter must be exposed outside of hook
   const [isActive, setIsActive] = useState(false);
 

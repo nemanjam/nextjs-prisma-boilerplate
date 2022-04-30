@@ -10,7 +10,7 @@ import { NextRouter } from 'next/router';
 describe('PostItem', () => {
   // show Publish button
   const fakePostWithAuthor = { ...initFakePostWithAuthor, published: false };
-  let router: NextRouter = null;
+  let router: NextRouter;
 
   beforeEach(async () => {
     router = createMockRouter({

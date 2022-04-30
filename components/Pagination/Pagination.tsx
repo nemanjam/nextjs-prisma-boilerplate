@@ -70,7 +70,7 @@ const Pagination: FC<Props> = ({
               })}
             >
               <Button
-                onClick={() => setPage(index)}
+                onClick={() => setPage?.(index)}
                 variant={currentPage === index ? 'primary' : 'transparent'}
               >
                 {index}

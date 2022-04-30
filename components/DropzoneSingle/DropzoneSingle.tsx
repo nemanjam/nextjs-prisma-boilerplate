@@ -12,6 +12,7 @@ interface IFileInputProps
   dropzoneOptions?: DropzoneOptions;
   imageClassName?: string;
   altText?: string;
+  name: string;
 }
 
 const DropzoneSingle: FC<IFileInputProps> = ({

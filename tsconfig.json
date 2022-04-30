@@ -17,8 +17,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
-    // "strictNullChecks": true // for prisma singleton mock
+    "incremental": true,
+    "strictNullChecks": true // for prisma singleton mock
   },
   "exclude": [
     "node_modules",

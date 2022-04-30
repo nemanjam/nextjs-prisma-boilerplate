@@ -18,7 +18,7 @@ type Props = {
 
 const NavLink: FC<Props> = ({ isActive, children, icon, passChildRef = false }) => {
   const b = withBem('navlink');
-  const childRef = useRef(null);
+  const childRef = useRef<{ handleChange: Function }>(null);
 
   const childrenWithProps = Children.map(children, (child) => {
     return passChildRef && isValidElement(child)

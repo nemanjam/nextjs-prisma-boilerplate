@@ -14,6 +14,6 @@ describe('useMe', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     // assert fakeUser is fetched based on fakeUser.id in session
-    expect(result.current.data.username).toBe(fakeUser.username);
+    expect(result.current.data?.username).toBe(fakeUser.username);
   });
 });

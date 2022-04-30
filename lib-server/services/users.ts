@@ -99,7 +99,7 @@ export const createUser = async (createData: UserCreateData): Promise<ClientUser
   return excludeFromUser(user);
 };
 
-const defaultLimit = parseInt(process.env.NEXT_PUBLIC_USERS_PER_PAGE);
+const defaultLimit = parseInt(process.env.NEXT_PUBLIC_USERS_PER_PAGE as string);
 
 export const getUsers = async (
   getSearchData: UsersGetSearchQueryParams = {}

@@ -32,7 +32,7 @@ describe('useCreateUser', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     // data is response on success
-    expect(result.current.data.username).toBe(username);
+    expect(result.current.data?.username).toBe(username);
 
     // assert redirect /auth/login onSuccess
     expect(router.push).toHaveBeenCalledWith(Routes.SITE.LOGIN);
@@ -59,7 +59,7 @@ describe('useCreateUser', () => {
     await waitFor(() => expect(result.current.isError).toBe(true));
 
     // assert error message
-    expect(result.current.error.message).toBe(errorMessage500);
+    expect(result.current.error?.message).toBe(errorMessage500);
 
     mockedConsoleError.mockRestore();
   });

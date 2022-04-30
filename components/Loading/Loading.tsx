@@ -16,7 +16,7 @@ const Loading: FC<Props> = ({ loaderType, ...spinnerProps }) => {
     screen: loaderType === 'screen',
   };
 
-  let content: JSX.Element;
+  let content: JSX.Element | null;
   switch (loaderType) {
     case 'item':
       // item and page same for now

@@ -7,7 +7,7 @@ import axiosInstance from 'lib-client/react-query/axios';
 import QueryKeys, { filterEmptyKeys } from 'lib-client/react-query/queryKeys';
 import { AxiosError } from 'axios';
 
-const getUser = async (id: string) => {
+const getUser = async (id: string | undefined) => {
   if (!id) return null;
 
   const { data } = await axiosInstance.get<ClientUser>(`${Routes.API.USERS}${id}`);
@@ -31,7 +31,7 @@ export const useMe = () => {
         console.error('me query error: ', error.response);
 
         // id exists but not valid session, clear it
-        if (id && error.response.status === 404) {
+        if (id && error.response?.status === 404) {
           signOut();
         }
       },
