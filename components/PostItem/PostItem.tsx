@@ -38,7 +38,7 @@ const PostItem: FC<Props> = ({ post }) => {
     query: { username: author.username },
   };
 
-  const isOwnerOrAdmin = getIsPostOwner(me, post) || getIsAdmin(me);
+  const isOwnerOrAdmin = me && (getIsPostOwner(me, post) || getIsAdmin(me));
 
   const userInfo = (
     <>
@@ -70,7 +70,7 @@ const PostItem: FC<Props> = ({ post }) => {
                 src={getAvatarPath(author)}
                 width={96}
                 height={96}
-                alt={author.name}
+                alt={author.name ?? 'avatar'}
                 objectFit="cover"
               />
             </a>

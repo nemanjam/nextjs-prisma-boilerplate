@@ -19,7 +19,7 @@ const getPosts = async (params: PostsGetSearchQueryParams) => {
 
 export const usePosts = (queryKey: QueryKeysType, params: PostsGetSearchQueryParams) => {
   const queryClient = useQueryClient();
-  const { page, username, searchTerm } = params;
+  const { page = 1, username, searchTerm } = params;
 
   const query = useQuery<PaginatedResponse<PostWithAuthor>, AxiosError>(
     filterEmptyKeys([queryKey, username, searchTerm, page]),

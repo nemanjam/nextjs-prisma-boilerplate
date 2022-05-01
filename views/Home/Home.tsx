@@ -31,7 +31,7 @@ const Home: FC = () => {
 
   useDecrementPage({
     page,
-    total: data?.pagination?.total,
+    total: data?.pagination?.total ?? 0,
     itemsType: 'posts',
     setPage,
   });
@@ -45,6 +45,8 @@ const Home: FC = () => {
     isFetching,
     state: page,
   });
+
+  if (!data) return null;
 
   return (
     <div className={b()}>

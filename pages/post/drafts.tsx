@@ -29,7 +29,7 @@ const Drafts: FC = () => {
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   // id is enough
   const callback1 = async () => await getMe({ req });
-  const me = await ssrNcHandler<ClientUser>(req, res, callback1);
+  const me = await ssrNcHandler<ClientUser | null>(req, res, callback1);
 
   if (!me) return Redirects.LOGIN;
 

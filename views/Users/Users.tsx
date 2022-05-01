@@ -44,6 +44,8 @@ const Users: FC = () => {
     state: page,
   });
 
+  if (!data) return null;
+
   return (
     <div className={b()}>
       <h1 className={b('title')}>Users</h1>

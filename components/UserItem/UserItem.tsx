@@ -36,7 +36,7 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
   // use this instead of {pathname, query} to prevent hard refresh
   const settingsHref = `${Routes.SITE.SETTINGS}${user.username}/`;
 
-  const isAdmin = getIsAdmin(me);
+  const isAdmin = me && getIsAdmin(me);
 
   return (
     <section className={b()}>
@@ -62,7 +62,7 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
                   src={getAvatarPath(user)}
                   width={80}
                   height={80}
-                  alt={user.name}
+                  alt={user.name ?? 'avatar'}
                   objectFit="cover"
                 />
               </a>

@@ -34,14 +34,14 @@ const Settings: FC = () => {
   const { me } = useContext(MeContext);
 
   const id = me?.id;
-  const { username } = router.query;
-  const isOtherUser = username?.length > 0;
-  const params = isOtherUser ? { username: username[0] } : { id };
+  const username = router.query?.username?.[0];
+  const isOtherUser = !!username;
+  const params = isOtherUser ? { username } : { id };
 
   const { data: user } = useUser(params);
 
   useEffect(() => {
-    let timer = null;
+    let timer: ReturnType<typeof setTimeout>;
     if (progress > 99) {
       timer = setTimeout(() => setProgress(0), 1200);
     }
@@ -135,6 +135,13 @@ const Settings: FC = () => {
     }
   }, [user, avatarFile, isAvatarLoading, headerFile, isHeaderLoading, isMounted]);
 
+  const {
+    mutate: updateUser,
+    isLoading: isUpdateLoading,
+    isError,
+    error,
+  } = useUpdateUser();
+
   const dropzoneOptions: DropzoneOptions = {
     accept: 'image/png, image/jpg, image/jpeg',
     noDrag: false,
@@ -144,13 +151,6 @@ const Settings: FC = () => {
     // maxSize: 1 * 1024 * 1024, // 1MB
     // validator: ...
   };
-
-  const {
-    mutate: updateUser,
-    isLoading: isUpdateLoading,
-    isError,
-    error,
-  } = useUpdateUser();
 
   const onSubmit = (data: UserUpdateFormData) => {
     if (Object.keys(dirtyFields).length === 0) return;
@@ -162,6 +162,8 @@ const Settings: FC = () => {
         updatedFields[key] = data[key];
       }
     });
+
+    if (!user) return;
 
     updateUser(
       { id: user.id, user: updatedFields, setProgress },

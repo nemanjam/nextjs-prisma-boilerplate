@@ -30,6 +30,8 @@ const Post: FC = () => {
   const { mutate: updatePost, ...restUpdate } = useUpdatePost();
   const { mutate: deletePost, ...restDelete } = useDeletePost();
 
+  if (!post) return null;
+
   const { author } = post;
 
   const authorHref = {
@@ -40,7 +42,7 @@ const Post: FC = () => {
   const editPostHref = `${Routes.SITE.CREATE}${post.id}/`;
 
   const title = `${post.title} ${post.published ? '' : '(Draft)'}`;
-  const isOwnerOrAdmin = getIsPostOwner(me, post) || getIsAdmin(me);
+  const isOwnerOrAdmin = me && (getIsPostOwner(me, post) || getIsAdmin(me));
 
   return (
     <article className={b()}>
@@ -61,7 +63,7 @@ const Post: FC = () => {
                 src={getAvatarPath(author)}
                 width={80}
                 height={80}
-                alt={author.name}
+                alt={author.name ?? 'avatar'}
                 objectFit="cover"
               />
             </a>

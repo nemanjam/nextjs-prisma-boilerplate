@@ -8,7 +8,7 @@ import { createMockRouter } from 'test-client/Wrapper';
 import { NextRouter } from 'next/router';
 
 describe('Settings View', () => {
-  let router: NextRouter = null;
+  let router: NextRouter | null = null;
 
   beforeEach(async () => {
     router = createMockRouter({

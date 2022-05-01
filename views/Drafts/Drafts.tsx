@@ -21,10 +21,12 @@ const Drafts: FC = () => {
 
   useDecrementPage({
     page,
-    total: data?.pagination?.total,
+    total: data?.pagination?.total ?? 0,
     itemsType: 'posts',
     setPage,
   });
+
+  if (!data) return null;
 
   return (
     <div className={b()}>

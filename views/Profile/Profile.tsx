@@ -38,7 +38,7 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
 
   useDecrementPage({
     page,
-    total: data?.pagination?.total,
+    total: data?.pagination?.total ?? 0,
     itemsType: 'posts',
     setPage,
   });
@@ -59,6 +59,8 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
     state: page,
   });
 
+  if (!data) return null;
+
   return (
     <div className={b()}>
       <section className={b('user-card')}>
@@ -67,7 +69,7 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
             loader={uploadsImageLoader}
             layout="fill"
             src={getHeaderImagePath(profile)}
-            alt={profile.name}
+            alt={profile.name ?? 'name'}
             objectFit="cover"
             objectPosition="center"
           />
@@ -79,7 +81,7 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
               src={getAvatarPath(profile)}
               width={112}
               height={112}
-              alt={profile.name}
+              alt={profile.name ?? 'cover'}
               objectFit="cover"
             />
           </div>

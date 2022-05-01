@@ -30,7 +30,7 @@ const isActive: (router: NextRouter, pathname: string) => boolean = (router, pat
 
 interface ItemsArgs {
   router: NextRouter;
-  me: ClientUser;
+  me: ClientUser | null;
   onHamburgerClick?: () => void;
   mobileMenuOpen?: boolean;
   isGetDropdownItems?: boolean;
@@ -160,7 +160,7 @@ const getAllItems = ({
         src={getAvatarPath(me)}
         width={48}
         height={48}
-        alt={me.name}
+        alt={me.name ?? 'avatar'}
       />
     </Dropdown>
   ),
@@ -171,7 +171,7 @@ const getAllItems = ({
         src={getAvatarPath(me)}
         width={96}
         height={96}
-        alt={me.name}
+        alt={me.name ?? 'avatar'}
       />
     </span>
   ),

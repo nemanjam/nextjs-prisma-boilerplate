@@ -130,6 +130,8 @@ const MeProvider: FC<ProviderProps> = ({ children }) => {
 };
 ```
 
+- `if (!data) return null;` in views is because of Typescript `"strictNullChecks": true`, because React Query data has type `SomeData | undefined`
+
 ### Validation Api
 
 - **important:** only `req.query` are strings (`[key: string]: string | string[];`), `req.body` preserves correct types (number, boolean), for validation schemas and services argument types

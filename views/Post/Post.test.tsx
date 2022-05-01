@@ -8,7 +8,7 @@ import userEvent from '@testing-library/user-event';
 import { NextRouter } from 'next/router';
 
 describe('Post View', () => {
-  let router: NextRouter = null;
+  let router: NextRouter;
 
   beforeEach(async () => {
     router = createMockRouter({
