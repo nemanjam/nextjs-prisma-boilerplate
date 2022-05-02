@@ -26,7 +26,7 @@ const Create: FC = () => {
 
 export const getServerSideProps: GetServerSideProps = async ({ params, req, res }) => {
   const callback1 = async () => await getMe({ req });
-  const me = await ssrNcHandler<ClientUser>(req, res, callback1);
+  const me = await ssrNcHandler<ClientUser | null>(req, res, callback1);
 
   if (!me) return Redirects.LOGIN;
 

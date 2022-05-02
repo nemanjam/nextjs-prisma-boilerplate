@@ -152,3 +152,17 @@ const validateUserCuid = withValidation({
 
 - env variables types `environment.d.ts` [stackoverflow](https://stackoverflow.com/questions/45194598/using-process-env-in-typescript)
 - env var in Node.js is `string | undefined`, can't be number, must use `parseInt(envVar)`
+
+- must be native `MouseEvent` and not `React.MouseEvent` or error in `addEventListener()`
+
+```ts
+// types
+
+const onClick = (event: MouseEvent) => {
+const isInsideAnchor =
+  anchorRef.current !== null && anchorRef.current.contains(event.target as Node);
+
+window.addEventListener('click', onClick);
+```
+
+- make type non-nullable `NonNullable<SomeType>`

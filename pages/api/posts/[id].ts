@@ -10,6 +10,7 @@ import {
 import { PostWithAuthor } from 'types/models/Post';
 import { getMe } from 'lib-server/services/users';
 import { deletePost, getPost, updatePost } from 'lib-server/services/posts';
+import { ClientUser } from 'types/models/User';
 
 const handler = apiHandler();
 
@@ -43,7 +44,7 @@ handler.patch(
   validatePostUpdate(),
   async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>) => {
     const id = validatePostIdNumber(req.query.id as string);
-    const me = await getMe({ req });
+    const me = (await getMe({ req })) as ClientUser;
 
     const post = await updatePost(id, me, req.body);
     res.status(200).json(post);

@@ -59,7 +59,7 @@ handler.patch(
       files,
     } as UserUpdateServiceData;
 
-    const me = await getMe({ req });
+    const me = (await getMe({ req })) as ClientUser;
 
     const user = await updateUser(id, me, updateData);
     res.status(200).json(user);

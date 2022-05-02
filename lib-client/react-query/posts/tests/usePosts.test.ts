@@ -18,8 +18,8 @@ describe('usePosts', () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    expect(result.current.data.pagination.currentPage).toBe(page);
-    expect(result.current.data.pagination.total).toBe(1);
-    expect(result.current.data.items[0].title).toBe(title);
+    expect(result.current.data?.pagination.currentPage).toBe(page);
+    expect(result.current.data?.pagination.total).toBe(1);
+    expect(result.current.data?.items[0].title).toBe(title);
   });
 });

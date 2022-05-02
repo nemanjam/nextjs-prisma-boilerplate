@@ -11,23 +11,7 @@ const numberOfPosts = 10;
 const numberOfUsers = 4;
 const password = hashSync('123456', 10);
 
-// almost same as seed, response types, not db
-const createPosts = (n: number): Post[] => {
-  return Array.from(Array(n).keys()).map((index) => ({
-    id: index,
-    title: lorem.sentence(),
-    content: lorem.paragraphs(1),
-    published: true,
-    authorId: null,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  }));
-};
-
-// all posts by same author
-const createPostsWithAuthor = (posts: Post[], author: ClientUser): PostWithAuthor[] => {
-  return posts.map((post) => ({ ...post, authorId: author.id, author }));
-};
+// ------------ User
 
 function createUsers(n: number): ClientUser[];
 function createUsers(n: number, isServer: true): User[];
@@ -71,12 +55,34 @@ export const fakeUsers: PaginatedResponse<ClientUser> = {
   },
 };
 
+// -------------- Session
+
 export const fakeSession: Session = {
   user: {
     id: fakeUser.id,
     email: fakeUser.email,
   },
   expires: new Date().toISOString(),
+};
+
+// ------------- Post
+
+// almost same as seed, response types, not db
+const createPosts = (n: number): Post[] => {
+  return Array.from(Array(n).keys()).map((index) => ({
+    id: index,
+    title: lorem.sentence(),
+    content: lorem.paragraphs(1),
+    published: true,
+    authorId: fakeUser.id, // reassigned in createPostsWithAuthor()
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  }));
+};
+
+// all posts by same author
+const createPostsWithAuthor = (posts: Post[], author: ClientUser): PostWithAuthor[] => {
+  return posts.map((post) => ({ ...post, authorId: author.id, author }));
 };
 
 // fakePostsWithAuthor

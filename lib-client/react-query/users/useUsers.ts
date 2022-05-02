@@ -19,7 +19,7 @@ const getUsers = async (params: UsersGetSearchQueryParams) => {
 
 export const useUsers = (params: UsersGetSearchQueryParams) => {
   const queryClient = useQueryClient();
-  const { page, searchTerm } = params;
+  const { page = 1, searchTerm } = params;
 
   const query = useQuery<PaginatedResponse<ClientUser>, AxiosError>(
     filterEmptyKeys([QueryKeys.USERS, searchTerm, page]),

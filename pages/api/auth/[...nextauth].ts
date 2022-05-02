@@ -11,6 +11,7 @@ import { apiHandler } from 'lib-server/nc';
 import { Routes } from 'lib-client/constants';
 import { ClientUser } from 'types/models/User';
 import { loginUser } from 'lib-server/services/auth';
+import ApiError from '@lib-server/error';
 
 const { serverRuntimeConfig } = getConfig();
 const handler = apiHandler();
@@ -41,6 +42,8 @@ handler.use(
           },
           // redirect to same page and parse query params, unable to return api res
           async authorize(credentials) {
+            if (!credentials) throw new ApiError('undefined credentials', 400);
+
             const { user, error } = await loginUser(credentials);
             if (error) throw error;
             return user;

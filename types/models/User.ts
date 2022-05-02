@@ -1,6 +1,6 @@
 import { User } from '@prisma/client';
 import { Dispatch, SetStateAction } from 'react';
-import { PickNotNull, SortDirection } from 'types';
+import { RequiredNotNull, SortDirection } from 'types';
 
 // --------- Response types ----------
 // used in queries and api responses
@@ -16,9 +16,8 @@ export type ClientUser = Omit<User, 'password'>;
 /**
  * create user, password is required
  */
-export type UserCreateData = PickNotNull<
-  User,
-  'name' | 'username' | 'email' | 'password'
+export type UserCreateData = RequiredNotNull<
+  Pick<User, 'name' | 'username' | 'email' | 'password'>
 >;
 
 export type UserCreateFormData = {

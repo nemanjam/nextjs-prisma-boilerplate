@@ -12,7 +12,7 @@ import Button from 'components/Button';
 import { useCreateUser } from 'lib-client/react-query/auth/useCreateUser';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import Alert from 'components/Alert';
-import { UserCreateFormData } from 'types/models/User';
+import { UserCreateData, UserCreateFormData } from 'types/models/User';
 
 type Props = {
   isRegisterForm?: boolean;
@@ -37,25 +37,20 @@ const Auth: FC<Props> = ({ isRegisterForm = true, providers }) => {
   // custom request with csrf token...
   // https://next-auth.js.org/configuration/pages#credentials-sign-in
   const onSubmitLogin = async ({ email, password }: UserCreateFormData) => {
-    const response = await signIn('credentials', {
+    const response = await signIn<'credentials'>('credentials', {
       email,
       password,
       redirect: false, // mutation with csrf token maybe
     });
 
-    if (response.ok) {
-      queryClient.removeQueries([QueryKeys.ME]); // MeProvider will mount useMe here too
-      await router.push(response.url);
+    if (response?.ok) {
+      queryClient.removeQueries([QueryKeys.ME]); // remove old queries
+      await router.push(Routes.SITE.HOME);
     }
   };
 
-  const onSubmitRegister = async ({
-    name,
-    username,
-    email,
-    password,
-  }: UserCreateFormData) => {
-    createUser({ name, username, email, password });
+  const onSubmitRegister = async (registerData: UserCreateFormData) => {
+    createUser(registerData as UserCreateData);
   };
 
   const testAccounts = [

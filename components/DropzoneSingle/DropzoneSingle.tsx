@@ -29,7 +29,7 @@ const DropzoneSingle: FC<IFileInputProps> = ({
   const { register, unregister, setValue, watch } = useFormContext();
   const file: File = watch(name);
 
-  const onDrop = useCallback<DropzoneOptions['onDrop']>(
+  const onDrop = useCallback<NonNullable<DropzoneOptions['onDrop']>>(
     (droppedFiles) => {
       setValue(name, droppedFiles?.[0], { shouldValidate: true, shouldDirty: true });
     },

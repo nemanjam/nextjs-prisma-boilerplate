@@ -11,6 +11,7 @@ import { PostWithAuthor } from 'types/models/Post';
 import { PaginatedResponse } from 'types';
 import { getMe } from 'lib-server/services/users';
 import { createPost, getPosts } from 'lib-server/services/posts';
+import { ClientUser } from 'types/models/User';
 
 const handler = apiHandler();
 
@@ -43,7 +44,7 @@ handler.post(
   requireAuth, // checks session already
   validatePostCreate(),
   async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>) => {
-    const me = await getMe({ req });
+    const me = (await getMe({ req })) as ClientUser;
 
     const post = await createPost(me, req.body);
     res.status(201).json(post);

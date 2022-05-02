@@ -10,11 +10,10 @@ export const requireAuth = async (
   res: NextApiResponse,
   next: NextHandler
 ) => {
-  const session = await getSession({ req });
+  const me = await getMe({ req });
+
   // dont attach req.user because it complicates types
-  const error = session?.user?.id
-    ? undefined
-    : new ApiError('You are not logged in.', 401);
+  const error = me?.id ? undefined : new ApiError('You are not logged in.', 401);
   next(error);
 };
 

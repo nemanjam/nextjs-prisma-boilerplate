@@ -17,12 +17,12 @@ const useDetectOutsideClick = (): HookReturnType => {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    const onClick = (e) => {
+    const onClick = (event: MouseEvent) => {
       const isInsideAnchor =
-        anchorRef.current !== null && anchorRef.current.contains(e.target);
+        anchorRef.current !== null && anchorRef.current.contains(event.target as Node);
 
       const isOutsideMenu =
-        menuRef.current !== null && !menuRef.current.contains(e.target);
+        menuRef.current !== null && !menuRef.current.contains(event.target as Node);
 
       if (!isInsideAnchor && isOutsideMenu) {
         setIsActive(false); // only closes
