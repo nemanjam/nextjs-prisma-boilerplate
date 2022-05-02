@@ -10,6 +10,7 @@ import queryClientConfig from 'lib-client/react-query/queryClientConfig';
 import SuspenseWrapper from 'lib-client/providers/SuspenseWrapper';
 
 import 'styles/index.scss';
+import getConfig from 'next/config';
 
 const App = ({
   Component,

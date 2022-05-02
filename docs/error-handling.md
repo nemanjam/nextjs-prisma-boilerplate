@@ -149,3 +149,6 @@ const validateUserCuid = withValidation({
 ### Typescript strictNullChecks
 
 - non-nullable props [stackoverflow](https://stackoverflow.com/questions/61912019/how-to-make-specific-props-non-nullable-in-typescript)
+
+- env variables types `environment.d.ts` [stackoverflow](https://stackoverflow.com/questions/45194598/using-process-env-in-typescript)
+- env var in Node.js is `string | undefined`, can't be number, must use `parseInt(envVar)`

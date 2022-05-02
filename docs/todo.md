@@ -93,6 +93,7 @@
 - fix typesctipt `strict` and `strictNullChecks`
 - docblocks in api functions
 - dev, prod navbar refresh
+- kill next.js server on unhandled promise rejection
 
 ### Overview
 

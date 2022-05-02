@@ -4,13 +4,13 @@ import { isUrl } from 'utils';
 import { Routes } from 'lib-client/constants';
 
 export const getAvatarPath = (user: ClientUser): string => {
-  return isUrl(user.image)
+  return user.image && isUrl(user.image)
     ? user.image
     : `${Routes.STATIC.AVATARS}${user.image || 'placeholder-avatar.jpg'}`;
 };
 
 export const getAvatarPathAbsolute = (user: ClientUser): string => {
-  return isUrl(user.image)
+  return user.image && isUrl(user.image)
     ? user.image
     : `${process.env.NEXT_PUBLIC_BASE_URL}${getAvatarPath(user).replace(/^\//, '')}`;
 };
