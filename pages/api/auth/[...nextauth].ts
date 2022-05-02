@@ -65,7 +65,7 @@ handler.use(
           return token;
         },
         async session({ session, token }) {
-          let _session = undefined;
+          let _session: Session | undefined = undefined;
           const user = token.user as ClientUser;
           // put just user's immutable props in session (id and email)
           // for session user use useUser React Query state

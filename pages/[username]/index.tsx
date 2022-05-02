@@ -38,7 +38,7 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
   const callback1 = async () => {
-    const parsedData = validateUserSearchQueryParams(params);
+    const parsedData = validateUserSearchQueryParams(params as QueryParamsType);
     return await getUserByIdOrUsernameOrEmail(parsedData);
   };
   const profile = await ssrNcHandler<ClientUser>(req, res, callback1);

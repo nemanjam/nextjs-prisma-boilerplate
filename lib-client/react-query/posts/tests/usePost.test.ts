@@ -11,6 +11,6 @@ describe('usePost', () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    expect(result.current.data.title).toBe(fakePostWithAuthor.title);
+    expect(result.current.data?.title).toBe(fakePostWithAuthor.title);
   });
 });

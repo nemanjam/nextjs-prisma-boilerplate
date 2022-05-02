@@ -11,8 +11,8 @@ export const loginUser = async ({
   email,
   password,
 }: UserLoginData): Promise<{
-  user: User;
-  error: ApiError;
+  user: User | null;
+  error: ApiError | null;
 }> => {
   // validation only in this service
   const result = userLoginSchema.safeParse({ email, password });

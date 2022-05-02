@@ -41,3 +41,15 @@ export type NextReq = IncomingMessage & {
  * ErrorBoundary and Loader fallback type
  */
 export type FallbackType = 'screen' | 'page' | 'item' | 'test';
+
+/**
+ * all props in object non-nullable
+ */
+export type RequiredNotNull<T> = {
+  [P in keyof T]: NonNullable<T[P]>;
+};
+
+/**
+ * pick props from object and make them non-nullable
+ */
+export type PickNotNull<T, K extends keyof T> = T & RequiredNotNull<Pick<T, K>>;

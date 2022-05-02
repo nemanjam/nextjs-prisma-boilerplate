@@ -25,7 +25,7 @@ const Users: FC = () => {
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   // just for MeProvider
   const callback1 = async () => await getMe({ req });
-  const me = await ssrNcHandler<ClientUser>(req, res, callback1);
+  const me = await ssrNcHandler<ClientUser | null>(req, res, callback1);
 
   const callback2 = async () => await getUsers(); // use api defaults
   const users = await ssrNcHandler<PaginatedResponse<ClientUser>>(req, res, callback2);

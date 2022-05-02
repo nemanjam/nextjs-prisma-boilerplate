@@ -33,8 +33,8 @@ model Post {
 
 model User {
   id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique // optional, facebook
+  name          String
+  email         String   @unique // optional, facebook
   username      String    @unique @default(cuid())
   provider      String    @default("credentials")
   password      String? 

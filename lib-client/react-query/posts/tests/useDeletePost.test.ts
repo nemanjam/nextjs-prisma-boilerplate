@@ -18,6 +18,6 @@ describe('useDeletePost', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     // assert returns deleted post
-    expect(result.current.data.title).toBe(fakePostWithAuthor.title);
+    expect(result.current.data?.title).toBe(fakePostWithAuthor.title);
   });
 });

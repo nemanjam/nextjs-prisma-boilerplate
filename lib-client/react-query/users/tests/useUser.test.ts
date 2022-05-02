@@ -15,7 +15,7 @@ describe('useUser hook', () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    expect(result.current.data.username).toBe(fakeUser.username);
+    expect(result.current.data?.username).toBe(fakeUser.username);
   });
 
   test('fail 500 query user hook', async () => {

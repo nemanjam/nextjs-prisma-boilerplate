@@ -12,7 +12,7 @@ const createTestQueryClient = () =>
     defaultOptions: {
       ...queryClientConfig.defaultOptions,
       queries: {
-        ...queryClientConfig.defaultOptions.queries,
+        ...queryClientConfig.defaultOptions?.queries,
         retry: false,
       },
     },

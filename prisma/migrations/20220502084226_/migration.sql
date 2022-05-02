@@ -2,7 +2,7 @@
 CREATE TABLE "posts" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
-    "content" TEXT,
+    "content" TEXT NOT NULL,
     "published" BOOLEAN NOT NULL DEFAULT false,
     "authorId" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -14,8 +14,8 @@ CREATE TABLE "posts" (
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
-    "name" TEXT,
-    "email" TEXT,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "provider" TEXT NOT NULL DEFAULT E'credentials',
     "password" TEXT,

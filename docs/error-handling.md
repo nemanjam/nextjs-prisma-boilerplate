@@ -145,3 +145,7 @@ const validateUserCuid = withValidation({
   mode: 'query',
 });
 ```
+
+### Typescript strictNullChecks
+
+- non-nullable props [stackoverflow](https://stackoverflow.com/questions/61912019/how-to-make-specific-props-non-nullable-in-typescript)

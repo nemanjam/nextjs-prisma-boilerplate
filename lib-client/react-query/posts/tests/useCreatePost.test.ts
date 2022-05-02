@@ -30,7 +30,7 @@ describe('useCreatePost', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     // data is response on success, like in query
-    expect(result.current.data.title).toBe(title);
+    expect(result.current.data?.title).toBe(title);
 
     // assert redirect /post/drafts onSuccess
     expect(router.push).toHaveBeenCalledWith(Routes.SITE.DRAFTS);

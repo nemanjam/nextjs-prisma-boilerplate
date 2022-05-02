@@ -23,7 +23,7 @@ type ProviderProps = {
 const MeProvider: FC<ProviderProps> = ({ children }) => {
   const { data } = useMe();
 
-  return <MeContext.Provider value={{ me: data || null }}>{children}</MeContext.Provider>;
+  return <MeContext.Provider value={{ me: data ?? null }}>{children}</MeContext.Provider>;
 };
 
 export default MeProvider;

@@ -22,7 +22,7 @@ export const useMe = () => {
   const { data: session, status } = useSession(); // needs provider
   const id = session?.user?.id;
 
-  const query = useQuery<ClientUser, AxiosError>(
+  const query = useQuery<ClientUser | null, AxiosError>(
     filterEmptyKeys([QueryKeys.ME, id]),
     () => getUser(id),
     {

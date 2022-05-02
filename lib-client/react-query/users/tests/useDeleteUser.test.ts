@@ -17,6 +17,6 @@ describe('useDeleteUser', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     // assert returns deleted user
-    expect(result.current.data.username).toBe(fakeUser.username);
+    expect(result.current.data?.username).toBe(fakeUser.username);
   });
 });
