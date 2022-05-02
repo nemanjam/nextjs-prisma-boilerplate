@@ -11,7 +11,7 @@ import { apiHandler } from 'lib-server/nc';
 import { Routes } from 'lib-client/constants';
 import { ClientUser } from 'types/models/User';
 import { loginUser } from 'lib-server/services/auth';
-import ApiError from '@lib-server/error';
+import ApiError from 'lib-server/error';
 
 const { serverRuntimeConfig } = getConfig();
 const handler = apiHandler();

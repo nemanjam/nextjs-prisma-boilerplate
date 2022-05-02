@@ -19,6 +19,10 @@ if (process.env.NODE_ENV === 'production') {
   prisma = global.prisma;
 }
 
+export default prisma;
+
+// ------------ utils
+
 /**
  * https://www.prisma.io/docs/concepts/components/prisma-client/excluding-fields
  */
@@ -48,5 +52,3 @@ export const excludeFromPost = (
 export const excludeFromUser = (user: User): ClientUser => {
   return exclude(user, 'password');
 };
-
-export default prisma;

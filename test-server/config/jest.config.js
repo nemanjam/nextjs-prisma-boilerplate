@@ -6,6 +6,7 @@ module.exports = {
   displayName: 'Server tests',
   clearMocks: true,
   testEnvironment: 'node',
+  setupFiles: ['<rootDir>/jest.env.setup.ts'], // load .env.test, .env.test.local, db...
   setupFilesAfterEnv: ['<rootDir>/test-server/singleton.ts'],
   testMatch: [
     '<rootDir>/api-tests/**/*.test.{ts,tsx}', // whitelist only
