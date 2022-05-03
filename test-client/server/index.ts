@@ -1,4 +1,3 @@
-import { setupServer } from 'msw/node';
 import {
   DefaultRequestBody,
   PathParams,
@@ -12,10 +11,9 @@ import usersHandlers from 'test-client/server/handlers/users';
 import postsHandlers from 'test-client/server/handlers/posts';
 import { Routes } from 'lib-client/constants';
 import { fakeUser } from 'test-client/server/fake-data';
+import { server } from 'test-client/config/jest.setup';
 
-const handlers = [...authHandlers, ...usersHandlers, ...postsHandlers];
-
-export const server = setupServer(...handlers);
+export const handlers = [...authHandlers, ...usersHandlers, ...postsHandlers];
 
 export const errorHandler500 = () => {
   const handler500 = (
@@ -23,6 +21,7 @@ export const errorHandler500 = () => {
     res: ResponseComposition<any>,
     ctx: RestContext
   ) => {
+    // useMe must succeed
     // /api/users/9adfadd2-5ba7-40ca-9e21-5d06bc6240ad
     const pathname = req.url.pathname;
     const useMePathnameRegex = RegExp(`^${Routes.API.USERS}.+$`, 'i');

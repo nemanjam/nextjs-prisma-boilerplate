@@ -454,3 +454,6 @@ const queryClientConfig: QueryClientConfig = {
 - [base config](https://orlandobayo.com/blog/monorepo-testing-using-jest/)
 
 - for Api unit tests services layer is required
+
+- userEvent v14 `click(), clear(), type()` must be wrapped in act, bug, Github [issue](https://github.com/testing-library/user-event/issues/938#issuecomment-1111976312)
+- all tests fail in parallel because of this

@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
-import { server } from 'test-client/server';
 import { Blob } from 'blob-polyfill';
+import { setupServer } from 'msw/node';
+import { handlers } from 'test-client/server';
 
 console.log('jest.setup.ts loaded...');
 
@@ -27,6 +28,8 @@ Object.defineProperty(window, 'matchMedia', {
 global.Blob = Blob;
 
 // msw
+export const server = setupServer(...handlers);
+
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());

@@ -25,8 +25,17 @@ describe('Post View', () => {
   test('renders post title, username link and edit link', async () => {
     customRender(<PostView />, { wrapperProps: { router } });
 
+    // first assert Edit button because it depends on useMe provider with isMounted
+    // assert Edit href to /post/create/:id
+    const editButtonLink = (await screen.findByText(/^edit$/i)).closest('a');
+    expect(editButtonLink).toHaveAttribute(
+      'href',
+      // with or without '/'
+      expect.stringMatching(RegExp(`${Routes.SITE.CREATE}${fakePostWithAuthor.id}`, 'i'))
+    );
+
     // assert post's title
-    const title = await screen.findByRole('heading', {
+    const title = screen.getByRole('heading', {
       name: RegExp(`${fakePostWithAuthor.title}`, 'i'),
     });
     expect(title).toBeInTheDocument();
@@ -36,14 +45,6 @@ describe('Post View', () => {
       name: RegExp(`@${fakePostWithAuthor.author.username}`, 'i'),
     });
     expect(usernameLink).toBeInTheDocument();
-
-    // assert Edit href to /post/create/:id
-    const editButtonLink = screen.getByText(/^edit$/i).closest('a');
-    expect(editButtonLink).toHaveAttribute(
-      'href',
-      // with or without '/'
-      expect.stringMatching(RegExp(`${Routes.SITE.CREATE}${fakePostWithAuthor.id}`, 'i'))
-    );
   });
 
   test('delete button mutation redirects to Home onSuccess', async () => {

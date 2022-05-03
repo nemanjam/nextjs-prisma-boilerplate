@@ -7,8 +7,17 @@ describe('Drafts View', () => {
   test('renders title, pagination and posts with Publish button', async () => {
     customRender(<DraftsView />);
 
+    // first assert first post has Publish button
+    // it requires me and loads last
+    const publishButton = (
+      await screen.findAllByRole('button', {
+        name: /publish/i,
+      })
+    )[0];
+    expect(publishButton).toBeInTheDocument();
+
     // assert title
-    const title = await screen.findByRole('heading', {
+    const title = screen.getByRole('heading', {
       name: /drafts/i,
     });
     expect(title).toBeInTheDocument();
@@ -18,11 +27,5 @@ describe('Drafts View', () => {
       name: RegExp(`@${fakePosts.items[0].author.username}`, 'i'),
     })[0];
     expect(usernameLink).toBeInTheDocument();
-
-    // assert first post has Publish button
-    const publishButton = screen.getAllByRole('button', {
-      name: /publish/i,
-    })[0];
-    expect(publishButton).toBeInTheDocument();
   });
 });
