@@ -192,8 +192,10 @@ const getAllItems = ({
   ),
 });
 
+type PredicateType = (value: [string, React.ReactNode]) => boolean;
+
 // helper methods
-const objectFilter = (obj, predicate) =>
+const objectFilter = (obj: Record<string, ReactNode>, predicate: PredicateType) =>
   Object.fromEntries(Object.entries(obj).filter(predicate));
 
 const filterAllItems = ({ argsArray, ...restArgs }: FilterItemsArgs) =>

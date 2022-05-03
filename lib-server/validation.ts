@@ -69,12 +69,19 @@ export const userUpdateSchema = z
 
 // query params numbers are strings, parse them before validating
 // only req.query are strings, req.body preservs correct types
-const stringToNumber = (numberStr: string): number | void => {
-  return numberStr ? parseInt(z.string().parse(numberStr), 10) : undefined;
+const stringToNumber = (numberArg: unknown): unknown => {
+  // convert (arg: string): number | undefined to (arg: unknown): unknown
+  // for typescript strict
+  const numberStr = numberArg as string;
+  const result = numberStr ? parseInt(z.string().parse(numberStr), 10) : undefined;
+  return result as unknown;
 };
 
-const stringToBoolean = (booleanStr: string): boolean | void => {
-  return booleanStr ? z.string().parse(booleanStr) === 'true' : undefined;
+const stringToBoolean = (booleanArg: unknown): unknown => {
+  // convert (arg: string): boolean | undefined to (arg: unknown): unknown
+  const booleanStr = booleanArg as string;
+  const result = booleanStr ? z.string().parse(booleanStr) === 'true' : undefined;
+  return result as unknown;
 };
 
 const usersLimitMax = 100;
@@ -95,7 +102,7 @@ export const usersGetSchema = z.object({
 
 export const validateUserIdCuid = (id: string): string => {
   const result = userIdCuidSchema.safeParse({ id });
-  if (!result.success) throw ApiError.fromZodError((result as any).error);
+  if (!result.success) throw ApiError.fromZodError(result.error);
 
   return result.data.id;
 };
@@ -105,7 +112,7 @@ export const validateUserSearchQueryParams = (
   params: QueryParamsType
 ): UserGetQueryParams => {
   const result = userGetSchema.safeParse(params);
-  if (!result.success) throw ApiError.fromZodError((result as any).error);
+  if (!result.success) throw ApiError.fromZodError(result.error);
 
   return result.data as UserGetQueryParams;
 };
@@ -117,7 +124,7 @@ export const validateUsersSearchQueryParams = (
   params: QueryParamsType
 ): UsersGetSearchQueryParams => {
   const result = usersGetSchema.safeParse(params);
-  if (!result.success) throw ApiError.fromZodError((result as any).error);
+  if (!result.success) throw ApiError.fromZodError(result.error);
 
   return result.data as UsersGetSearchQueryParams;
 };
@@ -180,7 +187,7 @@ export const userIdCuidSchema = z.object({
 
 export const validatePostIdNumber = (id: string): number => {
   const result = postIdNumberSchema.safeParse({ id });
-  if (!result.success) throw ApiError.fromZodError((result as any).error);
+  if (!result.success) throw ApiError.fromZodError(result.error);
 
   return result.data.id;
 };
@@ -191,7 +198,7 @@ export const validatePostsSearchQueryParams = (
   params: QueryParamsType
 ): PostsGetSearchQueryParams => {
   const result = postsGetSchema.safeParse(params);
-  if (!result.success) throw ApiError.fromZodError((result as any).error);
+  if (!result.success) throw ApiError.fromZodError(result.error);
 
   return result.data as PostsGetSearchQueryParams;
 };

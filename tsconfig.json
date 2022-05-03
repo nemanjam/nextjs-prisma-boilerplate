@@ -8,7 +8,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false, // true required for zod
+    "strict": true, // true required for zod
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,

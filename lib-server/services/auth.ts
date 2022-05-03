@@ -20,7 +20,7 @@ export const loginUser = async ({
   if (!result.success) {
     return {
       user: null,
-      error: ApiError.fromZodError((result as any).error),
+      error: ApiError.fromZodError(result.error),
     };
   }
 

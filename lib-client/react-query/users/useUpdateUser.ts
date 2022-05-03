@@ -1,12 +1,16 @@
 import { useMutation } from 'react-query';
 import axiosInstance from 'lib-client/react-query/axios';
 import { Routes } from 'lib-client/constants';
-import { ClientUser, UserUpdateMutationData } from 'types/models/User';
+import {
+  ClientUser,
+  UserUpdateDataKeys,
+  UserUpdateMutationData,
+} from 'types/models/User';
 
 const updateUser = async ({ id, user, setProgress }: UserUpdateMutationData) => {
   const formData = new FormData();
   Object.keys(user).forEach((key) => {
-    formData.append(key, user[key]);
+    formData.append(key, user[key as UserUpdateDataKeys] as string | File);
   });
 
   const config = {
@@ -41,7 +45,9 @@ export const getImage = async (url: string): Promise<File> => {
   // const file = new File([response.data], 'default-image');
 
   // use Blob instead of File for jsdom polyfill
-  const file = new Blob([response.data], { type: response.headers['content-type'] });
+  const file = new Blob([response.data], {
+    type: response.headers['content-type'],
+  }) as any;
   file['lastModifiedDate'] = new Date();
   file['name'] = 'default-image';
 

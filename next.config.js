@@ -1,8 +1,15 @@
 const path = require('path');
 
 module.exports = {
+  experimental: {
+    // maybe fixes hydration error
+    // https://github.com/vercel/next.js/issues/35564#issuecomment-1077347776
+    // https://github.com/facebook/react/issues/24125
+    runtime: 'nodejs',
+  },
   reactStrictMode: true,
   trailingSlash: true,
+  /*
   webpackDevMiddleware: (config) => {
     config.watchOptions = {
       poll: 1000,
@@ -10,6 +17,7 @@ module.exports = {
     };
     return config;
   },
+  */
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },

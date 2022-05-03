@@ -31,9 +31,10 @@ export type UserCreateFormData = {
 /**
  * update user
  */
-export type UserUpdateData = Partial<
-  Pick<User, 'username' | 'name' | 'bio' | 'image' | 'headerImage' | 'password'>
->;
+export type UserUpdateData = Partial<Omit<UserUpdateFormData, 'confirmPassword'>>;
+
+// for indexing with []
+export type UserUpdateDataKeys = keyof UserUpdateData;
 
 export type UserUpdateMutationData = {
   id: string;

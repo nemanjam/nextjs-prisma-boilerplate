@@ -118,6 +118,7 @@
 - screenshots for all items (mutatuons), pages, screen error handling and alerts
 - supertest vs axios?
 - clearMocks vs resetMocks vs restoreMocks
+- void vs undefined return type function?
 
 ## Done
 

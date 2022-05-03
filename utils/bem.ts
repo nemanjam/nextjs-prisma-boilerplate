@@ -28,6 +28,6 @@ interface Formatter {
 
 // ---------------
 
-export const withBem: Formatter['with'] = b_.with.bind(b_);
+export const withBem = b_.with.bind(b_) as Formatter['with'];
 
 export const getErrorClass = (value: unknown) => (value ? ' validation-error' : '');

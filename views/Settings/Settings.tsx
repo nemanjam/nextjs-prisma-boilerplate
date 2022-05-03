@@ -16,7 +16,12 @@ import ProgressBar from 'components/ProgressBar';
 import Alert from 'components/Alert';
 import { useIsMounted } from 'components/hooks';
 import { MeContext } from 'lib-client/providers/Me';
-import { UserUpdateData, UserUpdateFormData, ClientUser } from 'types/models/User';
+import {
+  UserUpdateData,
+  UserUpdateFormData,
+  ClientUser,
+  UserUpdateDataKeys,
+} from 'types/models/User';
 
 // admin can edit other users
 const Settings: FC = () => {
@@ -159,7 +164,8 @@ const Settings: FC = () => {
     Object.keys(data).forEach((key) => {
       // send only dirty fileds
       if (Object.keys(dirtyFields).includes(key) && !['confirmPassword'].includes(key)) {
-        updatedFields[key] = data[key];
+        const _key = key as UserUpdateDataKeys;
+        updatedFields[_key] = data[_key] as any;
       }
     });
 

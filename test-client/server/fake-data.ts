@@ -112,7 +112,7 @@ export const createFakeImageFile = ({
   type = 'image/jpeg',
   lastModified = new Date(),
 } = {}): File => {
-  const blob = new Blob(['a'.repeat(size)], { type });
+  const blob = new Blob(['a'.repeat(size)], { type }) as any;
   blob['lastModifiedDate'] = lastModified;
   blob['name'] = name;
 
