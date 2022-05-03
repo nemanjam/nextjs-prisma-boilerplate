@@ -33,7 +33,7 @@ const ErrorFallback: FC<ErrorFallbackProps> = ({
             <span className={b('label')}>UI:</span>
             <span className={b('text')}>{fallbackType}</span>
             <span className={b('label')}>Message:</span>
-            <span className={b('text')} data-testid={`error-boundary-${fallbackType}`}>
+            <span className={b('text')} data-testid="error-boundary">
               {error.message}
             </span>
           </div>

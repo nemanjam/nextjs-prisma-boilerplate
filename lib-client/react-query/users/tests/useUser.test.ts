@@ -32,7 +32,7 @@ describe('useUser hook', () => {
     // uses ErrorBoundary, isError is undefined
     // queries: { suspense: true, useErrorBoundary: true }
     // assert ErrorBoundary and message and not result.current.isError
-    const errorBoundaryMessage = await screen.findByTestId(/error-boundary-test/i);
+    const errorBoundaryMessage = await screen.findByTestId(/error-boundary/i);
     expect(errorBoundaryMessage).toHaveTextContent(errorMessage500);
 
     mockedConsoleError.mockRestore();

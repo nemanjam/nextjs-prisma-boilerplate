@@ -132,6 +132,10 @@ const MeProvider: FC<ProviderProps> = ({ children }) => {
 
 - `if (!data) return null;` in views is because of Typescript `"strictNullChecks": true`, because React Query data has type `SomeData | undefined`
 
+```
+Error: This Suspense boundary received an update before it finished hydrating. This caused the boundary to switch to client rendering. The usual way to fix this is to wrap the original update in startTransition.
+```
+
 ### Validation Api
 
 - **important:** only `req.query` are strings (`[key: string]: string | string[];`), `req.body` preserves correct types (number, boolean), for validation schemas and services argument types

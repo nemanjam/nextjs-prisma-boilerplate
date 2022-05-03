@@ -12,4 +12,6 @@ module.exports = {
     '<rootDir>/lib-client/**/*.test.{ts,tsx}',
     '<rootDir>/views/**/*.test.{ts,tsx}',
   ],
+  // remove when fixed in react-hook-form/resolvers/zod
+  resolver: '<rootDir>/test-client/config/hook-form-resolver-fix.js',
 };

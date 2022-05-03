@@ -6,6 +6,7 @@ import { Routes } from 'lib-client/constants';
 import axiosInstance from 'lib-client/react-query/axios';
 import QueryKeys, { filterEmptyKeys } from 'lib-client/react-query/queryKeys';
 import { AxiosError } from 'axios';
+import { useIsMounted } from 'components/hooks';
 
 const getUser = async (id: string | undefined) => {
   if (!id) return null;
@@ -19,6 +20,8 @@ const getUser = async (id: string | undefined) => {
  * used only in MeProvider and accessed via context
  */
 export const useMe = () => {
+  const isMounted = useIsMounted();
+
   const { data: session, status } = useSession(); // needs provider
   const id = session?.user?.id;
 
@@ -26,7 +29,8 @@ export const useMe = () => {
     filterEmptyKeys([QueryKeys.ME, id]),
     () => getUser(id),
     {
-      enabled: status !== 'loading',
+      // disable query before mount/hydrating, attempt to fix hydration error
+      enabled: isMounted && status !== 'loading',
       onError: (error) => {
         console.error('me query error: ', error.response);
 

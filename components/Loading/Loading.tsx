@@ -4,7 +4,7 @@ import { Spinner, SpinnerProps } from 'components/Loading';
 import { FallbackType } from 'types';
 
 type Props = {
-  loaderType: FallbackType | 'test';
+  loaderType: FallbackType;
 } & Pick<SpinnerProps, 'size' | 'variant'>;
 
 const Loading: FC<Props> = ({ loaderType, ...spinnerProps }) => {
