@@ -107,6 +107,7 @@ const searchInput = screen.getByLabelText(/search/i);
 ```
 yarn jest -t "describe desc..." // single describe()
 yarn jest -t "test desc..." // single test()
+yarn test:client --onlyFailures // run only failed tests
 
 test.only('...')
 describe.only('...')
