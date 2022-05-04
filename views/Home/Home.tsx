@@ -11,7 +11,9 @@ import PreviewTheme from 'components/PreviewTheme';
 import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
 import useDecrementPage from 'components/hooks/useDecrementPage';
 
-const Home: FC = () => {
+type Props = { isTest?: boolean };
+
+const Home: FC<Props> = ({ isTest = false }) => {
   const b = withBem('home');
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -46,6 +48,8 @@ const Home: FC = () => {
     state: page,
   });
 
+  // console.log('isTest', isTest, 'data', data);
+
   if (!data) return null;
 
   return (
@@ -61,7 +65,7 @@ const Home: FC = () => {
             }
           }}
           setPage={setPage}
-          isPreviousDisabled={page === 1}
+          isPreviousDisabled={!!page && page === 1}
           isNextDisabled={isPreviousData || !data?.pagination.hasMore}
           currentPage={page}
           pagesCount={data.pagination.pagesCount}

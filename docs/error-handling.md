@@ -136,6 +136,13 @@ const MeProvider: FC<ProviderProps> = ({ children }) => {
 Error: This Suspense boundary received an update before it finished hydrating. This caused the boundary to switch to client rendering. The usual way to fix this is to wrap the original update in startTransition.
 ```
 
+- **Solution:** as error says disabled Prev button in pagination has different values on client and server, null and true (`page === 1` can return null?), `page` is **state** that causes problem when app is still lading/mounting, **read error carefully**
+
+```tsx
+<Pagination
+  isPreviousDisabled={!!page && page === 1} // this
+```
+
 ### Validation Api
 
 - **important:** only `req.query` are strings (`[key: string]: string | string[];`), `req.body` preserves correct types (number, boolean), for validation schemas and services argument types

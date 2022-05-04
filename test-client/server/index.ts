@@ -11,9 +11,11 @@ import usersHandlers from 'test-client/server/handlers/users';
 import postsHandlers from 'test-client/server/handlers/posts';
 import { Routes } from 'lib-client/constants';
 import { fakeUser } from 'test-client/server/fake-data';
-import { server } from 'test-client/config/jest.setup';
+import { setupServer } from 'msw/node';
 
-export const handlers = [...authHandlers, ...usersHandlers, ...postsHandlers];
+const handlers = [...authHandlers, ...usersHandlers, ...postsHandlers];
+
+export const server = setupServer(...handlers);
 
 export const errorHandler500 = () => {
   const handler500 = (
@@ -32,9 +34,11 @@ export const errorHandler500 = () => {
 
     // return user for useMe context
     if (req.method === 'GET' && isUseMePathname && !isProfilePathname) {
+      console.log('req.method 200', req.method, 'pathname', pathname);
       return res(ctx.status(200), ctx.json(fakeUser));
     }
 
+    console.log('req.method 500', req.method, 'pathname', pathname);
     return res(ctx.status(500));
   };
 

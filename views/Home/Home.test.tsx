@@ -67,7 +67,7 @@ describe('Home View', () => {
 
     // return 500 from msw
     errorHandler500();
-    customRender(<HomeView />);
+    customRender(<HomeView isTest />);
 
     // assert ErrorBoundary and message
     const errorBoundaryMessage = await screen.findByTestId(/error-boundary/i);

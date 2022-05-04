@@ -104,7 +104,7 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
             }
           }}
           setPage={setPage}
-          isPreviousDisabled={page === 1}
+          isPreviousDisabled={!!page && page === 1}
           isNextDisabled={isPreviousData || !data?.pagination.hasMore}
           currentPage={page}
           pagesCount={data.pagination.pagesCount}

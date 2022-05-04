@@ -457,3 +457,4 @@ const queryClientConfig: QueryClientConfig = {
 
 - userEvent v14 `click(), clear(), type()` must be wrapped in act, bug, Github [issue](https://github.com/testing-library/user-event/issues/938#issuecomment-1111976312)
 - all tests fail in parallel because of this
+- **MUST run in sequence for msw 500**
