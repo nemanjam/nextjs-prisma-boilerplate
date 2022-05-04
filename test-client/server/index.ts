@@ -38,7 +38,7 @@ export const errorHandler500 = () => {
       return res(ctx.status(200), ctx.json(fakeUser));
     }
 
-    console.log('req.method 500', req.method, 'pathname', pathname);
+    console.log('error handler, req.method 500', req.method, 'pathname', pathname);
     return res(ctx.status(500));
   };
 

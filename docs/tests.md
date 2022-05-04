@@ -428,8 +428,11 @@ const queryClientConfig: QueryClientConfig = {
 ### Node.js Api unit testing
 
 - Prisma client is mocked, singleton or dependency injection
-- Prisma [docs](https://www.prisma.io/docs/guides/testing/unit-testing)
+- Prisma [docs](https://www.prisma.io/docs/guides/testing/unit-testing) - unit testing db services
 - controller needs to be isolated from db to be unit test
+- TomDoesTech Youtube tutorial [Github repo](https://github.com/TomDoesTech/Testing-Express-REST-API), mock service value `.mockReturnValueOnce(userPayload);` and assert service input args `expect(createUserServiceMock).toHaveBeenCalledWith(userInput);`, unit for controllers, service mocked, controller forwards same input to service, supertest, ok
+- unit services: input - argument object, mock prisma, assert service output
+- unit controllers: input - http supertest, mock service, assert service mock calledWithArgs
 
 ### Node.js Api integration testing
 
@@ -444,7 +447,7 @@ const queryClientConfig: QueryClientConfig = {
 
 - Dev.to [tutorial](https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i) - 2 containers Node.js and Postgres
 
-- docs example [testing-express](https://github.com/prisma/prisma-examples/tree/latest/typescript/testing-express), integration tests, supertest, sqlite
+- docs example [testing-express](https://github.com/prisma/prisma-examples/tree/latest/typescript/testing-express), integration tests, supertest, sqlite, `prisma-test-environment.js` class
 
 ### Multiple Jest projects - client, server
 

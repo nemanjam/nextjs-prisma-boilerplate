@@ -85,7 +85,7 @@ export const createUser = async (createData: UserCreateData): Promise<ClientUser
     where: { email },
   });
 
-  if (_user) throw new ApiError(`Email: ${email} already exists.`, 403);
+  if (_user) throw new ApiError(`Email: ${email} already exists.`, 409);
 
   const password = await hash(_password, 10);
 

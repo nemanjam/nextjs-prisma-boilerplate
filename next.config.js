@@ -6,6 +6,9 @@ module.exports = {
     // https://github.com/vercel/next.js/issues/35564#issuecomment-1077347776
     // https://github.com/facebook/react/issues/24125
     runtime: 'nodejs',
+    reactMode: 'concurrent',
+    serverComponents: true,
+    reactRoot: true,
   },
   reactStrictMode: true,
   trailingSlash: true,

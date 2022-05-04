@@ -45,6 +45,13 @@ const postsHandlers = [
       const searchTerm = req.url.searchParams.get('searchTerm');
       const published = req.url.searchParams.get('published');
 
+      console.log(
+        'success handler, req.method 200',
+        req.method,
+        'req.url.pathname',
+        req.url.pathname
+      );
+
       switch (true) {
         // 1.
         case published === 'false': {
