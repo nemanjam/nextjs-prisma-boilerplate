@@ -434,6 +434,9 @@ const queryClientConfig: QueryClientConfig = {
 - unit services: input - argument object, mock prisma, assert service output
 - unit controllers: input - http supertest, mock service, assert service mock calledWithArgs
 
+- assert rejected promise [stackoverflow](https://stackoverflow.com/a/58326750/4383275)
+- assert ApiError `toBeInstanceOf()` and set correct constructor name [stackoverflow](https://stackoverflow.com/questions/68899615/how-to-expect-a-custom-error-to-be-thrown-with-jest)
+
 ### Node.js Api integration testing
 
 - test database in Docker
@@ -448,6 +451,8 @@ const queryClientConfig: QueryClientConfig = {
 - Dev.to [tutorial](https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i) - 2 containers Node.js and Postgres
 
 - docs example [testing-express](https://github.com/prisma/prisma-examples/tree/latest/typescript/testing-express), integration tests, supertest, sqlite, `prisma-test-environment.js` class
+
+- service unit with test db, asserts by reading db, integration with createServer(), fetch and test db [tutorial](https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i), Github [repo](https://github.com/eddeee888/topic-prisma-testing)
 
 ### Multiple Jest projects - client, server
 

@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { withValidation } from 'next-validations';
 import { profileImagesUpload } from 'lib-server/middleware/upload';
 import { apiHandler } from 'lib-server/nc';
-import { requireAuth } from 'lib-server/middleware/auth';
+import { requireAdmin, requireAuth } from 'lib-server/middleware/auth';
 import ApiError from 'lib-server/error';
 import {
   userIdCuidSchema,
@@ -73,6 +73,7 @@ export const config = {
 };
 
 handler.delete(
+  requireAdmin,
   validateUserCuid(),
   async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
     const id = validateUserIdCuid(req.query.id as string);

@@ -11,5 +11,7 @@
   "css.validate": false,
   "less.validate": false,
   "scss.validate": false,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  // disable run tests on startup
+  "jest.autoRun": "off"
 }

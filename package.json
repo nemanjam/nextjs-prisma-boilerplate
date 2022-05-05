@@ -20,7 +20,7 @@
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "format": "prettier --write .",
     "test-all": "yarn lint && yarn type-check && yarn format",
-    "test": "jest",
+    "test": "jest --",
     "test-ci": "jest --coverage --silent --ci",
     "studio": "dotenv -e .env.local -- sh -c 'npx prisma studio'",
     "migrate-dev": "npx prisma migrate dev --skip-seed",

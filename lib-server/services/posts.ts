@@ -107,7 +107,7 @@ export const createPost = async (
     },
   });
 
-  if (!postWithAuthor) throw new ApiError('postWithAuthor not found.', 404);
+  if (!postWithAuthor) throw new ApiError('Created post not found.', 404);
 
   return excludeFromPost(postWithAuthor);
 };

@@ -12,6 +12,9 @@ export default class ApiError extends Error {
     this.isOperational = isOperational;
 
     Error.captureStackTrace(this, this.constructor);
+
+    // set constructor name for Jest toBeInstanceOf()
+    Object.setPrototypeOf(this, ApiError.prototype);
   }
 
   static fromZodError(error: ZodError): ApiError {

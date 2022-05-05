@@ -91,3 +91,14 @@ const $1 = () => {
 
 export default $1;
 ```
+
+### VS Code Jest extension
+
+- [marketplace](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest), [Github](https://github.com/jest-community/vscode-jest)
+
+```ts
+// disable run tests on vs code startup
+// .vscode/settings.json
+
+"jest.autoRun": "off"
+```

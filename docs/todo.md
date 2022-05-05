@@ -94,6 +94,8 @@
 - docblocks in api functions
 - dev, prod navbar refresh
 - kill next.js server on unhandled promise rejection
+- rename request models for sevices
+- move permission logis from services to controllers and middleware
 
 ### Overview
 

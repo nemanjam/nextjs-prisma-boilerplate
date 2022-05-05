@@ -13,4 +13,7 @@ beforeEach(() => {
   mockReset(prismaMock);
 });
 
+/**
+ * used to unit test services
+ */
 export const prismaMock = prisma as unknown as DeepMockProxy<PrismaClient>;
