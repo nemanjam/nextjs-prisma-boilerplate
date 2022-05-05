@@ -2,12 +2,12 @@ import { renderHook, waitFor, screen } from '@testing-library/react';
 import { createWrapper } from 'test-client/test-utils';
 import { useUser } from 'lib-client/react-query/users/useUser';
 import { fakeUser } from 'test-client/server/fake-data';
-import { UserGetQueryParams } from 'types/models/User';
+import { UserGetData } from 'types/models/User';
 import { errorHandler500, errorMessage500 } from 'test-client/server';
 
 describe('useUser hook', () => {
   test('successful query user hook', async () => {
-    const params: UserGetQueryParams = { username: fakeUser.username };
+    const params: UserGetData = { username: fakeUser.username };
 
     const { result } = renderHook(() => useUser(params), {
       wrapper: createWrapper(),
@@ -21,7 +21,7 @@ describe('useUser hook', () => {
   test('fail 500 query user hook', async () => {
     const mockedConsoleError = jest.spyOn(console, 'error').mockImplementation();
 
-    const params: UserGetQueryParams = { username: fakeUser.username };
+    const params: UserGetData = { username: fakeUser.username };
 
     // return 500 from msw
     errorHandler500();

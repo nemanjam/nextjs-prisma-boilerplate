@@ -66,14 +66,14 @@ export type UserUpdateServiceData = Partial<{
 // --------- Query params request types ----------
 // used in queries and api args validation
 
-export type UsersGetSearchQueryParams = Partial<{
+export type UsersGetData = Partial<{
   page: number;
   limit: number;
   searchTerm: string;
   sortDirection: SortDirection;
 }>;
 
-export type UserGetQueryParams = Partial<{
+export type UserGetData = Partial<{
   id: string;
   username: string;
   email: string;

@@ -2,7 +2,7 @@ import prisma, { excludeFromPost } from 'lib-server/prisma';
 import ApiError from 'lib-server/error';
 import {
   PostCreateData,
-  PostsGetSearchQueryParams,
+  PostsGetData,
   PostUpdateData,
   PostWithAuthor,
 } from 'types/models/Post';
@@ -71,9 +71,9 @@ export const deletePost = async (id: number): Promise<PostWithAuthor> => {
 
 export const createPost = async (
   userId: string,
-  createData: PostCreateData
+  postCreateData: PostCreateData
 ): Promise<PostWithAuthor> => {
-  const { title, content } = createData;
+  const { title, content } = postCreateData;
 
   const post = await prisma.post.create({
     data: {
@@ -103,7 +103,7 @@ export const createPost = async (
 const defaultLimit = parseInt(process.env.NEXT_PUBLIC_POSTS_PER_PAGE);
 
 export const getPosts = async (
-  postsSearchData: PostsGetSearchQueryParams = {}
+  postsGetData: PostsGetData = {}
 ): Promise<PaginatedResponse<PostWithAuthor>> => {
   const {
     page = 1,
@@ -114,7 +114,7 @@ export const getPosts = async (
     username,
     sortDirection = 'desc',
     published = true,
-  } = postsSearchData;
+  } = postsGetData;
 
   const where = {
     where: {

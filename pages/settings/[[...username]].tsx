@@ -8,7 +8,7 @@ import { getMe, getUserByIdOrUsernameOrEmail } from 'lib-server/services/users';
 import { Redirects } from 'lib-client/constants';
 import CustomHead from 'components/CustomHead';
 import { ssrNcHandler } from 'lib-server/nc';
-import { ClientUser, UserGetQueryParams } from 'types/models/User';
+import { ClientUser, UserGetData } from 'types/models/User';
 import { QueryParamsType } from 'types';
 import { validateUserSearchQueryParams } from 'lib-server/validation';
 
@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
   }
 
   const callback2 = async () => {
-    const parsedData: UserGetQueryParams =
+    const parsedData: UserGetData =
       _params.id || _params.username ? validateUserSearchQueryParams(_params) : {};
     return await getUserByIdOrUsernameOrEmail(parsedData);
   };

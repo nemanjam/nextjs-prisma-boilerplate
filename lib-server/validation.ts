@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import { isBrowser } from 'utils';
 import ApiError from 'lib-server/error';
-import { PostsGetSearchQueryParams } from 'types/models/Post';
-import { UserGetQueryParams, UsersGetSearchQueryParams } from 'types/models/User';
+import { PostsGetData } from 'types/models/Post';
+import { UserGetData, UsersGetData } from 'types/models/User';
 import { QueryParamsType } from 'types';
 
 const passwordMin = 6,
@@ -108,25 +108,21 @@ export const validateUserIdCuid = (id: string): string => {
 };
 
 // 1 user
-export const validateUserSearchQueryParams = (
-  params: QueryParamsType
-): UserGetQueryParams => {
+export const validateUserSearchQueryParams = (params: QueryParamsType): UserGetData => {
   const result = userGetSchema.safeParse(params);
   if (!result.success) throw ApiError.fromZodError(result.error);
 
-  return result.data as UserGetQueryParams;
+  return result.data as UserGetData;
 };
 
 // ----------- convert types with safeParse() -------------
 
 // n users
-export const validateUsersSearchQueryParams = (
-  params: QueryParamsType
-): UsersGetSearchQueryParams => {
+export const validateUsersSearchQueryParams = (params: QueryParamsType): UsersGetData => {
   const result = usersGetSchema.safeParse(params);
   if (!result.success) throw ApiError.fromZodError(result.error);
 
-  return result.data as UsersGetSearchQueryParams;
+  return result.data as UsersGetData;
 };
 
 // --------------- post ---------------
@@ -194,11 +190,9 @@ export const validatePostIdNumber = (id: string): number => {
 
 // ----------- convert types with safeParse() -------------
 
-export const validatePostsSearchQueryParams = (
-  params: QueryParamsType
-): PostsGetSearchQueryParams => {
+export const validatePostsSearchQueryParams = (params: QueryParamsType): PostsGetData => {
   const result = postsGetSchema.safeParse(params);
   if (!result.success) throw ApiError.fromZodError(result.error);
 
-  return result.data as PostsGetSearchQueryParams;
+  return result.data as PostsGetData;
 };

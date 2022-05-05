@@ -6,8 +6,8 @@ import { PaginatedResponse, SortDirection } from 'types';
 import {
   ClientUser,
   UserCreateData,
-  UserGetQueryParams,
-  UsersGetSearchQueryParams,
+  UserGetData,
+  UsersGetData,
   UserUpdateServiceData,
 } from 'types/models/User';
 
@@ -40,9 +40,9 @@ export const getUser = async (id: string): Promise<ClientUser> => {
 
 export const updateUser = async (
   id: string,
-  updateData: UserUpdateServiceData
+  userUpdateData: UserUpdateServiceData
 ): Promise<ClientUser> => {
-  const { name, username, bio, password, files } = updateData; // email reconfirm...
+  const { name, username, bio, password, files } = userUpdateData; // email reconfirm...
 
   // check if new username is available
   const _user = await prisma.user.findUnique({ where: { id } });
@@ -120,14 +120,14 @@ export const createUser = async (userCreateData: UserCreateData): Promise<Client
 const defaultLimit = parseInt(process.env.NEXT_PUBLIC_USERS_PER_PAGE);
 
 export const getUsers = async (
-  usersSearchData: UsersGetSearchQueryParams = {}
+  usersGetData: UsersGetData = {}
 ): Promise<PaginatedResponse<ClientUser>> => {
   const {
     page = 1,
     limit = defaultLimit,
     searchTerm,
     sortDirection = 'desc',
-  } = usersSearchData;
+  } = usersGetData;
 
   const where = {
     where: {
@@ -183,9 +183,9 @@ export const getUsers = async (
 // -------- pages/api/users/profile.ts
 
 export const getUserByIdOrUsernameOrEmail = async (
-  userSearchData: UserGetQueryParams = {}
+  userGetData: UserGetData = {}
 ): Promise<ClientUser> => {
-  const { id, username, email } = userSearchData;
+  const { id, username, email } = userGetData;
 
   const user = await prisma.user.findFirst({
     where: { OR: [{ id }, { username }, { email }] },
