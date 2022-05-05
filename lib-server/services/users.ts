@@ -114,6 +114,8 @@ export const createUser = async (userCreateData: UserCreateData): Promise<Client
     },
   });
 
+  if (!user) throw new ApiError('User cerate failed.', 400);
+
   return excludeFromUser(user);
 };
 

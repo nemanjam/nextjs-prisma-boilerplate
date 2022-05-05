@@ -29,6 +29,10 @@ export const updatePost = async (
 ): Promise<PostWithAuthor> => {
   const { title, content, published } = postUpdateData;
 
+  // redundant, just that service can be standalone
+  const _post = await prisma.post.findUnique({ where: { id } });
+  if (!_post) throw new ApiError(`Post with id: ${id} not found.`, 404);
+
   const data = {
     ...(title && { title }),
     ...(content && { content }),
@@ -49,10 +53,7 @@ export const updatePost = async (
 };
 
 export const deletePost = async (id: number): Promise<PostWithAuthor> => {
-  const _post = await prisma.post.findUnique({
-    where: { id },
-  });
-
+  const _post = await prisma.post.findUnique({ where: { id } });
   if (!_post) throw new ApiError(`Post with id: ${id} not found.`, 404);
 
   const post = await prisma.post.delete({

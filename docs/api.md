@@ -7,3 +7,6 @@
 3. service - handles database and provides functions for controller, agnostic of permissions and http and session user, throws only database exceptions, no double checks
 
 - no service depends on logged in user
+- services dont return null, either data or exception, and trim password (db operation)
+- services check 404 on input and 400 on output, and all db checks (double email, username)
+- controllers check admin, owner
