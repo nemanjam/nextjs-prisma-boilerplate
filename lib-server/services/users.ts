@@ -33,7 +33,6 @@ export const getMe = async (params: GetSessionParams): Promise<ClientUser | null
 
 export const getUser = async (id: string): Promise<ClientUser> => {
   const user = await prisma.user.findUnique({ where: { id } });
-
   if (!user) throw new ApiError(`User with id: ${id} not found.`, 404);
 
   return excludeFromUser(user);

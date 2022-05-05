@@ -48,7 +48,14 @@ handler.patch(
     const me = await getMe({ req });
     if (!me) throw new ApiError('Not logged in.', 401); // just type check
 
-    const post = await updatePost(id, me, req.body);
+    // will throw
+    const _post = await getPost(id);
+
+    // neither owner nor admin, requires post, must be here
+    if (!me || (me.id !== _post.author.id && me.role !== 'admin'))
+      throw new ApiError('Not authorized.', 401);
+
+    const post = await updatePost(_post.id, req.body);
     res.status(200).json(post);
   }
 );

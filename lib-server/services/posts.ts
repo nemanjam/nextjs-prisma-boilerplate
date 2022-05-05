@@ -6,16 +6,13 @@ import {
   PostUpdateData,
   PostWithAuthor,
 } from 'types/models/Post';
-import { ClientUser } from 'types/models/User';
 import { PaginatedResponse, SortDirection } from 'types';
 
 // -------- pages/api/posts/[id].ts
 
 export const getPost = async (id: number): Promise<PostWithAuthor> => {
   const post = await prisma.post.findUnique({
-    where: {
-      id,
-    },
+    where: { id },
     include: {
       author: true,
     },
@@ -28,25 +25,9 @@ export const getPost = async (id: number): Promise<PostWithAuthor> => {
 
 export const updatePost = async (
   id: number,
-  me: ClientUser, // needs userId and role
-  userUpdateData: PostUpdateData
+  postUpdateData: PostUpdateData
 ): Promise<PostWithAuthor> => {
-  const { title, content, published } = userUpdateData;
-
-  const _post = await prisma.post.findUnique({
-    where: {
-      id,
-    },
-    include: {
-      author: true,
-    },
-  });
-
-  if (!_post) throw new ApiError(`Post with id:${id} not found.`, 404);
-
-  // neither owner nor admin, requires post, must be here
-  if (!me || (me.id !== _post.author.id && me.role !== 'admin'))
-    throw new ApiError('Not authorized.', 401);
+  const { title, content, published } = postUpdateData;
 
   const data = {
     ...(title && { title }),
@@ -69,9 +50,7 @@ export const updatePost = async (
 
 export const deletePost = async (id: number): Promise<PostWithAuthor> => {
   const _post = await prisma.post.findUnique({
-    where: {
-      id,
-    },
+    where: { id },
   });
 
   if (!_post) throw new ApiError(`Post with id: ${id} not found.`, 404);
@@ -124,7 +103,7 @@ export const createPost = async (
 const defaultLimit = parseInt(process.env.NEXT_PUBLIC_POSTS_PER_PAGE);
 
 export const getPosts = async (
-  getSearchData: PostsGetSearchQueryParams = {}
+  postsSearchData: PostsGetSearchQueryParams = {}
 ): Promise<PaginatedResponse<PostWithAuthor>> => {
   const {
     page = 1,
@@ -135,7 +114,7 @@ export const getPosts = async (
     username,
     sortDirection = 'desc',
     published = true,
-  } = getSearchData;
+  } = postsSearchData;
 
   const where = {
     where: {
