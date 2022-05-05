@@ -11,7 +11,7 @@ import { PostWithAuthor } from 'types/models/Post';
 import { PaginatedResponse } from 'types';
 import { getMe } from 'lib-server/services/users';
 import { createPost, getPosts } from 'lib-server/services/posts';
-import { ClientUser } from 'types/models/User';
+import ApiError from 'lib-server/error';
 
 const handler = apiHandler();
 
@@ -44,9 +44,10 @@ handler.post(
   requireAuth, // checks session already
   validatePostCreate(),
   async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>) => {
-    const me = (await getMe({ req })) as ClientUser;
+    const me = await getMe({ req });
+    if (!me) throw new ApiError('You are not logged in.', 401);
 
-    const post = await createPost(me, req.body);
+    const post = await createPost(me.id, req.body);
     res.status(201).json(post);
   }
 );

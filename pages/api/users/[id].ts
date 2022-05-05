@@ -59,9 +59,14 @@ handler.patch(
       files,
     } as UserUpdateServiceData;
 
-    const me = (await getMe({ req })) as ClientUser;
+    const me = await getMe({ req });
 
-    const user = await updateUser(id, me, updateData);
+    // must be himself or admin
+    if (!(me && (me.id === id || me.role === 'admin'))) {
+      throw new ApiError('Not authorized.', 401);
+    }
+
+    const user = await updateUser(id, updateData);
     res.status(200).json(user);
   }
 );

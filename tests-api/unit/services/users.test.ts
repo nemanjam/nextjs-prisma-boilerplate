@@ -5,7 +5,7 @@ import { UserCreateData } from 'types/models/User';
 import ApiError from 'lib-server/error';
 
 describe('Users service', () => {
-  test('should create new user ', async () => {
+  test('create new user success', async () => {
     prismaMock.user.create.mockResolvedValue(fakeServerUser);
 
     // arrange input args

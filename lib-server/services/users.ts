@@ -41,14 +41,9 @@ export const getUser = async (id: string): Promise<ClientUser> => {
 
 export const updateUser = async (
   id: string,
-  me: ClientUser,
   updateData: UserUpdateServiceData
 ): Promise<ClientUser> => {
   const { name, username, bio, password, files } = updateData; // email reconfirm...
-
-  if (!(me && (me.id === id || me.role === 'admin'))) {
-    throw new ApiError('Not authorized.', 401);
-  }
 
   const data = {
     ...(name && { name }),
@@ -64,14 +59,18 @@ export const updateUser = async (
     data,
   });
 
+  if (!user) throw new ApiError('Update user failed.', 400);
+
   return excludeFromUser(user);
 };
 
 export const deleteUser = async (id: string): Promise<ClientUser> => {
+  const _user = await prisma.user.findUnique({ where: { id } });
+  if (!_user) throw new ApiError('User not found.', 404);
+
   // delete posts too, cascade defined in schema
   const user = await prisma.user.delete({ where: { id } });
-
-  if (!user) throw new ApiError('User not found.', 404);
+  if (!user) throw new ApiError('Delete user failed.', 400);
 
   return excludeFromUser(user);
 };
@@ -85,7 +84,7 @@ export const createUser = async (createData: UserCreateData): Promise<ClientUser
     where: { email },
   });
 
-  if (_user) throw new ApiError(`Email: ${email} already exists.`, 409);
+  if (_user) throw new ApiError(`User with email: ${email} already exists.`, 409);
 
   const password = await hash(_password, 10);
 
@@ -105,14 +104,14 @@ export const createUser = async (createData: UserCreateData): Promise<ClientUser
 const defaultLimit = parseInt(process.env.NEXT_PUBLIC_USERS_PER_PAGE);
 
 export const getUsers = async (
-  getSearchData: UsersGetSearchQueryParams = {}
+  usersSearchData: UsersGetSearchQueryParams = {}
 ): Promise<PaginatedResponse<ClientUser>> => {
   const {
     page = 1,
     limit = defaultLimit,
     searchTerm,
     sortDirection = 'desc',
-  } = getSearchData;
+  } = usersSearchData;
 
   const where = {
     where: {
@@ -168,17 +167,15 @@ export const getUsers = async (
 // -------- pages/api/users/profile.ts
 
 export const getUserByIdOrUsernameOrEmail = async (
-  getSearchData: UserGetQueryParams = {}
+  userSearchData: UserGetQueryParams = {}
 ): Promise<ClientUser> => {
-  const { id, username, email } = getSearchData;
+  const { id, username, email } = userSearchData;
 
   const user = await prisma.user.findFirst({
     where: { OR: [{ id }, { username }, { email }] },
   });
 
-  if (!user) {
-    throw new ApiError(`User not found.`, 404);
-  }
+  if (!user) throw new ApiError('User not found.', 404);
 
   return excludeFromUser(user);
 };

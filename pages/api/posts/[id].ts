@@ -10,7 +10,7 @@ import {
 import { PostWithAuthor } from 'types/models/Post';
 import { getMe } from 'lib-server/services/users';
 import { deletePost, getPost, updatePost } from 'lib-server/services/posts';
-import { ClientUser } from 'types/models/User';
+import ApiError from 'lib-server/error';
 
 const handler = apiHandler();
 
@@ -44,7 +44,9 @@ handler.patch(
   validatePostUpdate(),
   async (req: NextApiRequest, res: NextApiResponse<PostWithAuthor>) => {
     const id = validatePostIdNumber(req.query.id as string);
-    const me = (await getMe({ req })) as ClientUser;
+
+    const me = await getMe({ req });
+    if (!me) throw new ApiError('Not logged in.', 401); // just type check
 
     const post = await updatePost(id, me, req.body);
     res.status(200).json(post);

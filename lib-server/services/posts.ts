@@ -28,10 +28,10 @@ export const getPost = async (id: number): Promise<PostWithAuthor> => {
 
 export const updatePost = async (
   id: number,
-  me: ClientUser,
-  updateData: PostUpdateData
+  me: ClientUser, // needs userId and role
+  userUpdateData: PostUpdateData
 ): Promise<PostWithAuthor> => {
-  const { title, content, published } = updateData;
+  const { title, content, published } = userUpdateData;
 
   const _post = await prisma.post.findUnique({
     where: {
@@ -44,6 +44,7 @@ export const updatePost = async (
 
   if (!_post) throw new ApiError(`Post with id:${id} not found.`, 404);
 
+  // neither owner nor admin, requires post, must be here
   if (!me || (me.id !== _post.author.id && me.role !== 'admin'))
     throw new ApiError('Not authorized.', 401);
 
@@ -61,10 +62,20 @@ export const updatePost = async (
     },
   });
 
+  if (!post) throw new ApiError('Update post failed.', 400);
+
   return excludeFromPost(post);
 };
 
 export const deletePost = async (id: number): Promise<PostWithAuthor> => {
+  const _post = await prisma.post.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!_post) throw new ApiError(`Post with id: ${id} not found.`, 404);
+
   const post = await prisma.post.delete({
     where: { id },
     include: {
@@ -72,7 +83,7 @@ export const deletePost = async (id: number): Promise<PostWithAuthor> => {
     },
   });
 
-  if (!post) throw new ApiError(`Post with id:${id} not found.`, 404);
+  if (!post) throw new ApiError('Delete post failed.', 400);
 
   return excludeFromPost(post);
 };
@@ -80,18 +91,16 @@ export const deletePost = async (id: number): Promise<PostWithAuthor> => {
 // ---------- pages/api/posts/index.ts
 
 export const createPost = async (
-  me: ClientUser,
+  userId: string,
   createData: PostCreateData
 ): Promise<PostWithAuthor> => {
   const { title, content } = createData;
-
-  if (!me) throw new ApiError('You are not logged in.', 401);
 
   const post = await prisma.post.create({
     data: {
       title,
       content,
-      author: { connect: { id: me.id } },
+      author: { connect: { id: userId } },
     },
   });
 
@@ -107,7 +116,7 @@ export const createPost = async (
     },
   });
 
-  if (!postWithAuthor) throw new ApiError('Created post not found.', 404);
+  if (!postWithAuthor) throw new ApiError('Create post failed.', 400);
 
   return excludeFromPost(postWithAuthor);
 };
