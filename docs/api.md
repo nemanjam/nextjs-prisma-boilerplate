@@ -15,6 +15,7 @@
 - service layer reuses errors from controller, to small app for custom service errors and error translations to controller layer
 - 404 checked in service because of `excludeFromUser(user)` so it doesnt throw on null, should be fixed in Prisma
 - getServerSideProps reuses services and has its own api error handler wrapper
+- clear controller/service separation - clear unit tests
 
 ```ts
 handler.delete(

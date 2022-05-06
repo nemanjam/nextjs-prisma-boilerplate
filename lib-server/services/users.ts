@@ -49,7 +49,7 @@ export const updateUser = async (
   if (!_user) throw new ApiError(`User with id: ${id} not found.`, 404);
 
   // check if new username is available
-  if (username !== _user.username) {
+  if (username && username !== _user.username) {
     const _user = await prisma.user.findFirst({
       where: { username },
     });
