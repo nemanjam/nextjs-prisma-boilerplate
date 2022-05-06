@@ -46,7 +46,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, params 
   if (!profile) return Redirects.NOT_FOUND;
 
   const query: QueryParamsType = { username: profile.username };
-
   const callback2 = async () => {
     const parsedData = validatePostsSearchQueryParams(query);
     return await getPosts(parsedData);

@@ -76,6 +76,9 @@ export const createPost = async (
 ): Promise<PostWithAuthor> => {
   const { title, content } = postCreateData;
 
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  if (!user) throw new ApiError(`Invalid user id: ${userId} not found.`, 400);
+
   const post = await prisma.post.create({
     data: {
       title,

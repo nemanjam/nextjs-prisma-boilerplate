@@ -44,10 +44,11 @@ export const updateUser = async (
 ): Promise<ClientUser> => {
   const { name, username, bio, password, files } = userUpdateData; // email reconfirm...
 
-  // check if new username is available
+  // validate userId
   const _user = await prisma.user.findUnique({ where: { id } });
   if (!_user) throw new ApiError(`User with id: ${id} not found.`, 404);
 
+  // check if new username is available
   if (username !== _user.username) {
     const _user = await prisma.user.findFirst({
       where: { username },
@@ -75,6 +76,7 @@ export const updateUser = async (
 };
 
 export const deleteUser = async (id: string): Promise<ClientUser> => {
+  // validate id
   const _user = await prisma.user.findUnique({ where: { id } });
   if (!_user) throw new ApiError('User not found.', 404);
 

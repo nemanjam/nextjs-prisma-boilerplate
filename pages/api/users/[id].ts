@@ -36,7 +36,7 @@ handler.get(
     const id = validateUserIdCuid(req.query.id as string);
     const user = await getUser(id);
 
-    if (!user) throw new ApiError('User not found.', 404);
+    // 404 checked in service
     res.status(200).json(user);
   }
 );
@@ -61,7 +61,7 @@ handler.patch(
 
     const me = await getMe({ req });
 
-    // must be himself or admin
+    // custom permissions check, must be himself or admin
     if (!(me && (me.id === id || me.role === 'admin'))) {
       throw new ApiError('Not authorized.', 401);
     }

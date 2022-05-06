@@ -27,7 +27,7 @@ const Drafts: FC = () => {
 
 // can have pagination
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  // id is enough
+  // id is enough, but get me for MeProvider
   const callback1 = async () => await getMe({ req });
   const me = await ssrNcHandler<ClientUser | null>(req, res, callback1);
 

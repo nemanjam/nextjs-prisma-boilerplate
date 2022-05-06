@@ -31,6 +31,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
 
   // if my username trim url
 
+  // get username or id
   let _params: QueryParamsType = {};
   if (params?.username) {
     if (me.role === 'admin') {
@@ -42,16 +43,20 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req, res 
     _params = { id: me.id };
   }
 
+  if (!_params.username && !_params.id) {
+    return Redirects.NOT_FOUND;
+  }
+
   const callback2 = async () => {
-    const parsedData: UserGetData =
-      _params.id || _params.username ? validateUserSearchQueryParams(_params) : {};
+    const parsedData: UserGetData = validateUserSearchQueryParams(_params);
     return await getUserByIdOrUsernameOrEmail(parsedData);
   };
   const user = await ssrNcHandler<ClientUser>(req, res, callback2);
 
   if (!user) return Redirects.NOT_FOUND;
 
-  const subKey = _params?.username || _params?.id;
+  // check username first
+  const subKey = _params.username || _params.id;
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([QueryKeys.USER, subKey], () => user);

@@ -96,6 +96,7 @@
 - kill next.js server on unhandled promise rejection
 - rename request models for sevices
 - move permission logis from services to controllers and middleware
+- throw on undefined env vars on app startup
 
 ### Overview
 
@@ -121,6 +122,8 @@
 - supertest vs axios?
 - clearMocks vs resetMocks vs restoreMocks
 - void vs undefined return type function?
+- getServerSideProps http vs direct service calls?
+- next.js startup handler where?
 
 ## Done
 

@@ -51,7 +51,7 @@ handler.patch(
     // will throw
     const _post = await getPost(id);
 
-    // neither owner nor admin
+    // custom permissions check, neither owner nor admin
     if (!me || (me.id !== _post.author.id && me.role !== 'admin'))
       throw new ApiError('Not authorized.', 401);
 

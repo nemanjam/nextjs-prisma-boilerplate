@@ -8,5 +8,19 @@
 
 - no service depends on logged in user
 - services dont return null, either data or exception, and trim password (db operation)
-- services check 404 on input and 400 on output, and all db checks (double email, username)
-- controllers check admin, owner
+- services check 404 on input and 400 on output, and all db checks (double email, username 409, 403)
+- permissions/access rights in middleware, requireAdmin, requireLogin, 401
+- too custom permissions in controller, isAdmin || isOwner 401, controllers should be thin
+- services should be standalone
+- service layer reuses errors from controller, to small app for custom service errors and error translations to controller layer
+- 404 checked in service because of `excludeFromUser(user)` so it doesnt throw on null, should be fixed in Prisma
+- getServerSideProps reuses services and has its own api error handler wrapper
+
+```ts
+handler.delete(
+  requireAdmin,
+  validateUserCuid(), // validation already done in middleware
+  async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
+      // just to convert to type, remove when next-validation is fixed
+    const id = validateUserIdCuid(req.query.id as string);
+```

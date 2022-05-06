@@ -7,8 +7,6 @@ import { Routes } from 'lib-client/constants';
 import axiosInstance from 'lib-client/react-query/axios';
 import { filterEmptyKeys, QueryKeysType } from 'lib-client/react-query/queryKeys';
 
-// usePaginatedQuery, first page hydrated method from getServerSideProps
-
 const getPosts = async (params: PostsGetData) => {
   const { data } = await axiosInstance.get<PaginatedResponse<PostWithAuthor>>(
     Routes.API.POSTS,
