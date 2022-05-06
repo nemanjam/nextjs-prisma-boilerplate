@@ -52,6 +52,9 @@ describe('Posts controller', () => {
     // different id, role=user
     const otherUser = fakeUsers.items[1];
 
+    // silence console.error
+    const mockedConsoleError = jest.spyOn(console, 'error').mockImplementation();
+
     // mock service output
     const mockedUpdatePostService = jest
       .spyOn(postsService, 'updatePost')
@@ -72,14 +75,17 @@ describe('Posts controller', () => {
       .mockResolvedValueOnce(fakePostWithAuthor);
 
     // act
-    const request = testClient(idHandler, { id }); // /api/posts/:id must be passed like this
+    // todo: this is ugly, maybe exists nicer solution {id}
+    // /api/posts/:id must be passed like this
+    // must be string for validation
+    const request = testClient(idHandler, { id: id.toString() });
     const { statusCode, body } = await request
       .patch(Routes.API.POSTS)
       .send(postUpdateData);
 
     // assert http response
-    expect(statusCode).toBe(400);
-    expect(body).toEqual(expect.objectContaining({ id: 1 }));
+    expect(statusCode).toBe(401);
+    expect(body).toEqual(expect.objectContaining({ message: 'Not authorized.' }));
 
     // assert sevice input args
     expect(mockedUpdatePostService).not.toHaveBeenCalled();
@@ -92,5 +98,6 @@ describe('Posts controller', () => {
     mockedUpdatePostService.mockRestore();
     mockedGetMeService.mockRestore();
     mockedGetPostService.mockRestore();
+    mockedConsoleError.mockRestore();
   });
 });
