@@ -425,17 +425,38 @@ const queryClientConfig: QueryClientConfig = {
 };
 ```
 
-### Node.js Api unit testing
+## Node.js Api unit testing
+
+- unit services: input - argument object, mock prisma, assert service output
+- unit controllers: input - http supertest, mock service, assert service mock calledWithArgs
+- always mock one layer bellow
+- any class can be unit tested
+
+### Services unit tests
 
 - Prisma client is mocked, singleton or dependency injection
 - Prisma [docs](https://www.prisma.io/docs/guides/testing/unit-testing) - unit testing db services
-- controller needs to be isolated from db to be unit test
-- TomDoesTech Youtube tutorial [Github repo](https://github.com/TomDoesTech/Testing-Express-REST-API), mock service value `.mockReturnValueOnce(userPayload);` and assert service input args `expect(createUserServiceMock).toHaveBeenCalledWith(userInput);`, unit for controllers, service mocked, controller forwards same input to service, supertest, ok
-- unit services: input - argument object, mock prisma, assert service output
-- unit controllers: input - http supertest, mock service, assert service mock calledWithArgs
 
 - assert rejected promise [stackoverflow](https://stackoverflow.com/a/58326750/4383275)
 - assert ApiError `toBeInstanceOf()` and set correct constructor name [stackoverflow](https://stackoverflow.com/questions/68899615/how-to-expect-a-custom-error-to-be-thrown-with-jest)
+
+### Controllers unit tests
+
+- controller needs to be isolated from db to be unit tested
+- TomDoesTech Youtube tutorial [Github repo](https://github.com/TomDoesTech/Testing-Express-REST-API), mock service value `.mockReturnValueOnce(userPayload);` and assert service input args `expect(createUserServiceMock).toHaveBeenCalledWith(userInput);`, unit for controllers, service mocked, controller forwards same input to service, supertest, ok
+
+- supertest testClient with Next.js [dev.to tutorial](https://dev.to/noclat/build-a-full-api-with-next-js-1ke), [stackoverflow example](https://stackoverflow.com/questions/66446689/next-js-mock-api-endpoints-send-params-in-req-body-for-post)
+
+```ts
+// match part of the object, ignore Date()
+expect(body).toEqual(
+  expect.objectContaining({
+    id: fakePostWithAuthor.id,
+    title: fakePostWithAuthor.title,
+    content: fakePostWithAuthor.content,
+  })
+);
+```
 
 ### Node.js Api integration testing
 
