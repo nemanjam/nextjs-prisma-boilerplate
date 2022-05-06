@@ -5,10 +5,13 @@ import request from 'supertest';
 import { apiResolver } from 'next/dist/server/api-utils/node';
 import { __ApiPreviewProps } from 'next/dist/server/api-utils';
 
-export const testClient = (handler: NextApiHandler): request.SuperTest<request.Test> => {
+export const testClient = (
+  handler: NextApiHandler,
+  query?: Record<string, unknown>
+): request.SuperTest<request.Test> => {
   return request(
     createServer(async (req: IncomingMessage, res: ServerResponse) => {
-      return apiResolver(req, res, null, handler, {} as __ApiPreviewProps, false);
+      return apiResolver(req, res, query, handler, {} as __ApiPreviewProps, false);
     })
   );
 };
