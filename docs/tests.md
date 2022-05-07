@@ -469,11 +469,9 @@ expect(body).toEqual(
 - run Postgres directly in Github Actions
 - `.env.test` and `.env.dev`?
 
-- Dev.to [tutorial](https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i) - 2 containers Node.js and Postgres
-
 - docs example [testing-express](https://github.com/prisma/prisma-examples/tree/latest/typescript/testing-express), integration tests, supertest, sqlite, `prisma-test-environment.js` class
 
-- service unit with test db, asserts by reading db, integration with createServer(), fetch and test db [tutorial](https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i), Github [repo](https://github.com/eddeee888/topic-prisma-testing)
+- service unit with test db, asserts by reading db, integration with createServer(), fetch and test db, 2 containers Node.js and Postgres, Dev.to [tutorial](https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i), Github [repo](https://github.com/eddeee888/topic-prisma-testing)
 
 ### Multiple Jest projects - client, server
 

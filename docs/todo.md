@@ -97,6 +97,7 @@
 - rename request models for sevices
 - move permission logis from services to controllers and middleware
 - throw on undefined env vars on app startup
+- supertest pass dynamic route arg `/api/posts/:id`, maybe exists nicer solution {id}
 
 ### Overview
 
