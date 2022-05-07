@@ -428,7 +428,7 @@ const queryClientConfig: QueryClientConfig = {
 ## Node.js Api unit testing
 
 - unit services: input - argument object, mock prisma, assert service output
-- unit controllers: input - http supertest, mock service, assert service mock calledWithArgs
+- unit controllers: input - http supertest, mock service, assert http response and status, assert service mock calledWithArgs
 - always mock one layer bellow
 - any class can be unit tested
 
@@ -462,7 +462,12 @@ expect(body).toEqual(
 
 - test database in Docker
 - Prisma [docs](https://www.prisma.io/docs/guides/testing/integration-testing)
-- connect to test db with `env.test.local`, `DATABASE_URL`
+- connect to test db with `env.test.local`, `DATABASE_URL`, so it can be remote db
+
+- entire test env should be decoupled from dev, db + node.js
+- seed/trunc db for each tests suite in beforeAll, afterAll, describe or test file
+- for each tests run create/destroy Docker container `docker-compose up -d`, `docker-compose down`
+- asserts with database queries
 
 - Hashnode Github Actions integration [tutorial](https://blog.ludicroushq.com/a-better-way-to-run-integration-tests-with-prisma-and-postgresql), [Github](https://github.com/ludicroushq/prisma-integration-test-example)
 - replaces PrismaClient with mock `prisma/__mocks__/index.ts` and `jest.mock('./prisma/index');` (real file)
