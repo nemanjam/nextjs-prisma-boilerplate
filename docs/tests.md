@@ -425,14 +425,14 @@ const queryClientConfig: QueryClientConfig = {
 };
 ```
 
-## Node.js Api unit testing
+### Node.js Api unit testing
 
 - unit services: input - argument object, mock prisma, assert service output
 - unit controllers: input - http supertest, mock service, assert http response and status, assert service mock calledWithArgs
 - always mock one layer bellow
 - any class can be unit tested
 
-### Services unit tests
+#### Services unit tests
 
 - Prisma client is mocked, singleton or dependency injection
 - Prisma [docs](https://www.prisma.io/docs/guides/testing/unit-testing) - unit testing db services
@@ -440,7 +440,7 @@ const queryClientConfig: QueryClientConfig = {
 - assert rejected promise [stackoverflow](https://stackoverflow.com/a/58326750/4383275)
 - assert ApiError `toBeInstanceOf()` and set correct constructor name [stackoverflow](https://stackoverflow.com/questions/68899615/how-to-expect-a-custom-error-to-be-thrown-with-jest)
 
-### Controllers unit tests
+#### Controllers unit tests
 
 - controller needs to be isolated from db to be unit tested
 - TomDoesTech Youtube tutorial [Github repo](https://github.com/TomDoesTech/Testing-Express-REST-API), mock service value `.mockReturnValueOnce(userPayload);` and assert service input args `expect(createUserServiceMock).toHaveBeenCalledWith(userInput);`, unit for controllers, service mocked, controller forwards same input to service, supertest, ok
@@ -476,7 +476,7 @@ expect(body).toEqual(
 
 - docs example [testing-express](https://github.com/prisma/prisma-examples/tree/latest/typescript/testing-express), integration tests, supertest, sqlite, `prisma-test-environment.js` class
 
-- service unit with test db, asserts by reading db, integration with createServer(), fetch and test db, 2 containers Node.js and Postgres, Dev.to [tutorial](https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i), Github [repo](https://github.com/eddeee888/topic-prisma-testing)
+- service unit with test db, asserts by reading db, integration with createServer(), fetch and test db, 2 containers Node.js and Postgres, Github Actions example code, Dev.to [tutorial](https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i), Github [repo](https://github.com/eddeee888/topic-prisma-testing)
 
 ### Multiple Jest projects - client, server
 
@@ -490,3 +490,15 @@ expect(body).toEqual(
 - userEvent v14 `click(), clear(), type()` must be wrapped in act, bug, Github [issue](https://github.com/testing-library/user-event/issues/938#issuecomment-1111976312)
 - all tests fail in parallel because of this
 - **MUST run in sequence for msw 500**
+
+### Docker test environment (local testing only)
+
+- both database and node.js containers
+- same env for integration api test and cypress e2e
+- derrived from prod, no edit, no install packages, frontend prod build
+- both Dockerfile.test (from dev, simple enough) and docker-compose.test.yml (from prod) in pair
+- Docker only for local test run, in GA it runs directly in os
+
+### Github Actions test CI
+
+- Github [repo](https://github.com/eddeee888/topic-prisma-testing)

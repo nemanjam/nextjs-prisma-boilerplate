@@ -3,7 +3,9 @@ node_modules
 yarn.lock
 package-lock.json
 public
-prisma/pg-data
+prisma/pg-data-dev
+prisma/pg-data-prod
+prisma/pg-data-test
 notes
 dist
 certs

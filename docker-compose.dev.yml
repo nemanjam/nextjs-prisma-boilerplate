@@ -18,7 +18,7 @@ services:
     depends_on:
       - postgres-db-dev
     networks:
-      - internal
+      - internal-dev
 
   postgres-db-dev:
     image: postgres:14-alpine
@@ -27,7 +27,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - ./prisma/pg-data:/var/lib/postgresql/data
+      - ./prisma/pg-data-dev:/var/lib/postgresql/data
     # instead of env_file
     # environment:
     #   POSTGRES_USER=$POSTGRES_USER
@@ -36,7 +36,7 @@ services:
     env_file:
       - .env.local
     networks:
-      - internal
+      - internal-dev
 
   adminer-dev:
     image: 'adminer:4.8.1-standalone'
@@ -46,12 +46,12 @@ services:
     depends_on:
       - postgres-db-dev
     networks:
-      - internal
+      - internal-dev
 
 volumes:
   np-dev-node_modules:
   np-dev-next:
 
 networks:
-  internal:
+  internal-dev:
     external: false

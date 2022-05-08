@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  nextjs-prisma-test:
+    container_name: nextjs-prisma-test
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    ports:
+      - '3005:3001'
+    #command: sleep infinity
+    volumes:
+      # must see src changes, frontend build prod
+      - ./:/app
+      - np-test-node_modules:/app/node_modules
+      - np-test-next:/app/.next
+    env_file:
+      - .env.test
+      - .env.test.local
+    depends_on:
+      - postgres-db-test
+    networks:
+      - internal-test
+
+  postgres-db-test:
+    image: postgres:14-alpine
+    container_name: postgres-db-test
+    restart: unless-stopped
+    ports:
+      - '5435:5432'
+    volumes:
+      - ./prisma/pg-data:/var/lib/postgresql/data
+    # uncomment for external access
+    # - ./prisma/pg-config/pg_hba.conf:/etc/postgresql.conf
+    # - ./prisma/pg-config/postgresql.conf:/etc/pg_hba.conf
+
+    # instead of env_file
+    # environment:
+    #   POSTGRES_USER=$POSTGRES_USER
+    #   POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+    #   POSTGRES_DB=$POSTGRES_DB
+    env_file:
+      - .env.test.local
+    networks:
+      - internal-test
+
+networks:
+  internal-test:
+    external: false

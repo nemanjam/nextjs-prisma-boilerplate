@@ -1,0 +1,49 @@
+
+# pick image with git and bash
+# ARG BASE=mcr.microsoft.com/vscode/devcontainers/javascript-node:0-16-bullseye
+# use alpine for tests like prod
+ARG BASE=node:16-bullseye
+
+# no ENV vars required buildtime
+
+#---------------------
+
+FROM ${BASE} AS dependencies
+WORKDIR /app
+ENV NODE_ENV development
+
+COPY package.json yarn.lock ./
+COPY prisma ./prisma
+
+RUN yarn install
+RUN npx prisma generate
+RUN rm -rf prisma
+
+#----------------------
+
+# two stages so it doesnt install packages every time
+FROM ${BASE} AS development
+WORKDIR /app
+ENV NODE_ENV development
+
+# node_modules is .dockerignored on host
+# source from host
+COPY . .
+COPY --from=dependencies /app/node_modules ./node_modules
+
+# volumes folders must be created and chowned before docker-compose creates them as root
+# create them during docker build
+RUN mkdir -p .next
+RUN chown node:node . node_modules .next
+RUN chown -R node:node node_modules/.prisma
+
+USER node
+
+# debug
+# RUN ls -la node_modules/.prisma/client
+
+# 3005
+EXPOSE 3001
+ENV PORT 3001
+
+CMD [ "yarn", "start-dev" ]
