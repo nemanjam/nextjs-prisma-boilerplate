@@ -425,6 +425,8 @@ const queryClientConfig: QueryClientConfig = {
 };
 ```
 
+- msw concurrent run limitation [issue](https://github.com/mswjs/msw/issues/474)
+
 ### Node.js Api unit testing
 
 - unit services: input - argument object, mock prisma, assert service output
