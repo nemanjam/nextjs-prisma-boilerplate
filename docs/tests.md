@@ -500,6 +500,14 @@ expect(body).toEqual(
 - derrived from prod, no edit, no install packages, frontend prod build
 - both Dockerfile.test (from dev, simple enough) and docker-compose.test.yml (from prod) in pair
 - Docker only for local test run, in GA it runs directly in os
+- dont drop database, create and destroy container
+- `POSTGRES_DB=nextjs_prisma_test_db` in .env file will create db in container
+
+- order:
+  1. Start the container and create the database
+  2. Migrate the schema
+  3. Run the tests
+  4. Destroy the container
 
 ### Github Actions test CI
 

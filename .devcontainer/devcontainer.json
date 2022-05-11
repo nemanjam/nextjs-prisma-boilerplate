@@ -2,7 +2,7 @@
 {
   "name": "Next.js Prisma Boilerplate",
   "dockerComposeFile": "../docker-compose.dev.yml",
-  "service": "nextjs-prisma-dev",
+  "service": "npb-app-dev",
   // Dockerfile workdir
   "workspaceFolder": "/app",
 

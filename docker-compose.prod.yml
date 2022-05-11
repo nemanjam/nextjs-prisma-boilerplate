@@ -1,8 +1,8 @@
 version: '3.8'
 services:
-  nextjs-prisma-prod:
-    container_name: nextjs-prisma-prod
-    # image: nextjs-prisma-prod:latest
+  npb-app-prod:
+    container_name: npb-app-prod
+    # image: npb-app-prod:latest
     build:
       context: .
       dockerfile: Dockerfile.prod
@@ -30,14 +30,14 @@ services:
       - 'traefik.http.routers.nextjs-prisma-secure.service=nextjs-prisma-svc'
       - 'traefik.http.services.nextjs-prisma-svc.loadbalancer.server.port=3001'
     depends_on:
-      - postgres-db-prod
+      - npb-db-prod
     networks:
       - proxy
       - internal-prod
 
-  postgres-db-prod:
+  npb-db-prod:
     image: postgres:14-alpine
-    container_name: postgres-db-prod
+    container_name: npb-db-prod
     restart: unless-stopped
     ports:
       - '5432:5432'
