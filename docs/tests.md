@@ -470,6 +470,7 @@ expect(body).toEqual(
 - seed/trunc db for each tests suite in beforeAll, afterAll, describe or test file
 - for each tests run create/destroy Docker container `docker-compose up -d`, `docker-compose down`
 - asserts with database queries
+- cannot start app without seed data
 
 - Hashnode Github Actions integration [tutorial](https://blog.ludicroushq.com/a-better-way-to-run-integration-tests-with-prisma-and-postgresql), [Github](https://github.com/ludicroushq/prisma-integration-test-example)
 - replaces PrismaClient with mock `prisma/__mocks__/index.ts` and `jest.mock('./prisma/index');` (real file)
@@ -479,6 +480,10 @@ expect(body).toEqual(
 - docs example [testing-express](https://github.com/prisma/prisma-examples/tree/latest/typescript/testing-express), integration tests, supertest, sqlite, `prisma-test-environment.js` class
 
 - service unit with test db, asserts by reading db, integration with createServer(), fetch and test db, 2 containers Node.js and Postgres, Github Actions example code, Dev.to [tutorial](https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i), Github [repo](https://github.com/eddeee888/topic-prisma-testing)
+
+- productioncoder [youtube](https://www.youtube.com/watch?v=Fa-oNdqOOYg&list=PL1Nml43UBm6eTkjJtAPfdfjk-x2I_1r-Y&index=6), [Github](https://github.com/productioncoder/test-node-with-docker), test.sh pg_ready, migrations postgres volume
+
+- Github Actions postgres docker-compose up [Github](https://github.com/andersnylund/next-js-prisma-integration-tests)
 
 ### Multiple Jest projects - client, server
 
@@ -513,3 +518,11 @@ expect(body).toEqual(
 
 - Github [repo](https://github.com/eddeee888/topic-prisma-testing)
 -
+
+### Cypress
+
+- run tests on production bulid `yarn build && yarn start && yarn cypress`, [docs](https://nextjs.org/docs/testing#running-your-cypress-tests)
+
+  > Since Cypress is testing a real Next.js application, it requires the Next.js server to be running
+  > prior to starting Cypress. We recommend running your tests against your production code to more
+  > closely resemble how your application will behave.
