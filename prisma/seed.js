@@ -136,7 +136,6 @@ const deleteAllTables = async () => {
 async function main() {
   console.log('Start seeding ...');
   console.log('DATABASE_URL:', process.env.DATABASE_URL);
-  console.log('avatarsFolderAbsolutePath:', avatarsFolderAbsolutePath);
 
   await deleteAllAvatars();
   await deleteAllHeaderImages();

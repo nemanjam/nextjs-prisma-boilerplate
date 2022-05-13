@@ -26,7 +26,7 @@
     "migrate-dev": "npx prisma migrate dev --skip-seed",
     "migrate-dev-env": "dotenv -e .env.local -- sh -c 'npx prisma migrate dev --skip-seed'",
     "reset-dev": "dotenv -e .env.local -- sh -c 'npx prisma migrate reset dev --skip-seed'",
-    "start-dev": "yarn migrate-dev && yarn seed && yarn dev",
+    "start-dev": "yarn migrate-dev && yarn dev",
     "migrate-prod": "npx prisma migrate deploy",
     "start-prod": "yarn migrate-prod && yarn seed && yarn start",
     "seed": "npx prisma db seed",
@@ -40,9 +40,12 @@
     "blank-script": "dotenv -e .env.local -- sh -c 'echo $DATABASE_URL'",
     "test:client": "jest --projects test-client/config",
     "test:server": "jest -i --projects test-server/config",
-    "docker:test:up": "docker-compose -f docker-compose.test.yml up -d",
+    "docker:test:up": "docker-compose -f docker-compose.test.yml up",
     "docker:test:down": "docker-compose -f docker-compose.test.yml down -v --remove-orphans",
-    "docker:test": "yarn docker:test:up && yarn test:server"
+    "docker:test": "yarn docker:test:up && yarn test:server",
+    "cmd:start:test": "yarn prisma:migrate:prod && yarn build && yarn start:test",
+    "start:test": "NODE_ENV=test node dist/index.js",
+    "prisma:migrate:prod": "npx prisma migrate deploy"
   },
   "dependencies": {
     "@faker-js/faker": "^6.2.0",

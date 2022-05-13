@@ -509,10 +509,16 @@ expect(body).toEqual(
 - `POSTGRES_DB=nextjs_prisma_test_db` in .env file will create db in container
 
 - order:
+
   1. Start the container and create the database
   2. Migrate the schema
   3. Run the tests
   4. Destroy the container
+
+- app works without seed, just migrated schema without data
+- app built in Dockerfile, no volumes and live reload, simple
+- no, build app in container runtime - cant rebuild while app is runing, but it will rebuild just app without container
+- seed in beforeAll in tests only
 
 ### Github Actions test CI
 

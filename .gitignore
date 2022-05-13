@@ -1,9 +1,7 @@
 node_modules/
 .next/
 prisma/dev.db
-prisma/pg-data-dev/
-prisma/pg-data-prod/
-prisma/pg-data-test/
+prisma/pg-data-*
 certs/
 dist/
 /**/tsconfig.tsbuildinfo

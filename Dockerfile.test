@@ -2,7 +2,8 @@
 # use alpine for tests like prod
 ARG BASE=node:16-alpine
 
-
+# simplified prod build
+# migrate, seed, build
 #---------------------
 
 FROM ${BASE} AS dependencies
@@ -16,6 +17,7 @@ ENV NODE_ENV development
 COPY package.json yarn.lock ./
 COPY prisma ./prisma
 
+# dev dependencies for testing
 RUN yarn install
 RUN npx prisma generate
 RUN rm -rf prisma
@@ -34,18 +36,16 @@ COPY --from=dependencies /app/node_modules ./node_modules
 
 # volumes folders must be created and chowned before docker-compose creates them as root
 # create them during docker build
-RUN mkdir -p .next
+RUN mkdir -p .next dist
 RUN chown node:node . node_modules .next dist
 RUN chown -R node:node node_modules/.prisma
 
 USER node
-
-# debug
-# RUN ls -la node_modules/.prisma/client
 
 # on container
 EXPOSE 3005
 # env for app
 ENV PORT 3001
 
-CMD [ "yarn", "migrate-prod" ]
+# migrate prod, build app, start prod
+CMD [ "yarn", "cmd:start:test" ]

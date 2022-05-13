@@ -99,6 +99,7 @@
 - throw on undefined env vars on app startup
 - supertest pass dynamic route arg `/api/posts/:id`, maybe exists nicer solution {id}
 - rewrite yarn scripts
+- change all ports from 3001 to 3000
 
 ### Overview
 

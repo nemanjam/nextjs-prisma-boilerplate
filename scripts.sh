@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# this file is meant for shell functions that will work as shell files-scripts
+# currently not used
+
 F_NAME=$1
 
 function_1() {
