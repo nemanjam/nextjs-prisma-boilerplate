@@ -100,6 +100,9 @@
 - supertest pass dynamic route arg `/api/posts/:id`, maybe exists nicer solution {id}
 - rewrite yarn scripts
 - change all ports from 3001 to 3000
+- CORS error 3001 3005, whitelist maybe
+- read axios error message RQ error handlers
+- default theme fallback
 
 ### Overview
 
