@@ -103,6 +103,8 @@
 - CORS error 3001 3005, whitelist maybe
 - read axios error message RQ error handlers
 - default theme fallback
+- run docker-compose as non root to avoid mount folders as root
+- node env?
 
 ### Overview
 
