@@ -519,6 +519,24 @@ expect(body).toEqual(
 - app built in Dockerfile, no volumes and live reload, simple
 - no, build app in container runtime - cant rebuild while app is runing, but it will rebuild just app without container
 - seed in beforeAll in tests only
+- change postgres port to 5435 so test-db container can run concurently with dev-db
+
+```yml
+# docker-compose.test.yml
+npb-db-test:
+  # change internal port
+  command: postgres -p 5435
+  # expose it to host
+  ports:
+    - '5435:5435'
+```
+
+```bash
+# .env.test.local
+POSTGRES_PORT=5435
+```
+
+- app is not running so `NODE_ENV=test` probably?
 
 ### Github Actions test CI
 
@@ -532,3 +550,5 @@ expect(body).toEqual(
   > Since Cypress is testing a real Next.js application, it requires the Next.js server to be running
   > prior to starting Cypress. We recommend running your tests against your production code to more
   > closely resemble how your application will behave.
+
+- for Cypress and Next.js `NODE_ENV` should be `production` to avoid recompiling

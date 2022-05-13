@@ -56,4 +56,4 @@ volumes:
 
 ### Adminer custom port
 
-- set e.g. `localhost:5433` in the server field
+- set e.g. `localhost:5433` in the server text input field (html form)
