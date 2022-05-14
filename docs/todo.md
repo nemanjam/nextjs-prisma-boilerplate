@@ -105,6 +105,8 @@
 - default theme fallback
 - run docker-compose as non root to avoid mount folders as root
 - node env?
+- api integration tests with Supertest, setup teardown db seed
+- Github Actions lint, typescript, all tests
 
 ### Overview
 

@@ -536,7 +536,10 @@ npb-db-test:
 POSTGRES_PORT=5435
 ```
 
-- app is not running so `NODE_ENV=test` probably?
+- app is not running so `NODE_ENV=test` probably? api integration `test`, Cypress `production`
+- basically you just need test database
+- cant run dev and test concurently node_modules are shared, so use same port
+- volumes so you just rebuild app and not container, Dockerfile CMD too
 
 ### Github Actions test CI
 
