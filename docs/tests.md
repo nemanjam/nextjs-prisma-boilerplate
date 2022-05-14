@@ -541,6 +541,8 @@ POSTGRES_PORT=5435
 - cant run dev and test concurently node_modules are shared, so use same port
 - volumes so you just rebuild app and not container, Dockerfile CMD too
 - PrismaClient singleton for seed [stackoverflow](https://stackoverflow.com/a/57455542/4383275)
+- separate yarn script for integration tests because unit tests dont need database
+- seed not needed in beforeAll()
 
 ```js
 // singleton class example

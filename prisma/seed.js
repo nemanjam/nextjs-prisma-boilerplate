@@ -136,20 +136,37 @@ class SeedSingleton {
     if (!SeedSingleton.instance) {
       const isInternalClient = !prisma;
       const prismaClient = isInternalClient ? new PrismaClient() : prisma;
+
       SeedSingleton.instance = new SeedSingleton(prismaClient, isInternalClient);
     }
     return SeedSingleton.instance;
   }
 
+  async handledDeleteAllTables() {
+    try {
+      this.deleteAllTables();
+    } catch (error) {
+      console.error('Handled delete tables error:', error);
+    }
+  }
+
+  async handledSeed() {
+    try {
+      this.seed();
+    } catch (error) {
+      console.error('Handled seed error:', error);
+    }
+  }
+
   async deleteAllTables() {
     console.log('Deleting tables ...');
-    // Promise.all([...]) has bug with sqlite
-    // https://github.com/prisma/prisma/issues/9562
-    await this.prisma.post.deleteMany();
-    await this.prisma.account.deleteMany();
-    await this.prisma.session.deleteMany();
-    await this.prisma.verificationToken.deleteMany();
-    await this.prisma.user.deleteMany();
+    await this.prisma.$transaction([
+      this.prisma.post.deleteMany(),
+      this.prisma.account.deleteMany(),
+      this.prisma.session.deleteMany(),
+      this.prisma.verificationToken.deleteMany(),
+      this.prisma.user.deleteMany(),
+    ]);
   }
 
   // just require file, or fn will be called 2 times

@@ -42,7 +42,7 @@
     "test:server": "jest -i --projects test-server/config",
     "docker:test:up": "docker-compose -f docker-compose.test.yml up --build --force-recreate",
     "docker:test:down": "docker-compose -f docker-compose.test.yml down -v --remove-orphans",
-    "docker:test": "yarn docker:test:up && yarn test:server",
+    "docker:test:int": "yarn docker:test:up && yarn test:server --my-filter",
     "cmd:start:test": "yarn prisma:migrate:prod && yarn build && yarn start",
     "prisma:migrate:prod": "npx prisma migrate deploy"
   },
