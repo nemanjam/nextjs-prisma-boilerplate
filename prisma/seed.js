@@ -40,7 +40,6 @@ const getRandomInteger = (min, max) => {
 const _readdir = promisify(readdir);
 const _unlink = promisify(unlink);
 
-const prisma = new PrismaClient();
 const password = hashSync('123456', 10);
 const numberOfUsers = 4;
 const numberOfPosts = 6;
@@ -121,40 +120,76 @@ const deleteAllHeaderImages = async () => {
   }
 };
 
-const deleteAllTables = async () => {
-  console.log('Deleting tables ...');
-  // Promise.all([...]) has bug with sqlite
-  // https://github.com/prisma/prisma/issues/9562
-  await prisma.post.deleteMany();
-  await prisma.account.deleteMany();
-  await prisma.session.deleteMany();
-  await prisma.verificationToken.deleteMany();
-  await prisma.user.deleteMany();
-};
+/**
+ * class so all functions use same PrismaClient
+ * use this as constructor: SeedSingleton.getInstance(prisma)
+ */
+class SeedSingleton {
+  constructor(prisma, isInternalClient) {
+    this.isInternalClient = isInternalClient;
+    this.prisma = prisma;
 
-// just require file, or fn will be called 2 times
-async function main() {
-  console.log('Start seeding ...');
-  console.log('DATABASE_URL:', process.env.DATABASE_URL);
-
-  await deleteAllAvatars();
-  await deleteAllHeaderImages();
-  await deleteAllTables();
-
-  const users = createUsers(numberOfUsers);
-
-  for (const data of users) {
-    const user = await prisma.user.create({ data });
-    console.log(`Created user with email: ${user.email}`);
+    SeedSingleton.instance = this;
   }
-  console.log('Seeding finished.');
+
+  static getInstance(prisma = null) {
+    if (!SeedSingleton.instance) {
+      const isInternalClient = !prisma;
+      const prismaClient = isInternalClient ? new PrismaClient() : prisma;
+      SeedSingleton.instance = new SeedSingleton(prismaClient, isInternalClient);
+    }
+    return SeedSingleton.instance;
+  }
+
+  async deleteAllTables() {
+    console.log('Deleting tables ...');
+    // Promise.all([...]) has bug with sqlite
+    // https://github.com/prisma/prisma/issues/9562
+    await this.prisma.post.deleteMany();
+    await this.prisma.account.deleteMany();
+    await this.prisma.session.deleteMany();
+    await this.prisma.verificationToken.deleteMany();
+    await this.prisma.user.deleteMany();
+  }
+
+  // just require file, or fn will be called 2 times
+  // without exception handling here
+  async seed() {
+    console.log('Start seeding ...');
+    console.log('DATABASE_URL:', process.env.DATABASE_URL);
+
+    await deleteAllAvatars();
+    await deleteAllHeaderImages();
+    await this.deleteAllTables();
+
+    const users = createUsers(numberOfUsers);
+
+    for (const data of users) {
+      const user = await this.prisma.user.create({ data });
+      console.log(`Created user with email: ${user.email}`);
+    }
+    console.log('Seeding finished.');
+  }
+
+  /**
+   * error handling only here
+   */
+  async run() {
+    try {
+      await this.seed();
+    } catch (error) {
+      console.error('Seeding error:', error);
+      if (this.isInternalClient) {
+        process.exit(1);
+      }
+    } finally {
+      if (this.isInternalClient) {
+        await this.prisma.$disconnect();
+      }
+    }
+  }
 }
 
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+module.exports = {
+  SeedSingleton,
+};

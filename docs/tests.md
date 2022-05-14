@@ -540,6 +540,24 @@ POSTGRES_PORT=5435
 - basically you just need test database
 - cant run dev and test concurently node_modules are shared, so use same port
 - volumes so you just rebuild app and not container, Dockerfile CMD too
+- PrismaClient singleton for seed [stackoverflow](https://stackoverflow.com/a/57455542/4383275)
+
+```js
+// singleton class example
+class PrismaSingleton {
+  constructor(prisma) {
+    this.prisma = prisma;
+    PrismaSingleton.instance = this;
+  }
+
+  static getInstance() {
+    if (!PrismaSingleton.instance) {
+      PrismaSingleton.instance = new PrismaSingleton(new PrismaClient());
+    }
+    return PrismaSingleton.instance;
+  }
+}
+```
 
 ### Github Actions test CI
 

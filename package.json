@@ -120,6 +120,6 @@
     "typescript": "^4.6.3"
   },
   "prisma": {
-    "seed": "node prisma/seed.js"
+    "seed": "node prisma/seed-run.js"
   }
 }
