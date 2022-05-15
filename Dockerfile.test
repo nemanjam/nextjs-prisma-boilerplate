@@ -8,8 +8,8 @@ ARG BASE=node:16-alpine
 
 FROM ${BASE} AS dependencies
 
-# openssl for prisma client
-RUN apk update && apk add --no-cache openssl libc6-compat
+# openssl for prisma client, bash for wait-for-it.sh
+RUN apk update && apk add --no-cache openssl libc6-compat bash
 
 WORKDIR /app
 ENV NODE_ENV development
