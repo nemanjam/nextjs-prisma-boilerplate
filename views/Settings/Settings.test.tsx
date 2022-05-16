@@ -15,6 +15,7 @@ describe('Settings View', () => {
       query: { username: [fakeUser.username] }, // [] nested site route, important
       pathname: Routes.SITE.SETTINGS,
     });
+    /* eslint-disable testing-library/no-render-in-setup */
     customRender(<SettingsView />, { wrapperProps: { router } });
 
     // wait for Dropzone images to load

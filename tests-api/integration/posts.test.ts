@@ -11,14 +11,22 @@ import * as usersService from 'lib-server/services/users';
 
 describe('Posts', () => {
   let createdUser: ClientUser;
+  let mockedGetMeService: jest.SpyInstance<Promise<ClientUser | null>>;
 
   beforeAll(async () => {
-    // create user for post.author and logged in mock
+    // create user in db for post.author and logged in mock
     const { username, email, name } = fakePostWithAuthor.author;
     createdUser = await createUser({ username, email, name, password: '123456' });
+
+    // mock logged in user
+    // todo: maybe this is possible without mock, manipulate req object
+    mockedGetMeService = jest.spyOn(usersService, 'getMe').mockResolvedValue(createdUser);
   });
 
   afterAll(async () => {
+    // clean up mocks
+    mockedGetMeService.mockRestore();
+    // clear db data
     await teardown();
   });
 
@@ -27,12 +35,6 @@ describe('Posts', () => {
     fakePostWithAuthor.author = createdUser;
     const { author, title, content } = fakePostWithAuthor;
     const postData: PostCreateData = { title, content };
-
-    // mock logged in user
-    // todo: maybe this is possible without mock, manipulate req object
-    const mockedGetMeService = jest
-      .spyOn(usersService, 'getMe')
-      .mockResolvedValue(author);
 
     // act
     const request = testClient(indexHandler);
@@ -72,8 +74,5 @@ describe('Posts', () => {
 
     // getMe called 2 times
     expect(mockedGetMeService).toHaveBeenCalled();
-
-    // clean up mocks
-    mockedGetMeService.mockRestore();
   });
 });

@@ -26,6 +26,7 @@ export const apiHandler = () => {
 
 export type NextApiRequestWithResult<T> = NextApiRequest & { result: T };
 
+/* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
 export const ssrNcHandler = async <T extends unknown>(
   req: NextReq,
   res: ServerResponse,

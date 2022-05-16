@@ -27,7 +27,7 @@ describe('Users service', () => {
     expect(resultUser).toEqual(fakeClientUser);
   });
 
-  test('creating user with existing email throws 409 ', async () => {
+  test('creating user with existing email throws 409', async () => {
     // arrange user with existing email
     prismaMock.user.findFirst.mockResolvedValue(fakeServerUser);
 

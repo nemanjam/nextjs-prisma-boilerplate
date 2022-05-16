@@ -20,6 +20,7 @@ const createTestQueryClient = () =>
     logger: {
       log: console.log,
       warn: console.warn,
+      /* eslint-disable @typescript-eslint/no-empty-function */
       error: () => {},
     },
   });

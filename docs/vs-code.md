@@ -3,6 +3,12 @@
 - official Vercel example [with-typescript-eslint-jest](https://github.com/vercel/next.js/tree/canary/examples/with-typescript-eslint-jest)
 
 - useful [tutorial](https://paulintrognon.fr/blog/typescript-prettier-eslint-next-js)
+- eslint disable next line
+
+```ts
+/* eslint-disable @typescript-eslint/no-empty-function */
+error: () => {},
+```
 
 ### VS Code extensions
 
