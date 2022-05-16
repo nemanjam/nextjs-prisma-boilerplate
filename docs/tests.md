@@ -458,6 +458,15 @@ expect(body).toEqual(
     content: fakePostWithAuthor.content,
   })
 );
+
+// partial match nested object
+expect(nestedObject).toEqual(
+  expect.objectContaining({
+    payload: expect.objectContaining({
+      specific: 'specific value',
+    }),
+  })
+);
 ```
 
 ### Node.js Api integration testing
@@ -484,6 +493,17 @@ expect(body).toEqual(
 - productioncoder [youtube](https://www.youtube.com/watch?v=Fa-oNdqOOYg&list=PL1Nml43UBm6eTkjJtAPfdfjk-x2I_1r-Y&index=6), [Github](https://github.com/productioncoder/test-node-with-docker), test.sh pg_ready, migrations postgres volume
 
 - Github Actions postgres docker-compose up [Github](https://github.com/andersnylund/next-js-prisma-integration-tests)
+
+- must create user in db before post, so it can connect, and for loggedin user mock
+- must mock loggedin user for protected endpoints, maybe possible to manipulate req object
+
+```ts
+// mock logged in user
+// todo: maybe this is possible without mock, manipulate req object
+const mockedGetMeService = jest.spyOn(usersService, 'getMe').mockResolvedValue(author);
+```
+
+- use describe blocks and afterAll() to delete all tables for new context
 
 ### Multiple Jest projects - client, server
 
@@ -560,6 +580,10 @@ class PrismaSingleton {
   }
 }
 ```
+
+### Run tests in Docker, yarn scripts
+
+- `wait-for-it.sh ip:port` needed only when tests run on host, otherwise `depends_on` works
 
 ### Github Actions test CI
 
