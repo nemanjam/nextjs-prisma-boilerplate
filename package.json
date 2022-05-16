@@ -41,9 +41,9 @@
     "test:client": "jest --projects test-client/config",
     "test:server:unit": "jest -i --projects test-server/config/jest.config.unit.js",
     "test:server:integration": "jest -i --projects test-server/config/jest.config.integration.js",
-    "docker:test:up": "docker-compose -f docker-compose.test.yml up --build --force-recreate",
+    "docker:test:up": "docker-compose -f docker-compose.test.yml -p npb-test up -d --build --force-recreate",
     "docker:test:down": "docker-compose -f docker-compose.test.yml down -v --remove-orphans",
-    "docker:test:integration": "docker-compose -f docker-compose.test.yml run --rm npb-app-test ./scripts/wait-for-it.sh npb-db-test:5435 -- yarn test:server:integration",
+    "docker:test:integration": "docker-compose -f docker-compose.test.yml -p npb-test run --rm npb-app-test sh -c 'yarn test:server:integration'",
     "cmd:start:test": "yarn prisma:migrate:prod && yarn build && yarn start",
     "prisma:migrate:prod": "npx prisma migrate deploy"
   },

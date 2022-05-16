@@ -9,7 +9,7 @@ ARG BASE=node:16-alpine
 FROM ${BASE} AS dependencies
 
 # openssl for prisma client, bash for wait-for-it.sh
-RUN apk update && apk add --no-cache openssl libc6-compat bash
+RUN apk update && apk add --no-cache openssl libc6-compat
 
 WORKDIR /app
 ENV NODE_ENV development
@@ -48,4 +48,5 @@ EXPOSE 3001
 ENV PORT 3001
 
 # migrate prod, build app, start prod
-CMD [ "yarn", "cmd:start:test" ]
+# just migrate and shut down
+CMD [ "yarn", "prisma:migrate:prod" ]
