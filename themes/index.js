@@ -23,24 +23,15 @@ function convertThemeColorsToRgb(theme) {
   return resultObject;
 }
 
-// Next.js env vars are available here
-const isDefaultTheme = (selector, index) => {
-  const defaultThemeSelector = `.${process.env.DEFAULT_THEME}`;
-
-  const isValidTheme = Object.entries(themes)
-    .map(([selector]) => selector)
-    .includes(defaultThemeSelector);
-
-  // if not specified or invalid, first is default
-  if (!process.env.DEFAULT_THEME || !isValidTheme) return index === 0;
-
-  return selector === defaultThemeSelector;
-};
-
 const mainFunction = ({ addBase }) => {
-  const resultThemes = {};
+  // important, root theme must be first key
+  const resultThemes = { ':root': null };
+
   Object.entries(themes).forEach(([selector, theme], index) => {
-    const _selector = isDefaultTheme(selector, index) ? ':root' : selector;
+    // first theme default (:root)
+    // default theme MUST be minimal = completely overridable
+    // set real default theme in ThemeChanger.tsx
+    const _selector = index === 0 ? ':root' : selector;
     resultThemes[_selector] = convertThemeColorsToRgb(theme);
   });
 

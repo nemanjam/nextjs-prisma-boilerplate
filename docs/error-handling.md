@@ -145,6 +145,7 @@ Error: This Suspense boundary received an update before it finished hydrating. T
 
 - React Github issue [answer](https://github.com/facebook/react/issues/24476#issuecomment-1127800350)
 - memoize **children**, seems to work
+- possible whenever you change state in `useEffect` and `!isMounted`
 
 ```ts
 const MeProvider: FC<ProviderProps> = ({ children }) => {

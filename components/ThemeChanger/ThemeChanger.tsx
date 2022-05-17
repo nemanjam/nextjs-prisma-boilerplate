@@ -1,4 +1,4 @@
-import { FC, MutableRefObject, useImperativeHandle } from 'react';
+import { FC, MutableRefObject, useEffect, useImperativeHandle } from 'react';
 import { useTheme } from 'next-themes';
 import { withBem } from 'utils/bem';
 import { useIsMounted } from 'components/hooks';
@@ -13,6 +13,16 @@ const ThemeChanger: FC<Props> = ({ childRef }) => {
   const { theme, setTheme } = useTheme();
 
   const b = withBem('theme-changer');
+
+  // set default theme on load maybe
+  useEffect(() => {
+    if (!isMounted || theme !== 'system') return;
+
+    const defaultTheme = process.env.NEXT_PUBLIC_DEFAULT_THEME;
+    const isValidTheme = themes.includes(defaultTheme);
+
+    if (isValidTheme) setTheme(defaultTheme);
+  }, [theme, isMounted]);
 
   const handleChange = () => {
     const index = themes.indexOf(theme);

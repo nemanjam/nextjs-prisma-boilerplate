@@ -9,13 +9,6 @@ declare global {
       HOSTNAME: string;
       PORT: string; // number
       NEXTAUTH_URL: string;
-      DEFAULT_THEME:
-        | 'theme-light'
-        | 'theme-dark'
-        | 'theme-blue'
-        | 'theme-red'
-        | 'theme-green'
-        | 'theme-black';
 
       // local - secrets
       DATABASE_URL: string;
@@ -29,6 +22,13 @@ declare global {
       NEXT_PUBLIC_BASE_URL: string;
       NEXT_PUBLIC_POSTS_PER_PAGE: string; // number
       NEXT_PUBLIC_USERS_PER_PAGE: string; // number
+      NEXT_PUBLIC_DEFAULT_THEME:
+        | 'theme-light'
+        | 'theme-dark'
+        | 'theme-blue'
+        | 'theme-red'
+        | 'theme-green'
+        | 'theme-black';
     }
   }
 }
