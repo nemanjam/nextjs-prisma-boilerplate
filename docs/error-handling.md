@@ -143,6 +143,23 @@ Error: This Suspense boundary received an update before it finished hydrating. T
   isPreviousDisabled={!!page && page === 1} // this
 ```
 
+- React Github issue [answer](https://github.com/facebook/react/issues/24476#issuecomment-1127800350)
+- memoize **children**, seems to work
+
+```ts
+const MeProvider: FC<ProviderProps> = ({ children }) => {
+  const { data } = useMe();
+  const memoChildren = useMemo(() => children, [data]);
+
+  return (
+    <MeContext.Provider value={{ me: data ?? null }}>{memoChildren}</MeContext.Provider>
+  );
+};
+// additional fix, useMe
+// prevent hook to trigger rerender
+enabled: isMounted && status !== 'loading',
+```
+
 ### Validation Api
 
 - **important:** only `req.query` are strings (`[key: string]: string | string[];`), `req.body` preserves correct types (number, boolean), for validation schemas and services argument types

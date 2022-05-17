@@ -1,4 +1,4 @@
-import { createContext, FC } from 'react';
+import { createContext, FC, useMemo } from 'react';
 import { ClientUser } from 'types/models/User';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 
@@ -22,8 +22,13 @@ type ProviderProps = {
  */
 const MeProvider: FC<ProviderProps> = ({ children }) => {
   const { data } = useMe();
+  const me = data ?? null;
 
-  return <MeContext.Provider value={{ me: data ?? null }}>{children}</MeContext.Provider>;
+  // memoize children, fix for: Suspense boundary received an update before it finished hydrating
+  // https://github.com/facebook/react/issues/24476#issuecomment-1127800350
+  const memoChildren = useMemo(() => children, [me]);
+
+  return <MeContext.Provider value={{ me }}>{memoChildren}</MeContext.Provider>;
 };
 
 export default MeProvider;
