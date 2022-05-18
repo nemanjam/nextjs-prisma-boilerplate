@@ -110,12 +110,12 @@
 
 ### Overview
 
-- CI
-- node tests
+- Github Actions tests, lint, type-check, format
 - cypress, with docker db?
 - basic readme
 - fix errors: settings form reset, image backend
 - deployment with ssh actions
+- update cv
 
 ### Questions
 
@@ -244,3 +244,4 @@
 - fix test lint errors on build, disabled for now
 - Suspense, ErrorBoundary, test with api 400, ssr works then csr fails..., done
 - error tests, now i have ErrorBoundaries and error handling, done
+- node tests, done

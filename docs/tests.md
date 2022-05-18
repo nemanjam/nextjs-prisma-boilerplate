@@ -599,3 +599,5 @@ class PrismaSingleton {
   > closely resemble how your application will behave.
 
 - for Cypress and Next.js `NODE_ENV` should be `production` to avoid recompiling
+- Next.js [docs](https://nextjs.org/docs/testing), with-cypress Github [example](https://github.dev/vercel/next.js/tree/canary/examples/with-cypress)
+- Cypress Real world app [repo](https://github.com/cypress-io/cypress-realworld-app), todomvc [example](https://github.com/cypress-io/todomvc)
