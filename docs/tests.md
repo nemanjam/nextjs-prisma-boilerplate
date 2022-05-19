@@ -599,5 +599,11 @@ class PrismaSingleton {
   > closely resemble how your application will behave.
 
 - for Cypress and Next.js `NODE_ENV` should be `production` to avoid recompiling
+- next-auth [docs](https://next-auth.js.org/tutorials/testing-with-cypress)
 - Next.js [docs](https://nextjs.org/docs/testing), with-cypress Github [example](https://github.dev/vercel/next.js/tree/canary/examples/with-cypress)
 - Cypress Real world app [repo](https://github.com/cypress-io/cypress-realworld-app), todomvc [example](https://github.com/cypress-io/todomvc)
+- short Youtube [playlist](https://www.youtube.com/playlist?list=PLYuQF7T02SRwiJe7iS9WfsbQcO-fmmorN), Github [repo](https://github.com/Scrump31/Client-Manager/tree/cypress)
+- `.should('exist')` on cypress instead of `expect()` in jest
+- start prod build with test db and seed in beforeAll
+- test `DATABASE_URL` is passed at runtime to prisma, not next.js app on build, but dev mode is **also** set at **runtime** in `server.ts` (it's just compiled, env var is not inlined)
+- when app is started on host db hostname must be `localhost`, when app is in docker db hostname must be `npb-test-db` service name (dev and test)

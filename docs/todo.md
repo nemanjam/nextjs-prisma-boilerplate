@@ -111,11 +111,12 @@
 ### Overview
 
 - Github Actions tests, lint, type-check, format
-- cypress, with docker db?
+- cypress config and test
 - basic readme
 - fix errors: settings form reset, image backend
 - deployment with ssh actions
 - update cv
+- docker volume folders as non root
 
 ### Questions
 

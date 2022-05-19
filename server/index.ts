@@ -5,8 +5,8 @@ import fs from 'fs';
 import next from 'next';
 import getConfig from 'next/config';
 
-const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev });
+const isDev = !['production', 'test'].includes(process.env.NODE_ENV);
+const app = next({ dev: isDev });
 const handle = app.getRequestHandler();
 const server = express();
 
@@ -35,7 +35,7 @@ app.prepare().then(() => {
   console.log(
     `> NODE_ENV=${process.env.NODE_ENV}\n> Server listening at ${
       isHttps ? 'https' : 'http'
-    }://${process.env.HOSTNAME}:${port} as ${dev ? 'development' : process.env.NODE_ENV}`
+    }://${process.env.HOSTNAME}:${port} as ${process.env.NODE_ENV}, dev mode:${isDev}`
   );
 
   printLoadedEnvVariables();

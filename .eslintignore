@@ -1,4 +1,5 @@
-**/node_modules/*
-**/out/*
-**/.next/*
-**/prisma/*
+node_modules/
+.next/
+dist/
+notes/
+prisma/

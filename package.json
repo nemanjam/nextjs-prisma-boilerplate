@@ -45,7 +45,12 @@
     "docker:test:down": "docker-compose -f docker-compose.test.yml down -v --remove-orphans",
     "docker:test:integration": "docker-compose -f docker-compose.test.yml -p npb-test run --rm npb-app-test sh -c 'yarn test:server:integration'",
     "cmd:start:test": "yarn prisma:migrate:prod && yarn build && yarn start",
-    "prisma:migrate:prod": "npx prisma migrate deploy"
+    "prisma:migrate:prod": "npx prisma migrate deploy",
+    "cypress": "cypress open",
+    "cypress:headless": "cypress run",
+    "start:e2e": "NODE_ENV=test node dist/index.js",
+    "test:e2e": "start-server-and-test start:e2e 3001 cypress",
+    "test:e2e:headless": "start-server-and-test start:e2e 3001 cypress:headless"
   },
   "dependencies": {
     "@faker-js/faker": "^6.2.0",
@@ -78,6 +83,7 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.0",
+    "@testing-library/cypress": "^8.0.2",
     "@testing-library/dom": "^8.13.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
@@ -96,9 +102,11 @@
     "autoprefixer": "^10.4.5",
     "babel-plugin-preval": "^5.1.0",
     "blob-polyfill": "^7.0.20220408",
+    "cypress": "^9.6.1",
     "dotenv-cli": "^5.1.0",
     "eslint": "^8.14.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-jest": "^26.1.5",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
@@ -111,6 +119,7 @@
     "nodemon": "^2.0.15",
     "postcss": "^8.4.12",
     "prettier": "^2.6.2",
+    "start-server-and-test": "^1.14.0",
     "stylelint": "^14.8.0",
     "stylelint-config-recommended-scss": "^6.0.0",
     "stylelint-scss": "^4.2.0",
