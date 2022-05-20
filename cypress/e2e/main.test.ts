@@ -1,17 +1,18 @@
 /// <reference types="cypress" />
+//
 import { teardown } from 'test-server/test-client';
 import { fakeUser } from 'test-client/server/fake-data';
 
 describe('app', () => {
-  beforeAll(() => {
+  before(() => {
     // seed
     cy.visit('/');
-    cy.getByRole('link', {
+    cy.findByRole('link', {
       name: /reseed/i,
     }).click();
   });
 
-  afterAll(async () => {
+  after(async () => {
     // truncate db
     await teardown();
   });
@@ -20,37 +21,36 @@ describe('app', () => {
     cy.visit('/');
   });
 
+  // const fakeUser = {} as any;
   fakeUser.name = 'cypress0 user';
   fakeUser.username = 'cypress0';
   fakeUser.email = 'cypress0@email.com';
   const password = '123456';
 
-  test('entire app flow', () => {
+  it('entire app flow', () => {
     // go to register page
-    cy.getByText(/register/i).click();
+    cy.findByText(/register/i).click();
     // assert register page
-    cy.url().should('equal', '/auth/register/');
-    cy.getByRole('heading', {
+    cy.url().should('include', '/auth/register/');
+    cy.findByRole('heading', {
       name: /register/i,
     }).should('be.visible');
 
     // create user
-    cy.getByRole('textbox', {
-      name: /name/i,
+    cy.findByRole('textbox', {
+      name: /^name$/i,
     }).type(fakeUser.name);
-    cy.getByRole('textbox', {
+    cy.findByRole('textbox', {
       name: /username/i,
     }).type(fakeUser.username);
-    cy.getByRole('textbox', {
+    cy.findByRole('textbox', {
       name: /email/i,
     }).type(fakeUser.email);
-    cy.findByLabelText('textbox', {
-      name: /password/i,
-    }).type(password);
-    cy.findByLabelText('textbox', {
-      name: /confirmPassword/i,
-    }).type(password);
-    cy.getByRole('button', {
+    cy.findByLabelText(/^password$/i).type(password);
+    cy.findByLabelText(/confirmPassword/i).type(password);
+
+    // submit form
+    cy.findByRole('button', {
       name: /register/i,
     }).click();
   });

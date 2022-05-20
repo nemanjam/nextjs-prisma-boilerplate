@@ -29,7 +29,9 @@
     ".next",
     "next.config.js",
     "prisma",
-    "themes"
+    "themes",
+    "server",
+    "cypress"
   ],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "ts-node": {

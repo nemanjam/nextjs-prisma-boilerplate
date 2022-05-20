@@ -607,3 +607,11 @@ class PrismaSingleton {
 - start prod build with test db and seed in beforeAll
 - test `DATABASE_URL` is passed at runtime to prisma, not next.js app on build, but dev mode is **also** set at **runtime** in `server.ts` (it's just compiled, env var is not inlined)
 - when app is started on host db hostname must be `localhost`, when app is in docker db hostname must be `npb-test-db` service name (dev and test)
+- setup:
+- `beforeAll, afterAll` -> `before(), after()` in Cypress
+- must use `tsconfig.json` for `name.test.ts` Typescript tests
+
+```ts
+// add in cypress/support/commands.js
+import '@testing-library/cypress/add-commands';
+```
