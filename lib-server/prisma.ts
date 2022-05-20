@@ -10,15 +10,19 @@ import { PostWithAuthor } from 'types/models/Post';
 
 let prisma: PrismaClient;
 
-if (process.env.NODE_ENV === 'production') {
-  prisma = new PrismaClient();
-} else {
-  if (!global.prisma) {
-    global.prisma = new PrismaClient();
+// only on server
+if (typeof window === 'undefined') {
+  if (process.env.NODE_ENV === 'production') {
+    prisma = new PrismaClient();
+  } else {
+    if (!global.prisma) {
+      global.prisma = new PrismaClient();
+    }
+    prisma = global.prisma;
   }
-  prisma = global.prisma;
 }
 
+// @ts-ignore
 export default prisma;
 
 // ------------ utils
