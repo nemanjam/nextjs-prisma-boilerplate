@@ -2,17 +2,26 @@
 //
 // import { teardown } from 'test-server/test-client';
 import { fakeUser } from 'test-client/server/fake-data';
+import { Routes } from 'lib-client/constants';
 
 describe('app', () => {
   before(() => {
     const timeout = 6000;
+    cy.intercept('POST', Routes.API.SEED).as('postSeed');
+    cy.intercept('POST', '/api/auth/signout').as('postSignOut');
+
     // seed
-    // cy.visit('/');
-    // cy.findByText(/log in/i, { timeout }).should('exist');
-    // cy.findByRole('link', { name: /reseed/i }).click();
-    // cy.findByRole('link', { name: /seeding/i, timeout }).should('exist');
-    // cy.findByRole('link', { name: /reseed/i, timeout }).should('exist');
-    // cy.findByText(/log in/i).should('exist');
+    cy.visit('/');
+
+    cy.findByText(/log in/i, { timeout }).should('exist');
+    cy.findByRole('link', { name: /reseed/i }).click();
+    cy.wait('@postSeed');
+
+    cy.findByRole('link', { name: /reseed/i, timeout }).should('exist');
+    cy.findByText(/log in/i).should('exist');
+
+    // wait for sign out to finish
+    cy.wait('@postSignOut');
   });
 
   after(async () => {
@@ -57,7 +66,7 @@ describe('app', () => {
     // test search
 
     // needed for wait()
-    cy.intercept('GET', '/api/posts/*').as('searchPosts');
+    cy.intercept('GET', `${Routes.API.POSTS}*`).as('searchPosts');
 
     // assert first post
     cy.get('.post-item')
