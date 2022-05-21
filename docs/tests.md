@@ -629,3 +629,5 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   }
 });
 ```
+
+- `contains()` same as `findByText()`
