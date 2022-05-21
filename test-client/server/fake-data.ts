@@ -19,9 +19,9 @@ function createUsers(n: number, isServer = false): User[] | ClientUser[] {
   const users = Array.from(Array(n).keys()).map((index) => {
     const user = {
       id: faker.datatype.uuid(),
-      name: `fakeuser${index} name`,
-      username: `fakeuser${index}`,
-      email: `fakeuser${index}@email.com`,
+      name: `user${index} name`,
+      username: `user${index}`,
+      email: `user${index}@email.com`,
       image: index === 3 ? undefined : `avatar${index % 4}.jpg`, // 0...3
       headerImage: index === 3 ? undefined : `header${index % 4}.jpg`,
       ...(isServer && { password }),

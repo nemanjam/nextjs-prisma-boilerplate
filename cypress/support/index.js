@@ -14,7 +14,15 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+  // Error: Minified React error #421
+  // This Suspense boundary received an update before it finished hydrating.
+  if (err.message.includes('Minified React error #421')) {
+    return false;
+  }
+});
