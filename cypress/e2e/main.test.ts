@@ -56,6 +56,9 @@ describe('app', () => {
     // --------------
     // test search
 
+    // needed for wait()
+    cy.intercept('GET', '/api/posts/*').as('searchPosts');
+
     // assert first post
     cy.get('.post-item')
       .first()
@@ -66,8 +69,8 @@ describe('app', () => {
     // search for user1
     cy.findByRole('textbox', { name: /search/i }).type('user1{enter}');
 
-    // better instead of wait()
-    cy.get('.search').should('not.contain', 'Fetching');
+    // wait for http request
+    cy.wait('@searchPosts');
 
     // assert first post again
     cy.get('.post-item')
@@ -80,6 +83,8 @@ describe('app', () => {
     cy.findByRole('textbox', { name: /search/i })
       .clear()
       .type('{enter}');
+
+    // dont wait for http request, its cached in React Query
 
     // inital list
     cy.get('.post-item')
