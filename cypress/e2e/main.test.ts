@@ -4,20 +4,21 @@
 import { fakeUser } from 'test-client/server/fake-data';
 import { Routes } from 'lib-client/constants';
 
+const password = '123456';
+
 describe('app', () => {
   before(() => {
-    const timeout = 6000;
     cy.intercept('POST', Routes.API.SEED).as('postSeed');
     cy.intercept('POST', '/api/auth/signout').as('postSignOut');
 
     // seed
     cy.visit('/');
 
-    cy.findByText(/log in/i, { timeout }).should('exist');
+    cy.findByText(/log in/i).should('exist');
     cy.findByRole('link', { name: /reseed/i }).click();
     cy.wait('@postSeed');
 
-    cy.findByRole('link', { name: /reseed/i, timeout }).should('exist');
+    cy.findByRole('link', { name: /reseed/i }).should('exist');
     cy.findByText(/log in/i).should('exist');
 
     // wait for sign out to finish
@@ -29,18 +30,14 @@ describe('app', () => {
     // await teardown();
   });
 
-  const password = '123456';
-
-  it('entire app flow', () => {
-    const timeout = 10000;
-
+  it('login as admin works', () => {
     cy.visit('/');
 
     // -----------
     // login
 
     // go to login page
-    cy.findByText(/log in/i, { timeout })
+    cy.findByText(/log in/i)
       .should('exist')
       .click();
 
@@ -61,9 +58,15 @@ describe('app', () => {
 
     // wait login to reflect
     cy.findByText(/^log out$/i);
+  });
 
+  it('search works', () => {
     // --------------
-    // test search
+    // test search, logged out
+    cy.visit('/');
+
+    // wait for navbar to load
+    cy.findByText(/log in/i).should('exist');
 
     // needed for wait()
     cy.intercept('GET', `${Routes.API.POSTS}*`).as('searchPosts');
@@ -102,4 +105,26 @@ describe('app', () => {
         cy.findByRole('link', { name: /^@user1$/i }).should('not.exist');
       });
   });
+
+  it('pagination works', () => {
+    // -----------
+    // test pagination, logged out
+    cy.visit('/');
+
+    // wait for navbar to load
+    cy.findByText(/log in/i).should('exist');
+
+    cy.findByRole('button', { name: /1/i }).should('have.class', 'button--primary');
+    cy.findByRole('button', { name: /next/i }).click();
+    cy.findByRole('button', { name: /2/i }).should('have.class', 'button--primary');
+    cy.findByRole('button', { name: /prev/i }).click();
+    cy.findByRole('button', { name: /1/i }).should('have.class', 'button--primary');
+  });
+
+  // home: edit btn, delete btn, nabar links, post link, user link
+  // post: edit, delete
+  // profile: render
+  // settings, create
+  // register
+  // log out
 });

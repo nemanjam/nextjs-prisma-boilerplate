@@ -632,3 +632,19 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 
 - `contains()` same as `findByText()`
 - wait() for requests (GET search posts) [tutorial](https://www.cypress.io/blog/2019/12/23/asserting-network-calls-from-cypress-tests/), [docs](https://docs.cypress.io/api/commands/wait#Aliases)
+
+```ts
+// needed for wait()
+cy.intercept('GET', `${Routes.API.POSTS}*`).as('searchPosts');
+
+// wait for http request
+cy.wait('@searchPosts');
+```
+
+- assert redirect to another page - it's browser, just url and UI
+
+```ts
+// assert redirect to home
+cy.url().should('eq', Cypress.config().baseUrl + '/');
+cy.findByRole('heading', { name: /home/i });
+```
