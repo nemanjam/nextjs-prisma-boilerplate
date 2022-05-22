@@ -137,7 +137,9 @@ describe('app', () => {
     cy.visit('/');
 
     // select first post
-    // profile links
+
+    // profile links -----------
+
     // click avatar
     cy.get('.home__list .post-item:first-child .post-item__left a')
       .should('exist')
@@ -146,8 +148,6 @@ describe('app', () => {
     cy.url().should('include', `/${fakeUser.username}`);
     cy.findByRole('heading', { name: RegExp(fakeUser.name, 'i') }).should('exist');
     cy.go('back');
-    // wait for home page to load each time
-    // cy.findByRole('heading', { name: /home/i });
 
     // click name - desktop
     cy.get('.home__list .post-item:first-child .post-item__name')
@@ -169,12 +169,13 @@ describe('app', () => {
     cy.findByRole('heading', { name: RegExp(fakeUser.name, 'i') }).should('exist');
     cy.go('back');
 
-    // post links
+    // post links ----------
+
     // click title
     cy.get('.home__list .post-item:first-child h2').click();
     // assert post page
     cy.url().should('match', RegExp(`/${fakeUser.username}/post/\\d+`, 'i'));
-    cy.get('h1').should('have.class', 'post__title').should('exist');
+    cy.get('h1').should('have.class', 'post__title');
     cy.go('back');
 
     // click time ago
@@ -184,8 +185,39 @@ describe('app', () => {
       .click();
     // assert post page
     cy.url().should('match', RegExp(`/${fakeUser.username}/post/\\d+`, 'i'));
-    cy.get('h1').should('have.class', 'post__title').should('exist');
+    cy.get('h1').should('have.class', 'post__title');
     cy.go('back');
+
+    // edit button
+    cy.get('.post-item')
+      .first()
+      .within(() => {
+        cy.findByText(/^edit$/i)
+          .should('exist')
+          .click();
+      });
+    // assert create/edit post page
+    cy.url().should('match', /\/post\/create\/\d+/i);
+    cy.findByRole('heading', { name: /edit post/i });
+    // todo: assert title input value
+    cy.go('back');
+
+    // delete button
+    cy.intercept('DELETE', `${Routes.API.POSTS}*`).as('deletePost');
+    cy.get('.post-item')
+      .first()
+      .within(() => {
+        cy.get('h2')
+          .invoke('text')
+          .then((title) => {
+            // post exists
+            cy.findByRole('heading', { name: RegExp(title, 'i') }).should('exist');
+            cy.findByRole('button', { name: /delete/i }).click();
+            cy.wait('@deletePost');
+            // post doesnt exist
+            cy.findByRole('heading', { name: RegExp(title, 'i') }).should('not.exist');
+          });
+      });
   });
 
   // home: edit btn, delete btn, navbar links, post link, user link
