@@ -648,3 +648,8 @@ cy.wait('@searchPosts');
 cy.url().should('eq', Cypress.config().baseUrl + '/');
 cy.findByRole('heading', { name: /home/i });
 ```
+
+- todo: mock session [discussion](https://github.com/nextauthjs/next-auth/discussions/2053)
+- seed db task example [repo](https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/server-communication__seeding-database-in-node)
+- docs [all examples](https://docs.cypress.io/examples/examples/recipes#Server-Communication)
+- cypress docker [article](https://www.cypress.io/blog/2019/05/02/run-cypress-with-a-single-docker-command/)

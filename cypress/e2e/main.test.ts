@@ -6,58 +6,67 @@ import { Routes } from 'lib-client/constants';
 
 const password = '123456';
 
+const seedDb = () => {
+  cy.intercept('POST', Routes.API.SEED).as('postSeed');
+  cy.intercept('POST', '/api/auth/signout').as('postSignOut');
+
+  // seed
+  cy.visit('/');
+
+  cy.findByText(/log in/i).should('exist');
+  cy.findByRole('link', { name: /reseed/i }).click();
+  cy.wait('@postSeed');
+
+  cy.findByRole('link', { name: /reseed/i }).should('exist');
+  cy.findByText(/log in/i).should('exist');
+
+  // wait for sign out to finish
+  cy.wait('@postSignOut');
+
+  cy.log('seed db success');
+};
+
+const loginAsAdmin = () => {
+  cy.visit('/');
+
+  // -----------
+  // login
+
+  // go to login page
+  cy.findByText(/log in/i)
+    .should('exist')
+    .click();
+
+  // assert login page
+  cy.url().should('include', '/auth/login/');
+  cy.findByRole('heading', { name: /login/i }).should('be.visible');
+
+  // login as admin
+  cy.findByRole('textbox', { name: /email/i }).type(fakeUser.email);
+  cy.findByLabelText(/^password$/i).type(password);
+
+  // submit form
+  cy.findByRole('button', { name: /^login$/i }).click();
+
+  // assert redirect to home
+  cy.url().should('eq', Cypress.config().baseUrl + '/');
+  cy.findByRole('heading', { name: /home/i });
+
+  // wait login to reflect
+  cy.findByText(/^log out$/i);
+
+  cy.log('login as admin success');
+};
+
 describe('app', () => {
   before(() => {
-    cy.intercept('POST', Routes.API.SEED).as('postSeed');
-    cy.intercept('POST', '/api/auth/signout').as('postSignOut');
-
-    // seed
-    cy.visit('/');
-
-    cy.findByText(/log in/i).should('exist');
-    cy.findByRole('link', { name: /reseed/i }).click();
-    cy.wait('@postSeed');
-
-    cy.findByRole('link', { name: /reseed/i }).should('exist');
-    cy.findByText(/log in/i).should('exist');
-
-    // wait for sign out to finish
-    cy.wait('@postSignOut');
+    seedDb();
+    loginAsAdmin();
   });
 
   after(async () => {
     // truncate db
     // await teardown();
-  });
-
-  it('login as admin works', () => {
-    cy.visit('/');
-
-    // -----------
-    // login
-
-    // go to login page
-    cy.findByText(/log in/i)
-      .should('exist')
-      .click();
-
-    // assert login page
-    cy.url().should('include', '/auth/login/');
-    cy.findByRole('heading', { name: /login/i }).should('be.visible');
-
-    // login as admin
-    cy.findByRole('textbox', { name: /email/i }).type(fakeUser.email);
-    cy.findByLabelText(/^password$/i).type(password);
-
-    // submit form
-    cy.findByRole('button', { name: /^login$/i }).click();
-
-    // assert redirect to home
-    cy.url().should('eq', Cypress.config().baseUrl + '/');
-    cy.findByRole('heading', { name: /home/i });
-
-    // wait login to reflect
-    cy.findByText(/^log out$/i);
   });
 
   it('search works', () => {
@@ -66,7 +75,7 @@ describe('app', () => {
     cy.visit('/');
 
     // wait for navbar to load
-    cy.findByText(/log in/i).should('exist');
+    // cy.findByText(/log in/i).should('exist');
 
     // needed for wait()
     cy.intercept('GET', `${Routes.API.POSTS}*`).as('searchPosts');
@@ -83,6 +92,7 @@ describe('app', () => {
 
     // wait for http request
     cy.wait('@searchPosts');
+    cy.findByText(/fetching/i).should('not.exist');
 
     // assert first post again
     cy.get('.post-item')
@@ -112,7 +122,7 @@ describe('app', () => {
     cy.visit('/');
 
     // wait for navbar to load
-    cy.findByText(/log in/i).should('exist');
+    // cy.findByText(/log in/i).should('exist');
 
     cy.findByRole('button', { name: /1/i }).should('have.class', 'button--primary');
     cy.findByRole('button', { name: /next/i }).click();
@@ -121,7 +131,64 @@ describe('app', () => {
     cy.findByRole('button', { name: /1/i }).should('have.class', 'button--primary');
   });
 
-  // home: edit btn, delete btn, nabar links, post link, user link
+  it('post item links', () => {
+    // -----------
+    // home page, must be logged in
+    cy.visit('/');
+
+    // select first post
+    // profile links
+    // click avatar
+    cy.get('.home__list .post-item:first-child .post-item__left a')
+      .should('exist')
+      .click();
+    // assert profile page
+    cy.url().should('include', `/${fakeUser.username}`);
+    cy.findByRole('heading', { name: RegExp(fakeUser.name, 'i') }).should('exist');
+    cy.go('back');
+    // wait for home page to load each time
+    // cy.findByRole('heading', { name: /home/i });
+
+    // click name - desktop
+    cy.get('.home__list .post-item:first-child .post-item__name')
+      .first()
+      .should('be.visible')
+      .click();
+    // assert profile page
+    cy.url().should('include', `/${fakeUser.username}`);
+    cy.findByRole('heading', { name: RegExp(fakeUser.name, 'i') }).should('exist');
+    cy.go('back');
+
+    // click username - desktop
+    cy.get('.home__list .post-item:first-child .post-item__username')
+      .first()
+      .should('be.visible')
+      .click();
+    // assert profile page
+    cy.url().should('include', `/${fakeUser.username}`);
+    cy.findByRole('heading', { name: RegExp(fakeUser.name, 'i') }).should('exist');
+    cy.go('back');
+
+    // post links
+    // click title
+    cy.get('.home__list .post-item:first-child h2').click();
+    // assert post page
+    cy.url().should('match', RegExp(`/${fakeUser.username}/post/\\d+`, 'i'));
+    cy.get('h1').should('have.class', 'post__title').should('exist');
+    cy.go('back');
+
+    // click time ago
+    cy.get('.home__list .post-item:first-child .post-item__time')
+      .first()
+      .should('exist')
+      .click();
+    // assert post page
+    cy.url().should('match', RegExp(`/${fakeUser.username}/post/\\d+`, 'i'));
+    cy.get('h1').should('have.class', 'post__title').should('exist');
+    cy.go('back');
+  });
+
+  // home: edit btn, delete btn, navbar links, post link, user link
   // post: edit, delete
   // profile: render
   // settings, create
