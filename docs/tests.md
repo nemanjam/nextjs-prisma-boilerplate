@@ -653,3 +653,36 @@ cy.findByRole('heading', { name: /home/i });
 - seed db task example [repo](https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/server-communication__seeding-database-in-node)
 - docs [all examples](https://docs.cypress.io/examples/examples/recipes#Server-Communication)
 - cypress docker [article](https://www.cypress.io/blog/2019/05/02/run-cypress-with-a-single-docker-command/)
+- can NOT change and inspect **next** page in within(...) or invoke().then(...), tricky
+
+- intercept http must be before that GET or PATCH... call is made
+
+```ts
+// must be before click()
+cy.intercept('PATCH', `${Routes.API.POSTS}*`).as('patchPost');
+
+// edit title
+cy.findByRole('button', { name: /update/i }).click();
+
+cy.wait('@patchPost');
+```
+
+- save element text for later, **it() must use function(){}**
+
+```ts
+context('post page', () => {
+  beforeEach(() => {
+    cy.visit('/');
+    cy.findByText(/^log out$/i).should('exist');
+
+    cy.get('.home__list .post-item:first-child h2').invoke('text').as('postTitle');
+  });
+
+  // MUST use function() instead of () => {} for this
+  it.only('post page, edit and delete post', function () {
+    // remember title
+    const postTitle = this.postTitle as string;
+    // ...
+  });
+});
+```

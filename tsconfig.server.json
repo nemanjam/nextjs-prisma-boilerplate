@@ -7,5 +7,6 @@
     "isolatedModules": false,
     "noEmit": false
   },
+  "exclude": [],
   "include": ["server/**/*.ts"]
 }

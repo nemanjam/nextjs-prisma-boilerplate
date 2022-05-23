@@ -189,118 +189,120 @@ const Settings: FC = () => {
   };
 
   return (
-    <FormProvider {...methods}>
-      <form className={b()} onSubmit={handleSubmit(onSubmit)}>
-        <h1 className={b('title')}>Settings</h1>
+    <div className={b()}>
+      <h1 className={b('title')}>Settings</h1>
 
-        {isError && <Alert variant="error" message={error.message} />}
+      <FormProvider {...methods}>
+        <form className={b('form')} onSubmit={handleSubmit(onSubmit)}>
+          {isError && <Alert variant="error" message={error.message} />}
 
-        <div className={b('form-field', { header: true })}>
-          {!isHeaderLoading ? (
-            <DropzoneSingle
-              name="header"
-              label="Header"
-              imageClassName="max-h-44"
-              altText="header-image"
-              dropzoneOptions={dropzoneOptions}
-              data-testid="header-loaded"
+          <div className={b('form-field', { header: true })}>
+            {!isHeaderLoading ? (
+              <DropzoneSingle
+                name="header"
+                label="Header"
+                imageClassName="max-h-44"
+                altText="header-image"
+                dropzoneOptions={dropzoneOptions}
+                data-testid="header-loaded"
+              />
+            ) : (
+              <div className={b('header-placeholder')} />
+            )}
+            <p className={getErrorClass(errors.header?.message)}>
+              {errors.header?.message}
+            </p>
+          </div>
+
+          <div className={b('form-field', { input: true })}>
+            <label htmlFor="username">Username</label>
+            <input
+              {...register('username')}
+              id="username"
+              type="text"
+              className={getErrorClass(errors.username?.message)}
             />
-          ) : (
-            <div className={b('header-placeholder')} />
-          )}
-          <p className={getErrorClass(errors.header?.message)}>
-            {errors.header?.message}
-          </p>
-        </div>
+            <p className={getErrorClass(errors.username?.message)}>
+              {errors.username?.message}
+            </p>
+          </div>
 
-        <div className={b('form-field', { input: true })}>
-          <label htmlFor="username">Username</label>
-          <input
-            {...register('username')}
-            id="username"
-            type="text"
-            className={getErrorClass(errors.username?.message)}
-          />
-          <p className={getErrorClass(errors.username?.message)}>
-            {errors.username?.message}
-          </p>
-        </div>
-
-        <div className={b('form-field', { input: true })}>
-          <label htmlFor="name">Name</label>
-          <input
-            {...register('name')}
-            id="name"
-            type="text"
-            className={getErrorClass(errors.name?.message)}
-          />
-          <p className={getErrorClass(errors.name?.message)}>{errors.name?.message}</p>
-        </div>
-
-        <div className={b('form-field', { avatar: true })}>
-          {!isAvatarLoading ? (
-            <DropzoneSingle
-              name="avatar"
-              label="Avatar"
-              altText="avatar-image"
-              dropzoneOptions={dropzoneOptions}
-              data-testid="avatar-loaded"
+          <div className={b('form-field', { input: true })}>
+            <label htmlFor="name">Name</label>
+            <input
+              {...register('name')}
+              id="name"
+              type="text"
+              className={getErrorClass(errors.name?.message)}
             />
-          ) : (
-            <div className={b('avatar-placeholder')} />
-          )}
-          <p className={getErrorClass(errors.avatar?.message)}>
-            {errors.avatar?.message}
-          </p>
-        </div>
+            <p className={getErrorClass(errors.name?.message)}>{errors.name?.message}</p>
+          </div>
 
-        <div className={b('form-field', { bio: true })}>
-          <label htmlFor="bio">Bio</label>
-          <textarea
-            {...register('bio')}
-            id="bio"
-            rows={2}
-            className={getErrorClass(errors.bio?.message)}
-          />
-          <p className={getErrorClass(errors.bio?.message)}>{errors.bio?.message}</p>
-        </div>
+          <div className={b('form-field', { avatar: true })}>
+            {!isAvatarLoading ? (
+              <DropzoneSingle
+                name="avatar"
+                label="Avatar"
+                altText="avatar-image"
+                dropzoneOptions={dropzoneOptions}
+                data-testid="avatar-loaded"
+              />
+            ) : (
+              <div className={b('avatar-placeholder')} />
+            )}
+            <p className={getErrorClass(errors.avatar?.message)}>
+              {errors.avatar?.message}
+            </p>
+          </div>
 
-        <div className={b('form-field', { input: true })}>
-          <label htmlFor="password">Password</label>
-          <input
-            {...register('password')}
-            id="password"
-            type="password"
-            className={getErrorClass(errors.password?.message)}
-            autoComplete="new-password"
-          />
-          <p className={getErrorClass(errors.password?.message)}>
-            {errors.password?.message}
-          </p>
-        </div>
+          <div className={b('form-field', { bio: true })}>
+            <label htmlFor="bio">Bio</label>
+            <textarea
+              {...register('bio')}
+              id="bio"
+              rows={2}
+              className={getErrorClass(errors.bio?.message)}
+            />
+            <p className={getErrorClass(errors.bio?.message)}>{errors.bio?.message}</p>
+          </div>
 
-        <div className={b('form-field', { input: true })}>
-          <label htmlFor="confirm-password">Confirm password</label>
-          <input
-            {...register('confirmPassword')}
-            id="confirm-password"
-            type="password"
-            className={getErrorClass(errors.confirmPassword?.message)}
-          />
-          <p className={getErrorClass(errors.confirmPassword?.message)}>
-            {errors.confirmPassword?.message}
-          </p>
-        </div>
+          <div className={b('form-field', { input: true })}>
+            <label htmlFor="password">Password</label>
+            <input
+              {...register('password')}
+              id="password"
+              type="password"
+              className={getErrorClass(errors.password?.message)}
+              autoComplete="new-password"
+            />
+            <p className={getErrorClass(errors.password?.message)}>
+              {errors.password?.message}
+            </p>
+          </div>
 
-        <div className={b('buttons')}>
-          <Button type="submit">{!isUpdateLoading ? 'Submit' : 'Submiting...'}</Button>
-          <Button variant="secondary" onClick={() => reset()}>
-            Reset
-          </Button>
-        </div>
-        <ProgressBar progress={progress} />
-      </form>
-    </FormProvider>
+          <div className={b('form-field', { input: true })}>
+            <label htmlFor="confirm-password">Confirm password</label>
+            <input
+              {...register('confirmPassword')}
+              id="confirm-password"
+              type="password"
+              className={getErrorClass(errors.confirmPassword?.message)}
+            />
+            <p className={getErrorClass(errors.confirmPassword?.message)}>
+              {errors.confirmPassword?.message}
+            </p>
+          </div>
+
+          <div className={b('buttons')}>
+            <Button type="submit">{!isUpdateLoading ? 'Submit' : 'Submiting...'}</Button>
+            <Button variant="secondary" onClick={() => reset()}>
+              Reset
+            </Button>
+          </div>
+          <ProgressBar progress={progress} />
+        </form>
+      </FormProvider>
+    </div>
   );
 };
 

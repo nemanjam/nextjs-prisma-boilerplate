@@ -1,6 +1,10 @@
 .create {
   @apply flex flex-col gap-4;
 
+  &__form {
+    @apply flex flex-col gap-4;
+  }
+
   &__form-field {
     @apply flex flex-col;
   }

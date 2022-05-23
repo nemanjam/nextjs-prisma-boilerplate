@@ -64,65 +64,74 @@ const Create: FC<Props> = ({ testOnSubmit }) => {
   // maybe disabled query is stuck in loading state...
 
   return (
-    <form className={b()} onSubmit={handleSubmit(onSubmit)}>
+    <div className={b()}>
       <h1 className={b('title')}>{!isUpdate ? 'Create new draft' : 'Edit post'}</h1>
 
-      {restCreate.isError && <Alert variant="error" message={restCreate.error.message} />}
+      <form className={b('form')} onSubmit={handleSubmit(onSubmit)}>
+        {restCreate.isError && (
+          <Alert variant="error" message={restCreate.error.message} />
+        )}
 
-      {restUpdate.isError && <Alert variant="error" message={restUpdate.error.message} />}
+        {restUpdate.isError && (
+          <Alert variant="error" message={restUpdate.error.message} />
+        )}
 
-      <div className={b('form-field')}>
-        <label htmlFor="title">Title</label>
-        <input
-          {...register('title')}
-          id="title"
-          autoFocus
-          type="text"
-          className={getErrorClass(errors.title?.message)}
-          aria-errormessage="create-title-err-msg-id"
-          aria-invalid="true"
-        />
-        <p id="create-title-err-msg-id" className={getErrorClass(errors.title?.message)}>
-          {errors.title?.message}
-        </p>
-      </div>
+        <div className={b('form-field')}>
+          <label htmlFor="title">Title</label>
+          <input
+            {...register('title')}
+            id="title"
+            autoFocus
+            type="text"
+            className={getErrorClass(errors.title?.message)}
+            aria-errormessage="create-title-err-msg-id"
+            aria-invalid="true"
+          />
+          <p
+            id="create-title-err-msg-id"
+            className={getErrorClass(errors.title?.message)}
+          >
+            {errors.title?.message}
+          </p>
+        </div>
 
-      <div className={b('form-field')}>
-        <label htmlFor="content">Content</label>
-        <textarea
-          {...register('content')}
-          id="content"
-          rows={8}
-          className={getErrorClass(errors.content?.message)}
-          aria-errormessage="create-content-err-msg-id"
-          aria-invalid="true"
-        />
-        <p
-          id="create-content-err-msg-id"
-          className={getErrorClass(errors.content?.message)}
-        >
-          {errors.content?.message}
-        </p>
-      </div>
+        <div className={b('form-field')}>
+          <label htmlFor="content">Content</label>
+          <textarea
+            {...register('content')}
+            id="content"
+            rows={8}
+            className={getErrorClass(errors.content?.message)}
+            aria-errormessage="create-content-err-msg-id"
+            aria-invalid="true"
+          />
+          <p
+            id="create-content-err-msg-id"
+            className={getErrorClass(errors.content?.message)}
+          >
+            {errors.content?.message}
+          </p>
+        </div>
 
-      <div className={b('buttons')}>
-        <Button type="submit" disabled={restCreate.isLoading || restUpdate.isLoading}>
-          {!isUpdate && (!restCreate.isLoading ? 'Create' : 'Submiting...')}
-          {isUpdate && (!restUpdate.isLoading ? 'Update' : 'Submiting...')}
-        </Button>
-        <span>or</span>
-        <a
-          href=""
-          onClick={(e) => {
-            e.preventDefault();
-            router.back();
-          }}
-          className={b('cancel')}
-        >
-          Cancel
-        </a>
-      </div>
-    </form>
+        <div className={b('buttons')}>
+          <Button type="submit" disabled={restCreate.isLoading || restUpdate.isLoading}>
+            {!isUpdate && (!restCreate.isLoading ? 'Create' : 'Submiting...')}
+            {isUpdate && (!restUpdate.isLoading ? 'Update' : 'Submiting...')}
+          </Button>
+          <span>or</span>
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+              router.back();
+            }}
+            className={b('cancel')}
+          >
+            Cancel
+          </a>
+        </div>
+      </form>
+    </div>
   );
 };
 
