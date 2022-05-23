@@ -5,6 +5,7 @@ import { fakeUser } from 'test-client/server/fake-data';
 import { Routes } from 'lib-client/constants';
 
 const password = '123456';
+const cookieName = Cypress.env('COOKIE_NAME');
 
 const seedDb = () => {
   cy.intercept('POST', Routes.API.SEED).as('postSeed');
@@ -56,18 +57,29 @@ const loginAsAdmin = () => {
   cy.findByText(/^log out$/i);
 
   cy.log('login as admin success');
+  cy.getCookie(cookieName).should('exist');
 };
 
 describe('app', () => {
-  // must be before each, or 2nd test loses session
-  beforeEach(() => {
+  // before first test
+  // cookies and localStorage cleared afterEach test
+  before(() => {
     seedDb();
     loginAsAdmin();
+  });
+
+  beforeEach(() => {
+    // prevent clear after each test
+    Cypress.Cookies.preserveOnce(cookieName);
   });
 
   after(async () => {
     // truncate db
     // await teardown();
+
+    // clear after last test
+    cy.clearCookies();
+    cy.getCookies().should('be.empty');
   });
 
   it('search works', () => {
