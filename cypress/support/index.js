@@ -16,6 +16,10 @@
 // Import commands.js using ES2015 syntax:
 import './commands';
 
+// my imports
+import { Routes } from 'lib-client/constants';
+import { fakeUser } from 'test-client/server/fake-data';
+
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
@@ -25,4 +29,70 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   if (err.message.includes('Minified React error #421')) {
     return false;
   }
+});
+
+Cypress.Commands.add('seedDb', () => {
+  const seedDb = () => {
+    cy.intercept('POST', Routes.API.SEED).as('postSeed');
+    cy.intercept('POST', '/api/auth/signout').as('postSignOut');
+
+    // seed
+    cy.visit('/');
+
+    cy.findByText(/log in/i).should('exist');
+    cy.findByRole('link', { name: /reseed/i }).click();
+    cy.wait('@postSeed');
+
+    cy.findByRole('link', { name: /reseed/i }).should('exist');
+    cy.findByText(/log in/i).should('exist');
+
+    // wait for sign out to finish
+    cy.wait('@postSignOut');
+
+    cy.log('seed db success');
+  };
+
+  seedDb();
+});
+
+Cypress.Commands.add('loginAsAdmin', () => {
+  //
+  const password = '123456';
+  const cookieName = Cypress.env('COOKIE_NAME');
+  const baseUrl = Cypress.config().baseUrl;
+
+  const loginAsAdmin = () => {
+    cy.visit('/');
+
+    // -----------
+    // login
+
+    // go to login page
+    cy.findByText(/log in/i)
+      .should('exist')
+      .click();
+
+    // assert login page
+    cy.url().should('include', '/auth/login/');
+    cy.findByRole('heading', { name: /login/i }).should('be.visible');
+
+    // login as admin
+    cy.findByRole('textbox', { name: /email/i }).type(fakeUser.email);
+    cy.findByLabelText(/^password$/i).type(password);
+
+    // submit form
+    cy.findByRole('button', { name: /^login$/i }).click();
+
+    // assert redirect to home
+    cy.url().should('eq', baseUrl + '/');
+    cy.findByRole('heading', { name: /home/i });
+
+    // wait login to reflect
+    cy.findByText(/^log out$/i);
+
+    cy.log('login as admin success');
+    cy.getCookie(cookieName).should('exist');
+  };
+
+  loginAsAdmin();
 });

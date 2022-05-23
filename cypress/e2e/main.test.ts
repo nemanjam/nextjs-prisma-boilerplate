@@ -4,68 +4,14 @@
 import { fakeUser } from 'test-client/server/fake-data';
 import { Routes } from 'lib-client/constants';
 
-const password = '123456';
 const cookieName = Cypress.env('COOKIE_NAME');
-
-const seedDb = () => {
-  cy.intercept('POST', Routes.API.SEED).as('postSeed');
-  cy.intercept('POST', '/api/auth/signout').as('postSignOut');
-
-  // seed
-  cy.visit('/');
-
-  cy.findByText(/log in/i).should('exist');
-  cy.findByRole('link', { name: /reseed/i }).click();
-  cy.wait('@postSeed');
-
-  cy.findByRole('link', { name: /reseed/i }).should('exist');
-  cy.findByText(/log in/i).should('exist');
-
-  // wait for sign out to finish
-  cy.wait('@postSignOut');
-
-  cy.log('seed db success');
-};
-
-const loginAsAdmin = () => {
-  cy.visit('/');
-
-  // -----------
-  // login
-
-  // go to login page
-  cy.findByText(/log in/i)
-    .should('exist')
-    .click();
-
-  // assert login page
-  cy.url().should('include', '/auth/login/');
-  cy.findByRole('heading', { name: /login/i }).should('be.visible');
-
-  // login as admin
-  cy.findByRole('textbox', { name: /email/i }).type(fakeUser.email);
-  cy.findByLabelText(/^password$/i).type(password);
-
-  // submit form
-  cy.findByRole('button', { name: /^login$/i }).click();
-
-  // assert redirect to home
-  cy.url().should('eq', Cypress.config().baseUrl + '/');
-  cy.findByRole('heading', { name: /home/i });
-
-  // wait login to reflect
-  cy.findByText(/^log out$/i);
-
-  cy.log('login as admin success');
-  cy.getCookie(cookieName).should('exist');
-};
 
 describe('app', () => {
   // before first test
   // cookies and localStorage cleared afterEach test
   before(() => {
-    seedDb();
-    loginAsAdmin();
+    cy.seedDb();
+    cy.loginAsAdmin();
   });
 
   beforeEach(() => {
