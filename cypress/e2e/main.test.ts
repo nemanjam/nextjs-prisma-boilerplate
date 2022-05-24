@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 //
-// import { teardown } from 'test-server/test-client';
 import { fakeUser } from 'test-client/server/fake-data';
 import { Routes } from 'lib-client/constants';
 
@@ -8,9 +7,13 @@ const cookieName = Cypress.env('COOKIE_NAME');
 
 describe('app', () => {
   // before first test
-  // cookies and localStorage cleared afterEach test
+  // cookies and localStorage cleared afterEach test by default
   before(() => {
-    cy.seedDb();
+    cy.clearCookies();
+    cy.getCookies().should('be.empty');
+
+    // cy.seedDbViaUI();
+    cy.task('db:seed');
     cy.loginAsAdmin();
   });
 
@@ -20,12 +23,8 @@ describe('app', () => {
   });
 
   after(async () => {
-    // truncate db
-    // await teardown();
-
-    // clear after last test
-    cy.clearCookies();
-    cy.getCookies().should('be.empty');
+    cy.task('db:teardown');
+    // can not and no need to clear cookies here
   });
 
   it('search works', () => {

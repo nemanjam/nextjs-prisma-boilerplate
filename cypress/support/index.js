@@ -31,8 +31,8 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   }
 });
 
-Cypress.Commands.add('seedDb', () => {
-  const seedDb = () => {
+Cypress.Commands.add('seedDbViaUI', () => {
+  const seedDbViaUI = () => {
     cy.intercept('POST', Routes.API.SEED).as('postSeed');
     cy.intercept('POST', '/api/auth/signout').as('postSignOut');
 
@@ -52,7 +52,7 @@ Cypress.Commands.add('seedDb', () => {
     cy.log('seed db success');
   };
 
-  seedDb();
+  seedDbViaUI();
 });
 
 Cypress.Commands.add('loginAsAdmin', () => {

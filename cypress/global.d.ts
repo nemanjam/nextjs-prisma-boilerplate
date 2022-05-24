@@ -2,7 +2,7 @@
 declare global {
   namespace Cypress {
     interface Chainable {
-      seedDb: () => void;
+      seedDbViaUI: () => void;
       loginAsAdmin: () => void;
     }
   }

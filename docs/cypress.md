@@ -95,7 +95,7 @@ context('post page', () => {
 });
 ```
 
-#### Cookies
+### Cookies
 
 - whole next-auth session is in `next-auth.session-token` cookie
 
@@ -113,6 +113,7 @@ beforeEach(() => {
 });
 
 // clear after last test, so next run can run
+// no, clear cookies in before(), this causes warning
 after(async () => {
   cy.clearCookies();
   cy.getCookies().should('be.empty');
@@ -122,4 +123,57 @@ const loginAsAdmin = () => {
   // assert cookie after login
   cy.getCookie(cookieName).should('exist');
 };
+```
+
+### Commands
+
+```ts
+// cypress/support/index.js
+
+Cypress.Commands.add('loginAsAdmin', () => {
+  // ...
+});
+
+// usage
+cy.loginAsAdmin();
+```
+
+- types for commands
+
+```ts
+// cypress/global.d.ts
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      seedDbViaUI: () => void;
+      loginAsAdmin: () => void;
+    }
+  }
+}
+
+export {};
+```
+
+### Tasks
+
+- use **tasks** in `cypress/plugins/index.js` to seed, teardown, not commands, returns promise and blocks, run any node process, [tutorial](https://timdeschryver.dev/blog/reseed-your-database-with-cypress#modifying-the-timeout-time), [docs](https://docs.cypress.io/api/commands/task#Return-number-of-files-in-the-folder), [example](https://github.dev/yeungalan0/site-monorepo/blob/main/my_site/cypress/support/commands.ts)
+
+```ts
+// cypress/plugins/index.js
+
+on('task', {
+  'db:seed': async () => {
+    await seedInstance.handledSeed();
+    return null;
+  },
+  'db:teardown': async () => {
+    await seedInstance.handledDeleteAllTables();
+    return null;
+  },
+});
+
+// call
+cy.task('db:seed');
+cy.task('db:teardown');
 ```

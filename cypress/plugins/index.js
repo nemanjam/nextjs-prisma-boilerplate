@@ -12,6 +12,9 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
+const { SeedSingleton } = require('../../prisma/seed.js');
+const seedInstance = SeedSingleton.getInstance();
+
 /**
  * @type {Cypress.PluginConfig}
  */
@@ -19,4 +22,14 @@
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-}
+  on('task', {
+    'db:seed': async () => {
+      await seedInstance.handledSeed();
+      return null;
+    },
+    'db:teardown': async () => {
+      await seedInstance.handledDeleteAllTables();
+      return null;
+    },
+  });
+};

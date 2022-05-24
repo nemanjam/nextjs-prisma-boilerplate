@@ -24,6 +24,7 @@ export const testClient = (
 
 /**
  * run in afterAll, once per describe
+ * used in integration tests only, not in Cypress
  */
 export const teardown = async (): Promise<void> => {
   await SeedSingleton.getInstance(prisma).handledDeleteAllTables();
