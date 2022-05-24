@@ -5,7 +5,7 @@ import { Routes } from 'lib-client/constants';
 
 const cookieName = Cypress.env('COOKIE_NAME');
 
-describe('app', () => {
+describe('Home page', () => {
   // before first test
   // cookies and localStorage cleared afterEach test by default
   before(() => {
@@ -27,13 +27,9 @@ describe('app', () => {
     // can not and no need to clear cookies here
   });
 
-  it('search works', () => {
-    // --------------
-    // test search, logged out
+  it('search form filters posts by user', () => {
+    // either logged in or logged out
     cy.visit('/');
-
-    // wait for navbar to load
-    // cy.findByText(/log in/i).should('exist');
 
     // needed for wait()
     cy.intercept('GET', `${Routes.API.POSTS}*`).as('searchPosts');
@@ -74,13 +70,9 @@ describe('app', () => {
       });
   });
 
-  it('pagination works', () => {
-    // -----------
-    // test pagination, logged out
+  it('pagination next and previous works', () => {
+    // either logged in or logged out
     cy.visit('/');
-
-    // wait for navbar to load
-    // cy.findByText(/log in/i).should('exist');
 
     cy.findByRole('button', { name: /1/i }).should('have.class', 'button--primary');
     cy.findByRole('button', { name: /next/i }).click();
@@ -178,102 +170,14 @@ describe('app', () => {
       });
   });
 
-  // just for this test and postTitle var
-  context('post page', () => {
-    beforeEach(() => {
-      // home page, must be logged in
-      cy.visit('/');
-      // assert logged in as admin
-      cy.findByText(/^log out$/i).should('exist');
-
-      cy.get('.home__list .post-item:first-child h2').invoke('text').as('postTitle');
-    });
-
-    // MUST use function() instead of () => {} for this
-    it('post page, edit post', function () {
-      // remember title
-      const postTitle = this.postTitle as string;
-
-      // click title
-      cy.findByRole('heading', { name: RegExp(postTitle, 'i') })
-        .should('exist')
-        .click();
-
-      // assert we left Home page because of same heading
-      cy.findByRole('heading', { name: /home/i }).should('not.exist');
-
-      // assert post page
-      cy.url().should('match', RegExp(`/${fakeUser.username}/post/\\d+`, 'i'));
-      cy.findByRole('heading', { name: RegExp(postTitle, 'i') }).should('exist');
-      cy.log('arrived on Post page');
-
-      cy.log('Edit postTitle:' + postTitle);
-
-      // click edit
-      cy.findByText(/^edit$/i)
-        .should('exist')
-        .click();
-
-      // assert create/edit post page
-      cy.url().should('match', /\/post\/create\/\d+/i);
-      cy.log('arrived on Edit page');
-
-      cy.findByRole('heading', { name: /edit post/i }).should('exist');
-      cy.findByRole('textbox', { name: /title/i }).should('have.value', postTitle);
-
-      // must be before click()
-      cy.intercept('PATCH', `${Routes.API.POSTS}*`).as('patchPost');
-
-      // edit title
-      const editedTitle = `Edited: ${postTitle}`;
-      cy.findByRole('textbox', { name: /title/i }).clear().type(editedTitle);
-      cy.findByRole('button', { name: /update/i }).click();
-
-      cy.wait('@patchPost');
-
-      // assert post page with edited title
-      cy.url().should('match', RegExp(`/${fakeUser.username}/post/\\d+`, 'i'));
-      cy.findByRole('heading', { name: RegExp(editedTitle, 'i') }).should('exist');
-    });
-
-    it('post page, delete post', function () {
-      // remember title
-      const postTitle = this.postTitle as string;
-
-      // click title
-      cy.findByRole('heading', { name: RegExp(postTitle, 'i') })
-        .should('exist')
-        .click();
-
-      // assert we left Home page because of same heading
-      cy.findByRole('heading', { name: /home/i }).should('not.exist');
-
-      // assert post page
-      cy.url().should('match', RegExp(`/${fakeUser.username}/post/\\d+`, 'i'));
-      cy.findByRole('heading', { name: RegExp(postTitle, 'i') }).should('exist');
-      cy.log('arrived on Post page');
-
-      cy.log('Delete postTitle:' + postTitle);
-
-      cy.intercept('DELETE', `${Routes.API.POSTS}*`).as('deletePost');
-
-      // click delete
-      cy.findByText(/^delete$/i)
-        .should('exist')
-        .click();
-
-      cy.wait('@deletePost');
-
-      // assert Home page
-      cy.findByRole('heading', { name: /home/i }).should('exist');
-      // assert first post doesnt exist
-      cy.findByRole('heading', { name: RegExp(postTitle, 'i') }).should('not.exist');
-    });
-  });
-  // home: edit btn, delete btn, navbar links, post link, user link
-  // post: edit, delete
+  // home: edit btn, delete btn, post link, user link, done
+  // post: edit, delete, done
+  // ------------
+  // navbar links
   // profile: render
   // settings, create
   // register
   // log out
+  // seed ui test
+  // separate files
 });
