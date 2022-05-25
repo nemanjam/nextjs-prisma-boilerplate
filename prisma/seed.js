@@ -2,6 +2,8 @@
 // without dev dependencies
 // process.env.DATABASE_URL must be defined, not from client, but in schema
 
+process.env.DEBUG = '*';
+
 const { PrismaClient } = require('@prisma/client');
 const { hashSync } = require('bcryptjs');
 const { lorem } = require('@faker-js/faker').faker;
@@ -144,7 +146,7 @@ class SeedSingleton {
 
   async handledDeleteAllTables() {
     try {
-      this.deleteAllTables();
+      await this.deleteAllTables();
     } catch (error) {
       console.error('Handled delete tables error:', error);
     }
@@ -152,7 +154,7 @@ class SeedSingleton {
 
   async handledSeed() {
     try {
-      this.seed();
+      await this.seed();
     } catch (error) {
       console.error('Handled seed error:', error);
     }
@@ -167,6 +169,7 @@ class SeedSingleton {
       this.prisma.verificationToken.deleteMany(),
       this.prisma.user.deleteMany(),
     ]);
+    console.log('Tables deleted.');
   }
 
   // just require file, or fn will be called 2 times

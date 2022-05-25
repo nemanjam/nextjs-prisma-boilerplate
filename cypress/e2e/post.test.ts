@@ -11,6 +11,8 @@ describe('Post:id page', () => {
     cy.getCookies().should('be.empty');
 
     // cy.seedDbViaUI();
+    // cy.task('db:teardown');
+
     cy.task('db:seed');
     cy.loginAsAdmin();
   });
@@ -24,7 +26,7 @@ describe('Post:id page', () => {
   });
 
   // just for this test and postTitle var
-  context('post page', () => {
+  context.skip('post page', () => {
     beforeEach(() => {
       // home page, must be logged in
       cy.visit('/');

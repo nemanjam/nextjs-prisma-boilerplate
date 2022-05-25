@@ -37,6 +37,7 @@ services:
       - .env.local
     networks:
       - internal-dev
+      - external-host
 
   adminer-dev:
     image: 'adminer:4.8.1-standalone'
@@ -47,6 +48,7 @@ services:
       - npb-db-dev
     networks:
       - internal-dev
+      - external-host
 
 volumes:
   npb-dev-node_modules:
@@ -55,3 +57,5 @@ volumes:
 networks:
   internal-dev:
     external: false
+  external-host:
+    external: true

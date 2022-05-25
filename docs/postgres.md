@@ -56,4 +56,60 @@ volumes:
 
 ### Adminer custom port
 
+- access on `http://localhost:8080/`
 - set e.g. `localhost:5433` in the server text input field (html form)
+- containers access other containers with service name (on same network, internal or external)
+- from host access containers via `localhost`
+
+- local test-db:
+
+```bash
+# .env.test.local
+
+# npb-db-test and adminer-dev must be on same external network external-host
+server: npb-db-test:5435
+username: postgres_user
+password: password
+database: npb-db-test
+
+# start test db
+docker-compose -f docker-compose.test.yml -p npb-test up -d npb-db-test
+# start adminer-dev
+docker-compose -f docker-compose.dev.yml -p npb-dev up -d  adminer-dev
+
+```
+
+- local dev-db:
+
+```bash
+# .env.local
+
+server: npb-db-dev:5432
+username: postgres_user
+password: password
+database: npb-db-dev
+```
+
+### Truncate all tables from Postgres database
+
+- stackoverflow (works, tested), stored procedure per database level, [example](https://stackoverflow.com/questions/2829158/truncating-all-tables-in-a-postgres-database)
+
+```sql
+-- first create stored procedure in db
+
+CREATE OR REPLACE FUNCTION truncate_tables(username IN VARCHAR) RETURNS void AS $$
+DECLARE
+    statements CURSOR FOR
+        SELECT tablename FROM pg_tables
+        WHERE tableowner = username AND schemaname = 'public';
+BEGIN
+    FOR stmt IN statements LOOP
+        EXECUTE 'TRUNCATE TABLE ' || quote_ident(stmt.tablename) || ' CASCADE;';
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+-- then call with POSTGRES_USER=postgres_user from .env*.local
+
+SELECT truncate_tables('postgres_user');
+```

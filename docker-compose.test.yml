@@ -38,6 +38,7 @@ services:
       - .env.test.local
     networks:
       - internal-test
+      - external-host
 
 volumes:
   npb-test-node_modules:
@@ -47,3 +48,6 @@ volumes:
 networks:
   internal-test:
     external: false
+  # for adminer dev d-c
+  external-host:
+    external: true

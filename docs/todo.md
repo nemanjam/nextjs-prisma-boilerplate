@@ -107,6 +107,7 @@
 - node env?
 - api integration tests with Supertest, setup teardown db seed
 - Github Actions lint, typescript, all tests
+- seed and teardown tasks called but dont work from Cypress?, both work as yarn script
 
 ### Overview
 
