@@ -39,7 +39,7 @@ Cypress.Commands.add('seedDbViaUI', () => {
     // seed
     cy.visit('/');
 
-    cy.findByText(/log in/i).should('exist');
+    cy.findByText(/^log in$/i).should('exist');
     cy.findByRole('link', { name: /reseed/i }).click();
     cy.wait('@postSeed');
 

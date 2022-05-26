@@ -11,8 +11,6 @@ describe('Post:id page', () => {
     cy.getCookies().should('be.empty');
 
     // cy.seedDbViaUI();
-    // cy.task('db:teardown');
-
     cy.task('db:seed');
     cy.loginAsAdmin();
   });
@@ -21,7 +19,7 @@ describe('Post:id page', () => {
     Cypress.Cookies.preserveOnce(cookieName);
   });
 
-  after(async () => {
+  after(() => {
     cy.task('db:teardown');
   });
 

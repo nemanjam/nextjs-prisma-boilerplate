@@ -54,7 +54,7 @@ cy.wait('@searchPosts');
 ```ts
 // assert redirect to home
 cy.url().should('eq', Cypress.config().baseUrl + '/');
-cy.findByRole('heading', { name: /home/i });
+cy.findByRole('heading', { name: /^home$/i }).should('exist');
 ```
 
 - todo: mock session [discussion](https://github.com/nextauthjs/next-auth/discussions/2053)

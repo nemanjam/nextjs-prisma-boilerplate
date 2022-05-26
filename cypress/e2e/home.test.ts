@@ -172,12 +172,11 @@ describe('Home page', () => {
 
   // home: edit btn, delete btn, post link, user link, done
   // post: edit, delete, done
-  // ------------
   // navbar links
+  // log out
+  // ------------
   // profile: render
   // settings, create
   // register
-  // log out
   // seed ui test
-  // separate files
 });
