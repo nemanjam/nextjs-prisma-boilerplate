@@ -174,9 +174,9 @@ describe('Home page', () => {
   // post: edit, delete, done
   // navbar links
   // log out
-  // ------------
   // profile: render
   // settings, create
   // register
+  // ------------
   // seed ui test
 });

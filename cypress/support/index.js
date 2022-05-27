@@ -73,22 +73,27 @@ Cypress.Commands.add('loginAsAdmin', () => {
       .click();
 
     // assert login page
-    cy.url().should('include', '/auth/login/');
+    cy.url().should('include', Routes.SITE.LOGIN);
     cy.findByRole('heading', { name: /login/i }).should('be.visible');
 
     // login as admin
     cy.findByRole('textbox', { name: /email/i }).type(fakeUser.email);
     cy.findByLabelText(/^password$/i).type(password);
 
+    cy.intercept('POST', '/api/auth/callback/credentials/').as('postLogin');
+
     // submit form
     cy.findByRole('button', { name: /^login$/i }).click();
 
+    // wait http
+    cy.wait('@postLogin');
+
     // assert redirect to home
     cy.url().should('eq', baseUrl + '/');
-    cy.findByRole('heading', { name: /home/i });
+    cy.findByRole('heading', { name: /^home$/i }).should('exist');
 
     // wait login to reflect
-    cy.findByText(/^log out$/i);
+    cy.findByText(/^log out$/i).should('exist');
 
     cy.log('login as admin success');
     cy.getCookie(cookieName).should('exist');
