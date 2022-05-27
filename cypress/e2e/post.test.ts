@@ -24,7 +24,7 @@ describe('Post:id page', () => {
   });
 
   // just for this test and postTitle var
-  context.skip('post page', () => {
+  context('post page', () => {
     beforeEach(() => {
       // home page, must be logged in
       cy.visit('/');
