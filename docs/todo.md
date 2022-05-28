@@ -111,8 +111,9 @@
 
 ### Overview
 
+- Cypress Docker
+- yarn scripts
 - Github Actions tests, lint, type-check, format
-- cypress config and test
 - basic readme
 - fix errors: settings form reset, image backend
 - deployment with ssh actions
@@ -247,3 +248,4 @@
 - Suspense, ErrorBoundary, test with api 400, ssr works then csr fails..., done
 - error tests, now i have ErrorBoundaries and error handling, done
 - node tests, done
+- cypress config and test, done

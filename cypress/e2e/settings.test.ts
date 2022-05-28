@@ -2,7 +2,6 @@
 //
 import { fakeUser } from 'test-client/server/fake-data';
 import { Routes } from 'lib-client/constants';
-import { clear } from 'console';
 
 const cookieName = Cypress.env('COOKIE_NAME');
 
@@ -54,7 +53,7 @@ describe('Settings page', () => {
       });
   });
 
-  it.only('update name and check it on profile page', () => {
+  it('update name and check it on profile page', () => {
     cy.visit(Routes.SITE.SETTINGS);
     const updatedName = `Updated: ${fakeUser.name}`;
 
