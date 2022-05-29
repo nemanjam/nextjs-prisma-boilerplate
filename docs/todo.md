@@ -105,7 +105,6 @@
 - default theme fallback
 - run docker-compose as non root to avoid mount folders as root
 - node env?
-- api integration tests with Supertest, setup teardown db seed
 - Github Actions lint, typescript, all tests
 - seed and teardown tasks called but dont work from Cypress?, both work as yarn script
 
@@ -249,3 +248,4 @@
 - error tests, now i have ErrorBoundaries and error handling, done
 - node tests, done
 - cypress config and test, done
+- api integration tests with Supertest, setup teardown db seed, done
