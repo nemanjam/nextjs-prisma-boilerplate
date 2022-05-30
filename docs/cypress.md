@@ -181,3 +181,12 @@ cy.task('db:teardown');
 ### Cypress Docker
 
 - Bahmutov tutorial [docs](https://www.cypress.io/blog/2019/05/02/run-cypress-with-a-single-docker-command/#testing-site-on-host)
+- test online website with `cypress/included:4.1.0` Docker image[cypress-example-docker-compose-included](https://github.com/cypress-io/cypress-example-docker-compose-included), make `npb-e2e-chrome` service
+- app and cypress Dockerfiles and d-c.yml services, Dockerfile needed for **additional** npm dev packages in Cypress image [cypress-io/cypress-example-docker-compose](https://github.com/cypress-io/cypress-example-docker-compose), **realistic usecase, app and tests in Docker**, no Github Actions
+
+### Cypress Github Actions
+
+- [docs](https://docs.cypress.io/guides/continuous-integration/github-actions)
+- example repo [bahmutov/cypress-gh-action-included](https://github.com/bahmutov/cypress-gh-action-included)
+- docker-compose up -d db-containers in Github Actions [bahmutov/chat.io](https://github.com/bahmutov/chat.io)
+- for Cypress in GA use `cypress-io/github-action@v2` action or `cypress/included:4.1.0` docker container???

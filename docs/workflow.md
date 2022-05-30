@@ -7,6 +7,7 @@
 - work much better after interesting free day
 - clean system to make decision only once and not reinvent on every page
 - system vs decision fatigue
+- thorough research, easy work later, understand domain better
 
 ### Readme description
 
