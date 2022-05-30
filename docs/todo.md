@@ -85,7 +85,7 @@
 - avatar thrown out of the form state??? form.reset() not working...
 - zod.safeParse.error type
 - \_error.tsx, Custom500.tsx pages?
-- cv testing, react query, next, react, tailwind, architectures, databases, devcontainers, traefik, homelab
+- cv testing, react query, next, react, tailwind, cypress, architectures, databases, devcontainers, traefik, homelab
 - empty state, home, profile... data.items: []
 - SettingsView test fails because of react-hook-form
 - rewrite yarn scripts with :, script.sh
