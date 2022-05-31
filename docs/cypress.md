@@ -191,6 +191,8 @@ cy.task('db:teardown');
 - docker-compose up -d db-containers in Github Actions [bahmutov/chat.io](https://github.com/bahmutov/chat.io)
 - for Cypress in GA use `cypress-io/github-action@v2` action or `cypress/included:4.1.0` docker container???
 - Cypress Github Actions example, jobs: install, install-windows, ui-chrome-tests, ui-chrome-mobile-tests, ui-firefox-tests, no docker-compose.yml [cypress-realworld-app](https://github.com/cypress-io/cypress-realworld-app), **complete CI example**
+- if you want te reuse local Cypress Docker container in GA you must rebuilt container each time, for additional yarn dependencies? Better use `cypress-io/github-action@v2`
+- ` actions/upload-artifact@v3`, `actions/download-artifact@v3` to share build **and dependencies** between jobs
 
 ```yaml
 jobs:
