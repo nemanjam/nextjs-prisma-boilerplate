@@ -190,3 +190,49 @@ cy.task('db:teardown');
 - example repo [bahmutov/cypress-gh-action-included](https://github.com/bahmutov/cypress-gh-action-included)
 - docker-compose up -d db-containers in Github Actions [bahmutov/chat.io](https://github.com/bahmutov/chat.io)
 - for Cypress in GA use `cypress-io/github-action@v2` action or `cypress/included:4.1.0` docker container???
+- Cypress Github Actions example, jobs: install, install-windows, ui-chrome-tests, ui-chrome-mobile-tests, ui-firefox-tests, no docker-compose.yml [cypress-realworld-app](https://github.com/cypress-io/cypress-realworld-app), **complete CI example**
+
+```yaml
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    # image with just browsers without Cypress
+    container: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # just install Cypress on bare image with browsers
+      # action can install Cypress and run tests
+      # probably to avoid Dockerfile with additional dependecies?
+      # actually to reuse install step
+      - name: Cypress install
+        uses: cypress-io/github-action@v2
+        with:
+          runTests: false
+
+        # reuse - save built code between jobs
+        - name: Save build folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          if-no-files-found: error
+          path: build
+
+  # reause install job in other jobs
+  ui-chrome-tests:
+    # this, like depends_on
+    needs: install
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+        # use built code it like this in ui-chrome-tests job
+      - name: Download the build folders
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: build
+
+```
