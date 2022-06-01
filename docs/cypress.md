@@ -258,9 +258,3 @@ jobs:
 // and not this (moves only cypress.json)
 "cypress": "cypress open --config-file tests-e2e/cypress.json",
 ```
-
-```
-Deleting avatars ...
-[Error: ENOENT: no such file or directory, scandir '/home/username/Desktop/nextjs-prisma-boilerplate/tests-e2e/uploads/avatars/'] {
-__dirname, cwd() seed
-```

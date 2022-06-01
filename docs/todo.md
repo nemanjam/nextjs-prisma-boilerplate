@@ -106,8 +106,7 @@
 - run docker-compose as non root to avoid mount folders as root
 - node env?
 - Github Actions lint, typescript, all tests
-- seed and teardown tasks called but dont work from Cypress?, both work as yarn script
-- reause env script in yarn `"blank-script": "dotenv -e .env.local -- sh -c 'echo $DATABASE_URL'"`, dotenv discusions ???
+- reuse env script in yarn `"blank-script": "dotenv -e .env.local -- sh -c 'echo $DATABASE_URL'"`, dotenv discusions ???
 
 ### Overview
 
@@ -250,3 +249,4 @@
 - node tests, done
 - cypress config and test, done
 - api integration tests with Supertest, setup teardown db seed, done
+- seed and teardown tasks called but dont work from Cypress?, both work as yarn script, wrong database and .env file, dev, done

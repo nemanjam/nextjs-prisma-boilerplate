@@ -40,6 +40,23 @@ services:
       - internal-test
       - external-host
 
+  npb-e2e:
+    image: npb-e2e
+    build:
+      context: ./tests-e2e
+      dockerfile: Dockerfile
+    container_name: npb-e2e
+    depends_on:
+      - npb-app-test
+    environment:
+      - CYPRESS_baseUrl=http://npb-app-test
+    command: npx cypress run
+    volumes:
+      - ./tests-e2e/cypress:/app/cypress
+      - ./tests-e2e/cypress.json:/app/cypress.json
+    networks:
+      - internal-test
+
 volumes:
   npb-test-node_modules:
   npb-test-next:

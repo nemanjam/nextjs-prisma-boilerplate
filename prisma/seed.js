@@ -2,7 +2,7 @@
 // without dev dependencies
 // process.env.DATABASE_URL must be defined, not from client, but in schema
 
-process.env.DEBUG = '*';
+// process.env.DEBUG = '*';
 
 const { PrismaClient } = require('@prisma/client');
 const { hashSync } = require('bcryptjs');
@@ -10,7 +10,9 @@ const { lorem } = require('@faker-js/faker').faker;
 const { readdir, unlink } = require('fs');
 const { promisify } = require('util');
 const { loadEnvConfig } = require('@next/env');
-const rootDirAbsolutePath = process.cwd();
+const { join } = require('path');
+
+const rootDirAbsolutePath = join(__dirname, '..');
 
 // load process.env.DATABASE_URL from .env.local
 loadEnvConfig(rootDirAbsolutePath);
@@ -176,7 +178,9 @@ class SeedSingleton {
   // without exception handling here
   async seed() {
     console.log('Start seeding ...');
-    console.log('DATABASE_URL:', process.env.DATABASE_URL);
+    console.log('avatarsFolderAbsolutePath:', avatarsFolderAbsolutePath);
+    console.log('headersFolderAbsolutePath:', headersFolderAbsolutePath, '\n');
+    console.log('DATABASE_URL:', process.env.DATABASE_URL, '\n');
 
     await deleteAllAvatars();
     await deleteAllHeaderImages();
