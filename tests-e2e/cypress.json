@@ -1,7 +1,6 @@
 {
   "baseUrl": "http://localhost:3001",
   "chromeWebSecurity": false,
-  "integrationFolder": "cypress/e2e",
   "video": false,
   "env": {
     "COOKIE_NAME": "next-auth.session-token",

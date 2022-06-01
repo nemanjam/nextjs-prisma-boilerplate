@@ -181,13 +181,21 @@ cy.task('db:teardown');
 ### Cypress Docker
 
 - Bahmutov tutorial [docs](https://www.cypress.io/blog/2019/05/02/run-cypress-with-a-single-docker-command/#testing-site-on-host)
-- test online website with `cypress/included:4.1.0` Docker image[cypress-example-docker-compose-included](https://github.com/cypress-io/cypress-example-docker-compose-included), make `npb-e2e-chrome` service
-- app and cypress Dockerfiles and d-c.yml services, Dockerfile needed for **additional** npm dev packages in Cypress image [cypress-io/cypress-example-docker-compose](https://github.com/cypress-io/cypress-example-docker-compose), **realistic usecase, app and tests in Docker**, no Github Actions
+- test **online** website with `cypress/included:4.1.0` Docker image[cypress-example-docker-compose-included](https://github.com/cypress-io/cypress-example-docker-compose-included), make `npb-e2e-chrome` service
+- **app** and cypress Dockerfiles and d-c.yml services, Dockerfile needed for **additional** npm devDependencies in Cypress image [cypress-io/cypress-example-docker-compose](https://github.com/cypress-io/cypress-example-docker-compose), **realistic usecase, app and tests in Docker**, no Github Actions, custom Cypress install from **package.json** and base image (only needed for custom cypress install)
+- custom install - **any imports inside `/cypress` folder**
+
+```ts
+// cypress/support/commands.js
+import '@testing-library/cypress/add-commands';
+```
+
+- run test as correct non-root user from host [repo](https://github.com/cypress-io/cypress-docker-images/tree/master/examples/included-as-non-root-mapped), this [Dockerfile](https://github.com/cypress-io/cypress-docker-images/blob/master/examples/included-as-non-root-mapped/Dockerfile), create user and group `appuser` with ids from the host passed via ARG
 
 ### Cypress Github Actions
 
 - [docs](https://docs.cypress.io/guides/continuous-integration/github-actions)
-- example repo [bahmutov/cypress-gh-action-included](https://github.com/bahmutov/cypress-gh-action-included)
+- example repo [bahmutov/cypress-gh-action-included](https://github.com/bahmutov/cypress-gh-action-included) - **this one, additional dependencies**
 - docker-compose up -d db-containers in Github Actions [bahmutov/chat.io](https://github.com/bahmutov/chat.io)
 - for Cypress in GA use `cypress-io/github-action@v2` action or `cypress/included:4.1.0` docker container???
 - Cypress Github Actions example, jobs: install, install-windows, ui-chrome-tests, ui-chrome-mobile-tests, ui-firefox-tests, no docker-compose.yml [cypress-realworld-app](https://github.com/cypress-io/cypress-realworld-app), **complete CI example**
@@ -237,4 +245,22 @@ jobs:
           name: build
           path: build
 
+```
+
+### Custom Cypress folder
+
+- `--config-file` vs `--project` [github](https://github.com/cypress-io/cypress-test-nested-projects#faq)
+- [docs](https://docs.cypress.io/guides/guides/command-line#cypress-open-project-lt-project-path-gt)
+
+```json
+// i need this (moves entire folder with default cypress.json)
+"cypress": "cypress open --project ./tests-e2e",
+// and not this (moves only cypress.json)
+"cypress": "cypress open --config-file tests-e2e/cypress.json",
+```
+
+```
+Deleting avatars ...
+[Error: ENOENT: no such file or directory, scandir '/home/username/Desktop/nextjs-prisma-boilerplate/tests-e2e/uploads/avatars/'] {
+__dirname, cwd() seed
 ```

@@ -173,3 +173,7 @@ build-args: |
 
 - separate container is needed and Github Action job, keep 2 images on Dockerhub, versions must match
 - keep migration in same image for simplicity
+
+### Run volumes as current (non root) user
+
+- [stackoverflow](https://stackoverflow.com/questions/40462189/docker-compose-set-user-and-group-on-mounted-volume)

@@ -12,7 +12,7 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-const { SeedSingleton } = require('../../prisma/seed.js');
+const { SeedSingleton } = require('../../../prisma/seed.js');
 const seedInstance = SeedSingleton.getInstance();
 
 /**

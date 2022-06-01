@@ -107,6 +107,7 @@
 - node env?
 - Github Actions lint, typescript, all tests
 - seed and teardown tasks called but dont work from Cypress?, both work as yarn script
+- reause env script in yarn `"blank-script": "dotenv -e .env.local -- sh -c 'echo $DATABASE_URL'"`, dotenv discusions ???
 
 ### Overview
 
