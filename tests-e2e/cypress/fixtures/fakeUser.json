@@ -1,0 +1,14 @@
+{
+  "id": "65ef4a7a-f197-4fad-a7ec-9f62554411da",
+  "name": "user0 name",
+  "username": "user0",
+  "email": "user0@email.com",
+  "image": "avatar0.jpg",
+  "headerImage": "header0.jpg",
+  "bio": "Suscipit vel rerum id cumque qui doloremque occaecati aut laboriosam.",
+  "role": "admin",
+  "createdAt": "2022-06-02T11:36:54.246Z",
+  "updatedAt": "2022-06-02T11:36:54.246Z",
+  "provider": "credentials",
+  "emailVerified": null
+}

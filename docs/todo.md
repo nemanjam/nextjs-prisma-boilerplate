@@ -107,6 +107,7 @@
 - node env?
 - Github Actions lint, typescript, all tests
 - reuse env script in yarn `"blank-script": "dotenv -e .env.local -- sh -c 'echo $DATABASE_URL'"`, dotenv discusions ???
+- lib-client/constants.ts in typescript cypress import?
 
 ### Overview
 
@@ -250,3 +251,4 @@
 - cypress config and test, done
 - api integration tests with Supertest, setup teardown db seed, done
 - seed and teardown tasks called but dont work from Cypress?, both work as yarn script, wrong database and .env file, dev, done
+- register test fails? useUser invalid id, solution: i had to log out by clearing cookies, done

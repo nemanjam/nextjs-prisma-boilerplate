@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 //
-import { fakeUser } from 'test-client/server/fake-data';
 import { Routes } from 'lib-client/constants';
+const fakeUser = require('../fixtures/fakeUser');
 
 const cookieName = Cypress.env('COOKIE_NAME');
 

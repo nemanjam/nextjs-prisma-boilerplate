@@ -262,9 +262,11 @@ jobs:
 - **cypress container needs:** @testing-library/cypress, prisma, typescript, all imported files from next app, seed.js, all imports from seed.js (bcryptjs, faker), wait-on
 - be careful with imports from next.js app in Cypress tests, you need to copy them in container for Docker, **and iports of their imports...**
 
-- fakeUser as fixture...?
+- fakeUser as fixture, and not import from next.js app, [docs](https://docs.cypress.io/api/commands/fixture), just require json
 
 ```ts
 // 2-advanced-examples/files.spec.js
 const requiredExample = require('../../fixtures/example');
 ```
+
+- if dates are needed use reviver callback [stackoverflow](https://stackoverflow.com/questions/4511705/how-to-parse-json-to-receive-a-date-object-in-javascript)

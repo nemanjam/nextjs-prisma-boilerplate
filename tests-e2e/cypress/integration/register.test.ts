@@ -4,6 +4,10 @@ import { Routes } from 'lib-client/constants';
 
 describe('Register page', () => {
   before(() => {
+    // must log out explicitly from previous test
+    cy.clearCookies();
+    cy.getCookies().should('be.empty');
+
     cy.task('db:seed');
   });
 
@@ -11,6 +15,7 @@ describe('Register page', () => {
     cy.task('db:teardown');
   });
 
+  const timeout = 10 * 1000;
   const baseUrl = Cypress.config().baseUrl;
   const cookieName = Cypress.env('COOKIE_NAME');
   const newUser = {
@@ -25,7 +30,7 @@ describe('Register page', () => {
   it('register new user and check his profile', () => {
     // check we are logged out
     cy.visit('/');
-    cy.findByText(/^log in$/i).should('exist');
+    cy.findByText(/^log in$/i, { timeout }).should('exist');
 
     // register -------------------
 

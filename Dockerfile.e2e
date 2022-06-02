@@ -28,7 +28,6 @@ RUN rm -rf prisma
 
 # copy imported files in tests from next.js app
 COPY prisma/seed.js ./prisma/seed.js
-COPY test-client/server/fake-data.ts ./test-client/server/fake-data.ts
 COPY lib-client/constants.ts ./lib-client/constants.ts
 
 
