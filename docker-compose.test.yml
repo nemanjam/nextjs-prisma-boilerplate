@@ -1,6 +1,8 @@
 version: '3.8'
 services:
   npb-app-test:
+    # image name, set it everywhere
+    image: npb-app-test
     container_name: npb-app-test
     build:
       context: .
@@ -8,7 +10,7 @@ services:
     # container:app-process
     ports:
       - '3001:3001'
-    #command: sleep infinity
+    command: yarn docker:test:start
     volumes:
       # must see src changes, frontend build prod
       - ./:/app
@@ -42,18 +44,25 @@ services:
 
   npb-e2e:
     image: npb-e2e
-    build:
-      context: ./tests-e2e
-      dockerfile: Dockerfile
     container_name: npb-e2e
+    build:
+      # must be in root to include prisma
+      context: .
+      dockerfile: Dockerfile.e2e
     depends_on:
       - npb-app-test
     environment:
-      - CYPRESS_baseUrl=http://npb-app-test
-    command: npx cypress run
+      - CYPRESS_baseUrl=http://npb-app-test:3001
+    # only db_url for seed
+    env_file:
+      - .env.test.local
+    command: npx wait-on http://npb-app-test:3001 && npx cypress run --project ./tests-e2e
+    # only tests can be edited without rebuilding
+    # imports from next.js app are copied in Dockerfile
+    # app is prod built anyway
     volumes:
-      - ./tests-e2e/cypress:/app/cypress
-      - ./tests-e2e/cypress.json:/app/cypress.json
+      - ./tests-e2e/cypress:/app/tests-e2e/cypress
+      - ./tests-e2e/cypress.json:/app/tests-e2e/cypress.json
     networks:
       - internal-test
 

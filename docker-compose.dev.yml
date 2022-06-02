@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   npb-app-dev:
+    image: npb-app-dev
     container_name: npb-app-dev
     build:
       context: .

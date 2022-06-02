@@ -1,8 +1,8 @@
 version: '3.8'
 services:
   npb-app-prod:
+    image: npb-app-prod
     container_name: npb-app-prod
-    # image: npb-app-prod:latest
     build:
       context: .
       dockerfile: Dockerfile.prod

@@ -48,5 +48,6 @@ EXPOSE 3001
 ENV PORT 3001
 
 # migrate prod, build app, start prod
-# just migrate and shut down
+# just migrate and shut down - for integration tests
+# && start for e2e
 CMD [ "yarn", "prisma:migrate:prod" ]

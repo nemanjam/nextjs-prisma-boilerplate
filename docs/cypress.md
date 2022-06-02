@@ -258,3 +258,13 @@ jobs:
 // and not this (moves only cypress.json)
 "cypress": "cypress open --config-file tests-e2e/cypress.json",
 ```
+
+- **cypress container needs:** @testing-library/cypress, prisma, typescript, all imported files from next app, seed.js, all imports from seed.js (bcryptjs, faker), wait-on
+- be careful with imports from next.js app in Cypress tests, you need to copy them in container for Docker, **and iports of their imports...**
+
+- fakeUser as fixture...?
+
+```ts
+// 2-advanced-examples/files.spec.js
+const requiredExample = require('../../fixtures/example');
+```

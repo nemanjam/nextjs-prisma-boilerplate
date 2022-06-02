@@ -44,7 +44,7 @@
     "docker:test:up": "docker-compose -f docker-compose.test.yml -p npb-test up -d --build --force-recreate",
     "docker:test:down": "docker-compose -f docker-compose.test.yml down -v --remove-orphans",
     "docker:test:integration": "docker-compose -f docker-compose.test.yml -p npb-test run --rm npb-app-test sh -c 'yarn test:server:integration'",
-    "cmd:start:test": "yarn prisma:migrate:prod && yarn build && yarn start",
+    "docker:test:start": "yarn prisma:migrate:prod && yarn build && yarn start",
     "prisma:migrate:prod": "npx prisma migrate deploy",
     "cypress": "cypress open --project ./tests-e2e",
     "cypress:headless": "cypress run --project ./tests-e2e",
@@ -52,7 +52,7 @@
     "test:e2e": "start-server-and-test start:e2e 3001 cypress",
     "test:e2e:env": "dotenv -e .env.test.local -- sh -c 'yarn test:e2e'",
     "test:e2e:headless": "start-server-and-test start:e2e 3001 cypress:headless",
-    "docker:test:e2e:up": "docker-compose -f docker-compose.test.yml -p npb-test up --abort-on-container-exit --exit-code-from e2e"
+    "docker:test:e2e:up": "docker-compose -f docker-compose.test.yml -p npb-test up"
   },
   "dependencies": {
     "@faker-js/faker": "^6.2.0",

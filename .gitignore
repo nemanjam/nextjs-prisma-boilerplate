@@ -26,3 +26,5 @@ uploads/headers/*
 !uploads/headers/header3.jpg
 !uploads/headers/header4.jpg
 
+# cypress
+tests-e2e/node_modules/

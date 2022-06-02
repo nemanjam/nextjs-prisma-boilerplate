@@ -20,3 +20,6 @@ prisma/pg-data-*
 # named volumes
 .next/
 node_modules/
+
+#cypress
+tests-e2e/node_modules/

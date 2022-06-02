@@ -1,5 +1,7 @@
 # this Dockerfile is needed because of @testing-library/cypress
 # import in tests-e2e/cypress/support/commands.js
+# must be in root to include prisma
+# must include all imports from seed: prisma, bcryptjs, faker, next.js...
 
 # 2x smaller size than 16.3 which is in project
 FROM cypress/base:16.14.2
@@ -7,7 +9,10 @@ FROM cypress/base:16.14.2
 WORKDIR /app
 
 # dependencies will be installed only if the package files change
-COPY package.json yarn.lock ./
+COPY tests-e2e/package.json tests-e2e/yarn.lock ./
+
+# add prisma and generate client for seed
+COPY prisma ./prisma
 
 
 # by setting CI environment variable we switch the Cypress install messages
@@ -16,7 +21,21 @@ COPY package.json yarn.lock ./
 ENV CI=1
 RUN yarn install --frozen-lockfile
 
+# dont clean yarn cache
+
+RUN npx prisma generate
+RUN rm -rf prisma
+
+# copy imported files in tests from next.js app
+COPY prisma/seed.js ./prisma/seed.js
+COPY test-client/server/fake-data.ts ./test-client/server/fake-data.ts
+COPY lib-client/constants.ts ./lib-client/constants.ts
+
+
 # verify that Cypress has been installed correctly.
 # running this command separately from "cypress run" will also cache its result
 # to avoid verifying again when running the tests
 RUN npx cypress verify
+
+
+
