@@ -274,3 +274,21 @@ const requiredExample = require('../../fixtures/example');
 ```
 npb-app-test    | error - ESLint: Failed to load plugin 'cypress' declared in '.eslintrc.json': Cannot find module 'eslint-plugin-cypress' Require stack: - /app/__placeholder__.js Referenced from: /app/.eslintrc.json
 ```
+
+### Reusable yarn script - function
+
+```json
+// original
+"test:e2e:env:original": "dotenv -e .env.test.local -- sh -c 'yarn test:e2e'",
+// print args
+"with:env:debug": "fn() { echo \"1=$1 2=$2 3=$3\";}; fn --",
+// fn
+"with:env": "fn() { npx dotenv -e \"$3\" -- bash -c \"$2\";}; fn --",
+// call
+"test:e2e:env": "yarn with:env 'yarn test:e2e' '.env.test.local'"
+//
+// shorter form without yarn and ''
+// always make separate yarn script without :env first
+"with:env": "fn() { npx dotenv -e \"$3\" -- bash -c \"yarn $2\";}; fn --",
+"test:e2e:env": "yarn with:env test:e2e .env.test.local"
+```

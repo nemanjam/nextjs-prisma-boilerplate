@@ -50,7 +50,9 @@
     "cypress:headless": "cypress run --project ./tests-e2e",
     "start:e2e": "NODE_ENV=test node dist/index.js",
     "test:e2e": "start-server-and-test start:e2e 3001 cypress",
-    "test:e2e:env": "dotenv -e .env.test.local -- sh -c 'yarn test:e2e'",
+    "test:e2e:env:original": "dotenv -e .env.test.local -- sh -c 'yarn test:e2e'",
+    "with:env": "fn() { npx dotenv -e \"$3\" -- bash -c \"yarn $2\";}; fn --",
+    "test:e2e:env": "yarn with:env test:e2e .env.test.local",
     "test:e2e:headless": "start-server-and-test start:e2e 3001 cypress:headless",
     "docker:test:e2e:up": "docker-compose -f docker-compose.test.yml -p npb-test up"
   },
