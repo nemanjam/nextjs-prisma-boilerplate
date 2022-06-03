@@ -270,3 +270,7 @@ const requiredExample = require('../../fixtures/example');
 ```
 
 - if dates are needed use reviver callback [stackoverflow](https://stackoverflow.com/questions/4511705/how-to-parse-json-to-receive-a-date-object-in-javascript)
+
+```
+npb-app-test    | error - ESLint: Failed to load plugin 'cypress' declared in '.eslintrc.json': Cannot find module 'eslint-plugin-cypress' Require stack: - /app/__placeholder__.js Referenced from: /app/.eslintrc.json
+```

@@ -31,7 +31,7 @@
     "prisma",
     "themes",
     "server",
-    "cypress"
+    "tests-e2e"
   ],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "ts-node": {

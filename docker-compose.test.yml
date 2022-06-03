@@ -56,7 +56,7 @@ services:
     # only db_url for seed
     env_file:
       - .env.test.local
-    command: npx wait-on http://npb-app-test:3001 && npx cypress run --project ./tests-e2e
+    command: bash -c 'cd /app/tests-e2e && npx wait-on http://npb-app-test:3001 && npx cypress run'
     # only tests can be edited without rebuilding
     # imports from next.js app are copied in Dockerfile
     # app is prod built anyway

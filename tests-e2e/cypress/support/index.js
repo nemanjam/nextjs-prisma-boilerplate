@@ -17,8 +17,9 @@
 import './commands';
 
 // my imports
-import { Routes } from 'lib-client/constants';
-import { fakeUser } from 'test-client/server/fake-data';
+// important: js file, must use relative path, not included in tsconfig.json
+import { Routes } from '../../../lib-client/constants';
+const fakeUser = require('../fixtures/fakeUser');
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
