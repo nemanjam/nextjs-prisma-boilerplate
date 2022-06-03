@@ -7,7 +7,7 @@
 const { PrismaClient } = require('@prisma/client');
 const { hashSync } = require('bcryptjs');
 const { lorem } = require('@faker-js/faker').faker;
-const { readdir, unlink } = require('fs');
+const { readdir, unlink, existsSync } = require('fs');
 const { promisify } = require('util');
 const { loadEnvConfig } = require('@next/env');
 const { join } = require('path');
@@ -77,22 +77,30 @@ const createUsers = (n) => {
 
 const deleteAllAvatars = async () => {
   console.log('Deleting avatars ... ');
+  // check folder exists
+  if (!existsSync(avatarsFolderAbsolutePath)) {
+    console.log(
+      `avatarsFolderAbsolutePath: ${avatarsFolderAbsolutePath} does not exist. Abort deleting avatars.`
+    );
+    return;
+  }
   try {
     const files = await _readdir(avatarsFolderAbsolutePath);
     const unlinkPromises = files.map((filename) => {
-      if (
-        ![
-          'placeholder-avatar.jpg',
-          'avatar0.jpg',
-          'avatar1.jpg',
-          'avatar2.jpg',
-          'avatar3.jpg',
-        ].includes(filename)
-      ) {
+      const isDefaultAvatar = [
+        'placeholder-avatar.jpg',
+        'avatar0.jpg',
+        'avatar1.jpg',
+        'avatar2.jpg',
+        'avatar3.jpg',
+      ].includes(filename);
+
+      if (!isDefaultAvatar) {
         console.log('Deleting avatar: ', filename);
         _unlink(`${avatarsFolderAbsolutePath}${filename}`);
       }
     });
+
     return Promise.all(unlinkPromises);
   } catch (err) {
     console.log(err);
@@ -101,23 +109,30 @@ const deleteAllAvatars = async () => {
 
 const deleteAllHeaderImages = async () => {
   console.log('Deleting headers ... ');
+  if (!existsSync(headersFolderAbsolutePath)) {
+    console.log(
+      `headersFolderAbsolutePath: ${headersFolderAbsolutePath} does not exist. Abort deleting headers.`
+    );
+    return;
+  }
   try {
     const files = await _readdir(headersFolderAbsolutePath);
     const unlinkPromises = files.map((filename) => {
-      if (
-        ![
-          'placeholder-header.jpg',
-          'header0.jpg',
-          'header1.jpg',
-          'header2.jpg',
-          'header3.jpg',
-          'header4.jpg',
-        ].includes(filename)
-      ) {
+      const isDefaultHeader = [
+        'placeholder-header.jpg',
+        'header0.jpg',
+        'header1.jpg',
+        'header2.jpg',
+        'header3.jpg',
+        'header4.jpg',
+      ].includes(filename);
+
+      if (!isDefaultHeader) {
         console.log('Deleting header: ', filename);
         _unlink(`${headersFolderAbsolutePath}${filename}`);
       }
     });
+
     return Promise.all(unlinkPromises);
   } catch (err) {
     console.log(err);

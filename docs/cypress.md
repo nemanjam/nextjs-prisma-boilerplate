@@ -192,6 +192,27 @@ import '@testing-library/cypress/add-commands';
 
 - run test as correct non-root user from host [repo](https://github.com/cypress-io/cypress-docker-images/tree/master/examples/included-as-non-root-mapped), this [Dockerfile](https://github.com/cypress-io/cypress-docker-images/blob/master/examples/included-as-non-root-mapped/Dockerfile), create user and group `appuser` with ids from the host passed via ARG
 
+- **problem:**
+
+```
+ Error: Webpack Compilation Error
+npb-e2e         | [tsl] ERROR
+npb-e2e         |       TS18002: The 'files' list in config file 'tsconfig.json' is empty.
+```
+
+- **solution:** `tsconfig.json` is not mounted in `tests-e2e`, mount it.
+
+- must replace localhost:3001 with npb-app-test:3001 in `cypress.json`, `.env.e2e` ?
+
+```json
+"env": {
+  "COOKIE_NAME": "next-auth.session-token",
+  "SITE_NAME": "http://localhost:3001" // here
+}
+```
+
+- uploads folder for images?
+
 ### Cypress Github Actions
 
 - [docs](https://docs.cypress.io/guides/continuous-integration/github-actions)
@@ -273,6 +294,17 @@ const requiredExample = require('../../fixtures/example');
 
 ```
 npb-app-test    | error - ESLint: Failed to load plugin 'cypress' declared in '.eslintrc.json': Cannot find module 'eslint-plugin-cypress' Require stack: - /app/__placeholder__.js Referenced from: /app/.eslintrc.json
+```
+
+```ts
+// fixed in seed
+npb-e2e         | Deleting avatars ...
+npb-e2e         | [Error: ENOENT: no such file or directory, scandir '/app/uploads/avatars/'] {
+npb-e2e         |   errno: -2,
+npb-e2e         |   code: 'ENOENT',
+npb-e2e         |   syscall: 'scandir',
+npb-e2e         |   path: '/app/uploads/avatars/'
+npb-e2e         | }
 ```
 
 ### Reusable yarn script - function
