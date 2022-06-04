@@ -1,4 +1,7 @@
 version: '3.8'
+
+# this file is used for both api integration tests (with db) and Cypress e2e tests
+
 services:
   npb-app-test:
     # image name, set it everywhere
@@ -17,6 +20,13 @@ services:
       - npb-test-node_modules:/app/node_modules
       - npb-test-next:/app/.next
       - npb-test-dist:/app/dist
+    # docker env override
+    environment:
+      # ref to itself
+      # NEXTAUTH_URL, NEXT_PUBLIC_BASE_URL in axiosInstance, imageLoader
+      - HOSTNAME=npb-app-test
+      # db_url
+      - POSTGRES_HOSTNAME=npb-db-test
     env_file:
       - .env.test
       - .env.test.local
@@ -51,9 +61,12 @@ services:
       dockerfile: Dockerfile.e2e
     depends_on:
       - npb-app-test
+    # docker env override
     environment:
       - CYPRESS_baseUrl=http://npb-app-test:3001
-    # only db_url for seed
+      # seed db_url
+      - POSTGRES_HOSTNAME=npb-db-test
+    # only db_url for seed, no Next.js vars
     env_file:
       - .env.test.local
     command: bash -c 'cd /app/tests-e2e && npx wait-on http://npb-app-test:3001 && npx cypress run'

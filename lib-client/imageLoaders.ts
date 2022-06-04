@@ -9,6 +9,7 @@ export const getAvatarPath = (user: ClientUser): string => {
     : `${Routes.STATIC.AVATARS}${user.image || 'placeholder-avatar.jpg'}`;
 };
 
+// in Head only
 export const getAvatarPathAbsolute = (user: ClientUser): string => {
   return user.image && isUrl(user.image)
     ? user.image
@@ -19,6 +20,8 @@ export const getHeaderImagePath = (user: ClientUser) => {
   return `${Routes.STATIC.HEADERS}${user.headerImage || 'placeholder-header.jpg'}`;
 };
 
+// src isUrl...?
 export const uploadsImageLoader = ({ src, width, quality }: ImageLoaderProps) => {
-  return `${process.env.NEXT_PUBLIC_BASE_URL}${src}?w=${width}&q=${quality || 75}`;
+  const _src = src.replace(/^\//, '');
+  return `${process.env.NEXT_PUBLIC_BASE_URL}${_src}?w=${width}&q=${quality || 75}`;
 };

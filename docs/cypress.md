@@ -281,7 +281,7 @@ jobs:
 ```
 
 - **cypress container needs:** @testing-library/cypress, prisma, typescript, all imported files from next app, seed.js, all imports from seed.js (bcryptjs, faker), wait-on
-- be careful with imports from next.js app in Cypress tests, you need to copy them in container for Docker, **and iports of their imports...**
+- be careful with imports from next.js app in Cypress tests, you need to copy them in container for Docker, **and imports of their imports...**
 
 - fakeUser as fixture, and not import from next.js app, [docs](https://docs.cypress.io/api/commands/fixture), just require json
 
@@ -294,17 +294,6 @@ const requiredExample = require('../../fixtures/example');
 
 ```
 npb-app-test    | error - ESLint: Failed to load plugin 'cypress' declared in '.eslintrc.json': Cannot find module 'eslint-plugin-cypress' Require stack: - /app/__placeholder__.js Referenced from: /app/.eslintrc.json
-```
-
-```ts
-// fixed in seed
-npb-e2e         | Deleting avatars ...
-npb-e2e         | [Error: ENOENT: no such file or directory, scandir '/app/uploads/avatars/'] {
-npb-e2e         |   errno: -2,
-npb-e2e         |   code: 'ENOENT',
-npb-e2e         |   syscall: 'scandir',
-npb-e2e         |   path: '/app/uploads/avatars/'
-npb-e2e         | }
 ```
 
 ### Reusable yarn script - function
@@ -323,4 +312,75 @@ npb-e2e         | }
 // always make separate yarn script without :env first
 "with:env": "fn() { npx dotenv -e \"$3\" -- bash -c \"yarn $2\";}; fn --",
 "test:e2e:env": "yarn with:env test:e2e .env.test.local"
+```
+
+### Cypress env vars
+
+- [docs](https://docs.cypress.io/guides/guides/environment-variables#Overriding-Configuration)
+
+```ts
+// override, most right - most priority
+cypress.config.js -> cypress.env.json -> CYPRESS_*  regular env var -> cypress run --env v1=val -> describe('', {env: {v1: 'val'}}), or it()
+```
+
+- `npb-e2e` container does NOT need access to `uploads` folder, all is in `npb-app-test` and via axios, seed is ok
+
+- env overrides for Docker in `docker-compose.yml`
+
+```yaml
+npb-e2e:
+  # docker env override
+  environment:
+    # only cy.visit(), cy.request() url
+    - CYPRESS_baseUrl=http://npb-app-test:3001
+    # seed db_url
+    - POSTGRES_HOSTNAME=npb-db-test
+  # only db_url for seed, no Next.js vars
+  env_file:
+    - .env.test.local
+```
+
+- app container env overrides, `NEXTAUTH_URL` and db_url, **npb-app-prod?**
+
+```yaml
+# docker-compose.test.yml
+npb-app-test:
+  # docker env override
+  environment:
+    # ref to itself
+    # NEXTAUTH_URL, NEXT_PUBLIC_BASE_URL in axiosInstance, imageLoader
+    # NEXTAUTH_URL=$PROTOCOL://$HOSTNAME:$PORT
+    - HOSTNAME=npb-app-test
+    # db_url
+    - POSTGRES_HOSTNAME=npb-db-test
+  env_file:
+    - .env.test
+    - .env.test.local
+```
+
+```yaml
+# docker-compose.test.yml
+npb-app-dev:
+  # docker env override
+  environment:
+    # ref to itself
+    # NEXTAUTH_URL, NEXT_PUBLIC_BASE_URL in axios, imageLoader
+    - HOSTNAME=npb-app-dev
+    # db_url
+    - POSTGRES_HOSTNAME=npb-db-dev
+  env_file:
+    - .env.development
+    - .env.local
+```
+
+- `environment:` has precedence over `env_file:` in docker-compose.yml
+- look resloved env vars in **Portainer**
+
+```bash
+# expands later, remains same in container
+NEXTAUTH_URL=$PROTOCOL://$HOSTNAME:$PORT
+---
+# must expand immediately for schema migrate, for seed (next.js) doesn't
+# expands immediately, cannot override part
+DATABASE_URL=postgresql://${POSTGRES_USER}...
 ```

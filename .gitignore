@@ -7,7 +7,7 @@ dist/
 /**/tsconfig.tsbuildinfo
 
 .env.local
-.env.test.local
+.env*.local
 
 !uploads/avatars
 uploads/avatars/*

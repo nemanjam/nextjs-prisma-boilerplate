@@ -3,7 +3,6 @@
   "chromeWebSecurity": false,
   "video": false,
   "env": {
-    "COOKIE_NAME": "next-auth.session-token",
-    "SITE_NAME": "http://localhost:3001"
+    "COOKIE_NAME": "next-auth.session-token"
   }
 }

@@ -136,3 +136,14 @@ const MeProvider: FC<ProviderProps> = ({ children }) => {
   );
 };
 ```
+
+### Next.js .env files
+
+- [docs](https://nextjs.org/docs/basic-features/environment-variables)
+- priority (lowest to highest): `.env` -> `.env.development, .env.production` -> `env.local` -> `.env.production.local`
+- for `NODE_ENV=test`, `env.local` is ignored (only `.env.test.local` is loaded)
+
+```bash
+# naming: .env.something123.local, ends with local
+.env*.local
+```
