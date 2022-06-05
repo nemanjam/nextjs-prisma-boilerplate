@@ -56,7 +56,9 @@
     "test:e2e:headless": "start-server-and-test start:e2e 3001 cypress:headless",
     "docker:npb-e2e:build": "docker-compose -f docker-compose.test.yml build npb-e2e",
     "docker:npb-app-test:build": "docker-compose -f docker-compose.test.yml build npb-app-test",
-    "docker:test:e2e:up": "docker-compose -f docker-compose.test.yml -p npb-test up"
+    "docker:test:e2e:up": "docker-compose -f docker-compose.test.yml -p npb-test up",
+    "docker:npb-app-test:npb-db-test:up": "docker-compose -f docker-compose.test.yml -p npb-test up -d npb-app-test npb-db-test",
+    "docker:npb-e2e:up": "docker-compose -f docker-compose.test.yml -p npb-test up npb-e2e"
   },
   "dependencies": {
     "@faker-js/faker": "^6.2.0",

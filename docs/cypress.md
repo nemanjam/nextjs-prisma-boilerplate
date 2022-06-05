@@ -200,15 +200,17 @@ npb-e2e         | [tsl] ERROR
 npb-e2e         |       TS18002: The 'files' list in config file 'tsconfig.json' is empty.
 ```
 
-- **solution:** `tsconfig.json` is not mounted in `tests-e2e`, mount it.
+- **solution:**
 
-- must replace localhost:3001 with npb-app-test:3001 in `cypress.json`, `.env.e2e` ?
+1. must have **two** extended `tsconfig.json` parent/child, same like on host
+2. and folder structure like on host (so imports and conig can be the same)
+3. and started with `cypress run --project ./tests-e2e` from **local** `package.json`, (`tests-e2e/package.json` -> `/app/package.json` (root))
 
 ```json
-"env": {
-  "COOKIE_NAME": "next-auth.session-token",
-  "SITE_NAME": "http://localhost:3001" // here
-}
+// tests-e2e/package.json
+"scripts": {
+  "test": "wait-on http://npb-app-test:3001 && cypress run --project ./tests-e2e"
+},
 ```
 
 - uploads folder for images?
@@ -297,6 +299,9 @@ npb-app-test    | error - ESLint: Failed to load plugin 'cypress' declared in '.
 ```
 
 ### Reusable yarn script - function
+
+- better use `env-cmd` or `dotenv-cli`
+- but actually docker-compose.yml and .evn.\* files solve this
 
 ```json
 // original

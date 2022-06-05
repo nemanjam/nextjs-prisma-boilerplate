@@ -1,4 +1,5 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "..",
     "esModuleInterop": true,
@@ -6,5 +7,8 @@
     "lib": ["es5", "dom"],
     "types": ["node", "cypress", "@testing-library/cypress"]
   },
-  "include": ["cypress/**/*.ts", "../lib-client/constants.ts"]
+  "include": ["cypress/**/*.ts", "../lib-client/constants.ts"],
+  // completely override root tsconfig.json
+  "exclude": ["node_modules"],
+  "ts-node": {}
 }

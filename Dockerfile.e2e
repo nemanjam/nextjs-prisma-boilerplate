@@ -8,8 +8,17 @@ FROM cypress/base:16.14.2
 
 WORKDIR /app
 
-# dependencies will be installed only if the package files change
+# important: 
+# MUST repeat everything from host
+# /app/package.json
+# /app/tsconfig.json
+# /app/tests-e2e/cypress.json 
+# /app/tests-e2e/tsconfig.json 
 COPY tests-e2e/package.json tests-e2e/yarn.lock ./
+
+# important: tsconfig.json parent/child same like on host
+COPY tsconfig.json ./
+COPY tests-e2e/tsconfig.json ./tests-e2e/tsconfig.json
 
 # add prisma and generate client for seed
 COPY prisma ./prisma

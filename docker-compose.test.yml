@@ -55,18 +55,21 @@ services:
       dockerfile: Dockerfile.e2e
     depends_on:
       - npb-app-test
+    # environment:
+    #   - DEBUG=cypress:*
     env_file:
       - .env.test.docker
       - .env.test.docker.local
+    # /app/package.json
+    command: yarn test
     # command: bash -c 'cd /app/tests-e2e && npx wait-on http://npb-app-test:3001 && npx cypress run'
-    command: sleep infinity
+    # command: sleep infinity
     # only tests can be edited without rebuilding
     # imports from next.js app are copied in Dockerfile
     # app is prod built anyway
     volumes:
       - ./tests-e2e/cypress:/app/tests-e2e/cypress
       - ./tests-e2e/cypress.json:/app/tests-e2e/cypress.json
-      - ./tests-e2e/tsconfig.json:/app/tests-e2e/tsconfig.json
     networks:
       - internal-test
 
