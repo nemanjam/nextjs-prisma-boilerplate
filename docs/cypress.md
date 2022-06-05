@@ -384,3 +384,48 @@ NEXTAUTH_URL=$PROTOCOL://$HOSTNAME:$PORT
 # expands immediately, cannot override part
 DATABASE_URL=postgresql://${POSTGRES_USER}...
 ```
+
+- dotenv-cli reddit?
+- list all states env.test.integration, env.e2e, env.test.local
+
+```bash
+# api integration
+# local
+# .env.test
+HOSTNAME=localhost
+
+# .env.test.local
+POSTGRES_HOSTNAME=localhost
+DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOSTNAME}:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public
+
+# ----
+# docker
+# .env.test
+# http://npb-db-test:3001/api/auth/session - cannot work as localhost...
+HOSTNAME=localhost # maybe npb-app-test will work, no browser
+
+# .env.test.local
+POSTGRES_HOSTNAME=npb-db-test
+DATABASE_URL=expanded
+
+# ------------------
+# cypress
+
+# .env.e2e
+HOSTNAME=npb-app-test
+# Expected baseUrl to be a fully qualified URL (starting with `http://` or `https://`).
+# Instead the value was: "$PROTOCOL://$HOSTNAME:$PORT"
+# Cypress wont expand
+CYPRESS_baseUrl=$PROTOCOL://$HOSTNAME:$PORT
+# solution:
+# expand it like this
+CYPRESS_baseUrl=${PROTOCOL}://${HOSTNAME}:${PORT}
+
+# .env.e2e.local
+POSTGRES_HOSTNAME=npb-db-test
+DATABASE_URL=expanded
+```
+
+- conclusion: both docker test envs are the same, just pass them in d-c.yml as `env_file`, so `.env.test.docker`, `.env.test.docker.local`, next.js in docker will read vars directly without .env files
+- conclusion 2: better use single Javascript object or json for .envs
+- add d-c.e2e.yml and d-c.test.yml because of different command:

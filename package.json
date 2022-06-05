@@ -54,6 +54,8 @@
     "with:env": "fn() { npx dotenv -e \"$3\" -- bash -c \"yarn $2\";}; fn --",
     "test:e2e:env": "yarn with:env test:e2e .env.test.local",
     "test:e2e:headless": "start-server-and-test start:e2e 3001 cypress:headless",
+    "docker:npb-e2e:build": "docker-compose -f docker-compose.test.yml build npb-e2e",
+    "docker:npb-app-test:build": "docker-compose -f docker-compose.test.yml build npb-app-test",
     "docker:test:e2e:up": "docker-compose -f docker-compose.test.yml -p npb-test up"
   },
   "dependencies": {
