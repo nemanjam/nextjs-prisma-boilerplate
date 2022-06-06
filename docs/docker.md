@@ -177,3 +177,7 @@ build-args: |
 ### Run volumes as current (non root) user
 
 - [stackoverflow](https://stackoverflow.com/questions/40462189/docker-compose-set-user-and-group-on-mounted-volume)
+
+### docker-compose override, extend
+
+- [docs](https://docs.docker.com/compose/extends/)

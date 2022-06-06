@@ -112,6 +112,8 @@
 - clean yarn scripts
 - getStaticProps in login and register
 - uploadsImageLoader when src isUrl...?, google, fb avatar?
+- extend docker-compose.yml test, e2e
+- pg-data volume as non root
 
 ### Overview
 

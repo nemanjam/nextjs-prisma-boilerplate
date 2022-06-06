@@ -203,8 +203,9 @@ npb-e2e         |       TS18002: The 'files' list in config file 'tsconfig.json'
 - **solution:**
 
 1. must have **two** extended `tsconfig.json` parent/child, same like on host
-2. and folder structure like on host (so imports and conig can be the same)
+2. and folder structure like on host (so imports and config can be the same)
 3. and started with `cypress run --project ./tests-e2e` from **local** `package.json`, (`tests-e2e/package.json` -> `/app/package.json` (root))
+4. Cypress must be started from same folder like `package.json` and `node_modules`
 
 ```json
 // tests-e2e/package.json

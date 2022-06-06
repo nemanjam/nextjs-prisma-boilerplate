@@ -4,7 +4,7 @@
   "description": "Cypress tests",
   "main": "index.js",
   "scripts": {
-    "test": "wait-on http://npb-app-test:3001 && cypress run --project ./tests-e2e"
+    "test": "wait-on $CYPRESS_baseUrl && cypress run --project ./tests-e2e"
   },
   "private": true,
   "dependencies": {

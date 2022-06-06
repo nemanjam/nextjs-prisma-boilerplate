@@ -16,6 +16,7 @@ services:
     command: yarn docker:test:start
     volumes:
       # must see src changes, frontend build prod
+      # to avoid rebuilding container on src change
       - ./:/app
       - npb-test-node_modules:/app/node_modules
       - npb-test-next:/app/.next
@@ -55,14 +56,11 @@ services:
       dockerfile: Dockerfile.e2e
     depends_on:
       - npb-app-test
-    # environment:
-    #   - DEBUG=cypress:*
     env_file:
       - .env.test.docker
       - .env.test.docker.local
     # /app/package.json
     command: yarn test
-    # command: bash -c 'cd /app/tests-e2e && npx wait-on http://npb-app-test:3001 && npx cypress run'
     # command: sleep infinity
     # only tests can be edited without rebuilding
     # imports from next.js app are copied in Dockerfile
