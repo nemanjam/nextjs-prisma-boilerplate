@@ -1,0 +1,40 @@
+version: '3.8'
+
+# extends docker-compose.test.yml
+
+services:
+  npb-app-test:
+    # add
+    command: yarn docker:test:start
+    # override
+    container_name: npb-app-e2e
+    env_file:
+      - .env.test.docker
+      - .env.test.docker.local
+
+  # reused
+  # npb-db-test:
+
+  npb-e2e:
+    image: npb-e2e
+    container_name: npb-e2e
+    build:
+      # must be in root to include prisma
+      context: .
+      dockerfile: Dockerfile.e2e
+    depends_on:
+      - npb-app-test
+    env_file:
+      - .env.test.docker
+      - .env.test.docker.local
+    # /app/package.json
+    command: yarn test
+    # command: sleep infinity
+    # only tests can be edited without rebuilding
+    # imports from next.js app are copied in Dockerfile
+    # app is prod built anyway
+    volumes:
+      - ./tests-e2e/cypress:/app/tests-e2e/cypress
+      - ./tests-e2e/cypress.json:/app/tests-e2e/cypress.json
+    networks:
+      - internal-test

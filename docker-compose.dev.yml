@@ -11,14 +11,8 @@ services:
       - '3001:3001'
     volumes:
       - ./:/app
-      - npb-dev-node_modules:/app/node_modules
-      - npb-dev-next:/app/.next
-    # docker env override
-    environment:
-      # must stay localhost, accessed from host os browser
-      # - HOSTNAME=npb-app-dev
-      # db_url
-      - POSTGRES_HOSTNAME=npb-db-dev
+      - npb-app-dev-node_modules:/app/node_modules
+      - npb-app-dev-next:/app/.next
     env_file:
       - .env.development
       - .env.local
@@ -58,8 +52,8 @@ services:
       - external-host
 
 volumes:
-  npb-dev-node_modules:
-  npb-dev-next:
+  npb-app-dev-node_modules:
+  npb-app-dev-next:
 
 networks:
   internal-dev:

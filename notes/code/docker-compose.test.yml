@@ -1,7 +1,8 @@
 version: '3.8'
 
-# for api integration tests (with db) - use as is
-# for Cypress e2e tests - is base to extend
+# backup working cypress and api integration tests before extended docker-compose.e2e.yml 
+
+# this file is used for both api integration tests (with db) and Cypress e2e tests
 
 services:
   npb-app-test:
@@ -14,16 +15,16 @@ services:
     # container:app-process
     ports:
       - '3001:3001'
-    # command: yarn docker:test:start
+    command: yarn docker:test:start
     volumes:
       # must see src changes, frontend build prod
       # to avoid rebuilding container on src change
       - ./:/app
-      - npb-app-test-node_modules:/app/node_modules
-      - npb-app-test-next:/app/.next
-      - npb-app-test-dist:/app/dist
+      - npb-test-node_modules:/app/node_modules
+      - npb-test-next:/app/.next
+      - npb-test-dist:/app/dist
     env_file:
-      - .env.test
+      - .env.test.docker
       - .env.test.docker.local
     depends_on:
       - npb-db-test
@@ -48,10 +49,34 @@ services:
       - internal-test
       - external-host
 
+  npb-e2e:
+    image: npb-e2e
+    container_name: npb-e2e
+    build:
+      # must be in root to include prisma
+      context: .
+      dockerfile: Dockerfile.e2e
+    depends_on:
+      - npb-app-test
+    env_file:
+      - .env.test.docker
+      - .env.test.docker.local
+    # /app/package.json
+    command: yarn test
+    # command: sleep infinity
+    # only tests can be edited without rebuilding
+    # imports from next.js app are copied in Dockerfile
+    # app is prod built anyway
+    volumes:
+      - ./tests-e2e/cypress:/app/tests-e2e/cypress
+      - ./tests-e2e/cypress.json:/app/tests-e2e/cypress.json
+    networks:
+      - internal-test
+
 volumes:
-  npb-app-test-node_modules:
-  npb-app-test-next:
-  npb-app-test-dist:
+  npb-test-node_modules:
+  npb-test-next:
+  npb-test-dist:
 
 networks:
   internal-test:

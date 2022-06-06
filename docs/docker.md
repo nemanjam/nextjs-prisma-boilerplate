@@ -181,3 +181,31 @@ build-args: |
 ### docker-compose override, extend
 
 - [docs](https://docs.docker.com/compose/extends/)
+
+- remember this: `services with 'depends_on' cannot be extended`
+
+```bash
+ERROR: Cannot extend service 'npb-app-test' in /home/username/Desktop/nextjs-prisma-boilerplate/docker-compose.test.yml: services with 'depends_on' cannot be extended
+```
+
+- merge d-c1 and d-c2 [tutorial](https://hackernoon.com/how-to-extend-docker-compose-file-jc723ypq)
+
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml config > docker-compose.stack.yml
+```
+
+- extends with -f dc1 -f dc2 works, both containers have same name
+
+```json
+// to run npb-app-test omit -f docker-compose.e2e.yml
+// exits because it doesn't have start command
+"docker:npb-app-test:npb-db-test:up": "docker-compose -f docker-compose.test.yml -p npb-test up -d npb-app-test npb-db-test",
+
+// to run npb-app-test (e2e) include -f docker-compose.e2e.yml
+// container renamed with:
+// container_name: npb-app-e2e
+"docker:npb-app-test:npb-db-test:e2e:up": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test up -d npb-app-test npb-db-test",
+```
+
+- for build **both** d-c.yml file are needed, because of other services
+- doceker-compose.yml is runtime configuration

@@ -276,6 +276,8 @@ jobs:
 - `--config-file` vs `--project` [github](https://github.com/cypress-io/cypress-test-nested-projects#faq)
 - [docs](https://docs.cypress.io/guides/guides/command-line#cypress-open-project-lt-project-path-gt)
 
+- must use it because of local `package.json`
+
 ```json
 // i need this (moves entire folder with default cypress.json)
 "cypress": "cypress open --project ./tests-e2e",
@@ -435,3 +437,19 @@ DATABASE_URL=expanded
 - conclusion: both docker test envs are the same, just pass them in d-c.yml as `env_file`, so `.env.test.docker`, `.env.test.docker.local`, next.js in docker will read vars directly without .env files
 - conclusion 2: better use single Javascript object or json for .envs
 - add d-c.e2e.yml and d-c.test.yml because of different command:
+
+```bash
+# e2e error
+npb-e2e         |     1) search form filters posts by user
+npb-e2e         |     ✓ pagination next and previous works (1023ms)
+npb-e2e         | Deleting tables ...
+npb-e2e         |     ✓ post item links (4824ms)
+npb-e2e         |
+npb-e2e         |
+npb-e2e         |   2 passing (17s)
+npb-e2e         |   1 failing
+npb-e2e         |
+npb-e2e         |   1) Home page
+npb-e2e         |        search form filters posts by user:
+npb-e2e         |      TestingLibraryElementError: Timed out retrying after 4000ms: Unable to find an accessible element with the role "link" and name `/^@user1$/i`
+```
