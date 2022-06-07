@@ -14,7 +14,7 @@ services:
     # container:app-process
     ports:
       - '3001:3001'
-    # command: yarn docker:test:start
+    user: '${UID}:${GID}'
     volumes:
       # must see src changes, frontend build prod
       # to avoid rebuilding container on src change
@@ -39,6 +39,7 @@ services:
     # expose it to host
     ports:
       - '5435:5435'
+    user: '${UID}:${GID}'
     volumes:
       - ./prisma/pg-data-test:/var/lib/postgresql/data
     # only: POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB

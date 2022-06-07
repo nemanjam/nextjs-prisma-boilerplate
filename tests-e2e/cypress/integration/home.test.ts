@@ -46,6 +46,8 @@ describe('Home page', () => {
 
     // wait for http request
     cy.wait('@searchPosts');
+    // fix wait
+    cy.findAllByRole('link', { name: /^@user0$/i }).should('have.length', 0);
     cy.findByText(/fetching/i).should('not.exist');
 
     // assert first post again

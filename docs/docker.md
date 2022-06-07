@@ -178,6 +178,48 @@ build-args: |
 
 - [stackoverflow](https://stackoverflow.com/questions/40462189/docker-compose-set-user-and-group-on-mounted-volume)
 
+- add `UID` and `GID` ENV vars in `~/.profile`, [stackoverflow](https://stackoverflow.com/questions/56188573/permission-issue-with-postgresql-in-docker-container)
+
+```bash
+# UID and GID env vars for Docker volumes permissions
+export UID=$(id -u)
+export GID=$(id -g)
+```
+
+```bash
+# shell variable
+echo $UID
+1000
+---
+# environment variable
+printenv | grep UID  # no output
+env | grep UID # same
+```
+
+- export if not exported, to avoid UID read only warning, `bash: UID: readonly variable`
+
+```bash
+# /home/username/.profile
+# UID and GID env vars for Docker volumes permissions
+if ! env | grep -q ^UID=
+then
+    export UID=$(id -u)
+    export GID=$(id -g)
+fi
+```
+
+- or
+
+```bash
+if [ -n "$UID" ]; then
+    export UID=$(id -u)
+fi
+
+if [ -n "$GID" ]; then
+    export GID=$(id -g)
+fi
+```
+
 ### docker-compose override, extend
 
 - [docs](https://docs.docker.com/compose/extends/)

@@ -8,31 +8,21 @@ ARG BASE=node:16-alpine
 
 FROM ${BASE} AS dependencies
 
+RUN whoami && id
+
 # openssl for prisma client, bash for wait-for-it.sh
 RUN apk update && apk add --no-cache openssl libc6-compat
 
 WORKDIR /app
 ENV NODE_ENV development
 
-COPY package.json yarn.lock ./
-COPY prisma ./prisma
+COPY . .
 
 # dev dependencies for testing
 RUN yarn install
 RUN npx prisma generate
-RUN rm -rf prisma
 
-#----------------------
-
-# two stages so it doesnt install packages every time
-FROM ${BASE} AS test
-WORKDIR /app
 ENV NODE_ENV test
-
-# node_modules is .dockerignored on host
-# source from host
-COPY . .
-COPY --from=dependencies /app/node_modules ./node_modules
 
 # volumes folders must be created and chowned before docker-compose creates them as root
 # create them during docker build

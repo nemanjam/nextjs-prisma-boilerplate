@@ -29,6 +29,7 @@ services:
       - .env.test.docker.local
     # /app/package.json
     command: yarn test
+    # entrypoint: whoami
     # command: sleep infinity
     # only tests can be edited without rebuilding
     # imports from next.js app are copied in Dockerfile

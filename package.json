@@ -59,7 +59,8 @@
     "docker:npb-app-test:npb-db-test:e2e:up": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test up -d npb-app-test npb-db-test",
     "docker:npb-e2e:build": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml build npb-e2e",
     "docker:npb-e2e:up": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test up npb-e2e",
-    "docker:test:e2e:up": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test up"
+    "docker:test:e2e:up": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test up",
+    "docker:test:e2e:down": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test down"
   },
   "dependencies": {
     "@faker-js/faker": "^6.2.0",
