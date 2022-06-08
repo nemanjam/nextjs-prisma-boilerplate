@@ -16,11 +16,17 @@ RUN apk update && apk add --no-cache openssl libc6-compat
 WORKDIR /app
 ENV NODE_ENV development
 
-COPY . .
+# prepare only node_modules and prisma client
+# src will be mounted via volume
+# build at runtime, not here
+COPY package.json yarn.lock ./
+COPY prisma ./prisma
 
-# dev dependencies for testing
+# dev dependencies for api integration testing
 RUN yarn install
 RUN npx prisma generate
+
+RUN rm -rf prisma
 
 ENV NODE_ENV test
 

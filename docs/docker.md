@@ -196,29 +196,17 @@ printenv | grep UID  # no output
 env | grep UID # same
 ```
 
-- export if not exported, to avoid UID read only warning, `bash: UID: readonly variable`
+- **solution:**
+- **UID** is already defined variable in bash - for warning
+- only works from `.bashrs`, and **not** from `.profile`
 
 ```bash
-# /home/username/.profile
 # UID and GID env vars for Docker volumes permissions
-if ! env | grep -q ^UID=
-then
-    export UID=$(id -u)
-    export GID=$(id -g)
-fi
+export MY_UID=$(id -u)
+export MY_GID=$(id -g)
 ```
 
-- or
-
-```bash
-if [ -n "$UID" ]; then
-    export UID=$(id -u)
-fi
-
-if [ -n "$GID" ]; then
-    export GID=$(id -g)
-fi
-```
+- must create `.next, dist, node_modules` manualy on host as user before d-c up for `npb-app-test`, although folders created in Dockerfile.test
 
 ### docker-compose override, extend
 

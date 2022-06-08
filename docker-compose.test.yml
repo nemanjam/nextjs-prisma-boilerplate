@@ -14,8 +14,9 @@ services:
     # container:app-process
     ports:
       - '3001:3001'
-    user: '${UID}:${GID}'
+    # user: '${MY_UID}:${MY_GID}'
     volumes:
+      # no src in Dockerfile, only via mount
       # must see src changes, frontend build prod
       # to avoid rebuilding container on src change
       - ./:/app
@@ -31,18 +32,23 @@ services:
       - internal-test
 
   npb-db-test:
-    image: postgres:14-alpine
+    image: my-postgres:14-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile.db
     container_name: npb-db-test
     restart: unless-stopped
     # change internal port
     command: postgres -p 5435
+    # user: '${MY_UID}:${MY_GID}'
     # expose it to host
     ports:
       - '5435:5435'
-    user: '${UID}:${GID}'
     volumes:
       - ./prisma/pg-data-test:/var/lib/postgresql/data
     # only: POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB
+    # environment:
+    #   - PGDATA=/var/lib/postgresql/data/pgdata
     env_file:
       - .env.test.docker.local
     networks:

@@ -1,0 +1,13 @@
+
+ARG BASE=postgres:14-alpine
+
+FROM ${BASE} AS db
+
+RUN whoami && id
+
+# create volume folder before docker-compose creates it as root owner
+RUN mkdir -p /var/lib/postgresql/data
+RUN chown postgres:postgres /var/lib/postgresql/data
+
+# USER postgres
+
