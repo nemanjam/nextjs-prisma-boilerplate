@@ -18,17 +18,7 @@ RUN yarn install
 RUN npx prisma generate
 RUN rm -rf prisma
 
-#----------------------
-
-# two stages so it doesnt install packages every time
-FROM ${BASE} AS development
-WORKDIR /app
-ENV NODE_ENV development
-
-# node_modules is .dockerignored on host
-# source from host
-COPY . .
-COPY --from=dependencies /app/node_modules ./node_modules
+# don't copy source, mount it via volume
 
 # volumes folders must be created and chowned before docker-compose creates them as root
 # create them during docker build
@@ -44,4 +34,4 @@ USER node
 EXPOSE 3001
 ENV PORT 3001
 
-CMD [ "yarn", "start-dev" ]
+CMD [ "yarn", "cmd:dev:start" ]

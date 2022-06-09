@@ -38,6 +38,7 @@ services:
       dockerfile: Dockerfile.db
     container_name: npb-db-test
     restart: unless-stopped
+    # entrypoint: sh -c 'whoami && id'
     # change internal port
     command: postgres -p 5435
     # user: '${MY_UID}:${MY_GID}'

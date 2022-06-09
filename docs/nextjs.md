@@ -147,3 +147,7 @@ const MeProvider: FC<ProviderProps> = ({ children }) => {
 # naming: .env.something123.local, ends with local
 .env*.local
 ```
+
+### Yarn scripts
+
+- use [dotenv-cli](https://github.com/entropitor/dotenv-cli) for .env.\* files
