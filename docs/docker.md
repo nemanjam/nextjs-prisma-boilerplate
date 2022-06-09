@@ -6,6 +6,8 @@
 - production multistage Dockerfile [example](https://github.com/kachar/yadi/blob/main/web/next.js/Dockerfile)
 - dev and prod docker-compose, Dockerfile [gist](https://gist.github.com/kennethnwc/efc81d448a6381f07fd42b4305f12f68)
 - dev Dockerfile and docker-compose [tutorial](https://dev.to/kumareth/next-js-docker-made-easy-2bok)
+- multistage Dockerfile only for prod, other images aren't uploaded anywhere (dev, test)
+- if Dockerfile doesn't have CMD or entrypoint it has some default from base image
 
 ### Next.js and Docker env vars
 
@@ -239,3 +241,18 @@ docker-compose -f docker-compose.yml -f docker-compose.prod.yml config > docker-
 
 - for build **both** d-c.yml file are needed, because of other services
 - doceker-compose.yml is runtime configuration
+
+### docker-compose debugging
+
+- use `docker-compose config` to see if env vars are substituted, or for resulting docker-compose.override.yml
+- replace `build, up ...` with `config` in yarn script
+
+```yml
+services:
+  web:
+    image: 'webapp:${TAG}'
+```
+
+```bash
+docker-compose --env-file ./config/.env.dev config
+```

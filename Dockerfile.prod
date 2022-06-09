@@ -92,4 +92,4 @@ ENV PORT 3001
 ENV NEXT_TELEMETRY_DISABLED 1
 
 # run migrate and seed here
-CMD ["yarn", "start-prod"]
+CMD ["yarn", "cmd:start:prod"]
