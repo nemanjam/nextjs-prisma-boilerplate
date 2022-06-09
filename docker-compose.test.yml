@@ -32,11 +32,7 @@ services:
       - internal-test
 
   npb-db-test:
-    # image: postgres:14-alpine
     image: postgres:14.3-bullseye
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile.db
     container_name: npb-db-test
     restart: unless-stopped
     # entrypoint: sh -c 'whoami && id'
@@ -47,10 +43,10 @@ services:
     ports:
       - '5435:5435'
     volumes:
-      - ./prisma/pg-data-test:/var/lib/postgresql/data
+      - ./prisma/pg-data:/var/lib/postgresql/data
     # only: POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB
-    # environment:
-    #   - PGDATA=/var/lib/postgresql/my-data
+    environment:
+      - PGDATA=/var/lib/postgresql/data/data-test
     env_file:
       - .env.test.docker.local
     networks:

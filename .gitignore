@@ -1,10 +1,12 @@
 node_modules/
 .next/
 prisma/dev.db
-prisma/pg-data-*
 certs/
 dist/
 /**/tsconfig.tsbuildinfo
+
+# postgres
+prisma/pg-data/data-*
 
 .env.local
 .env*.local

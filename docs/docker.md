@@ -219,6 +219,23 @@ export MY_GID=$(id -g)
 - in docker-compose.yml `user: '${MY_UID}:${MY_GID}'` (1000:1000)
 - and **must create manually folder `pg-data-test` on host**, and then it leaves it alone (maybe good enough)
 
+- **it works:** mount one dir above (`prisma/pg-data`) and set data dir as subdirectory (`prisma/pg-data/data-test`), add `prisma/pg-data/.gitkeep`
+- Gitlab [example](https://gitlab.apertis.org/infrastructure/qa-report-app/-/merge_requests/39)
+
+```yml
+# maybe hardcode 1000:1000 for prod
+user: '${MY_UID}:${MY_GID}'
+volumes:
+  - ./prisma/pg-data:/var/lib/postgresql/data
+environment:
+  - PGDATA=/var/lib/postgresql/data/data-test
+```
+
+```bash
+# ignore data, commit .gitkeep
+prisma/pg-data/data-*
+```
+
 ### docker-compose override, extend
 
 - [docs](https://docs.docker.com/compose/extends/)

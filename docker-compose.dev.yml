@@ -22,18 +22,17 @@ services:
       - internal-dev
 
   npb-db-dev:
-    image: postgres:14-alpine
+    image: postgres:14.3-bullseye
     container_name: npb-db-dev
     restart: unless-stopped
     ports:
       - '5432:5432'
+    user: '${MY_UID}:${MY_GID}'
     volumes:
-      - ./prisma/pg-data-dev:/var/lib/postgresql/data
-    # instead of env_file
-    # environment:
-    #   POSTGRES_USER=$POSTGRES_USER
-    #   POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-    #   POSTGRES_DB=$POSTGRES_DB
+      - ./prisma/pg-data:/var/lib/postgresql/data
+    # only: POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB
+    environment:
+      - PGDATA=/var/lib/postgresql/data/data-dev
     env_file:
       - .env.local
     networks:
