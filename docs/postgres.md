@@ -113,3 +113,11 @@ $$ LANGUAGE plpgsql;
 
 SELECT truncate_tables('postgres_user');
 ```
+
+### Important: Postgres volume non-root user solution:
+
+- Docker Postgres **Arbitrary --user Notes** [docs](https://hub.docker.com/_/postgres), on Github [docker-library/docs/blob/master/postgres/content.md](https://github.com/docker-library/docs/blob/master/postgres/content.md#arbitrary---user-notes)
+
+- **simplest:** use `postgres:14.3-bullseye` (133.03 MB) instead of `postgres:14-alpine` (85.81 MB)
+- in docker-compose.yml `user: '${MY_UID}:${MY_GID}'` (1000:1000)
+- and **must create manually folder `pg-data-test` on host**, and then it leaves it alone (maybe good enough)

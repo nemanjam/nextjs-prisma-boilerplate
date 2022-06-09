@@ -453,3 +453,11 @@ npb-e2e         |   1) Home page
 npb-e2e         |        search form filters posts by user:
 npb-e2e         |      TestingLibraryElementError: Timed out retrying after 4000ms: Unable to find an accessible element with the role "link" and name `/^@user1$/i`
 ```
+
+### Explanation why waiting for db is needed beside depends-on
+
+- Docker Postgres [docs](https://hub.docker.com/_/postgres)
+
+> If there is no database when postgres starts in a container, then postgres will create the
+> default database for you. While this is the expected behavior of postgres, this means that it
+> will not accept incoming connections during that time.

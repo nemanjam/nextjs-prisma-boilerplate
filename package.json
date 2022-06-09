@@ -32,7 +32,7 @@
     "prisma:reset:dev:env": "dotenv -e .env.local -- sh -c 'npx prisma migrate reset dev --skip-seed'",
     "prisma:migrate:prod": "npx prisma migrate deploy",
     "prisma:seed": "npx prisma db seed",
-    "prisma:seed:env": "dotenv -e .env.test.local -- sh -c 'yarn prisma:seed'",
+    "prisma:seed:env": "dotenv -e .env.local -- sh -c 'yarn prisma:seed'",
     "cmd:start:prod": "yarn prisma:migrate:prod && yarn prisma:seed && yarn start",
     "docker:prod:build": "docker-compose -f docker-compose.prod.yml npb-app-prod --env-file=.env.local build",
     "docker:prod:up": "docker-compose -f docker-compose.prod.yml up",
@@ -58,7 +58,8 @@
     "docker:npb-e2e:build": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml build npb-e2e",
     "docker:npb-e2e:up": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test up npb-e2e",
     "docker:test:e2e:up": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test up",
-    "docker:test:e2e:down": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test down"
+    "docker:test:e2e:down": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test down",
+    "npb-db-test:up": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test up -d npb-db-test"
   },
   "dependencies": {
     "@faker-js/faker": "^6.2.0",

@@ -8,6 +8,7 @@
 - dev Dockerfile and docker-compose [tutorial](https://dev.to/kumareth/next-js-docker-made-easy-2bok)
 - multistage Dockerfile only for prod, other images aren't uploaded anywhere (dev, test)
 - if Dockerfile doesn't have CMD or entrypoint it has some default from base image
+- `env_file` vs `--env-file` [docs](https://docs.docker.com/compose/environment-variables/#using-the---env-file--option)
 
 ### Next.js and Docker env vars
 
@@ -209,6 +210,14 @@ export MY_GID=$(id -g)
 ```
 
 - must create `.next, dist, node_modules` manualy on host as user before d-c up for `npb-app-test`, although folders created in Dockerfile.test
+
+#### Postgres volume non-root user solution:
+
+- Docker Postgres **Arbitrary --user Notes** [docs](https://hub.docker.com/_/postgres), on Github [docker-library/docs/blob/master/postgres/content.md](https://github.com/docker-library/docs/blob/master/postgres/content.md#arbitrary---user-notes)
+
+- **simplest:** use `postgres:14.3-bullseye` (133.03 MB) instead of `postgres:14-alpine` (85.81 MB)
+- in docker-compose.yml `user: '${MY_UID}:${MY_GID}'` (1000:1000)
+- and **must create manually folder `pg-data-test` on host**, and then it leaves it alone (maybe good enough)
 
 ### docker-compose override, extend
 
