@@ -219,12 +219,39 @@ npb-e2e         |       TS18002: The 'files' list in config file 'tsconfig.json'
 ### Cypress Github Actions
 
 - [docs](https://docs.cypress.io/guides/continuous-integration/github-actions)
-- example repo [bahmutov/cypress-gh-action-included](https://github.com/bahmutov/cypress-gh-action-included) - **this one, additional dependencies**
+- example repo [bahmutov/cypress-gh-action-included](https://github.com/bahmutov/cypress-gh-action-included), manual, without cypres action `run: cypress run`, trivial example
 - docker-compose up -d db-containers in Github Actions [bahmutov/chat.io](https://github.com/bahmutov/chat.io)
 - for Cypress in GA use `cypress-io/github-action@v2` action or `cypress/included:4.1.0` docker container???
-- Cypress Github Actions example, jobs: install, install-windows, ui-chrome-tests, ui-chrome-mobile-tests, ui-firefox-tests, no docker-compose.yml [cypress-realworld-app](https://github.com/cypress-io/cypress-realworld-app), **complete CI example**
+- Cypress Github Actions example, jobs: install, install-windows, ui-chrome-tests, ui-chrome-mobile-tests, ui-firefox-tests, no docker-compose.yml [cypress-realworld-app](https://github.com/cypress-io/cypress-realworld-app), **use this GA example**
 - if you want te reuse local Cypress Docker container in GA you must rebuild container each time, for additional yarn dependencies? Better use `cypress-io/github-action@v2`
 - ` actions/upload-artifact@v3`, `actions/download-artifact@v3` to share build **and dependencies** between jobs
+
+0 run cypress action on host or container in Github Actions [Github](https://github.com/cypress-io/github-action#docker-image), a lot of possible arguments for this action...
+
+```yml
+# run action directly in ubuntu
+cypress-run:
+  runs-on: ubuntu-20.04
+  steps:
+    - uses: actions/checkout@v2
+    - uses: cypress-io/github-action@v4
+      with:
+        project: ./some/nested/folder # project option
+```
+
+```yml
+# run action in container
+cypress-run:
+  runs-on: ubuntu-20.04
+  container: cypress/browsers:node12.13.0-chrome78-ff70
+  steps:
+    - uses: actions/checkout@v2
+    - uses: cypress-io/github-action@v4
+      with:
+        browser: chrome # default headless
+```
+
+---
 
 ```yaml
 jobs:
@@ -253,7 +280,7 @@ jobs:
           if-no-files-found: error
           path: build
 
-  # reause install job in other jobs
+  # reuse install job in other jobs
   ui-chrome-tests:
     # this, like depends_on
     needs: install
