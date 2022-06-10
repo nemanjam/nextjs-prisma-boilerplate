@@ -232,6 +232,7 @@ environment:
 ```
 
 ```bash
+# .gitignore, .dockerignore
 # ignore data, commit .gitkeep
 prisma/pg-data/data-*
 ```

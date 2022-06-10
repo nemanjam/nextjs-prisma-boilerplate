@@ -90,30 +90,25 @@
 - SettingsView test fails because of react-hook-form
 - rewrite yarn scripts with :, script.sh
 - add seed Postgres container inside Github Actions directly
-- fix typesctipt `strict` and `strictNullChecks`
 - docblocks in api functions
 - dev, prod navbar refresh
 - kill next.js server on unhandled promise rejection
-- rename request models for sevices
+- rename request models for services
 - move permission logic from services to controllers and middleware
 - throw on undefined env vars on app startup
 - supertest pass dynamic route arg `/api/posts/:id`, maybe exists nicer solution {id}
 - rewrite yarn scripts
 - change all ports from 3001 to 3000
-- CORS error 3001 3005, whitelist maybe, run tests on 3001 for now
 - read axios error message RQ error handlers
 - default theme fallback
-- run docker-compose as non root to avoid mount folders as root
+- run docker-compose as non root to avoid mount folders as root, app-dev, app-test containers...
 - node env?
 - Github Actions lint, typescript, all tests
 - reuse env script in yarn `"blank-script": "dotenv -e .env.local -- sh -c 'echo $DATABASE_URL'"`, dotenv discusions ???
-- lib-client/constants.ts in typescript cypress import?
-- remove docker multistage Dockerfile dev, test and e2e
 - clean yarn scripts
 - getStaticProps in login and register
 - uploadsImageLoader when src isUrl...?, google, fb avatar?
-- extend docker-compose.yml test, e2e
-- pg-data volume as non root
+- user in Cypress container for screenshots as non root
 
 ### Overview
 
@@ -259,3 +254,9 @@
 - seed and teardown tasks called but dont work from Cypress?, both work as yarn script, wrong database and .env file, dev, done
 - register test fails? useUser invalid id, solution: i had to log out by clearing cookies, done
 - check avatars and headers folder exists in seed.js, done
+- pg-data volume as non root, done
+- extend docker-compose.yml test, e2e, done
+- remove docker multistage Dockerfile dev, test and e2e, done
+- lib-client/constants.ts in typescript cypress import?, done, 2 tsconfig.json files
+- CORS error 3001 3005, whitelist maybe, run tests on 3001 for now, dont do this
+- fix typesctipt `strict` and `strictNullChecks`, done

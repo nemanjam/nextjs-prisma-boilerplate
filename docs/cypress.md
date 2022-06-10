@@ -223,7 +223,7 @@ npb-e2e         |       TS18002: The 'files' list in config file 'tsconfig.json'
 - docker-compose up -d db-containers in Github Actions [bahmutov/chat.io](https://github.com/bahmutov/chat.io)
 - for Cypress in GA use `cypress-io/github-action@v2` action or `cypress/included:4.1.0` docker container???
 - Cypress Github Actions example, jobs: install, install-windows, ui-chrome-tests, ui-chrome-mobile-tests, ui-firefox-tests, no docker-compose.yml [cypress-realworld-app](https://github.com/cypress-io/cypress-realworld-app), **complete CI example**
-- if you want te reuse local Cypress Docker container in GA you must rebuilt container each time, for additional yarn dependencies? Better use `cypress-io/github-action@v2`
+- if you want te reuse local Cypress Docker container in GA you must rebuild container each time, for additional yarn dependencies? Better use `cypress-io/github-action@v2`
 - ` actions/upload-artifact@v3`, `actions/download-artifact@v3` to share build **and dependencies** between jobs
 
 ```yaml
@@ -303,8 +303,8 @@ npb-app-test    | error - ESLint: Failed to load plugin 'cypress' declared in '.
 
 ### Reusable yarn script - function
 
-- better use `env-cmd` or `dotenv-cli`
-- but actually docker-compose.yml and .evn.\* files solve this
+- better use `env-cmd` or `dotenv-cli`, actually this **is** `dotenv-cli`
+- but actually docker-compose.yml and .env.\* files solve this
 
 ```json
 // original
@@ -358,27 +358,12 @@ npb-app-test:
     # ref to itself
     # NEXTAUTH_URL, NEXT_PUBLIC_BASE_URL in axiosInstance, imageLoader
     # NEXTAUTH_URL=$PROTOCOL://$HOSTNAME:$PORT
-    - HOSTNAME=npb-app-test
+    - HOSTNAME=npb-app-test # will have CORS for api from localhost (browser)
     # db_url
     - POSTGRES_HOSTNAME=npb-db-test
   env_file:
     - .env.test
     - .env.test.local
-```
-
-```yaml
-# docker-compose.test.yml
-npb-app-dev:
-  # docker env override
-  environment:
-    # ref to itself
-    # NEXTAUTH_URL, NEXT_PUBLIC_BASE_URL in axios, imageLoader
-    - HOSTNAME=npb-app-dev
-    # db_url
-    - POSTGRES_HOSTNAME=npb-db-dev
-  env_file:
-    - .env.development
-    - .env.local
 ```
 
 - `environment:` has precedence over `env_file:` in docker-compose.yml
