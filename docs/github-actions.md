@@ -43,3 +43,7 @@ jobs:
         env:
           DATABASE_URL: 'postgresql://root:postgres@localhost:5432/example'
 ```
+
+### Github Actions - tests
+
+- services: for database

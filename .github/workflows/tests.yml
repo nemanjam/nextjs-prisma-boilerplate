@@ -1,0 +1,95 @@
+name: All Tests
+
+on:
+  push:
+    branches:
+      - 'non-existing'
+
+jobs:
+  tests:
+    name: All tests
+    runs-on: ubuntu-22.04
+
+    env:
+      # private vars - .env.local
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+      POSTGRES_HOSTNAME: localhost
+      POSTGRES_PORT: 5432
+
+      DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/$POSTGRES_DB
+
+      # public vars - .env.test
+      PROTOCOL: http
+      HOSTNAME: localhost
+      PORT: 3001
+
+      NEXTAUTH_URL: $PROTOCOL://$HOSTNAME:$PORT
+
+    services:
+      postgres:
+        image: postgres:14.3-bullseye
+        env:
+          POSTGRES_USER: $POSTGRES_USER
+          POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+          POSTGRES_DB: $POSTGRES_DB
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Check out code
+      - uses: actions/checkout@v3
+
+      - name: Setup node
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.03'
+          cache: 'yarn'
+
+      - name: Install dependencies
+      - run: yarn install --frozen-lockfile
+
+      - name: Generate Prisma client
+      - run: npx prisma generate
+
+      - name: Migrate db schema
+      - run: npx prisma migrate deploy
+
+      # --------------- check code quality ---------------
+
+      - name: Check types
+      - run: yarn types
+
+      - name: Check lint
+      - run: yarn lint
+
+      # --------------- run tests without db and running prod app ---------------
+
+      - name: Run client unit and integration tests
+      - run: yarn test:client
+
+      # separate controllers and services
+      - name: Run api unit tests
+      - run: yarn test:server:unit
+
+      # --------------- run tests with db (without running prod app) ---------------
+
+      # integrated controllers with services
+      - name: Run api integration tests
+      - run: yarn test:server:integration
+
+      # --------------- run e2e tests with db and with running prod app ---------------
+
+      - name: Build prod app for e2e tests
+      - run: yarn build
+
+      # simplest way, has --project option
+      # ubuntu has all deps
+      - name: Run Cypress locally from dependencies
+      - run: yarn test:e2e:headless
