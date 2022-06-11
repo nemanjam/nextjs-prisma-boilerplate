@@ -1,9 +1,14 @@
-name: All Tests
+name: Run unit, integration and e2e tests
 
 on:
   push:
     branches:
-      - 'non-existing'
+      - 'non-existing-branch-yet'
+  pull_request:
+    branches:
+      - 'non-existing-branch-yet'
+
+  workflow_dispatch:
 
 jobs:
   tests:
