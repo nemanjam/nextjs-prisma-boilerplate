@@ -85,13 +85,13 @@ jobs:
       - name: Run api unit tests
         run: yarn test:server:unit
 
-      # --------------- run tests with db (without running prod app) ---------------
+      # --------------- run tests with migrated db (without running prod app) ---------------
 
       # integrated controllers with services
       - name: Run api integration tests
         run: yarn test:server:integration
 
-      # --------------- run e2e tests with db and with running prod app ---------------
+      # --------------- run e2e tests with migrated db and with running prod app ---------------
 
       - name: Build prod app for e2e tests
         run: yarn build

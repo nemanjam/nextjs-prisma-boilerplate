@@ -34,4 +34,4 @@ USER node
 EXPOSE 3001
 ENV PORT 3001
 
-CMD [ "yarn", "cmd:dev:start" ]
+CMD [ "yarn", "cmd:start:dev" ]
