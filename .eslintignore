@@ -3,3 +3,4 @@ node_modules/
 dist/
 notes/
 prisma/
+tests-e2e/

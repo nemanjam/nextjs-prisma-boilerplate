@@ -1,0 +1,6 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": ["plugin:cypress/recommended"],
+  "env": { "cypress/globals": true },
+  "rules": {}
+}
