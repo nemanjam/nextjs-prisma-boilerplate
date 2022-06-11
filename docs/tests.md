@@ -588,4 +588,8 @@ class PrismaSingleton {
 ### Github Actions test CI
 
 - Github [repo](https://github.com/eddeee888/topic-prisma-testing)
--
+
+### Jest-preview
+
+- Github Next.js example [Readme](https://github.com/nvh95/jest-preview/tree/main/examples/nextjs)
+- ignore missing Tailwind inport for now...

@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import { Blob } from 'blob-polyfill';
+import { jestPreviewConfigure } from 'jest-preview';
 import { server } from 'test-client/server';
 
 console.log('jest.setup.ts loaded...');
@@ -30,3 +31,9 @@ global.Blob = Blob;
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
+
+jestPreviewConfigure({
+  // An array of relative paths from the root of your project
+  // todo: fails because of Tailwind import directives
+  // externalCss: ['styles/index.scss'],
+});

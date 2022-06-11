@@ -109,6 +109,8 @@
 - getStaticProps in login and register
 - uploadsImageLoader when src isUrl...?, google, fb avatar?
 - user in Cypress container for screenshots as non root
+- tests with `errorHandler500()`
+- migrate db, maybe seed, and prod build for integration tests
 
 ### Overview
 

@@ -9,12 +9,11 @@ describe('Drafts View', () => {
 
     // first assert first post has Publish button
     // it requires me and loads last
-    const publishButton = (
-      await screen.findAllByRole('button', {
-        name: /publish/i,
-      })
-    )[0];
-    expect(publishButton).toBeInTheDocument();
+    const publishButtons = await screen.findAllByRole('button', {
+      name: /publish/i,
+    });
+
+    expect(publishButtons[0]).toBeInTheDocument();
 
     // assert title
     const title = screen.getByRole('heading', {
@@ -23,9 +22,9 @@ describe('Drafts View', () => {
     expect(title).toBeInTheDocument();
 
     // assert first post's username link
-    const usernameLink = screen.getAllByRole('link', {
+    const usernameLinks = screen.getAllByRole('link', {
       name: RegExp(`@${fakePosts.items[0].author.username}`, 'i'),
-    })[0];
-    expect(usernameLink).toBeInTheDocument();
+    });
+    expect(usernameLinks[0]).toBeInTheDocument();
   });
 });

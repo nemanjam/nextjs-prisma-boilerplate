@@ -1,6 +1,7 @@
+const { configureNextJestPreview } = require('jest-preview');
 const baseConfig = require('../../jest.config.base');
 
-module.exports = {
+const jestConfig = {
   ...baseConfig,
   name: 'client',
   displayName: 'Client tests',
@@ -15,3 +16,5 @@ module.exports = {
   // remove when fixed in react-hook-form/resolvers/zod
   resolver: '<rootDir>/test-client/config/hook-form-resolver-fix.js',
 };
+
+module.exports = configureNextJestPreview(() => jestConfig);
