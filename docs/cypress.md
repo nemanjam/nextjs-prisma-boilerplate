@@ -473,3 +473,8 @@ npb-e2e         |      TestingLibraryElementError: Timed out retrying after 4000
 > If there is no database when postgres starts in a container, then postgres will create the
 > default database for you. While this is the expected behavior of postgres, this means that it
 > will not accept incoming connections during that time.
+
+### ESlint Cypress
+
+- add `tests-e2e/` to root `.eslintignore`
+- add `.eslintrc.json` in `tests-e2e/`, plugin [Readme](https://github.com/cypress-io/eslint-plugin-cypress)
