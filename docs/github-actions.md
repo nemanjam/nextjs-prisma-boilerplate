@@ -47,3 +47,9 @@ jobs:
 ### Github Actions - tests
 
 - services: for database
+- prisma mysql example [tutorial](https://zenn.dev/mano_r/articles/e9242cee1f4411)
+- node caching [actions/setup-node](https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#caching-packages-data)
+- prisma mongo [example](https://github.com/prisma/prisma-examples/blob/latest/.github/workflows/test-mongodb.yaml)
+- prisma blog postgres [example](https://www.prisma.io/blog/backend-prisma-typescript-orm-with-postgresql-deployment-bbba1ps7kip5)
+- general tests CI [example](https://blog.testproject.io/2021/02/01/using-github-actions-to-run-automated-tests/)
+- Cypress real world app [repo](https://github.dev/cypress-io/cypress-realworld-app)
