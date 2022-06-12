@@ -40,6 +40,7 @@ describe('Create View', () => {
 
   test("update post mutation on success redirects to that post's page", async () => {
     // mocks both usePost and useUpdatePost
+    // must be less than 150 chars for zod validation to pass
     const updatedTitle = `Updated ${fakePostWithAuthor.title}`;
 
     const router = createMockRouter({
@@ -50,9 +51,7 @@ describe('Create View', () => {
     customRender(<CreateView />, { wrapperProps: { router } });
 
     // edit title
-    const titleInput = await screen.findByRole('textbox', {
-      name: /title/i,
-    });
+    const titleInput = await screen.findByRole('textbox', { name: /title/i });
     await userEvent.clear(titleInput);
     await userEvent.type(titleInput, updatedTitle);
 

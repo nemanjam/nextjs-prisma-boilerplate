@@ -128,7 +128,7 @@ export const validateUsersSearchQueryParams = (params: QueryParamsType): UsersGe
 // --------------- post ---------------
 
 const titleMin = 6,
-  titleMax = 100,
+  titleMax = 150,
   contentMin = 6,
   contentMax = 1000;
 
