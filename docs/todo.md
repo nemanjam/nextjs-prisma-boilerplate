@@ -109,8 +109,8 @@
 - getStaticProps in login and register
 - uploadsImageLoader when src isUrl...?, google, fb avatar?
 - user in Cypress container for screenshots as non root
-- tests with `errorHandler500()`
-- migrate db, `prisma:migrate:test:env` for integration tests
+- tests with `errorHandler500()` - 4
+- `userEvent.clear()` broken - 1
 
 ### Overview
 
@@ -262,3 +262,4 @@
 - lib-client/constants.ts in typescript cypress import?, done, 2 tsconfig.json files
 - CORS error 3001 3005, whitelist maybe, run tests on 3001 for now, dont do this
 - fix typesctipt `strict` and `strictNullChecks`, done
+- migrate db, `prisma:migrate:test:env` for integration tests, nothing to do

@@ -28,10 +28,10 @@ describe('Home View', () => {
     expect(searchInput).toBeInTheDocument();
 
     // assert first post's username link
-    const usernameLink = screen.getAllByRole('link', {
+    const usernameLinks = screen.getAllByRole('link', {
       name: RegExp(`@${fakePosts.items[0].author.username}`, 'i'),
-    })[0];
-    expect(usernameLink).toBeInTheDocument();
+    });
+    expect(usernameLinks[0]).toBeInTheDocument();
   });
 
   test('finds post with submited search term', async () => {
@@ -43,9 +43,9 @@ describe('Home View', () => {
       name: /search/i,
     });
 
-    // fix this?
-    await act(async () => {
-      await userEvent.type(searchInput, searchTerm);
+    // todo: fix warnings
+    await userEvent.type(searchInput, searchTerm);
+    act(() => {
       fireEvent.submit(searchInput);
     });
 

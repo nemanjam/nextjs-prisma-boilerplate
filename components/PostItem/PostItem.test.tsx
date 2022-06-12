@@ -83,9 +83,8 @@ describe('PostItem', () => {
     const publishButton = await screen.findByRole('button', {
       name: /publish/i,
     });
-    await act(async () => {
-      await userEvent.click(publishButton);
-    });
+
+    await userEvent.click(publishButton);
 
     // assert redirect to /username/post/:id
     // useUpdatePost - {query: { username: data.author.username, id: data.id }},

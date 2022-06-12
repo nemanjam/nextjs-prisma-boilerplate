@@ -54,9 +54,7 @@ describe('Post View', () => {
     const deleteButton = await screen.findByRole('button', {
       name: /delete/i,
     });
-    await act(async () => {
-      await userEvent.click(deleteButton);
-    });
+    await userEvent.click(deleteButton);
 
     // assert redirect to previous page
     await waitFor(() => expect(router.back).toHaveBeenCalledTimes(1));

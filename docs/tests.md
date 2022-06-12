@@ -593,3 +593,18 @@ class PrismaSingleton {
 
 - Github Next.js example [Readme](https://github.com/nvh95/jest-preview/tree/main/examples/nextjs)
 - ignore missing Tailwind inport for now...
+
+### Fix act Jest warning
+
+- if expect() isn't for element selected with `await findBy()` you need to retry with `await waitFor()` to assert state update on UI
+
+```ts
+await userEvent.click(createButton);
+
+await waitFor(() =>
+  expect(titleInput).toHaveErrorMessage(/must contain at least 6 character/i)
+);
+await waitFor(() =>
+  expect(contentTextArea).toHaveErrorMessage(/must contain at least 6 character/i)
+);
+```

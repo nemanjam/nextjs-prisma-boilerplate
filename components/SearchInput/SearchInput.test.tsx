@@ -1,4 +1,4 @@
-import { act, fireEvent, screen } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { customRender } from 'test-client/test-utils';
 import SearchInput from 'components/SearchInput';
 import userEvent from '@testing-library/user-event';
@@ -22,14 +22,14 @@ describe('SearchInput', () => {
     });
 
     // type 2 chars and submit
-    await act(async () => {
-      await userEvent.type(searchInput, inputText);
+    await userEvent.type(searchInput, inputText);
+    act(() => {
       fireEvent.submit(searchInput);
     });
 
     // assert inputText in onSubmit
-    expect(onSubmit).toHaveBeenCalledWith(inputText);
-    expect(onSubmit).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledWith(inputText));
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
   });
 
   test('between 3 and 20 chars validation', async () => {
@@ -41,35 +41,43 @@ describe('SearchInput', () => {
     });
 
     // type 2 chars and submit
-    await act(async () => {
-      await userEvent.type(searchInput, 'ab');
+    await userEvent.type(searchInput, 'ab');
+    act(() => {
       fireEvent.submit(searchInput);
     });
 
     // assert validation error message
-    expect(searchInput).toHaveErrorMessage(/must contain at least 3 character/i);
+    await waitFor(() =>
+      expect(searchInput).toHaveErrorMessage(/must contain at least 3 character/i)
+    );
+
+    // todo: fix warnings
 
     // clear input
-    userEvent.clear(searchInput);
+    await userEvent.clear(searchInput);
+    expect(searchInput).toHaveValue('');
 
     // type 22 chars and submit
-    await act(async () => {
-      await userEvent.type(searchInput, 'a'.repeat(22));
+    await userEvent.type(searchInput, 'a'.repeat(22));
+    act(() => {
       fireEvent.submit(searchInput);
     });
 
     // assert validation error message
-    expect(searchInput).toHaveErrorMessage(/must contain at most 20 character/i);
+    await waitFor(() =>
+      expect(searchInput).toHaveErrorMessage(/must contain at most 20 character/i)
+    );
 
     // clear input
-    userEvent.clear(searchInput);
+    await userEvent.clear(searchInput);
+    expect(searchInput).toHaveValue('');
 
     // type 5 chars and submit
-    await act(async () => {
-      await userEvent.type(searchInput, 'a'.repeat(5));
+    await userEvent.type(searchInput, 'a'.repeat(5));
+    act(() => {
       fireEvent.submit(searchInput);
     });
     // should not have any error message, 1+ string
-    expect(searchInput).not.toHaveErrorMessage(/.+/i);
+    await waitFor(() => expect(searchInput).not.toHaveErrorMessage(/.+/i));
   });
 });

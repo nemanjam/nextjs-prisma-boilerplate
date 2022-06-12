@@ -95,13 +95,10 @@ describe('Create View', () => {
       name: /create/i,
     });
 
-    await act(async () => {
-      // valid input
-      await userEvent.type(titleInput, fakePost.title);
-      await userEvent.type(contentTextArea, fakePost.content);
-      // click create
-      await userEvent.click(createButton);
-    });
+    await userEvent.type(titleInput, fakePost.title);
+    await userEvent.type(contentTextArea, fakePost.content);
+    // click create
+    await userEvent.click(createButton);
 
     // assert onSubmit data
     expect(onSubmit).toHaveBeenCalledTimes(1);
@@ -127,13 +124,15 @@ describe('Create View', () => {
     });
 
     // click create
-    await act(async () => {
-      await userEvent.click(createButton);
-    });
+    await userEvent.click(createButton);
 
     // assert validation required error messages
-    expect(titleInput).toHaveErrorMessage(/must contain at least 6 character/i);
-    expect(contentTextArea).toHaveErrorMessage(/must contain at least 6 character/i);
+    await waitFor(() =>
+      expect(titleInput).toHaveErrorMessage(/must contain at least 6 character/i)
+    );
+    await waitFor(() =>
+      expect(contentTextArea).toHaveErrorMessage(/must contain at least 6 character/i)
+    );
   });
 
   // same as create post test, but with 500

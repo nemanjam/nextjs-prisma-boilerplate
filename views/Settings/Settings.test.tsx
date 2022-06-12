@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { customRender } from 'test-client/test-utils';
 import SettingsView from 'views/Settings';
