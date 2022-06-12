@@ -98,8 +98,12 @@ describe('Settings View', () => {
     expect(nameInput.value).toBe(fakeUser.name);
 
     // edit name
+    // todo: this breaks
     await userEvent.clear(nameInput);
+    expect(nameInput).toHaveValue('');
+
     await userEvent.type(nameInput, updatedName);
+    expect(nameInput).toHaveValue(updatedName);
 
     // click submit
     const submitButton = screen.getByRole('button', {
@@ -117,7 +121,7 @@ describe('Settings View', () => {
     expect(updatedNameInput.value).toBe(updatedName);
   });
 
-  test.todo('form and validation');
+  // test.todo('form and validation');
 
-  test.todo('http error 500');
+  // test.todo('http error 500');
 });

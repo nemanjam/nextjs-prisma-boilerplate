@@ -75,14 +75,16 @@ const usersHandlers = [
   // useUpdateUser
   rest.patch<DefaultRequestBody, PathParams, ClientUser>(
     `${Routes.API.USERS}:id`,
-    (req, res, ctx) => {
+    async (req, res, ctx) => {
       const userId = req.params.id;
 
       if (fakeUser.id !== userId) throw new Error('Invalid fake user.id.');
 
       if (userId) {
-        const user = req.body as ClientUser; // parse from FormData formUserUpdateType, incomplete
-        // console.log('user', user);
+        // parse ClientUser from FormData
+        const myFormData = req.body as FormData;
+        const user = Object.fromEntries(myFormData.entries()) as unknown as ClientUser;
+
         return res(ctx.status(200), ctx.json({ ...fakeUser, ...user }));
       }
     }
