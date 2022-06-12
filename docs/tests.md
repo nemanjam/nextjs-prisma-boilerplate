@@ -594,6 +594,12 @@ class PrismaSingleton {
 - Github Next.js example [Readme](https://github.com/nvh95/jest-preview/tree/main/examples/nextjs)
 - ignore missing Tailwind inport for now...
 
+```ts
+import { debug } from 'jest-preview';
+
+debug();
+```
+
 ### Fix act Jest warning
 
 - if expect() isn't for element selected with `await findBy()` you need to retry with `await waitFor()` to assert state update on UI

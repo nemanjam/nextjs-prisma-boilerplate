@@ -19,7 +19,6 @@
     "types": "tsc --pretty --noEmit",
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "format": "prettier --write .",
-    "test-all": "yarn lint && yarn types && yarn format",
     "jest-preview": "jest-preview",
     "test": "jest --",
     "test-ci": "jest --coverage --silent --ci",

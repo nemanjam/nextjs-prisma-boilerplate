@@ -1,4 +1,9 @@
-import { renderHook, waitFor, screen } from '@testing-library/react';
+import {
+  renderHook,
+  waitFor,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import { createWrapper } from 'test-client/test-utils';
 import { useUser } from 'lib-client/react-query/users/useUser';
 import { fakeUser } from 'test-client/server/fake-data';
@@ -29,6 +34,10 @@ describe('useUser hook', () => {
       wrapper: createWrapper(),
     });
 
+    // wait for loader to disappear
+    await waitForElementToBeRemoved(() => screen.getByTestId(/loading/i));
+
+    // renders Loader and ErrorBoundary from Wrapper
     // uses ErrorBoundary, isError is undefined
     // queries: { suspense: true, useErrorBoundary: true }
     // assert ErrorBoundary and message and not result.current.isError

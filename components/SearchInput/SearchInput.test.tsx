@@ -36,9 +36,7 @@ describe('SearchInput', () => {
     customRender(<SearchInput />);
 
     // get search input
-    const searchInput = await screen.findByRole('textbox', {
-      name: /search/i,
-    });
+    const searchInput = await screen.findByRole('textbox', { name: /search/i });
 
     // type 2 chars and submit
     await userEvent.type(searchInput, 'ab');
@@ -55,11 +53,14 @@ describe('SearchInput', () => {
 
     // clear input
     await userEvent.clear(searchInput);
-    expect(searchInput).toHaveValue('');
+    await waitFor(() => expect(searchInput).toHaveValue(''));
 
     // type 22 chars and submit
+    // this line causes validation state update, but can't wrapp it in act
     await userEvent.type(searchInput, 'a'.repeat(22));
     act(() => {
+      // Warning: An update to SearchInput inside a test was not wrapped in act(...).
+      // first warning at this line
       fireEvent.submit(searchInput);
     });
 
@@ -70,13 +71,14 @@ describe('SearchInput', () => {
 
     // clear input
     await userEvent.clear(searchInput);
-    expect(searchInput).toHaveValue('');
+    await waitFor(() => expect(searchInput).toHaveValue(''));
 
     // type 5 chars and submit
     await userEvent.type(searchInput, 'a'.repeat(5));
     act(() => {
       fireEvent.submit(searchInput);
     });
+
     // should not have any error message, 1+ string
     await waitFor(() => expect(searchInput).not.toHaveErrorMessage(/.+/i));
   });

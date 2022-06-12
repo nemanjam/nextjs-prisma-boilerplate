@@ -85,43 +85,34 @@ describe('Settings View', () => {
     expect(resetButton).toBeInTheDocument();
   });
 
-  // todo: this fails because useUpdateUser
   test('update user mutation on success changes name field value', async () => {
     const updatedName = `Updated ${fakeUser.name}`;
 
     // name field
-    const nameInput = screen.getByRole('textbox', {
-      name: /^name$/i,
-    }) as HTMLInputElement;
+    const nameInput = screen.getByRole('textbox', { name: /^name$/i });
 
     // assert original value
-    expect(nameInput.value).toBe(fakeUser.name);
+    expect(nameInput).toHaveValue(fakeUser.name);
 
     // edit name
-    // todo: this breaks
+    // todo: this throws, why???
     await userEvent.clear(nameInput);
-    expect(nameInput).toHaveValue('');
+    // screen.debug(nameInput);
+
+    await waitFor(() => expect(nameInput).toHaveValue(''));
 
     await userEvent.type(nameInput, updatedName);
     expect(nameInput).toHaveValue(updatedName);
 
     // click submit
-    const submitButton = screen.getByRole('button', {
-      name: /submit/i,
-    });
+    const submitButton = screen.getByRole('button', { name: /submit/i });
 
     await userEvent.click(submitButton);
 
     // no need to explicitly wait for submit, sumbiting..., submit states
 
     // assert name field value is updated
-    const updatedNameInput = (await screen.findByRole('textbox', {
-      name: /^name$/i,
-    })) as HTMLInputElement;
-    expect(updatedNameInput.value).toBe(updatedName);
+    const updatedNameInput = await screen.findByRole('textbox', { name: /^name$/i });
+    expect(updatedNameInput).toHaveValue(updatedName);
   });
-
-  // test.todo('form and validation');
-
-  // test.todo('http error 500');
 });
