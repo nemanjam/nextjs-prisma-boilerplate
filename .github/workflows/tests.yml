@@ -89,8 +89,8 @@ jobs:
 
       # --------------- run tests without db and running prod app ---------------
 
-      - name: Run client unit and integration tests
-        run: yarn test:client
+      # - name: Run client unit and integration tests
+      #   run: yarn test:client
 
       # separate controllers and services
       - name: Run api unit tests
