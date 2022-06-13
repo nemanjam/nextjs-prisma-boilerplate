@@ -16,7 +16,19 @@ jobs:
     runs-on: ubuntu-22.04
 
     env:
-      # private vars - .env.local
+      # --------------- private vars - .env.local ---------------
+      # next-auth jwt
+      SECRET: CI_SECRET
+
+      # Facebook
+      FACEBOOK_CLIENT_ID: blank
+      FACEBOOK_CLIENT_SECRET: blank
+
+      # Google
+      GOOGLE_CLIENT_ID: blank
+      GOOGLE_CLIENT_SECRET: blank
+
+      # database
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
@@ -26,7 +38,7 @@ jobs:
       # expand in first step
       # DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/$POSTGRES_DB?schema=public
 
-      # public vars - .env.test
+      # --------------- public vars - .env.test ---------------
       PROTOCOL: http
       HOSTNAME: localhost
       PORT: 3001
