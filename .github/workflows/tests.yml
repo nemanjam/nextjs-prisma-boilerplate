@@ -24,7 +24,7 @@ jobs:
       POSTGRES_PORT: 5432
 
       # expand in first step
-      # DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/$POSTGRES_DB
+      # DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/$POSTGRES_DB?schema=public
 
       # public vars - .env.test
       PROTOCOL: http
@@ -51,7 +51,7 @@ jobs:
     steps:
       - name: Expand env variables
         run: |
-          echo "DATABASE_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/$POSTGRES_DB" >> $GITHUB_ENV
+          echo "DATABASE_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/$POSTGRES_DB?schema=public" >> $GITHUB_ENV
           echo "NEXTAUTH_URL=$PROTOCOL://$HOSTNAME:$PORT" >> $GITHUB_ENV
 
       - name: Debug env variables
