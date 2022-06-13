@@ -28,5 +28,5 @@ global.Blob = Blob;
 
 // msw
 beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
+afterEach(() =>  server.resetHandlers());
 afterAll(() => server.close());

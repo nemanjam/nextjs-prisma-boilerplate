@@ -41,6 +41,9 @@ export const errorHandler500 = () => {
     console.log('error handler, req.method 500', req.method, 'pathname', pathname);
     return res(ctx.status(500));
   };
+  // server.resetHandlers();
+  // console.log('errorHandler500 after resetHandlers() ------------');
+  // server.printHandlers();
 
   server.use(
     rest.get('*', handler500),
@@ -49,6 +52,9 @@ export const errorHandler500 = () => {
     rest.patch('*', handler500),
     rest.delete('*', handler500)
   );
+
+  // console.log('errorHandler500 after use() ------------');
+  // server.printHandlers();
 };
 
 export const errorMessage500 = 'Request failed with status code 500';

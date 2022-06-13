@@ -3,7 +3,7 @@ import { Blob } from 'blob-polyfill';
 import { jestPreviewConfigure } from 'jest-preview';
 import { server } from 'test-client/server';
 
-console.log('jest.setup.ts loaded...');
+console.log('test-client/config/jest.setup.ts loaded...');
 
 // The current testing environment is not configured to support act(…)
 // doesnt work
@@ -29,7 +29,10 @@ global.Blob = Blob;
 
 // msw
 beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
+afterEach(() => {
+  server.resetHandlers();
+  // console.log('aferEach ------------');
+});
 afterAll(() => server.close());
 
 jestPreviewConfigure({

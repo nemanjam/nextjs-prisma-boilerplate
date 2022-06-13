@@ -368,7 +368,7 @@ const contentText = await screen.findByText(/footer 2022/i);
 
 - cant listen with 2 handlers on same route
 - mock console.log(), error(), warn()
-- run sequentionally with `jest --runInBand`
+- run sequentionally with `jest --runInBand`, `server.resetHandlers()` is broken?
 
 ```ts
 const mockedConsoleError = jest.spyOn(console, 'error').mockImplementation();

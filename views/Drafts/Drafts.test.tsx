@@ -12,7 +12,6 @@ describe('Drafts View', () => {
     const publishButtons = await screen.findAllByRole('button', {
       name: /publish/i,
     });
-
     expect(publishButtons[0]).toBeInTheDocument();
 
     // assert title
