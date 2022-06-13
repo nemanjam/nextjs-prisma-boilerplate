@@ -36,7 +36,7 @@ describe('useUser hook', () => {
     });
 
     // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.getByTestId(/loading/i));
+    await waitForElementToBeRemoved(() => screen.queryByTestId(/loading/i));
 
     // renders Loader and ErrorBoundary from Wrapper
     // uses ErrorBoundary, isError is undefined

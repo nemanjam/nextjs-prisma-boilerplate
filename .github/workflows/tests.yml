@@ -12,7 +12,7 @@ on:
 
 jobs:
   tests:
-    name: All tests
+    name: Run all tests locally on Ubuntu
     runs-on: ubuntu-22.04
 
     env:
@@ -54,7 +54,7 @@ jobs:
           echo "DATABASE_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/$POSTGRES_DB?schema=public" >> $GITHUB_ENV
           echo "NEXTAUTH_URL=$PROTOCOL://$HOSTNAME:$PORT" >> $GITHUB_ENV
 
-      - name: Debug env variables
+      - name: Print env variables
         run: |
           echo "DATABASE_URL=$DATABASE_URL"
           echo "NEXTAUTH_URL=$NEXTAUTH_URL"
