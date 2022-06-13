@@ -2,7 +2,6 @@ const baseConfig = require('../../jest.config.base');
 
 module.exports = {
   ...baseConfig,
-  name: 'server-integration',
   displayName: 'Server integration tests',
   clearMocks: true,
   testEnvironment: 'node',

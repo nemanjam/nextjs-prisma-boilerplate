@@ -3,7 +3,6 @@ const baseConfig = require('../../jest.config.base');
 
 const jestConfig = {
   ...baseConfig,
-  name: 'client',
   displayName: 'Client tests',
   testEnvironment: 'jsdom',
   setupFiles: ['jsdom-worker', '<rootDir>/jest.env.setup.ts'], // defines URL.createObjectURL
