@@ -368,6 +368,7 @@ const contentText = await screen.findByText(/footer 2022/i);
 
 - cant listen with 2 handlers on same route
 - mock console.log(), error(), warn()
+- run sequentionally with `jest --runInBand`
 
 ```ts
 const mockedConsoleError = jest.spyOn(console, 'error').mockImplementation();
@@ -613,4 +614,20 @@ await waitFor(() =>
 await waitFor(() =>
   expect(contentTextArea).toHaveErrorMessage(/must contain at least 6 character/i)
 );
+```
+
+### userEvent v14 clear() bug
+
+```ts
+// views/Settings/Settings.test.tsx
+// views/Create/Create.test.tsx
+
+// NOTE: this fixes a bug in userEvent.clear() or React Hook Form
+// field is frozen for first 2 characters
+// user0 name + 123 -> user0 name3
+await userEvent.type(nameInput, '123');
+
+// edit name
+await userEvent.clear(nameInput);
+expect(nameInput).toHaveValue(''); // now it works
 ```

@@ -25,7 +25,7 @@ function createUsers(n: number, isServer = false): User[] | ClientUser[] {
       image: index === 3 ? undefined : `avatar${index % 4}.jpg`, // 0...3
       headerImage: index === 3 ? undefined : `header${index % 4}.jpg`,
       ...(isServer && { password }),
-      bio: lorem.sentences(3),
+      bio: lorem.sentences(3), // 3 words
       // first user is admin
       role: index === 0 ? 'admin' : 'user',
       // additional
@@ -71,7 +71,7 @@ export const fakeSession: Session = {
 const createPosts = (n: number): Post[] => {
   return Array.from(Array(n).keys()).map((index) => ({
     id: index,
-    title: lorem.sentence(),
+    title: lorem.sentence(3), // 3 words
     content: lorem.paragraphs(1),
     published: true,
     authorId: fakeUser.id, // reassigned in createPostsWithAuthor()

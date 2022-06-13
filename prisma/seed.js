@@ -50,7 +50,7 @@ const numberOfPosts = 6;
 
 const createPosts = (n) => {
   return Array.from(Array(n).keys()).map(() => ({
-    title: lorem.sentence(),
+    title: lorem.sentence(getRandomInteger(3, 7)), // 3-7 words
     content: lorem.paragraphs(getRandomInteger(1, 3)),
     published: true,
   }));

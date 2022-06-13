@@ -51,14 +51,20 @@ describe('Create View', () => {
     customRender(<CreateView />, { wrapperProps: { router } });
 
     // edit title
-    const titleInput = await screen.findByRole('textbox', { name: /title/i });
+    const _titleInput = await screen.findByRole('textbox', { name: /title/i });
+    const titleInput = _titleInput as HTMLInputElement;
+
+    // again fix userInput.clear() like this
+    await userEvent.type(titleInput, '123');
+
     await userEvent.clear(titleInput);
+    expect(titleInput).toHaveValue('');
+
     await userEvent.type(titleInput, updatedTitle);
+    expect(titleInput).toHaveValue(updatedTitle);
 
     // click update
-    const updateButton = screen.getByRole('button', {
-      name: /update/i,
-    });
+    const updateButton = screen.getByRole('button', { name: /update/i });
     await userEvent.click(updateButton);
 
     // assert redirect to /username/post/:id
