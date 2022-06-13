@@ -23,14 +23,15 @@ jobs:
       POSTGRES_HOSTNAME: localhost
       POSTGRES_PORT: 5432
 
-      DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/$POSTGRES_DB
+      # expand in first step
+      # DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/$POSTGRES_DB
 
       # public vars - .env.test
       PROTOCOL: http
       HOSTNAME: localhost
       PORT: 3001
 
-      NEXTAUTH_URL: $PROTOCOL://$HOSTNAME:$PORT
+      # NEXTAUTH_URL: $PROTOCOL://$HOSTNAME:$PORT
 
     services:
       postgres:
@@ -48,6 +49,16 @@ jobs:
           --health-retries 5
 
     steps:
+      - name: Expand env variables
+        run: |
+          echo "DATABASE_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/$POSTGRES_DB" >> $GITHUB_ENV
+          echo "NEXTAUTH_URL=$PROTOCOL://$HOSTNAME:$PORT" >> $GITHUB_ENV
+
+      - name: Debug env variables
+        run: |
+          echo "DATABASE_URL=$DATABASE_URL"
+          echo "NEXTAUTH_URL=$NEXTAUTH_URL"
+
       - name: Check out code
         uses: actions/checkout@v3
         with:
