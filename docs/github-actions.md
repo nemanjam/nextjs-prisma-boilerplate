@@ -53,3 +53,10 @@ jobs:
 - prisma blog postgres [example](https://www.prisma.io/blog/backend-prisma-typescript-orm-with-postgresql-deployment-bbba1ps7kip5)
 - general tests CI [example](https://blog.testproject.io/2021/02/01/using-github-actions-to-run-automated-tests/)
 - Cypress real world app [repo](https://github.dev/cypress-io/cypress-realworld-app)
+
+### Github Actions env vars and env files
+
+- in GA NODE_ENV=test so prod app loads .env.test and all env vars already exist, maybe NODE_ENV=ci?
+- jest loads .env.test too
+- limit jobs timeout
+- Cypress `"start:e2e": "NODE_ENV=test node dist/index.js"`... yarn script ci: maybe...

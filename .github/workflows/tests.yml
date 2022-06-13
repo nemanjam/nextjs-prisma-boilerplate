@@ -13,6 +13,7 @@ on:
 jobs:
   tests:
     name: Run all tests locally on Ubuntu
+    timeout-minutes: 15
     runs-on: ubuntu-22.04
 
     env:
@@ -31,7 +32,7 @@ jobs:
       # database
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: db
+      POSTGRES_DB: ci-db
       POSTGRES_HOSTNAME: localhost
       POSTGRES_PORT: 5432
 

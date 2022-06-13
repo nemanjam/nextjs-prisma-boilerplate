@@ -122,6 +122,7 @@
 - deployment with ssh actions
 - update cv
 - docker volume folders as non root
+- fix remaining tests
 
 ### Questions
 
@@ -140,6 +141,7 @@
 - void vs undefined return type function?
 - getServerSideProps http vs direct service calls?
 - next.js startup handler where?
+- ask NODE_ENV=ci or test in Github Actions? reddit
 
 ## Done
 
