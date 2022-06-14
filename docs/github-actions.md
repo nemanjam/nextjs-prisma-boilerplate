@@ -60,3 +60,5 @@ jobs:
 - jest loads .env.test too
 - limit jobs timeout
 - Cypress `"start:e2e": "NODE_ENV=test node dist/index.js"`... yarn script ci: maybe...
+- better to use yaml file for env vars than .env files
+- monorepo structure with packages and gitmodules
