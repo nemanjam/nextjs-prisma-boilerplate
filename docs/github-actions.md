@@ -62,3 +62,14 @@ jobs:
 - Cypress `"start:e2e": "NODE_ENV=test node dist/index.js"`... yarn script ci: maybe...
 - better to use yaml file for env vars than .env files
 - monorepo structure with packages and gitmodules
+
+### NODE_ENV vs APP_ENV
+
+- **point:** there is already existing convention for `NODE_ENV=dev | prod | test` that all npm libraries respect, it can't have custom value (will affect libs), **reserved already**
+- use `APP_ENV` for custom values that describe environment, e.g. local-prod, local-test, ci-test...
+
+- simpler [tutorial](https://rafaelalmeidatk.com/blog/why-you-should-not-use-a-custom-value-with-node-env)
+- another [tutorial](https://seanconnolly.dev/dont-be-fooled-by-node-env)
+- good [tutorial](https://koistya.medium.com/demystifying-node-env-var-b25ed43c9af)
+
+- CI-CD build job needs to set APP_VERSION var and tag
