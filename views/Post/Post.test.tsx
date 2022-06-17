@@ -60,5 +60,5 @@ describe('Post View', () => {
     await waitFor(() => expect(router.back).toHaveBeenCalledTimes(1));
   });
 
-  test.todo('Publish button mutation');
+  // test.todo('Publish button mutation');
 });

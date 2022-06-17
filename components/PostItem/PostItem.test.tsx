@@ -99,6 +99,4 @@ describe('PostItem', () => {
       )
     );
   });
-
-  test.todo('Publish button mutation');
 });
