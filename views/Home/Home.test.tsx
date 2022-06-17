@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { customRender } from 'test-client/test-utils';
 import HomeView from 'views/Home';
 import { fakePosts } from 'test-client/server/fake-data';
-import { errorHandler500, errorMessage500 } from 'test-client/server';
+import { errorHandlerGet500, errorMessage500 } from 'test-client/server/handlers/error';
 
 describe('Home View', () => {
   test('renders title, pagination section and posts list', async () => {
@@ -61,13 +61,13 @@ describe('Home View', () => {
     // assert non existing term
   });
 
-  // todo: skip for now
-  test.skip('renders ErrorBoundary on 500', async () => {
+  test('renders ErrorBoundary on 500', async () => {
     // silence error output in tests
     const mockedConsoleError = jest.spyOn(console, 'error').mockImplementation();
 
-    // return 500 from msw
-    errorHandler500();
+    // override with GET 500 runtime handler
+    errorHandlerGet500();
+
     customRender(<HomeView isTest />);
 
     // assert ErrorBoundary and message

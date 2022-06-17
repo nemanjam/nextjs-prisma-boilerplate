@@ -5,7 +5,7 @@ import CreateView from 'views/Create';
 import { fakePost, fakePostWithAuthor } from 'test-client/server/fake-data';
 import { Routes } from 'lib-client/constants';
 import { createMockRouter } from 'test-client/Wrapper';
-import { errorHandler500, errorMessage500 } from 'test-client/server';
+import { errorHandlerGet500, errorMessage500 } from 'test-client/server/handlers/error';
 
 describe('Create View', () => {
   afterEach(() => {
@@ -144,8 +144,8 @@ describe('Create View', () => {
   test('create post mutation onError 500 shows alert', async () => {
     const mockedConsoleError = jest.spyOn(console, 'error').mockImplementation();
 
-    // return 500 from msw
-    errorHandler500();
+    // override with GET 500 runtime handler
+    errorHandlerGet500();
     customRender(<CreateView />);
 
     // fill out form
@@ -164,8 +164,8 @@ describe('Create View', () => {
     });
     await userEvent.click(createButton);
 
-    // assert Alert and message
-    const alert = await screen.findByTestId(/alert/i);
+    // assert Alert and message, not error boundary, for mutation
+    const alert = await screen.findByTestId(/create-alert/i);
     expect(alert).toHaveTextContent(errorMessage500);
 
     mockedConsoleError.mockRestore();

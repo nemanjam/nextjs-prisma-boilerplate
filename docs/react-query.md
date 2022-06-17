@@ -95,3 +95,42 @@ const queryClient = new QueryClient({ logger: customLogger });
 // clear keys and cache
 queryClient.removeQueries([QueryKeys.ME]);
 ```
+
+### Isolated Jest tests
+
+- use this for shared cache debugging `const queryData = queryClient.getQueriesData(['posts-home'])`
+
+- **problem:** shared QueryCache between tests, error 500 tests pass alone and fail in group
+- **solution:**
+
+1.  initial list of handlers passed to setupServer() can **not** be reset, use `server.use(handler500)` inside the test, it **will** override success handler [discussion](https://github.com/mswjs/msw/discussions/1289)
+
+2.  **all constructors** (`new QueryCache(), new MutationCache()`) inside `new QueryClient(config)` must be invoked for each test
+
+```ts
+// lib-client/react-query/queryClientConfig.ts
+
+/**
+ * important: must be function and not object literal
+ * so constructors (new QueryCache ...) are invoked for each test
+ * to prevent shared cache between tests
+ */
+const getQueryClientConfig = (): QueryClientConfig => ({
+  defaultOptions: {
+    queries: {
+      suspense: true,
+      useErrorBoundary: true,
+    },
+    mutations: {
+      useErrorBoundary: false,
+    },
+  },
+  // HERE
+  queryCache: new QueryCache({
+    onError: (error) => formatError('Query', error),
+  }),
+  mutationCache: new MutationCache({
+    onError: (error) => formatError('Mutation', error),
+  }),
+});
+```

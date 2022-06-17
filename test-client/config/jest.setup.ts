@@ -29,10 +29,7 @@ global.Blob = Blob;
 
 // msw
 beforeAll(() => server.listen());
-afterEach(() => {
-  server.resetHandlers();
-  // console.log('aferEach ------------');
-});
+afterEach(() => server.resetHandlers()); // reset only to inital list of handlers, not empty array
 afterAll(() => server.close());
 
 jestPreviewConfigure({

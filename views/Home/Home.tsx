@@ -48,7 +48,7 @@ const Home: FC<Props> = ({ isTest = false }) => {
     state: page,
   });
 
-  // console.log('isTest', isTest, 'data', JSON.stringify(data).substring(0, 70));
+  console.log('isTest', isTest, 'data:', JSON.stringify(data).substring(0, 70));
 
   if (!data) return null;
 

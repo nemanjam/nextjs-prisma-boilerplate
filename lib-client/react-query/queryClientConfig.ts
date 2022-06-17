@@ -11,7 +11,12 @@ const formatError = (handlerName: 'Query' | 'Mutation', error: unknown): void =>
     error
   );
 
-const queryClientConfig: QueryClientConfig = {
+/**
+ * important: this must be function and not object literal
+ * so constructors (new QueryCache ...) are invoked for each test
+ * to prevent shared cache between tests
+ */
+const getQueryClientConfig = (): QueryClientConfig => ({
   defaultOptions: {
     queries: {
       suspense: true,
@@ -27,6 +32,6 @@ const queryClientConfig: QueryClientConfig = {
   mutationCache: new MutationCache({
     onError: (error) => formatError('Mutation', error),
   }),
-};
+});
 
-export default queryClientConfig;
+export default getQueryClientConfig;

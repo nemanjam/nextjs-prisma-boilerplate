@@ -1,14 +1,9 @@
-import {
-  renderHook,
-  waitFor,
-  screen,
-  waitForElementToBeRemoved,
-} from '@testing-library/react';
+import { renderHook, waitFor, screen } from '@testing-library/react';
 import { createWrapper } from 'test-client/test-utils';
 import { useUser } from 'lib-client/react-query/users/useUser';
 import { fakeUser } from 'test-client/server/fake-data';
 import { UserGetData } from 'types/models/User';
-import { errorHandler500, errorMessage500 } from 'test-client/server';
+import { errorHandlerGet500, errorMessage500 } from 'test-client/server/handlers/error';
 
 describe('useUser hook', () => {
   test('successful query user hook', async () => {
@@ -23,20 +18,17 @@ describe('useUser hook', () => {
     expect(result.current.data?.username).toBe(fakeUser.username);
   });
 
-  // todo: skip for now
-  test.skip('fail 500 query user hook', async () => {
+  test('fail 500 query user hook', async () => {
     const mockedConsoleError = jest.spyOn(console, 'error').mockImplementation();
 
     const params: UserGetData = { username: fakeUser.username };
 
-    // return 500 from msw
-    errorHandler500();
+    // override with GET 500 runtime handler
+    errorHandlerGet500();
+
     renderHook(() => useUser(params), {
       wrapper: createWrapper(),
     });
-
-    // wait for loader to disappear
-    await waitForElementToBeRemoved(() => screen.queryByTestId(/loading/i));
 
     // renders Loader and ErrorBoundary from Wrapper
     // uses ErrorBoundary, isError is undefined

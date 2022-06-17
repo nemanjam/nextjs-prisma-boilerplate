@@ -5,7 +5,7 @@ import { fakeUser } from 'test-client/server/fake-data';
 import { createMockRouter } from 'test-client/Wrapper';
 import { Routes } from 'lib-client/constants';
 import { UserCreateData } from 'types/models/User';
-import { errorHandler500, errorMessage500 } from 'test-client/server';
+import { errorHandlerPost500, errorMessage500 } from 'test-client/server/handlers/error';
 
 describe('useCreateUser', () => {
   test('successful create mutation hook', async () => {
@@ -41,7 +41,9 @@ describe('useCreateUser', () => {
   test('fail 500 create mutation hook', async () => {
     const mockedConsoleError = jest.spyOn(console, 'error').mockImplementation();
 
-    errorHandler500();
+    // override with POST 500 runtime handler
+    errorHandlerPost500();
+
     const { result } = renderHook(() => useCreateUser(), {
       wrapper: createWrapper(),
     });

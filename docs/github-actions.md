@@ -66,6 +66,7 @@ jobs:
 ### NODE_ENV vs APP_ENV
 
 - **point:** there is already existing convention for `NODE_ENV=dev | prod | test` that all npm libraries respect, it can't have custom value (will affect libs), **reserved already**
+- custom value is same as undefined and same as development
 - use `APP_ENV` for custom values that describe environment, e.g. local-prod, local-test, ci-test...
 
 - simpler [tutorial](https://rafaelalmeidatk.com/blog/why-you-should-not-use-a-custom-value-with-node-env)

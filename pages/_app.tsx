@@ -6,7 +6,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from 'next-themes';
 import { themes } from 'lib-client/constants';
-import queryClientConfig from 'lib-client/react-query/queryClientConfig';
+import getQueryClientConfig from 'lib-client/react-query/queryClientConfig';
 import SuspenseWrapper from 'lib-client/providers/SuspenseWrapper';
 
 import 'styles/index.scss';
@@ -15,7 +15,7 @@ const App = ({
   Component,
   pageProps: { session, dehydratedState, ...pageProps },
 }: AppProps) => {
-  const [queryClient] = useState(() => new QueryClient(queryClientConfig));
+  const [queryClient] = useState(() => new QueryClient(getQueryClientConfig()));
 
   return (
     <SuspenseWrapper errorFallbackType="screen" loaderType="screen">

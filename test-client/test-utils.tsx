@@ -4,10 +4,13 @@ import { QueryClient } from 'react-query';
 import Wrapper, { WrapperProps } from 'test-client/Wrapper';
 import { fakeSession } from 'test-client/server/fake-data';
 import HookWrapper, { HookWrapperProps } from 'test-client/HookWrapper';
-import queryClientConfig from 'lib-client/react-query/queryClientConfig';
+import getQueryClientConfig from 'lib-client/react-query/queryClientConfig';
 
-const createTestQueryClient = () =>
-  new QueryClient({
+const createTestQueryClient = () => {
+  // important: call all constructors for each test from config to avoid shared cache
+  const queryClientConfig = getQueryClientConfig();
+
+  return new QueryClient({
     ...queryClientConfig,
     defaultOptions: {
       ...queryClientConfig.defaultOptions,
@@ -24,6 +27,7 @@ const createTestQueryClient = () =>
       error: () => {},
     },
   });
+};
 
 type CustomRenderOptionsType = Omit<RenderOptions, 'wrapper'> & {
   wrapperProps?: Partial<WrapperProps>;
