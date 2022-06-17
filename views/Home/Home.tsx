@@ -7,13 +7,11 @@ import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import SearchInput from 'components/SearchInput';
 import usePrevious from 'components/hooks/usePrevious';
-import PreviewTheme from 'components/PreviewTheme';
+// import PreviewTheme from 'components/PreviewTheme'; // let it here for css debug
 import useCalcIsFetching from 'lib-client/react-query/useCalcIsFetching';
 import useDecrementPage from 'components/hooks/useDecrementPage';
 
-type Props = { isTest?: boolean };
-
-const Home: FC<Props> = ({ isTest = false }) => {
+const Home: FC = () => {
   const b = withBem('home');
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -47,8 +45,6 @@ const Home: FC<Props> = ({ isTest = false }) => {
     isFetching,
     state: page,
   });
-
-  console.log('isTest', isTest, 'data:', JSON.stringify(data).substring(0, 70));
 
   if (!data) return null;
 

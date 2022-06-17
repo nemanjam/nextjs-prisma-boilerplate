@@ -69,11 +69,7 @@ const Create: FC<Props> = ({ testOnSubmit }) => {
 
       <form className={b('form')} onSubmit={handleSubmit(onSubmit)}>
         {restCreate.isError && (
-          <Alert
-            data-testid="create-alert"
-            variant="error"
-            message={restCreate.error.message}
-          />
+          <Alert variant="error" message={restCreate.error.message} />
         )}
 
         {restUpdate.isError && (

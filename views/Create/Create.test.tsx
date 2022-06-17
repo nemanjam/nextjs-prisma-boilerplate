@@ -5,7 +5,7 @@ import CreateView from 'views/Create';
 import { fakePost, fakePostWithAuthor } from 'test-client/server/fake-data';
 import { Routes } from 'lib-client/constants';
 import { createMockRouter } from 'test-client/Wrapper';
-import { errorHandlerGet500, errorMessage500 } from 'test-client/server/handlers/error';
+import { errorHandlerPost500, errorMessage500 } from 'test-client/server/handlers/error';
 
 describe('Create View', () => {
   afterEach(() => {
@@ -145,27 +145,23 @@ describe('Create View', () => {
     const mockedConsoleError = jest.spyOn(console, 'error').mockImplementation();
 
     // override with GET 500 runtime handler
-    errorHandlerGet500();
+    errorHandlerPost500();
     customRender(<CreateView />);
 
     // fill out form
-    const titleInput = await screen.findByRole('textbox', {
-      name: /title/i,
-    });
-    const contentTextArea = screen.getByRole('textbox', {
-      name: /content/i,
-    });
+    const titleInput = await screen.findByRole('textbox', { name: /title/i });
+    const contentTextArea = screen.getByRole('textbox', { name: /content/i });
+
     await userEvent.type(titleInput, fakePost.title);
     await userEvent.type(contentTextArea, fakePost.content);
 
     // click create
-    const createButton = screen.getByRole('button', {
-      name: /create/i,
-    });
+    const createButton = screen.getByRole('button', { name: /create/i });
     await userEvent.click(createButton);
 
-    // assert Alert and message, not error boundary, for mutation
-    const alert = await screen.findByTestId(/create-alert/i);
+    // assert Alert component and message, not error boundary, for mutation
+    // data-testid="alert" is in Alert component
+    const alert = await screen.findByTestId(/alert/i);
     expect(alert).toHaveTextContent(errorMessage500);
 
     mockedConsoleError.mockRestore();

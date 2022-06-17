@@ -30,7 +30,6 @@ export const errorHandlerGet500 = () => {
 
     // return user for useMe context
     if (req.method === 'GET' && isUseMePathname && !isProfilePathname) {
-      console.log('req.method 200', req.method, 'pathname', pathname);
       return res(ctx.status(200), ctx.json(fakeUser));
     }
 

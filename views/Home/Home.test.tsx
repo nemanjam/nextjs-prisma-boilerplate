@@ -68,7 +68,7 @@ describe('Home View', () => {
     // override with GET 500 runtime handler
     errorHandlerGet500();
 
-    customRender(<HomeView isTest />);
+    customRender(<HomeView />);
 
     // assert ErrorBoundary and message
     const errorBoundaryMessage = await screen.findByTestId(/error-boundary/i);

@@ -596,6 +596,8 @@ class PrismaSingleton {
 - ignore missing Tailwind inport for now...
 
 ```ts
+yarn jest-preview
+
 import { debug } from 'jest-preview';
 
 debug();
