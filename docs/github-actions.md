@@ -74,3 +74,4 @@ jobs:
 - good [tutorial](https://koistya.medium.com/demystifying-node-env-var-b25ed43c9af)
 
 - CI-CD build job needs to set APP_VERSION var and tag
+- both local and GA are `NODE_ENV=test` but `APP_ENV=local-test and ci-test`

@@ -106,13 +106,13 @@ jobs:
         run: yarn test:client
 
       # separate controllers and services
-      - name: Run api unit tests
+      - name: Run server unit tests
         run: yarn test:server:unit
 
       # --------------- run tests with migrated db (without running prod app) ---------------
 
       # integrated controllers with services
-      - name: Run api integration tests
+      - name: Run server integration tests
         run: yarn test:server:integration
 
       # --------------- run e2e tests with migrated db and with running prod app ---------------
