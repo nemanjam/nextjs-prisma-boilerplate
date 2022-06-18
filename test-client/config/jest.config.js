@@ -9,7 +9,7 @@ const jestConfig = {
   setupFilesAfterEnv: ['<rootDir>/test-client/config/jest.setup.ts'],
   testMatch: [
     // '<rootDir>/components/**/*.test.{ts,tsx}', // whitelist only
-    // '<rootDir>/lib-client/**/*.test.{ts,tsx}',
+    '<rootDir>/lib-client/**/*.test.{ts,tsx}',
     '<rootDir>/views/**/*.test.{ts,tsx}',
   ],
   // remove when fixed in react-hook-form/resolvers/zod
