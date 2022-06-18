@@ -111,9 +111,12 @@
 - user in Cypress container for screenshots as non root
 - tests with `errorHandler500()` - 4
 - `userEvent.clear()` broken - 1
+- alpine doesnt have bash for jest-preview
+- APP_ENV for GA
 
 ### Overview
 
+- APP_ENV for GA
 - Cypress Docker
 - yarn scripts
 - Github Actions tests, lint, type-check, format

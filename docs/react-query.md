@@ -134,3 +134,5 @@ const getQueryClientConfig = (): QueryClientConfig => ({
   }),
 });
 ```
+
+- tests pass even without `--runInBand` jest option
