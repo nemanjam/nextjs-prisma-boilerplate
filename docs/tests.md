@@ -643,3 +643,5 @@ expect(nameInput).toHaveValue(''); // now it works
 // pass me sync in test-client/Wrapper.tsx
 <MeContext.Provider value={{ me: fakeUser }}>{children}</MeContext.Provider>
 ```
+
+- in `components/SearchInput/SearchInput.test.tsx` solution was to remove unnecessary submit fireEvent to trigger validation messages, they are onChange already, only first time

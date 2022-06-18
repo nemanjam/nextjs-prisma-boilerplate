@@ -38,32 +38,31 @@ describe('SearchInput', () => {
     // get search input
     const searchInput = await screen.findByRole('textbox', { name: /search/i });
 
+    // 1. less chars than valid ----------------
+
     // type 2 chars and submit
     await userEvent.type(searchInput, 'ab');
+    // first time submit is needed
     act(() => {
       fireEvent.submit(searchInput);
     });
 
-    // assert validation error message
+    // assert validation error message (must wait)
     await waitFor(() =>
       expect(searchInput).toHaveErrorMessage(/must contain at least 3 character/i)
     );
-
-    // todo: fix warnings
 
     // clear input
     await userEvent.clear(searchInput);
     await waitFor(() => expect(searchInput).toHaveValue(''));
 
+    // 2. more chars than valid ----------------
+
     // type 22 chars and submit
     // this line causes validation state update, but can't wrapp it in act
     await userEvent.type(searchInput, 'a'.repeat(22));
-    act(() => {
-      // Warning: An update to SearchInput inside a test was not wrapped in act(...).
-      // first warning at this line
-      fireEvent.submit(searchInput);
-    });
 
+    // no need to submit...
     // assert validation error message
     await waitFor(() =>
       expect(searchInput).toHaveErrorMessage(/must contain at most 20 character/i)
@@ -73,11 +72,10 @@ describe('SearchInput', () => {
     await userEvent.clear(searchInput);
     await waitFor(() => expect(searchInput).toHaveValue(''));
 
-    // type 5 chars and submit
+    // 3. valid number of chars removes error message ----------------
+
+    // type 5 chars without submit
     await userEvent.type(searchInput, 'a'.repeat(5));
-    act(() => {
-      fireEvent.submit(searchInput);
-    });
 
     // should not have any error message, 1+ string
     await waitFor(() => expect(searchInput).not.toHaveErrorMessage(/.+/i));
