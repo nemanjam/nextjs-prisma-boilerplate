@@ -75,3 +75,13 @@ jobs:
 
 - CI-CD build job needs to set APP_VERSION var and tag
 - both local and GA are `NODE_ENV=test` but `APP_ENV=local-test and ci-test`
+
+### Print commit id and message
+
+- [stackoverflow](https://stackoverflow.com/a/54413284/4383275)
+
+```yml
+- name: Print commit id and message
+  run: |
+    git show -s --format='%h %s'
+```

@@ -77,6 +77,10 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Print commit id and message
+        run: |
+          git show -s --format='%h %s'
+
       - name: Setup node
         uses: actions/setup-node@v3
         with:
