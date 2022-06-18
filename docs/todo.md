@@ -113,6 +113,7 @@
 - `userEvent.clear()` broken - 1
 - alpine doesnt have bash for jest-preview
 - APP_ENV for GA
+- prevent test env logs in GA
 
 ### Overview
 

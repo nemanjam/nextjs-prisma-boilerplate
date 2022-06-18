@@ -7,8 +7,9 @@ import { IconContext } from 'react-icons';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from 'next-themes';
 import { themes as defaultThemes } from 'lib-client/constants';
-import MeProvider from 'lib-client/providers/Me';
+import { MeContext } from 'lib-client/providers/Me';
 import SuspenseWrapper from 'lib-client/providers/SuspenseWrapper';
+import { fakeUser } from './server/fake-data';
 
 export type WrapperProps = {
   children: ReactNode;
@@ -38,11 +39,11 @@ const Wrapper: FC<WrapperProps> = ({
             <IconContext.Provider value={{ className: 'react-icons' }}>
               <QueryClientProvider client={queryClient}>
                 <Hydrate state={dehydratedState}>
-                  {/* takes user from msw - users */}
-                  <MeProvider>
+                  {/* pass logged in use synchronously to prevent act errors */}
+                  <MeContext.Provider value={{ me: fakeUser }}>
                     {/* component, not a page */}
                     {children}
-                  </MeProvider>
+                  </MeContext.Provider>
                 </Hydrate>
               </QueryClientProvider>
             </IconContext.Provider>

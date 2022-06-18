@@ -4,7 +4,7 @@ import DraftsView from 'views/Drafts';
 import { fakePosts } from 'test-client/server/fake-data';
 
 describe('Drafts View', () => {
-  test('99 renders title, pagination and posts with Publish button', async () => {
+  test('renders title, pagination and posts with Publish button', async () => {
     customRender(<DraftsView />);
 
     // in msw posts

@@ -633,3 +633,13 @@ await userEvent.type(nameInput, '123');
 await userEvent.clear(nameInput);
 expect(nameInput).toHaveValue(''); // now it works
 ```
+
+### Wrapped in act() errors
+
+- me context that fetches me asynchronously, me resolves after test finishes
+- otherwise await findBy suspense in Wrapper
+
+```tsx
+// pass me sync in test-client/Wrapper.tsx
+<MeContext.Provider value={{ me: fakeUser }}>{children}</MeContext.Provider>
+```

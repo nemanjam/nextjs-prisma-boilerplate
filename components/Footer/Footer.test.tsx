@@ -8,7 +8,7 @@ describe('Footer', () => {
     customRender(<Footer />);
 
     // assert content
-    const contentText = await screen.findByText(/footer 2022/i);
+    const contentText = screen.getByText(/footer 2022/i);
     expect(contentText).toBeInTheDocument();
   });
 });
