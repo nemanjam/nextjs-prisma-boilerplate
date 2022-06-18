@@ -1,4 +1,4 @@
-import { act, fireEvent, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { customRender } from 'test-client/test-utils';
 import SearchInput from 'components/SearchInput';
 import userEvent from '@testing-library/user-event';

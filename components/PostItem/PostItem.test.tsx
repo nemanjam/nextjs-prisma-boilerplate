@@ -1,4 +1,4 @@
-import { act, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { customRender } from 'test-client/test-utils';
 import PostItem from 'components/PostItem';
 import { fakePostWithAuthor as initFakePostWithAuthor } from 'test-client/server/fake-data';
