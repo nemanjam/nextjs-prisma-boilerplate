@@ -22,10 +22,7 @@ describe('SearchInput', () => {
     });
 
     // type 2 chars and submit
-    await userEvent.type(searchInput, inputText);
-    act(() => {
-      fireEvent.submit(searchInput);
-    });
+    await userEvent.type(searchInput, `${inputText}{enter}`);
 
     // assert inputText in onSubmit
     await waitFor(() => expect(onSubmit).toHaveBeenCalledWith(inputText));
@@ -41,11 +38,8 @@ describe('SearchInput', () => {
     // 1. less chars than valid ----------------
 
     // type 2 chars and submit
-    await userEvent.type(searchInput, 'ab');
     // first time submit is needed
-    act(() => {
-      fireEvent.submit(searchInput);
-    });
+    await userEvent.type(searchInput, 'ab{enter}');
 
     // assert validation error message (must wait)
     await waitFor(() =>

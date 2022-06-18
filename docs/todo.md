@@ -1,4 +1,4 @@
-# Todo
+# Tasks
 
 ## Todo
 
@@ -114,6 +114,7 @@
 - alpine doesnt have bash for jest-preview
 - APP_ENV for GA
 - prevent test env logs in GA
+- fix act in Home
 
 ### Overview
 

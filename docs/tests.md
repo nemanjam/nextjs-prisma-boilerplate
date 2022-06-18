@@ -645,3 +645,23 @@ expect(nameInput).toHaveValue(''); // now it works
 ```
 
 - in `components/SearchInput/SearchInput.test.tsx` solution was to remove unnecessary submit fireEvent to trigger validation messages, they are onChange already, only first time
+
+- **wrong way:** (causes act error)
+
+```ts
+await userEvent.type(searchInput, searchTerm);
+
+// submit form
+act(() => {
+  fireEvent.submit(searchInput);
+});
+```
+
+- **right way:**
+
+```ts
+// type and submit
+await userEvent.type(searchInput, `${searchTerm}{enter}`);
+```
+
+- Github [issue](https://github.com/testing-library/react-testing-library/issues/551#issuecomment-652401388)

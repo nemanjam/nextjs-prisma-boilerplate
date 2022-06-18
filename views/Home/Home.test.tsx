@@ -39,15 +39,9 @@ describe('Home View', () => {
 
     // find input, type in it and submit
     const searchTerm = fakePosts.items[0].title;
-    const searchInput = await screen.findByRole('textbox', {
-      name: /search/i,
-    });
+    const searchInput = await screen.findByRole('textbox', { name: /search/i });
 
-    // todo: fix warnings
-    await userEvent.type(searchInput, searchTerm);
-    act(() => {
-      fireEvent.submit(searchInput);
-    });
+    await userEvent.type(searchInput, `${searchTerm}{enter}`);
 
     // wait for fetching indicator to appear and disappear, no need
 
