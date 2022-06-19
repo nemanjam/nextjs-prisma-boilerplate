@@ -77,7 +77,6 @@
 - hooks error tests (and handling)
 - test form, node api, cypress, ci, error 500
 - each form should be separate component, easier to test
-- parse FormData for test
 - one youtube lesson for english
 - gitpod env
 - container with vs code for replicating bugs - Gitpod Self-Hosted container
@@ -90,11 +89,10 @@
 - SettingsView test fails because of react-hook-form
 - rewrite yarn scripts with :, script.sh
 - add seed Postgres container inside Github Actions directly
-- docblocks in api functions
+- docblocks in api functions, no
 - dev, prod navbar refresh
 - kill next.js server on unhandled promise rejection
 - rename request models for services
-- move permission logic from services to controllers and middleware
 - throw on undefined env vars on app startup
 - supertest pass dynamic route arg `/api/posts/:id`, maybe exists nicer solution {id}
 - rewrite yarn scripts
@@ -103,18 +101,13 @@
 - default theme fallback
 - run docker-compose as non root to avoid mount folders as root, app-dev, app-test containers...
 - node env?
-- Github Actions lint, typescript, all tests
 - reuse env script in yarn `"blank-script": "dotenv -e .env.local -- sh -c 'echo $DATABASE_URL'"`, dotenv discusions ???
 - clean yarn scripts
-- getStaticProps in login and register
+- getStaticProps in login and register, no, MeProvider...
 - uploadsImageLoader when src isUrl...?, google, fb avatar?
 - user in Cypress container for screenshots as non root
-- tests with `errorHandler500()` - 4
-- `userEvent.clear()` broken - 1
-- alpine doesnt have bash for jest-preview
 - APP_ENV for GA
 - prevent test env logs in GA
-- fix act in Home
 
 ### Overview
 
@@ -270,3 +263,10 @@
 - CORS error 3001 3005, whitelist maybe, run tests on 3001 for now, dont do this
 - fix typesctipt `strict` and `strictNullChecks`, done
 - migrate db, `prisma:migrate:test:env` for integration tests, nothing to do
+- parse FormData for test, done
+- move permission logic from services to controllers and middleware, done
+- Github Actions lint, typescript, all tests, done
+- tests with `errorHandler500()` - 4, done
+- `userEvent.clear()` broken - 1, done
+- alpine doesnt have bash for jest-preview, done
+- fix act in Home, done
