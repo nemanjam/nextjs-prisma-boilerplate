@@ -107,7 +107,7 @@ NODE_ENV=
 
 ```bash
 
-# custom server.js
+# custom server.js (not next app)
 # docker-compose.yml
 # Dockerfile
 PROTOCOL=
@@ -136,3 +136,28 @@ DATABASE_URL=
 # Cypress container
 CYPRESS_baseUrl=
 ```
+
+- ${!VAR2} - variable indirection doesn't work in Next.js `.env*` files
+- impossible to calculate vars directly in `.env*` files, for Postgres docker-compose.yml for example, so calc in js does not make sense
+- use one file per `APP_ENV` instead all APP_ENVs in a single file
+
+```bash
+# variable indirection
+DEV_APP_ENV=LOCAL
+NAME_PORT=${DEV_APP_ENV}_PORT
+PORT=${!NAME_PORT} # does not work
+```
+
+- **chosen solution:**
+
+- use Method 6 `dotenv-cli` with `sh -c ''` because it loads files for both Next.js app, tests and docker-compose.yml, simple load .env file you need, every process starts with yarn script
+- one `.env.${APP_ENV}`, `.env.${APP_ENV}.local` per `APP_ENV`
+- just `APP_ENV` and yarn file must match, that's it
+- all possible methods [tutorial](https://getridbug.com/reactjs/how-to-use-different-env-files-with-nextjs/)
+- blitz.js `APP_ENV` [docs](https://blitzjs.com/docs/environment-variables)
+
+```json
+"test:e2e:env": "dotenv -e .env.test.local -- sh -c 'yarn test:e2e'",
+```
+
+- better use `.env.development.local` and `.env.production.local` instead of single `.env.local`, it's possible
