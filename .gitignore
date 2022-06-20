@@ -8,8 +8,8 @@ dist/
 # postgres
 prisma/pg-data/data-*
 
-.env.local
-.env*.local
+# very important
+/**/.env*.local
 
 !uploads/avatars
 uploads/avatars/*

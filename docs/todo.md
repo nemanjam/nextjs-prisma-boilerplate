@@ -108,6 +108,13 @@
 - user in Cypress container for screenshots as non root
 - APP_ENV for GA
 - prevent test env logs in GA
+- certs files not found logic in server.ts
+- pass new files in docker-compose.yml and yarn scripts
+- deploy new production
+- build and test containers with new envs
+- screenshots file permissions in Cypress container
+- test devcontainers
+- gitpod and replit dev environments, APP_ENV, and heroku db, handle in server.ts
 
 ### Overview
 

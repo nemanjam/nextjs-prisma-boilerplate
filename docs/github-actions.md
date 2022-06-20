@@ -153,6 +153,8 @@ PORT=${!NAME_PORT} # does not work
 - use Method 6 `dotenv-cli` with `sh -c ''` because it loads files for both Next.js app, tests and docker-compose.yml, simple load .env file you need, every process starts with yarn script
 - one `.env.${APP_ENV}`, `.env.${APP_ENV}.local` per `APP_ENV`
 - just `APP_ENV` and yarn file must match, that's it
+- vars loaded with `dotenv -e file` go into `process.env` so have highest priority and override other files (which is good, `.env.development.docker` from container will override `.env.development` from volume)
+
 - all possible methods [tutorial](https://getridbug.com/reactjs/how-to-use-different-env-files-with-nextjs/)
 - blitz.js `APP_ENV` [docs](https://blitzjs.com/docs/environment-variables)
 
@@ -161,3 +163,5 @@ PORT=${!NAME_PORT} # does not work
 ```
 
 - better use `.env.development.local` and `.env.production.local` instead of single `.env.local`, it's possible
+- when you comment out vars in .env file you have multiple .env files in that file
+- Next.js recognizes production, so use local and docker production terms for staging (environment to test production deployment)

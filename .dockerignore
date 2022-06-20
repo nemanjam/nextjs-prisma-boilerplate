@@ -11,6 +11,7 @@ certs/
 # pass env vars through docker-compose 
 # or mount .env* in dev
 .env*
+envs/
 dist/
 
 # needed for sqlite

@@ -30,7 +30,9 @@
     "Prisma.prisma",
     "bradlc.vscode-tailwindcss",
     "stylelint.vscode-stylelint",
-    "csstools.postcss"
+    "csstools.postcss",
+    "orta.vscode-jest",
+    "mikestead.dotenv"
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
