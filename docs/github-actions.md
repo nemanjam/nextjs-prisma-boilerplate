@@ -54,6 +54,16 @@ jobs:
 - general tests CI [example](https://blog.testproject.io/2021/02/01/using-github-actions-to-run-automated-tests/)
 - Cypress real world app [repo](https://github.dev/cypress-io/cypress-realworld-app)
 
+### Print commit id and message
+
+- [stackoverflow](https://stackoverflow.com/a/54413284/4383275)
+
+```yml
+- name: Print commit id and message
+  run: |
+    git show -s --format='%h %s'
+```
+
 ### Github Actions env vars and env files
 
 - in GA NODE_ENV=test so prod app loads .env.test and all env vars already exist, maybe NODE_ENV=ci?
@@ -76,12 +86,53 @@ jobs:
 - CI-CD build job needs to set APP_VERSION var and tag
 - both local and GA are `NODE_ENV=test` but `APP_ENV=local-test and ci-test`
 
-### Print commit id and message
+- Next.js automatically sets NODE_ENV based on start command (or yarn scripts for custom server) [Blitz.md](https://github.com/blitz-js/blitz/blob/canary/nextjs/errors/non-standard-node-env.md)
+- use NODE_ENV and APP_ENV in combination
 
-- [stackoverflow](https://stackoverflow.com/a/54413284/4383275)
+```bash
+# local, docker, ci, gitpod, replit
+# public var
+APP_ENV=
 
-```yml
-- name: Print commit id and message
-  run: |
-    git show -s --format='%h %s'
+# development, production, test
+NODE_ENV=
+```
+
+- put all vars with APP_ENV prefix in .env.local, .env.development and .env.production and use APP_ENV to select evironment - file, write override logic in app.config.js, NODE_ENV only in yarn scripts
+- use Next.js system to preserve priority loading system
+- `.env.development` - public, same for all users
+- `.env.local` - secret, or public specific for a user
+
+- where env vars are used (recapitulation):
+
+```bash
+
+# custom server.js
+# docker-compose.yml
+# Dockerfile
+PROTOCOL=
+HOSTNAME=
+PORT=
+
+# [...next-auth] api
+# axios baseUrl React Query
+# docker-compose.prod.yml
+NEXTAUTH_URL=
+
+
+# Postgres container
+POSTGRES_HOSTNAME=
+POSTGRES_PORT=
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
+MY_UID=
+MY_GID=
+
+# schema.prisma
+# docker-compose.prod.yml
+DATABASE_URL=
+
+# Cypress container
+CYPRESS_baseUrl=
 ```
