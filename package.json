@@ -66,7 +66,9 @@
     "docker:test:e2e:down": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test down",
     "docker:db:e2e:up": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test up -d npb-db-test",
     "docker:db:e2e:down": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test down npb-db-test",
-    "gitpod:dev:env": "dotenv -e ./envs/development-gitpod/.env.development.gitpod -e ./envs/development-gitpod/.env.development.gitpod.local -- sh -c 'yarn dev'"
+    "with:gitpod:env": "fn() { npx dotenv -e ./envs/development-gitpod/.env.development.gitpod -e ./envs/development-gitpod/.env.development.gitpod.local -- bash -c \"yarn $2\";}; fn --",
+    "gitpod:migrate:dev:env": "yarn with:gitpod:env prisma:migrate:dev",
+    "gitpod:dev:env": "yarn with:gitpod:env dev"
   },
   "dependencies": {
     "@faker-js/faker": "^6.2.0",
