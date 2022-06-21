@@ -10,8 +10,8 @@ services:
     # override
     container_name: npb-app-e2e
     env_file:
-      - .env.test.docker
-      - .env.test.docker.local
+      - ./envs/test-docker/.env.test.docker
+      - ./envs/test-docker/.env.test.docker.local
 
   # reused
   # npb-db-test:
@@ -26,8 +26,8 @@ services:
     depends_on:
       - npb-app-test
     env_file:
-      - .env.test.docker
-      - .env.test.docker.local
+      - ./envs/test-docker/.env.test.docker
+      - ./envs/test-docker/.env.test.docker.local
     # /app/package.json
     command: yarn test
     # entrypoint: whoami && id

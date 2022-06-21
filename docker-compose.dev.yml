@@ -14,8 +14,8 @@ services:
       - npb-app-dev-node_modules:/app/node_modules
       - npb-app-dev-next:/app/.next
     env_file:
-      - .env.development
-      - .env.local
+      - ./envs/development-docker/.env.development.docker
+      - ./envs/development-docker/.env.development.docker.local
     depends_on:
       - npb-db-dev
     networks:
@@ -34,7 +34,7 @@ services:
     environment:
       - PGDATA=/var/lib/postgresql/data/data-dev
     env_file:
-      - .env.local
+      - ./envs/development-docker/.env.development.docker.local
     networks:
       - internal-dev
       - external-host

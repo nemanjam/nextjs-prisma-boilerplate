@@ -25,10 +25,6 @@ module.exports = {
   },
   // buildtime, must provide buildtime in Dockerfile or hardcode
   env: {
-    // repeated in folder structure, static folder, seed
-    // next.config.js, docker volumes prod, Dockerfile.prod, gitignore
-    // Routes.STATIC.AVATARS, Routes.STATIC.HEADERS - constants, not env vars
-    // rename to single uploads var
     // used in axios instance, just rename it
     NEXT_PUBLIC_BASE_URL: `${process.env.NEXTAUTH_URL}/`,
     NEXT_PUBLIC_POSTS_PER_PAGE: 5,

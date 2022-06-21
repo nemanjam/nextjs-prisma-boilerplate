@@ -283,3 +283,12 @@ services:
 ```bash
 docker-compose --env-file ./config/.env.dev config
 ```
+
+### docker-compose up for production
+
+- can pass custom `./my/path/.env.live` file to `docker-compose up` command
+- all vars must be in a single file, Github [issue](https://github.com/docker/compose/issues/7326)
+
+```bash
+docker-compose --env-file ./config/.env.dev up
+```

@@ -20,9 +20,10 @@ services:
       # - ./prisma:/app/prisma
     # runtime only
     env_file:
-      - .env.production
-      # for now
-      - .env.local
+      - ./envs/production-docker/.env.production.docker
+      - ./envs/production-docker/.env.production.docker.local
+      # - ./envs/production-live/.env.production.live
+      # - ./envs/production-live/.env.production.live.local
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.nextjs-prisma-secure.rule=Host(`${HOSTNAME}`)'
@@ -55,7 +56,7 @@ services:
       # POSTGRES_PASSWORD=$POSTGRES_PASSWORD
       # POSTGRES_DB=$POSTGRES_DB
     env_file:
-      - .env.local
+      - ./envs/production-docker/.env.production.docker.local
     networks:
       - proxy
       - internal-prod

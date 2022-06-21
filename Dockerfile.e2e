@@ -35,7 +35,7 @@ RUN yarn install --frozen-lockfile
 RUN npx prisma generate
 RUN rm -rf prisma
 
-# copy imported files in tests from next.js app
+# copy imported files in Cypress tests from next.js app
 COPY prisma/seed.js ./prisma/seed.js
 COPY lib-client/constants.ts ./lib-client/constants.ts
 

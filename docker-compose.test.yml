@@ -24,8 +24,8 @@ services:
       - npb-app-test-next:/app/.next
       - npb-app-test-dist:/app/dist
     env_file:
-      - .env.test
-      - .env.test.docker.local
+      - ./envs/test-docker/.env.test.docker
+      - ./envs/test-docker/.env.test.docker.local
     depends_on:
       - npb-db-test
     networks:
@@ -48,7 +48,7 @@ services:
     environment:
       - PGDATA=/var/lib/postgresql/data/data-test
     env_file:
-      - .env.test.docker.local
+      - ./envs/test-docker/.env.test.docker.local
     networks:
       - internal-test
       - external-host

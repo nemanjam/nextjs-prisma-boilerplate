@@ -115,6 +115,7 @@
 - screenshots file permissions in Cypress container
 - test devcontainers
 - gitpod and replit dev environments, APP_ENV, and heroku db, handle in server.ts
+- set `"og:url"` in Head with Javascript, remove env var
 
 ### Overview
 

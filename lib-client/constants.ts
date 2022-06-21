@@ -18,6 +18,9 @@ export const Routes = {
     SEED: '/api/seed/',
   },
   STATIC: {
+    // repeated in folder structure, static folder, seed
+    // docker volumes prod, Dockerfile.prod, gitignore
+    // Routes.STATIC.AVATARS, Routes.STATIC.HEADERS - constants, not env vars
     AVATARS: '/uploads/avatars/',
     HEADERS: '/uploads/headers/',
   },
