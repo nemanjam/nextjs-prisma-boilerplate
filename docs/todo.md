@@ -114,11 +114,18 @@
 - build and test containers with new envs
 - screenshots file permissions in Cypress container
 - test devcontainers
-- gitpod and replit dev environments, APP_ENV, and heroku db, handle in server.ts
 - set `"og:url"` in Head with Javascript, remove env var
+- use `environment:` instead of `env_file:` in docker-compose.live.yml
+- single .env file for live...?
+- test if prod build and start works without NEXTAUTH_URL
+- gitpod and replit dev environments, APP_ENV, and heroku db
+- handle APP_ENV in server.ts
+- NEXT_PUBLIC_BASE_URL without '/'
+- add d-c.live.yml
 
 ### Overview
 
+- ask to record tutorials
 - APP_ENV for GA
 - Cypress Docker
 - yarn scripts

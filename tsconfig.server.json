@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "baseUrl": ".",
     "module": "commonjs",
     "outDir": "dist",
     "target": "es2017",
@@ -8,5 +9,6 @@
     "noEmit": false
   },
   "exclude": [],
-  "include": ["server/**/*.ts"]
+  "include": ["server/**/*.ts"],
+  "ts-node": {}
 }

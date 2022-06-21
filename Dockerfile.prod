@@ -21,6 +21,7 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 COPY prisma ./prisma
 
+# not needed in this stage
 ARG ARG_DATABASE_URL
 ENV DATABASE_URL=$ARG_DATABASE_URL
 

@@ -195,3 +195,26 @@ window.addEventListener('click', onClick);
 ```
 
 - make type non-nullable `NonNullable<SomeType>`
+
+### ts-node and tsconfig.json
+
+- ts-node [npm readme](https://www.npmjs.com/package/ts-node#command-line)
+
+```bash
+# custom cwd
+ts-node --cwd <path/to/directory>
+```
+
+- baseUrl to work with ts-node [stackoverflow](https://stackoverflow.com/questions/70515063/ts-config-path-error-error-cannot-find-module-models-userschema)
+
+```json
+// yarn add -D tsconfig-paths
+// tsconfig.json:
+{
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}
+```
+
+- deasn't work with node in production, don't use it, use relative path in server
