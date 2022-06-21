@@ -64,7 +64,7 @@ https://3001-nemanjam-nextjsprismaboi-u7qkzmc70mh.ws-eu39.gitpod.io/
 
 - **Run on Gitpod - final, working:**
 
-- free db without shadow db?
+- problem: free db without shadow db? **solution:** use `npx prisma db push`
 
 - this is enough to work:
 
@@ -79,7 +79,7 @@ NEXTAUTH_URL=https://3001-nemanjam-nextjsprismabo-dn2irzhpmzu.ws-eu47.gitpod.io
 ```
 
 - **problem:** HOSTNAME is reserved readonly var on Gitpod, use other var name only on Gitpod
-- good thing HOSTNAME is used only in server.ts (in log, trivial) and docker-compose.prod.yml, rename it SITE_HOSTNAME
+- good thing HOSTNAME is used only in server.ts (in log, trivial, protocol too) and docker-compose.prod.yml, rename it SITE_HOSTNAME
 
 ```bash
 HOSTNAME=3001-nemanjam-nextjsprismabo-dn2irzhpmzu.ws-eu47.gitpod.io

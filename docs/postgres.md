@@ -156,3 +156,5 @@ db error: ERROR: permission denied to create database
    0: migration_core::state::DevDiagnostic
              at migration-engine/core/src/state.rs:250
 ```
+
+- can use `npx prisma db push` without migration history, good enough, Prisma [docs](https://www.prisma.io/docs/concepts/components/prisma-migrate/shadow-database#shadow-database-user-permissions)
