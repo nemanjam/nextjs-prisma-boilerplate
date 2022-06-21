@@ -123,6 +123,7 @@
 - NEXT_PUBLIC_BASE_URL without '/'
 - add d-c.live.yml
 - profile link doesnt rerender from user1 to user0, useMemo in MeProvider...
+- automatize everything with .gitpod.yml
 
 ### Overview
 
