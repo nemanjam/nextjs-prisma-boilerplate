@@ -32,6 +32,7 @@
     "prisma:studio:dev:env": "dotenv -e .env.development.local -- sh -c 'npx prisma studio'",
     "prisma:reset:dev:env": "dotenv -e .env.development.local -- sh -c 'npx prisma migrate reset dev --skip-seed'",
     "prisma:migrate:prod": "npx prisma migrate deploy",
+    "prisma:push": "npx prisma db push",
     "prisma:seed": "npx prisma db seed",
     "prisma:seed:dev:env": "dotenv -e .env.development.local -- sh -c 'yarn prisma:seed'",
     "cmd:start:prod": "yarn prisma:migrate:prod && yarn prisma:seed && yarn start",
@@ -68,6 +69,7 @@
     "docker:db:e2e:down": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test down npb-db-test",
     "with:gitpod:env": "fn() { npx dotenv -e ./envs/development-gitpod/.env.development.gitpod -e ./envs/development-gitpod/.env.development.gitpod.local -- bash -c \"yarn $2\";}; fn --",
     "gitpod:migrate:dev:env": "yarn with:gitpod:env prisma:migrate:dev",
+    "gitpod:push:env": "yarn with:gitpod:env prisma:push",
     "gitpod:dev:env": "yarn with:gitpod:env dev"
   },
   "dependencies": {

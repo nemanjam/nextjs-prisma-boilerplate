@@ -60,10 +60,45 @@ https://nemanjam-nextjsprismaboi-u7qkzmc70mh.ws-eu39.gitpod.io/
 https://3001-nemanjam-nextjsprismaboi-u7qkzmc70mh.ws-eu39.gitpod.io/
 ```
 
-- **public free postgres:**
+---
 
-- Heroku requires 2 databases for shadow database, restricted privilegies for default db (only for migrate dev and reset), for prod it should work dev.to [tutorial](https://dev.to/prisma/how-to-setup-a-free-postgresql-database-on-heroku-1dc1)
-- elephantsql.com 20MB database, medium (trivial) [tutorial](https://medium.com/@noogetz/how-to-setup-a-database-with-elephantsql-7d87ea9953d0)
+- **Run on Gitpod - final, working:**
+
+- free db without shadow db?
+
+- this is enough to work:
+
+```bash
+# http - use http server
+PROTOCOL=http
+# backend will use this, but gitpod will proxy it
+PORT=3001
+# hardcoded, https
+NEXTAUTH_URL=https://3001-nemanjam-nextjsprismabo-dn2irzhpmzu.ws-eu47.gitpod.io
+
+```
+
+- **problem:** HOSTNAME is reserved readonly var on Gitpod, use other var name only on Gitpod
+- good thing HOSTNAME is used only in server.ts (in log, trivial) and docker-compose.prod.yml, rename it SITE_HOSTNAME
+
+```bash
+HOSTNAME=3001-nemanjam-nextjsprismabo-dn2irzhpmzu.ws-eu47.gitpod.io
+# resolves to:
+3001-nemanjam-nextjsprismabo-dn2irzhpmzu # error
+
+# HOSTNAME=reserved env var on gitpod, readonly
+```
+
+- **both** website and api are on **https without port:**
+
+```bash
+# Gitpod makes some proxy
+
+# site:
+# https://3001-nemanjam-nextjsprismabo-dn2irzhpmzu.ws-eu47.gitpod.io/users/
+# api:
+# https://3001-nemanjam-nextjsprismabo-dn2irzhpmzu.ws-eu47.gitpod.io/api/users/?page=1
+```
 
 ### Run on Repl.it
 

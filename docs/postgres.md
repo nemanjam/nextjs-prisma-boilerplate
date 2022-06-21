@@ -139,3 +139,20 @@ environment:
 # ignore data, commit .gitkeep
 prisma/pg-data/data-*
 ```
+
+### Public free Postgres db in cloud
+
+- Heroku requires 2 databases for shadow database, restricted privilegies for default db (only for migrate dev and reset), for prod it should work dev.to [tutorial](https://dev.to/prisma/how-to-setup-a-free-postgresql-database-on-heroku-1dc1)
+- elephantsql.com 20MB database, medium (trivial) [tutorial](https://medium.com/@noogetz/how-to-setup-a-database-with-elephantsql-7d87ea9953d0)
+
+```bash
+# same on elephantsql.com
+Error: P3014
+
+Prisma Migrate could not create the shadow database. Please make sure the database user has permission to create databases. Read more about the shadow database (and workarounds) at https://pris.ly/d/migrate-shadow
+
+Original error:
+db error: ERROR: permission denied to create database
+   0: migration_core::state::DevDiagnostic
+             at migration-engine/core/src/state.rs:250
+```

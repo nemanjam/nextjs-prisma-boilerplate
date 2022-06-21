@@ -122,6 +122,7 @@
 - handle APP_ENV in server.ts
 - NEXT_PUBLIC_BASE_URL without '/'
 - add d-c.live.yml
+- profile link doesnt rerender from user1 to user0, useMemo in MeProvider...
 
 ### Overview
 
