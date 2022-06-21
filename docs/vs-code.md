@@ -60,6 +60,11 @@ https://nemanjam-nextjsprismaboi-u7qkzmc70mh.ws-eu39.gitpod.io/
 https://3001-nemanjam-nextjsprismaboi-u7qkzmc70mh.ws-eu39.gitpod.io/
 ```
 
+- **public free postgres:**
+
+- Heroku requires 2 databases for shadow database, restricted privilegies for default db (only for migrate dev and reset), for prod it should work dev.to [tutorial](https://dev.to/prisma/how-to-setup-a-free-postgresql-database-on-heroku-1dc1)
+- elephantsql.com 20MB database, medium (trivial) [tutorial](https://medium.com/@noogetz/how-to-setup-a-database-with-elephantsql-7d87ea9953d0)
+
 ### Run on Repl.it
 
 - install latest Node LTS in console

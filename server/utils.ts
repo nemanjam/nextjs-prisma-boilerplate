@@ -43,6 +43,7 @@ export const printLoadedEnvVariables = () => {
     '-node': separator,
     NODE_ENV: requiredEnv('NODE_ENV'),
     PORT: requiredEnv('PORT'),
+    APP_ENV: requiredEnv('APP_ENV'),
     'env-buildime': separator,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
     NEXT_PUBLIC_POSTS_PER_PAGE: process.env.NEXT_PUBLIC_POSTS_PER_PAGE,
