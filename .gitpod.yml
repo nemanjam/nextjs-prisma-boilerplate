@@ -24,6 +24,5 @@ vscode:
     - bradlc.vscode-tailwindcss
     - stylelint.vscode-stylelint
     - csstools.postcss
-    - ms-vscode-remote.remote-containers
     - orta.vscode-jest
     - mikestead.dotenv
