@@ -78,15 +78,15 @@ NEXTAUTH_URL=https://3001-nemanjam-nextjsprismabo-dn2irzhpmzu.ws-eu47.gitpod.io
 
 ```
 
-- **problem:** HOSTNAME is reserved readonly var on Gitpod, use other var name only on Gitpod
-- good thing HOSTNAME is used only in server.ts (in log, trivial, protocol too) and docker-compose.prod.yml, rename it SITE_HOSTNAME
+- **problem:** HOSTNAME is reserved readonly var on Gitpos (and Linux), use other var name
+- good thing HOSTNAME is used only in server.ts (in log, trivial, protocol too) and docker-compose.prod.yml, **solution:** rename it SITE_HOSTNAME, SITE_PROTOCOL
 
 ```bash
 HOSTNAME=3001-nemanjam-nextjsprismabo-dn2irzhpmzu.ws-eu47.gitpod.io
 # resolves to:
 3001-nemanjam-nextjsprismabo-dn2irzhpmzu # error
 
-# HOSTNAME=reserved env var on gitpod, readonly
+# HOSTNAME=reserved env var on Gitpos (and Linux), readonly
 ```
 
 - **both** website and api are on **https without port:**
@@ -98,6 +98,29 @@ HOSTNAME=3001-nemanjam-nextjsprismabo-dn2irzhpmzu.ws-eu47.gitpod.io
 # https://3001-nemanjam-nextjsprismabo-dn2irzhpmzu.ws-eu47.gitpod.io/users/
 # api:
 # https://3001-nemanjam-nextjsprismabo-dn2irzhpmzu.ws-eu47.gitpod.io/api/users/?page=1
+```
+
+- `.gitpod.yml` reference [docs](https://www.gitpod.io/docs/references/gitpod-yml#image)
+- can specify custom Docker image with one Dockerfile for example
+
+- **final:**
+
+```bash
+# http - use http server
+SITE_PROTOCOL=http
+
+# only backend will use this port (http server)
+# Gitpod will proxy it
+PORT=3001
+
+#SITE_HOSTNAME=3001-nemanjam-nextjsprismabo-dn2irzhpmzu.ws-eu47.gitpod.io
+# without https://
+SITE_HOSTNAME=${PORT}-${HOSTNAME}.${GITPOD_WORKSPACE_CLUSTER_HOST}
+
+
+# no port in url
+#NEXTAUTH_URL=https://3001-nemanjam-nextjsprismabo-dn2irzhpmzu.ws-eu47.gitpod.io
+NEXTAUTH_URL=https://${PORT}-${HOSTNAME}.${GITPOD_WORKSPACE_CLUSTER_HOST}
 ```
 
 ### Run on Repl.it

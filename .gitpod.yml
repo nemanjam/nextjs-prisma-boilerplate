@@ -9,5 +9,21 @@ tasks:
 
 # Ports to expose on workspace startup
 ports:
-  - port: 3001
+  - name: Website
+    port: 3001
+    description: api http server listens on this port
     onOpen: open-browser
+    visibility: public
+
+# Extensions
+vscode:
+  extensions:
+    - dsznajder.es7-react-js-snippets
+    - esbenp.prettier-vscode
+    - Prisma.prisma
+    - bradlc.vscode-tailwindcss
+    - stylelint.vscode-stylelint
+    - csstools.postcss
+    - ms-vscode-remote.remote-containers
+    - orta.vscode-jest
+    - mikestead.dotenv

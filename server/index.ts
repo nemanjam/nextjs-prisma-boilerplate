@@ -20,7 +20,7 @@ app.prepare().then(() => {
   });
 
   const port = parseInt(process.env.PORT || '3001', 10);
-  const isHttps = process.env.PROTOCOL === 'https';
+  const isHttps = process.env.SITE_PROTOCOL === 'https';
 
   if (isHttps) {
     const certsPaths = getCertificates();
@@ -43,7 +43,9 @@ app.prepare().then(() => {
   console.log(
     `> NODE_ENV=${process.env.NODE_ENV}\n> Server listening at ${
       isHttps ? 'https' : 'http'
-    }://${process.env.HOSTNAME}:${port} as ${process.env.NODE_ENV}, dev mode:${isDev}`
+    }://${process.env.SITE_HOSTNAME}:${port} as ${
+      process.env.NODE_ENV
+    }, dev mode:${isDev}`
   );
 
   printLoadedEnvVariables();

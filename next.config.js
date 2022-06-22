@@ -26,6 +26,8 @@ module.exports = {
   // buildtime, must provide buildtime in Dockerfile or hardcode
   env: {
     // used in axios instance, just rename it
+    // with '/', no need to trim it anywhere
+    // all paths have '/'
     NEXT_PUBLIC_BASE_URL: `${process.env.NEXTAUTH_URL}/`,
     NEXT_PUBLIC_POSTS_PER_PAGE: 5,
     NEXT_PUBLIC_USERS_PER_PAGE: 3,

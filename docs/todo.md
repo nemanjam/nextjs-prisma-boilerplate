@@ -120,7 +120,6 @@
 - test if prod build and start works without NEXTAUTH_URL
 - gitpod and replit dev environments, APP_ENV, and heroku db
 - handle APP_ENV in server.ts
-- NEXT_PUBLIC_BASE_URL without '/'
 - add d-c.live.yml
 - profile link doesnt rerender from user1 to user0, useMemo in MeProvider...
 - automatize everything with .gitpod.yml
@@ -287,3 +286,4 @@
 - `userEvent.clear()` broken - 1, done
 - alpine doesnt have bash for jest-preview, done
 - fix act in Home, done
+- NEXT_PUBLIC_BASE_URL without '/', no, nowhere it is trimmed

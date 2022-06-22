@@ -27,7 +27,7 @@ services:
       # - ./envs/production-live/.env.production.live.local
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.nextjs-prisma-secure.rule=Host(`${HOSTNAME}`)'
+      - 'traefik.http.routers.nextjs-prisma-secure.rule=Host(`${SITE_HOSTNAME}`)'
       - 'traefik.http.routers.nextjs-prisma-secure.entrypoints=websecure'
       - 'traefik.http.routers.nextjs-prisma-secure.service=nextjs-prisma-svc'
       - 'traefik.http.services.nextjs-prisma-svc.loadbalancer.server.port=3001'
