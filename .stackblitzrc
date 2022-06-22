@@ -1,0 +1,13 @@
+{
+  "installDependencies": true,
+  "startCommand": "dev",
+  "env": {
+    "NODE_ENV": "development",
+    "APP_ENV": "stackblitz",
+    "SITE_PROTOCOL": "http",
+    "PORT": 3001,
+    "SITE_HOSTNAME": "",
+    "NEXTAUTH_URL": "",
+    "DATABASE_URL": ""
+  }
+}
