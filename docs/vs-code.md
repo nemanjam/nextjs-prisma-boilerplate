@@ -139,6 +139,32 @@ NEXTAUTH_URL=https://nextjs-prisma-boilerplate.vkostunica.repl.co
 NEXT_PUBLIC_BASE_URL=https://nextjs-prisma-boilerplate.vkostunica.repl.co/
 ```
 
+- **Repli.it final:**
+
+- install Node.js 16:
+- choose Node16 template (with Nix)
+- checkout code
+
+```bash
+cp -a ~/nextjs-prisma-boilerplate/. ~/nextjs-prisma-boilerplate-node16/
+rm -rf ~/nextjs-prisma-boilerplate
+```
+
+- install yarn, add yarn to replit.nix, yarn --version
+
+```bash
+# replit.nix
+{ pkgs }: {
+	deps = with pkgs; [
+		nodejs-16_x
+		nodePackages.typescript-language-server
+        yarn
+	];
+}
+```
+
+- copy `.env.development.replit.local.example` to `.env.development.replit.local` and set DATABASE_URL
+
 ### Remote containers VS Code
 
 - port forward in devcontainer.json only needed with Dockerfile, already defined in docker-compose.yml
