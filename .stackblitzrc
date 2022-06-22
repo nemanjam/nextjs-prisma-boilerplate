@@ -1,13 +1,13 @@
 {
-  "installDependencies": true,
-  "startCommand": "dev",
+  "installDependencies": false,
+  "startCommand": "yarn dev",
   "env": {
     "NODE_ENV": "development",
     "APP_ENV": "stackblitz",
     "SITE_PROTOCOL": "http",
     "PORT": 3001,
-    "SITE_HOSTNAME": "",
-    "NEXTAUTH_URL": "",
+    "SITE_HOSTNAME": "github-5jnwyj--3001.local.webcontainer.io",
+    "NEXTAUTH_URL": "https://github-5jnwyj--3001.local.webcontainer.io",
     "DATABASE_URL": ""
   }
 }

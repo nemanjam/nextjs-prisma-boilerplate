@@ -170,4 +170,10 @@ DATABASE_URL=postgres://...
 
 # error - Error: ENOSPC: no space left on device, write
 rm -rf node_modules && yarn install --ignore-engines
+
+# dont forget
+npx prisma generate
+
+# linux distro
+lsb_release -a
 ```
