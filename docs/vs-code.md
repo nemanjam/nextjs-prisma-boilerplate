@@ -164,6 +164,7 @@ rm -rf ~/nextjs-prisma-boilerplate
 ```
 
 - copy `.env.development.replit.local.example` to `.env.development.replit.local` and set DATABASE_URL
+- too weak, nodemon crashes on `replit:dev:env`
 
 ### Remote containers VS Code
 
