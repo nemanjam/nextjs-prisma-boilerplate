@@ -41,6 +41,8 @@ jobs:
       # DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOSTNAME:$POSTGRES_PORT/$POSTGRES_DB?schema=public
 
       # --------------- public vars - .env.test ---------------
+      APP_ENV: ci
+
       PROTOCOL: http
       HOSTNAME: localhost
       PORT: 3001

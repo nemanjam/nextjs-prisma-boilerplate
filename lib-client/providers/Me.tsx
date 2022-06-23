@@ -26,9 +26,9 @@ const MeProvider: FC<ProviderProps> = ({ children }) => {
 
   // memoize children, fix for: Suspense boundary received an update before it finished hydrating
   // https://github.com/facebook/react/issues/24476#issuecomment-1127800350
-  const memoChildren = useMemo(() => children, [me]);
+  // const memoChildren = useMemo(() => children, [me]);
 
-  return <MeContext.Provider value={{ me }}>{memoChildren}</MeContext.Provider>;
+  return <MeContext.Provider value={{ me }}>{children}</MeContext.Provider>;
 };
 
 export default MeProvider;

@@ -78,22 +78,18 @@
 - test form, node api, cypress, ci, error 500
 - each form should be separate component, easier to test
 - one youtube lesson for english
-- gitpod env
 - container with vs code for replicating bugs - Gitpod Self-Hosted container
 - testing-lib/react-hooks ReactDom warning
 - avatar thrown out of the form state??? form.reset() not working...
 - zod.safeParse.error type
-- \_error.tsx, Custom500.tsx pages?
 - cv testing, react query, next, react, tailwind, cypress, architectures, databases, devcontainers, traefik, homelab
 - empty state, home, profile... data.items: []
 - SettingsView test fails because of react-hook-form
-- rewrite yarn scripts with :, script.sh
 - add seed Postgres container inside Github Actions directly
 - docblocks in api functions, no
 - dev, prod navbar refresh
 - kill next.js server on unhandled promise rejection
 - rename request models for services
-- throw on undefined env vars on app startup
 - supertest pass dynamic route arg `/api/posts/:id`, maybe exists nicer solution {id}
 - rewrite yarn scripts
 - change all ports from 3001 to 3000
@@ -101,16 +97,10 @@
 - default theme fallback
 - run docker-compose as non root to avoid mount folders as root, app-dev, app-test containers...
 - node env?
-- reuse env script in yarn `"blank-script": "dotenv -e .env.local -- sh -c 'echo $DATABASE_URL'"`, dotenv discusions ???
-- clean yarn scripts
-- getStaticProps in login and register, no, MeProvider...
 - uploadsImageLoader when src isUrl...?, google, fb avatar?
 - user in Cypress container for screenshots as non root
-- APP_ENV for GA
 - prevent test env logs in GA
 - certs files not found logic in server.ts
-- pass new files in docker-compose.yml and yarn scripts
-- deploy new production
 - build and test containers with new envs
 - screenshots file permissions in Cypress container
 - test devcontainers
@@ -118,25 +108,18 @@
 - use `environment:` instead of `env_file:` in docker-compose.live.yml
 - single .env file for live...?
 - test if prod build and start works without NEXTAUTH_URL
-- gitpod and replit dev environments, APP_ENV, and heroku db
-- handle APP_ENV in server.ts
 - add d-c.live.yml
-- profile link doesnt rerender from user1 to user0, useMemo in MeProvider...
-- automatize everything with .gitpod.yml
+- testcase for react hydration bug
 
 ### Overview
 
 - ask to record tutorials
-- APP_ENV for GA
-- Cypress Docker
-- yarn scripts
-- Github Actions tests, lint, type-check, format
 - basic readme
-- fix errors: settings form reset, image backend
-- deployment with ssh actions
 - update cv
-- docker volume folders as non root
-- fix remaining tests
+- fix errors: settings form reset, image backend, hydration bug
+- deployment with ssh actions
+- docker volume folders as non root pg, cypress
+- deploy new production
 
 ### Questions
 
@@ -287,3 +270,20 @@
 - alpine doesnt have bash for jest-preview, done
 - fix act in Home, done
 - NEXT_PUBLIC_BASE_URL without '/', no, nowhere it is trimmed
+- \_error.tsx, Custom500.tsx pages?, done
+- rewrite yarn scripts with :, script.sh, done
+- throw on undefined env vars on app startup, done
+- reuse env script in yarn `"blank-script": "dotenv -e .env.local -- sh -c 'echo $DATABASE_URL'"`, dotenv discusions ???, done
+- profile link doesnt rerender from user1 to user0, useMemo in MeProvider, true, path in deps?
+- clean yarn scripts, done
+- getStaticProps in login and register, no, MeProvider..., done
+- APP_ENV for GA, nothing to do, done
+- pass new files in docker-compose.yml and yarn scripts, done
+- handle APP_ENV in server.ts, nothing to do, done
+- automatize everything with .gitpod.yml, done
+- gitpod and replit dev environments, APP_ENV, and heroku db, done
+- APP_ENV for GA, done
+- Cypress Docker, done
+- yarn scripts, done
+- Github Actions tests, lint, type-check, format, done
+- fix remaining tests, done
