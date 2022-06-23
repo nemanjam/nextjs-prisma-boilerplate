@@ -136,3 +136,32 @@ const getQueryClientConfig = (): QueryClientConfig => ({
 ```
 
 - tests pass even without `--runInBand` jest option
+
+### Hydration bug
+
+- useSession and useMe are dependant queries
+- fetch userId only in getServerSideProps and pass it as prop or in cache to avoid async useSession call in useMe
+
+- React Query providers before SuspenseWrapper???, probably not, only MeProvider
+
+```jsx
+<QueryClientProvider client={queryClient}>
+  <Hydrate state={dehydratedState}>
+    <SuspenseWrapper suspenseName="root">
+      <Component {...pageProps} />
+    </SuspenseWrapper>
+    <ReactQueryDevtools />
+  </Hydrate>
+</QueryClientProvider>
+```
+
+- `me.id` must be part of the query key, [my discussion](https://github.com/TanStack/query/discussions/3514)
+
+- if it can return undefined must be async for Promise types, interesting
+
+```ts
+await queryClient.prefetchQuery([QueryKeys.ME_ID], () => me.id);
+await queryClient.prefetchQuery([QueryKeys.ME_ID], async () => me?.id);
+```
+
+- error is in some state update after rerender, even if id in useMe is sync, can use useSession

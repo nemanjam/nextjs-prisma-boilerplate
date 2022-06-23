@@ -113,10 +113,11 @@
 
 ### Overview
 
+- hydration bug - dependant queries, me and others
 - ask to record tutorials
 - basic readme
 - update cv
-- fix errors: settings form reset, image backend, hydration bug
+- fix errors: settings form reset, image backend
 - deployment with ssh actions
 - docker volume folders as non root pg, cypress
 - deploy new production
