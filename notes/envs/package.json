@@ -70,7 +70,13 @@
     "with:gitpod:env": "fn() { npx dotenv -e ./envs/development-gitpod/.env.development.gitpod -e ./envs/development-gitpod/.env.development.gitpod.local -- bash -c \"yarn $2\";}; fn --",
     "gitpod:migrate:dev:env": "yarn with:gitpod:env prisma:migrate:dev",
     "gitpod:push:env": "yarn with:gitpod:env prisma:push",
-    "gitpod:dev:env": "yarn with:gitpod:env dev"
+    "gitpod:dev:env": "yarn with:gitpod:env dev",
+    "with:replit:env": "fn() { npx dotenv -e ./envs/development-replit/.env.development.replit -e ./envs/development-replit/.env.development.replit.local -- bash -c \"yarn $2\";}; fn --",
+    "replit:push:env": "yarn with:replit:env prisma:push",
+    "replit:dev:env": "yarn with:replit:env dev",
+    "with:codesandbox:env": "fn() { npx dotenv -e ./envs/development-codesandbox/.env.development.codesandbox -e ./envs/development-codesandbox/.env.development.codesandbox.local -- bash -c \"yarn $2\";}; fn --",
+    "codesandbox:push:env": "yarn with:codesandbox:env prisma:push",
+    "codesandbox:dev:env": "yarn with:codesandbox:env dev"
   },
   "dependencies": {
     "@faker-js/faker": "^6.2.0",
