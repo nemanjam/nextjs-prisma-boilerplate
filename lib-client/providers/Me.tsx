@@ -1,6 +1,7 @@
 import { createContext, FC, useMemo } from 'react';
 import { ClientUser } from 'types/models/User';
 import { useMe } from 'lib-client/react-query/auth/useMe';
+import SuspenseWrapper from 'lib-client/providers/SuspenseWrapper';
 
 // context
 type ContextProps = {
@@ -28,7 +29,11 @@ const MeProvider: FC<ProviderProps> = ({ children }) => {
   // https://github.com/facebook/react/issues/24476#issuecomment-1127800350
   // const memoChildren = useMemo(() => children, [me]);
 
-  return <MeContext.Provider value={{ me }}>{children}</MeContext.Provider>;
+  return (
+    <SuspenseWrapper loaderType="screen">
+      <MeContext.Provider value={{ me }}>{children}</MeContext.Provider>
+    </SuspenseWrapper>
+  );
 };
 
 export default MeProvider;

@@ -110,6 +110,7 @@
 - test if prod build and start works without NEXTAUTH_URL
 - add d-c.live.yml
 - testcase for react hydration bug
+- comment out one by one component to isolate it
 
 ### Overview
 

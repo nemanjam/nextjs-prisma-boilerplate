@@ -6,6 +6,7 @@ import { Session } from 'next-auth';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { createMockRouter } from 'test-client/Wrapper';
 import SuspenseWrapper from 'lib-client/providers/SuspenseWrapper';
+import ErrorBoundaryWrapper from 'lib-client/providers/ErrorBoundaryWrapper';
 
 export type HookWrapperProps = {
   children: ReactNode;
@@ -23,13 +24,15 @@ export type HookWrapperProps = {
 // RouterContext for redirect onSuccess
 const HookWrapper = ({ children, session, queryClient, router }: HookWrapperProps) => {
   return (
-    <SuspenseWrapper errorFallbackType="test" loaderType="test">
+    <ErrorBoundaryWrapper errorFallbackType="test">
       <RouterContext.Provider value={{ ...createMockRouter(), ...router }}>
         <SessionProvider session={session} refetchInterval={5 * 60}>
-          <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+          <QueryClientProvider client={queryClient}>
+            <SuspenseWrapper loaderType="test">{children}</SuspenseWrapper>
+          </QueryClientProvider>
         </SessionProvider>
       </RouterContext.Provider>
-    </SuspenseWrapper>
+    </ErrorBoundaryWrapper>
   );
 };
 

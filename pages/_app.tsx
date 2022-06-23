@@ -7,7 +7,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from 'next-themes';
 import { themes } from 'lib-client/constants';
 import getQueryClientConfig from 'lib-client/react-query/queryClientConfig';
-import SuspenseWrapper from 'lib-client/providers/SuspenseWrapper';
+import ErrorBoundaryWrapper from 'lib-client/providers/ErrorBoundaryWrapper';
 
 import 'styles/index.scss';
 
@@ -18,7 +18,7 @@ const App = ({
   const [queryClient] = useState(() => new QueryClient(getQueryClientConfig()));
 
   return (
-    <SuspenseWrapper errorFallbackType="screen" loaderType="screen">
+    <ErrorBoundaryWrapper errorFallbackType="screen">
       <SessionProvider session={session} refetchInterval={5 * 60}>
         <ThemeProvider themes={themes} attribute="class">
           <IconContext.Provider value={{ className: 'react-icons' }}>
@@ -31,7 +31,7 @@ const App = ({
           </IconContext.Provider>
         </ThemeProvider>
       </SessionProvider>
-    </SuspenseWrapper>
+    </ErrorBoundaryWrapper>
   );
 };
 

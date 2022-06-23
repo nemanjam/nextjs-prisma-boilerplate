@@ -10,6 +10,7 @@ import { themes as defaultThemes } from 'lib-client/constants';
 import { MeContext } from 'lib-client/providers/Me';
 import SuspenseWrapper from 'lib-client/providers/SuspenseWrapper';
 import { fakeUser } from './server/fake-data';
+import ErrorBoundaryWrapper from 'lib-client/providers/ErrorBoundaryWrapper';
 
 export type WrapperProps = {
   children: ReactNode;
@@ -32,25 +33,27 @@ const Wrapper: FC<WrapperProps> = ({
   router,
 }) => {
   return (
-    <SuspenseWrapper errorFallbackType="test" loaderType="test">
+    <ErrorBoundaryWrapper errorFallbackType="test">
       <RouterContext.Provider value={{ ...createMockRouter(), ...router }}>
         <SessionProvider session={session} refetchInterval={5 * 60}>
           <ThemeProvider themes={themes} attribute="class">
             <IconContext.Provider value={{ className: 'react-icons' }}>
               <QueryClientProvider client={queryClient}>
                 <Hydrate state={dehydratedState}>
-                  {/* pass logged in use synchronously to prevent act errors */}
-                  <MeContext.Provider value={{ me: fakeUser }}>
-                    {/* component, not a page */}
-                    {children}
-                  </MeContext.Provider>
+                  <SuspenseWrapper loaderType="test">
+                    {/* pass logged in use synchronously to prevent act errors */}
+                    <MeContext.Provider value={{ me: fakeUser }}>
+                      {/* component, not a page */}
+                      {children}
+                    </MeContext.Provider>
+                  </SuspenseWrapper>
                 </Hydrate>
               </QueryClientProvider>
             </IconContext.Provider>
           </ThemeProvider>
         </SessionProvider>
       </RouterContext.Provider>
-    </SuspenseWrapper>
+    </ErrorBoundaryWrapper>
   );
 };
 

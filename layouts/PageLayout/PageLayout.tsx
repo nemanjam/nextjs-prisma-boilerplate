@@ -2,8 +2,9 @@ import React, { FC, ReactNode } from 'react';
 import { withBem } from 'utils/bem';
 import Navbar from 'components/Navbar';
 import Footer from 'components/Footer';
-import SuspenseWrapper from 'lib-client/providers/SuspenseWrapper';
 import MeProvider from 'lib-client/providers/Me';
+import ErrorBoundaryWrapper from 'lib-client/providers/ErrorBoundaryWrapper';
+import SuspenseWrapper from 'lib-client/providers/SuspenseWrapper';
 
 type Props = {
   children: ReactNode;
@@ -21,9 +22,9 @@ const PageLayout: FC<Props> = ({ children, noPaddingTop }) => {
 
         <main className={b('content', { 'no-padding-top': noPaddingTop })}>
           {/* Views (page) level loading and error handling*/}
-          <SuspenseWrapper errorFallbackType="page" loaderType="page">
-            {children}
-          </SuspenseWrapper>
+          <ErrorBoundaryWrapper errorFallbackType="page">
+            <SuspenseWrapper loaderType="page">{children}</SuspenseWrapper>
+          </ErrorBoundaryWrapper>
         </main>
 
         <Footer />

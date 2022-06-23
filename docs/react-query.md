@@ -165,3 +165,17 @@ await queryClient.prefetchQuery([QueryKeys.ME_ID], async () => me?.id);
 ```
 
 - error is in some state update after rerender, even if id in useMe is sync, can use useSession
+- comment out one by one component to isolate it
+
+- **codesndbox example:** 1. provider around suspense, 2. provider rerenders because it uses state that updates, 3. child od suspense is lazily imported
+
+- memoize childern of Suspense, not of the provider??
+
+```ts
+const Counter2 = lazy(() => import('./Counter2'));
+```
+
+- separate SuspenseWrapper and ErrorBoundaryWrapper, ErrorBoundaryWrapper can go in root
+- root SuspenseWrapper in MeProvider or both in PageLayout
+- or useMe to use isLoading and not Suspense
+- useMe isnt bellow Suspense but Navbar is for screen Loader
