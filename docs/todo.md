@@ -108,12 +108,13 @@
 - use `environment:` instead of `env_file:` in docker-compose.live.yml
 - single .env file for live...?
 - test if prod build and start works without NEXTAUTH_URL
-- add d-c.live.yml
+- add d-c.live.yml with dockerhub image
 - testcase for react hydration bug
 - comment out one by one component to isolate it
 
 ### Overview
 
+- update packages
 - hydration bug - dependant queries, me and others
 - ask to record tutorials
 - basic readme

@@ -1,6 +1,8 @@
 const path = require('path');
 
 module.exports = {
+  reactStrictMode: true,
+  trailingSlash: true,
   experimental: {
     // maybe fixes hydration error
     // https://github.com/vercel/next.js/issues/35564#issuecomment-1077347776
@@ -9,8 +11,6 @@ module.exports = {
     serverComponents: true,
     reactRoot: true,
   },
-  reactStrictMode: true,
-  trailingSlash: true,
   /*
   webpackDevMiddleware: (config) => {
     config.watchOptions = {

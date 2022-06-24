@@ -151,3 +151,16 @@ const MeProvider: FC<ProviderProps> = ({ children }) => {
 ### Yarn scripts
 
 - use [dotenv-cli](https://github.com/entropitor/dotenv-cli) for .env.\* files
+
+### Update next to 12.1.6
+
+- error:
+
+```
+warn  - You have to use React 18 to use `experimental.reactRoot`.
+Error: `experimental.runtime` requires `experimental.reactRoot` to be enabled along with React 18.
+    at Object.getBaseWebpackConfig [as default] (/home/username/Desktop/nextjs-prisma-boilerplate/node_modules/next/build/webpack-config.ts:355:11)
+```
+
+- **solution:** `process.env.__NEXT_REACT_ROOT = 'true';` in server.ts on top, [stackoverflow](https://stackoverflow.com/questions/72551352/error-experimental-runtime-requires-experimental-reactroot-to-be-enabled-al)
+- in custom server only
