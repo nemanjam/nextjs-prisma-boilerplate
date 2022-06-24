@@ -95,14 +95,12 @@
 - read axios error message RQ error handlers
 - default theme fallback
 - run docker-compose as non root to avoid mount folders as root, app-dev, app-test containers...
-- node env?
-- uploadsImageLoader when src isUrl...?, google, fb avatar?
+- uploadsImageLoader when src isUrl...?, google, fb avatar?, should be ok?
 - user in Cypress container for screenshots as non root
 - prevent test env logs in GA
 - build and test containers with new envs
 - screenshots file permissions in Cypress container
 - test devcontainers
-- set `"og:url"` in Head with Javascript, remove env var
 - use `environment:` instead of `env_file:` in docker-compose.live.yml
 - single .env file for live...?
 - test if prod build and start works without NEXTAUTH_URL
@@ -116,13 +114,13 @@
 
 - code coverage setup
 - hydration bug - dependant queries, me and others
-- ask to record tutorials
-- basic readme
-- update cv
+- deploy new production
 - fix errors: settings form reset, image backend
 - deployment with ssh actions
 - docker volume folders as non root pg, cypress
-- deploy new production
+- ask to record tutorials
+- basic readme
+- update cv
 
 ### Questions
 
@@ -292,3 +290,5 @@
 - fix remaining tests, done
 - certs files not found logic in server.ts, done
 - update packages, done
+- set `"og:url"` in Head with Javascript, remove env var, no, must be same on SSR and CSR
+- node env?, done

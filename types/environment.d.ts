@@ -5,6 +5,7 @@ declare global {
       NODE_ENV: 'development' | 'production' | 'test';
 
       // dev/prod
+      APP_ENV: 'local' | 'docker' | 'ci' | 'live' | 'gitpod';
       PROTOCOL: 'https' | 'http';
       HOSTNAME: string;
       PORT: string; // number

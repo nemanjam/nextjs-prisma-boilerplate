@@ -28,15 +28,6 @@ export const sleep = (seconds: number) => {
   return new Promise<void>((resolve) => setTimeout(resolve, seconds * 1000));
 };
 
-/**
- * throw if env is not defined
- */
-export const env = (name: string): string => {
-  const value = process.env[name];
-
-  if (!value) {
-    throw new Error(`Missing: process.env['${name}'].`);
-  }
-
-  return value;
+export const isGithubActionsAppEnv = (): boolean => {
+  return process.env.APP_ENV === 'ci';
 };

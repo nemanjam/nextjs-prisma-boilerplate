@@ -2,8 +2,11 @@ import '@testing-library/jest-dom';
 import { Blob } from 'blob-polyfill';
 import { jestPreviewConfigure } from 'jest-preview';
 import { server } from 'test-client/server';
+import { isGithubActionsAppEnv } from 'utils';
 
-console.log('test-client/config/jest.setup.ts loaded...');
+if (!isGithubActionsAppEnv()) {
+  console.log('test-client/config/jest.setup.ts loaded...');
+}
 
 // The current testing environment is not configured to support act(…)
 // doesnt work

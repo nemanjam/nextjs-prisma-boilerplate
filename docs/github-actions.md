@@ -165,3 +165,7 @@ PORT=${!NAME_PORT} # does not work
 - better use `.env.development.local` and `.env.production.local` instead of single `.env.local`, it's possible
 - when you comment out vars in .env file you have multiple .env files in that file
 - Next.js recognizes production, so use local and docker production terms for staging (environment to test production deployment)
+
+- **Github Actions env vars final:**
+  -Next.js app will load `.env.test` (`.env.test.local` isn't commited) because Jest sets `NODE_ENV=test`, but `process.env.VARS` hardcoded in `tests.yml` will override everything
+- all jobs use local yarn commands (withoud cmd:env)
