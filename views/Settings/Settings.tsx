@@ -148,7 +148,9 @@ const Settings: FC = () => {
   } = useUpdateUser();
 
   const dropzoneOptions: DropzoneOptions = {
-    accept: 'image/png, image/jpg, image/jpeg',
+    accept: {
+      'image/*': ['.jpeg', '.jpg', '.png'],
+    },
     noDrag: false,
     multiple: false,
     maxFiles: 1,

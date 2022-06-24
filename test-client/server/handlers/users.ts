@@ -1,4 +1,4 @@
-import { DefaultRequestBody, PathParams, rest } from 'msw';
+import { DefaultBodyType, PathParams, rest } from 'msw';
 import { PaginatedResponse } from 'types';
 import { ClientUser } from 'types/models/User';
 import { fakeUser, fakeUsers } from 'test-client/server/fake-data';
@@ -10,7 +10,7 @@ const usersHandlers = [
   // routes overlap, must be in same handler
   // 1. Routes.API.PROFILE - /api/users/profile, useUser hook
   // 2. ${Routes.API.USERS}:id - /api/users/:id, useMe SettingsView
-  rest.get<DefaultRequestBody, PathParams, ClientUser>(
+  rest.get<DefaultBodyType, PathParams, ClientUser>(
     `${Routes.API.USERS}:id`,
     (req, res, ctx) => {
       const userId = req.params.id as string;
@@ -30,7 +30,7 @@ const usersHandlers = [
     }
   ),
   // useUsers
-  rest.get<DefaultRequestBody, PathParams, PaginatedResponse<ClientUser>>(
+  rest.get<DefaultBodyType, PathParams, PaginatedResponse<ClientUser>>(
     Routes.API.USERS,
     (req, res, ctx) => {
       const searchTerm = req.url.searchParams.get('searchTerm');
@@ -62,7 +62,7 @@ const usersHandlers = [
   // getImage
   // Routes.STATIC.AVATARS - /uploads/avatars/
   // Routes.STATIC.HEADERS - /uploads/headers/
-  rest.get<DefaultRequestBody, PathParams, Buffer>('/uploads/*', (req, res, ctx) => {
+  rest.get<DefaultBodyType, PathParams, Buffer>('/uploads/*', (req, res, ctx) => {
     const imageBuffer = readFileSync(resolve(__dirname, '../fixtures/image.jpg'));
 
     return res(
@@ -73,7 +73,7 @@ const usersHandlers = [
     );
   }),
   // useUpdateUser
-  rest.patch<DefaultRequestBody, PathParams, ClientUser>(
+  rest.patch<DefaultBodyType, PathParams, ClientUser>(
     `${Routes.API.USERS}:id`,
     async (req, res, ctx) => {
       const userId = req.params.id;
@@ -90,7 +90,7 @@ const usersHandlers = [
     }
   ),
   // useDeleteUser, same as useUpdateUser
-  rest.delete<DefaultRequestBody, PathParams, ClientUser>(
+  rest.delete<DefaultBodyType, PathParams, ClientUser>(
     `${Routes.API.USERS}:id`,
     (req, res, ctx) => {
       const userId = req.params.id;

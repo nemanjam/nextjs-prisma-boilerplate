@@ -1,4 +1,4 @@
-import { DefaultRequestBody, PathParams, rest } from 'msw';
+import { DefaultBodyType, PathParams, rest } from 'msw';
 import { PaginatedResponse } from 'types';
 import { PostWithAuthor } from 'types/models/Post';
 import { Routes } from 'lib-client/constants';
@@ -9,7 +9,7 @@ const postsHandlers = [
   // usePost /api/posts/:id
   // must come first
   // both test and msw mock coupled to fakePostWithAuthor, maybe it could be better
-  rest.get<DefaultRequestBody, PathParams, PostWithAuthor>(
+  rest.get<DefaultBodyType, PathParams, PostWithAuthor>(
     `${Routes.API.POSTS}:id`,
     (req, res, ctx) => {
       const postId = Number(req.params.id);
@@ -22,7 +22,7 @@ const postsHandlers = [
   ),
   // useUpdatePost
   // just forward what you received
-  rest.patch<DefaultRequestBody, PathParams, PostWithAuthor>(
+  rest.patch<DefaultBodyType, PathParams, PostWithAuthor>(
     `${Routes.API.POSTS}:id`,
     (req, res, ctx) => {
       const postId = Number(req.params.id);
@@ -39,7 +39,7 @@ const postsHandlers = [
   // 1. usePosts published=false
   // 2. usePosts ?searchTerm=xxx
   // 3. usePosts
-  rest.get<DefaultRequestBody, PathParams, PaginatedResponse<PostWithAuthor>>(
+  rest.get<DefaultBodyType, PathParams, PaginatedResponse<PostWithAuthor>>(
     Routes.API.POSTS,
     (req, res, ctx) => {
       const searchTerm = req.url.searchParams.get('searchTerm');
@@ -79,12 +79,12 @@ const postsHandlers = [
     }
   ),
   // useCreatePost
-  rest.post<DefaultRequestBody, PathParams, Post>(Routes.API.POSTS, (req, res, ctx) => {
+  rest.post<DefaultBodyType, PathParams, Post>(Routes.API.POSTS, (req, res, ctx) => {
     const post = req.body as Post; // just forward what you received
     return res(ctx.status(200), ctx.json(post));
   }),
   // useDeletePost
-  rest.delete<DefaultRequestBody, PathParams, PostWithAuthor>(
+  rest.delete<DefaultBodyType, PathParams, PostWithAuthor>(
     `${Routes.API.POSTS}:id`,
     (req, res, ctx) => {
       const postId = Number(req.params.id);

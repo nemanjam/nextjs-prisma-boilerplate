@@ -25,6 +25,8 @@ const ThemeChanger: FC<Props> = ({ childRef }) => {
   }, [theme, isMounted]);
 
   const handleChange = () => {
+    if (!theme) return;
+
     const index = themes.indexOf(theme);
     const newIndex = index === themes.length - 1 ? 0 : index + 1;
     setTheme(themes[newIndex]);
@@ -40,7 +42,7 @@ const ThemeChanger: FC<Props> = ({ childRef }) => {
 
   return (
     <span data-testid="theme-changer" className={b()}>
-      {getThemeAlias(theme)}
+      {theme && getThemeAlias(theme)}
     </span>
   );
 };

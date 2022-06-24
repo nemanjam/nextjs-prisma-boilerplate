@@ -1,5 +1,5 @@
 import {
-  DefaultRequestBody,
+  DefaultBodyType,
   PathParams,
   ResponseComposition,
   rest,
@@ -19,7 +19,7 @@ export const server = setupServer(...handlers);
 
 export const errorHandler500 = () => {
   const handler500 = (
-    req: RestRequest<DefaultRequestBody, PathParams>,
+    req: RestRequest<DefaultBodyType, PathParams>,
     res: ResponseComposition<any>,
     ctx: RestContext
   ) => {
