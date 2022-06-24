@@ -3,6 +3,7 @@
 import { Routes } from 'lib-client/constants';
 const fakeUser = require('../fixtures/fakeUser');
 
+const timeout = 10 * 1000;
 const cookieName = Cypress.env('COOKIE_NAME');
 
 describe('Home page', () => {
@@ -76,11 +77,21 @@ describe('Home page', () => {
     // either logged in or logged out
     cy.visit('/');
 
-    cy.findByRole('button', { name: /1/i }).should('have.class', 'button--primary');
+    // this test times out sometimes, give it 10 sec instead of default 4
+    cy.findByRole('button', { name: /1/i, timeout }).should(
+      'have.class',
+      'button--primary'
+    );
     cy.findByRole('button', { name: /next/i }).click();
-    cy.findByRole('button', { name: /2/i }).should('have.class', 'button--primary');
+    cy.findByRole('button', { name: /2/i, timeout }).should(
+      'have.class',
+      'button--primary'
+    );
     cy.findByRole('button', { name: /prev/i }).click();
-    cy.findByRole('button', { name: /1/i }).should('have.class', 'button--primary');
+    cy.findByRole('button', { name: /1/i, timeout }).should(
+      'have.class',
+      'button--primary'
+    );
   });
 
   it('post item links', () => {

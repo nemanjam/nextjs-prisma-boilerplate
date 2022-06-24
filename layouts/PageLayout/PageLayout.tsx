@@ -15,23 +15,25 @@ const PageLayout: FC<Props> = ({ children, noPaddingTop }) => {
   const b = withBem('page-layout');
 
   return (
-    <SuspenseWrapper loaderType="screen">
-      <MeProvider>
-        <div className={b()}>
-          <Navbar />
-          <div className={b('navbar-placeholder')} />
+    <ErrorBoundaryWrapper errorFallbackType="screen">
+      <SuspenseWrapper loaderType="screen">
+        <MeProvider>
+          <div className={b()}>
+            <Navbar />
+            <div className={b('navbar-placeholder')} />
 
-          <main className={b('content', { 'no-padding-top': noPaddingTop })}>
-            {/* Views (page) level loading and error handling*/}
-            <ErrorBoundaryWrapper errorFallbackType="page">
-              <SuspenseWrapper loaderType="page">{children}</SuspenseWrapper>
-            </ErrorBoundaryWrapper>
-          </main>
+            <main className={b('content', { 'no-padding-top': noPaddingTop })}>
+              {/* Views (page) level loading and error handling*/}
+              <ErrorBoundaryWrapper errorFallbackType="page">
+                <SuspenseWrapper loaderType="page">{children}</SuspenseWrapper>
+              </ErrorBoundaryWrapper>
+            </main>
 
-          <Footer />
-        </div>
-      </MeProvider>
-    </SuspenseWrapper>
+            <Footer />
+          </div>
+        </MeProvider>
+      </SuspenseWrapper>
+    </ErrorBoundaryWrapper>
   );
 };
 

@@ -28,6 +28,8 @@ export const sleep = (seconds: number) => {
   return new Promise<void>((resolve) => setTimeout(resolve, seconds * 1000));
 };
 
+// this is not perfect, should be called in all jest.config.js
+// jest imports with node, not ts-node
 export const isGithubActionsAppEnv = (): boolean => {
   return process.env.APP_ENV === 'ci';
 };

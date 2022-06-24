@@ -7,7 +7,6 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from 'next-themes';
 import { themes } from 'lib-client/constants';
 import getQueryClientConfig from 'lib-client/react-query/queryClientConfig';
-import ErrorBoundaryWrapper from 'lib-client/providers/ErrorBoundaryWrapper';
 
 import 'styles/index.scss';
 
@@ -18,20 +17,18 @@ const App = ({
   const [queryClient] = useState(() => new QueryClient(getQueryClientConfig()));
 
   return (
-    <ErrorBoundaryWrapper errorFallbackType="screen">
-      <SessionProvider session={session} refetchInterval={5 * 60}>
-        <ThemeProvider themes={themes} attribute="class">
-          <IconContext.Provider value={{ className: 'react-icons' }}>
-            <QueryClientProvider client={queryClient}>
-              <Hydrate state={dehydratedState}>
-                <Component {...pageProps} />
-              </Hydrate>
-              <ReactQueryDevtools />
-            </QueryClientProvider>
-          </IconContext.Provider>
-        </ThemeProvider>
-      </SessionProvider>
-    </ErrorBoundaryWrapper>
+    <SessionProvider session={session} refetchInterval={5 * 60}>
+      <ThemeProvider themes={themes} attribute="class">
+        <IconContext.Provider value={{ className: 'react-icons' }}>
+          <QueryClientProvider client={queryClient}>
+            <Hydrate state={dehydratedState}>
+              <Component {...pageProps} />
+            </Hydrate>
+            <ReactQueryDevtools />
+          </QueryClientProvider>
+        </IconContext.Provider>
+      </ThemeProvider>
+    </SessionProvider>
   );
 };
 
