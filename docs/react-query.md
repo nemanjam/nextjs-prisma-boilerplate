@@ -179,3 +179,21 @@ const Counter2 = lazy(() => import('./Counter2'));
 - root SuspenseWrapper in MeProvider or both in PageLayout
 - or useMe to use isLoading and not Suspense
 - useMe isnt bellow Suspense but Navbar is for screen Loader
+
+### Refetch queries imperatively
+
+- must use `const queryClient = useQueryClient();` to get same client instance and not `const queryClient = new QueryClient();`, that's why it wouldn't work
+
+```ts
+// NOT THIS
+const queryClient = new QueryClient();
+
+// this
+const queryClient = useQueryClient();
+
+const handleClick = async () => {
+  queryClient.invalidateQueries(['me', 1]);
+  // or
+  await queryClient.refetchQueries(['me', 1], { exact: true });
+};
+```
