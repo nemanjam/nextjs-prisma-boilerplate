@@ -87,7 +87,6 @@
 - SettingsView test fails because of react-hook-form
 - add seed Postgres container inside Github Actions directly
 - docblocks in api functions, no
-- dev, prod navbar refresh
 - kill next.js server on unhandled promise rejection
 - rename request models for services
 - supertest pass dynamic route arg `/api/posts/:id`, maybe exists nicer solution {id}
@@ -100,7 +99,6 @@
 - uploadsImageLoader when src isUrl...?, google, fb avatar?
 - user in Cypress container for screenshots as non root
 - prevent test env logs in GA
-- certs files not found logic in server.ts
 - build and test containers with new envs
 - screenshots file permissions in Cypress container
 - test devcontainers
@@ -111,10 +109,12 @@
 - add d-c.live.yml with dockerhub image
 - testcase for react hydration bug
 - comment out one by one component to isolate it
+- update to Cypress 10
+- update Google and Facebook links
 
 ### Overview
 
-- update packages
+- code coverage setup
 - hydration bug - dependant queries, me and others
 - ask to record tutorials
 - basic readme
@@ -290,3 +290,5 @@
 - yarn scripts, done
 - Github Actions tests, lint, type-check, format, done
 - fix remaining tests, done
+- certs files not found logic in server.ts, done
+- update packages, done

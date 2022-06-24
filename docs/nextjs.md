@@ -164,3 +164,25 @@ Error: `experimental.runtime` requires `experimental.reactRoot` to be enabled al
 
 - **solution:** `process.env.__NEXT_REACT_ROOT = 'true';` in server.ts on top, [stackoverflow](https://stackoverflow.com/questions/72551352/error-experimental-runtime-requires-experimental-reactroot-to-be-enabled-al)
 - in custom server only
+
+### Remove process.env.NEXT_PUBLIC_BASE_URL from CustomHead, don't do this
+
+- **this must use env var or SSR prop**, must be same on SSR and CSR, no Javascript
+
+```ts
+// const baseUrl = process.env.NEXT_PUBLIC_BASE_URL; // with '/'
+// const trimmedBaseUrl = baseUrl.replace(/\/$/, ''); // without
+
+// baseUrl https://localhost:3001
+// 'false' or url, not good
+const baseUrl = isBrowser() && window.location.origin; // without '/'
+```
+
+- axios baseUrl works default, but let it have absolute path
+
+```ts
+const axiosInstance = axios.create({
+  // only if you need other than default
+  // baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+});
+```

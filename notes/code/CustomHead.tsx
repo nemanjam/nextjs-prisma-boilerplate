@@ -1,10 +1,12 @@
 import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { isBrowser, isUrl } from 'utils';
 
 export interface Meta {
   title?: string;
   description?: string;
+  /** absolute (https?://...) or relative path */
   image?: string;
   type?: string;
   date?: string;
@@ -12,19 +14,23 @@ export interface Meta {
 
 const CustomHead = ({ ...customMeta }: Meta) => {
   const router = useRouter();
-
-  // this must use env var or SSR prop, must be same on SSR and CSR, no javascript
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL; // with '/'
-  const trimmedBaseUrl = baseUrl.replace(/\/$/, ''); // without
+  const baseUrl = isBrowser() && window.location.origin; // without '/'
 
   const defaultMeta = {
     title: 'Next.js Prisma Boilerplate',
     description: 'Full stack boilerplate with Next.js, Prisma, Tailwind and Docker.',
-    image: `${baseUrl}images/banner.png`,
+    image: `${baseUrl}/images/banner.png`,
     type: 'website',
   };
 
-  const meta = { ...defaultMeta, ...customMeta };
+  // returns image with absolute path
+  const handleCustomMeta = (_meta: Meta): Meta => {
+    const { image } = _meta;
+    if (!image || isUrl(image)) return _meta;
+    return { ..._meta, image: `${baseUrl}${image}` };
+  };
+
+  const meta = { ...defaultMeta, ...handleCustomMeta(customMeta) };
 
   return (
     <Head>
@@ -34,10 +40,10 @@ const CustomHead = ({ ...customMeta }: Meta) => {
 
       <meta name="robots" content="follow, index" />
       <meta content={meta.description} name="description" />
-      <link rel="canonical" href={`${trimmedBaseUrl}${router.asPath}`} />
+      <link rel="canonical" href={`${baseUrl}${router.asPath}`} />
 
       {/* og */}
-      <meta property="og:url" content={`${trimmedBaseUrl}${router.asPath}`} />
+      <meta property="og:url" content={`${baseUrl}${router.asPath}`} />
       <meta property="og:type" content={meta.type} />
       <meta property="og:site_name" content="Next.js Prisma Boilerplate" />
       <meta property="og:description" content={meta.description} />
