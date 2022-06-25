@@ -90,3 +90,17 @@ NEXT_PUBLIC_BASE_URL: `${process.env.NEXTAUTH_URL}/`,
 - for SEO and SSG pages `<Head />` must provide it build time
 
 - image loader can use relative path for image in same domain as app [docs](https://nextjs.org/docs/api-reference/next/image#src)
+
+### Google and Facebook must not use same email, unhandled
+
+- crashes prod server...
+
+```
+[next-auth][error][CALLBACK_OAUTH_ERROR] ,
+[next-auth][error][OAUTH_CALLBACK_ERROR] ,
+    stack: 'TypeError: no access token provided\n' +,
+https://next-auth.js.org/errors#oauth_callback_error no access token provided {,
+  error: {,
+      '    at Client.requestResource (/app/node_modules/openid-client/lib/client.js:1134:13)\n' +,
+    message: 'no access token provided',
+```

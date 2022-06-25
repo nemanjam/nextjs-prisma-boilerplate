@@ -189,7 +189,7 @@ const axiosInstance = axios.create({
 
 ### Next.js Image component
 
-- custom loader
+- custom loader (only for local images), for full urls just forward src and Image component works
 
 ```ts
 export const uploadsImageLoader = ({ src, width, quality }: ImageLoaderProps) => {
@@ -197,7 +197,8 @@ export const uploadsImageLoader = ({ src, width, quality }: ImageLoaderProps) =>
   // use relative path for same domain
   // const _src = src.replace(/^\//, '');
   // return `${process.env.NEXT_PUBLIC_BASE_URL}${_src}?w=${width}&q=${quality || 75}`;
-  return `${src}?w=${width}&q=${quality || 75}`;
+  // if its full url https://... just forward it
+  return !isUrl(src) ? `${src}?w=${width}&q=${quality || 75}` : src;
 };
 ```
 

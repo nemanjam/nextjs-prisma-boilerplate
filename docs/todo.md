@@ -99,11 +99,6 @@
 - single .env file for live...?
 - test if prod build and start works without NEXTAUTH_URL
 - add d-c.live.yml with dockerhub image
--
-
-- settings google avatar fails, paceholder, profile too, only when im logged out or other user, maybe download avatar
-- facebook login fails
-- google avatar fails too 403 forbidden, must bypass imageLoader for http:// ? `Rate-limit exceeded That’s all we know.`
 
 ### Overview
 
@@ -125,6 +120,7 @@
 
 ### Questions
 
+- handle same google and facebook email, it crashes prod app, ask on next-auth discussions
 - error path, db function, getServerSideProps, api endpoint, ask reddit, github
 - where to place and call printLoadedEnvVariables() ?
 - absolute positioning or negative margin, css reddit question
@@ -303,3 +299,6 @@
 - add seed Postgres container inside Github Actions directly, done
 - docblocks in api functions, no
 - Google profile not found `https://localhost:3001/google_user_cl4tpvliv0020s0pn5lt41q7s/`, trimmed to first 6 chars in next-auth, done
+- settings google avatar fails, paceholder, profile too, only when im logged out or other user, maybe download avatar, done
+- google avatar fails too 403 forbidden, must bypass imageLoader for http:// ? `Rate-limit exceeded That’s all we know.`, fixed, just forward src in imageLoader for full url, dont touch Image component, done
+- facebook login fails, it works, just **must not use same email** with google, maybe handle that in next-auth if its worth it

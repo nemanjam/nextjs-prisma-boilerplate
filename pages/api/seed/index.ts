@@ -10,4 +10,10 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   res.status(200).json({ sucess: true });
 });
 
+// allow seed from browser too on: /api/seed/
+handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
+  SeedSingleton.getInstance(prisma).run();
+  res.status(200).json({ sucess: true });
+});
+
 export default handler;

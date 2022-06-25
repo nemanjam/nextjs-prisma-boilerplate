@@ -20,9 +20,9 @@ export const getHeaderImagePath = (user: ClientUser) => {
   return `${Routes.STATIC.HEADERS}${user.headerImage || 'placeholder-header.jpg'}`;
 };
 
-// src isUrl...?
 export const uploadsImageLoader = ({ src, width, quality }: ImageLoaderProps) => {
   // src starts with '/'
   // use relative path for same domain
-  return `${src}?w=${width}&q=${quality || 75}`;
+  // if its full url https://... just forward it
+  return !isUrl(src) ? `${src}?w=${width}&q=${quality || 75}` : src;
 };
