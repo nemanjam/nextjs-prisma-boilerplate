@@ -186,3 +186,24 @@ const axiosInstance = axios.create({
   // baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
 ```
+
+### Next.js Image component
+
+- custom loader
+
+```ts
+export const uploadsImageLoader = ({ src, width, quality }: ImageLoaderProps) => {
+  // src starts with '/'
+  // use relative path for same domain
+  // const _src = src.replace(/^\//, '');
+  // return `${process.env.NEXT_PUBLIC_BASE_URL}${_src}?w=${width}&q=${quality || 75}`;
+  return `${src}?w=${width}&q=${quality || 75}`;
+};
+```
+
+- this will probably fail for google and facebook avatars...?
+
+```ts
+// google avatar works
+https://lh3.googleusercontent.com/a/AATXAJxGLQSA1Qx-WpSBpKD3GxB9QoiEh=s96-c?w=256&q=75
+```

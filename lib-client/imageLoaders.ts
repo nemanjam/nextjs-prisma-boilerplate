@@ -9,7 +9,7 @@ export const getAvatarPath = (user: ClientUser): string => {
     : `${Routes.STATIC.AVATARS}${user.image || 'placeholder-avatar.jpg'}`;
 };
 
-// in Head only
+// not used anywhere, before in CustomHead
 export const getAvatarPathAbsolute = (user: ClientUser): string => {
   return user.image && isUrl(user.image)
     ? user.image
@@ -22,6 +22,7 @@ export const getHeaderImagePath = (user: ClientUser) => {
 
 // src isUrl...?
 export const uploadsImageLoader = ({ src, width, quality }: ImageLoaderProps) => {
-  const _src = src.replace(/^\//, '');
-  return `${process.env.NEXT_PUBLIC_BASE_URL}${_src}?w=${width}&q=${quality || 75}`;
+  // src starts with '/'
+  // use relative path for same domain
+  return `${src}?w=${width}&q=${quality || 75}`;
 };

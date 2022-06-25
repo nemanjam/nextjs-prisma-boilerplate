@@ -5,7 +5,7 @@ import { dehydrate, QueryClient } from 'react-query';
 import ProfileView from 'views/Profile';
 import QueryKeys, { filterEmptyKeys } from 'lib-client/react-query/queryKeys';
 import CustomHead from 'components/CustomHead';
-import { getAvatarPathAbsolute } from 'lib-client/imageLoaders';
+import { getAvatarPath } from 'lib-client/imageLoaders';
 import { ssrNcHandler } from 'lib-server/nc';
 import { Redirects } from 'lib-client/constants';
 import { ClientUser } from 'types/models/User';
@@ -27,7 +27,7 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
       <CustomHead
         title={profile.name}
         description={profile.name}
-        image={getAvatarPathAbsolute(profile)}
+        image={getAvatarPath(profile)}
       />
       <PageLayout noPaddingTop>
         <ProfileView profile={profile} />

@@ -1,7 +1,8 @@
 import axios, { AxiosError } from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  // set it only for external domains or specific api prefixes
+  // baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
 
 // axiosInstance.interceptors.request.use(onSuccess, onError);

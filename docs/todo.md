@@ -99,6 +99,28 @@
 - single .env file for live...?
 - test if prod build and start works without NEXTAUTH_URL
 - add d-c.live.yml with dockerhub image
+-
+- Google profile not found `https://localhost:3001/google_user_cl4tpvliv0020s0pn5lt41q7s/`
+- settings google avatar fails, paceholder
+- facebook login fails
+- google avatar fails too 403 forbidden, must bypass imageLoader for http:// ? `Rate-limit exceeded That’s all we know.`
+
+```ts
+// zod username error
+event - compiled client and server successfully in 612 ms (562 modules)
+handled SSR error:  ApiError: [
+  {
+    "code": "too_big",
+    "maximum": 15,
+    "type": "string",
+    "inclusive": true,
+    "message": "String must contain at most 15 character(s)",
+    "path": [
+      "username"
+    ]
+  }
+]
+```
 
 ### Overview
 
