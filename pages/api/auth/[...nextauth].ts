@@ -85,10 +85,26 @@ handler.use(
     })
 );
 
+/**
+ * used only for Google and Facebook Oauth
+ */
 async function updateUser(user: User, account: Account) {
+  //
+  // handle username so it is less than 15 chars for zod validation
+  let username = (user.username as string).substring(0, 6);
+
+  switch (account.provider) {
+    case 'google':
+      username = `go_${username}`;
+      break;
+    case 'facebook':
+      username = `fb_${username}`;
+      break;
+  }
+
   const data = {
     provider: account.provider,
-    username: `${account.provider}_user_${user.username}`,
+    username,
   } as any;
 
   if (!user.email) {
