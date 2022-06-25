@@ -71,44 +71,34 @@
 - tests: render 200 and 500, mutation, component - unit, forms, hooks, API backend, cypress with real db
 - Github Action CI for tests
 - handle http error in HomeView, both getServerSideProps and useQuery, ErrorBoundary, error handling and error testing same thing
-- return ClientUser from all api endpoints
-- update callback url on Facebook and Google for Oracle
 - test coverage setup
 - hooks error tests (and handling)
-- test form, node api, cypress, ci, error 500
 - each form should be separate component, easier to test
 - one youtube lesson for english
 - container with vs code for replicating bugs - Gitpod Self-Hosted container
 - testing-lib/react-hooks ReactDom warning
 - avatar thrown out of the form state??? form.reset() not working...
-- zod.safeParse.error type
-- cv testing, react query, next, react, tailwind, cypress, architectures, databases, devcontainers, traefik, homelab
-- empty state, home, profile... data.items: []
-- SettingsView test fails because of react-hook-form
-- add seed Postgres container inside Github Actions directly
-- docblocks in api functions, no
 - kill next.js server on unhandled promise rejection
-- rename request models for services
 - supertest pass dynamic route arg `/api/posts/:id`, maybe exists nicer solution {id}
 - rewrite yarn scripts
 - change all ports from 3001 to 3000
-- read axios error message RQ error handlers
 - default theme fallback
 - run docker-compose as non root to avoid mount folders as root, app-dev, app-test containers...
 - uploadsImageLoader when src isUrl...?, google, fb avatar?, should be ok?
 - user in Cypress container for screenshots as non root
 - prevent test env logs in GA
-- build and test containers with new envs
 - screenshots file permissions in Cypress container
+- update to Cypress 10
+- fix contains direct node access warning in lint
+
+- build and test containers with new envs
 - test devcontainers
+
+- update callback url on Facebook and Google for Oracle
 - use `environment:` instead of `env_file:` in docker-compose.live.yml
 - single .env file for live...?
 - test if prod build and start works without NEXTAUTH_URL
 - add d-c.live.yml with dockerhub image
-- testcase for react hydration bug
-- comment out one by one component to isolate it
-- update to Cypress 10
-- update Google and Facebook links
 
 ### Overview
 
@@ -121,6 +111,12 @@
 - ask to record tutorials
 - basic readme
 - update cv
+- cv testing, react query, next, react, tailwind, cypress, architectures, databases, devcontainers, traefik, homelab
+
+### Bugs
+
+- testcase for react hydration bug
+- comment out one by one component to isolate it
 
 ### Questions
 
@@ -140,6 +136,7 @@
 - getServerSideProps http vs direct service calls?
 - next.js startup handler where?
 - ask NODE_ENV=ci or test in Github Actions? reddit
+- read axios error message RQ error handlers, ask in axios discussions
 
 ## Done
 
@@ -292,3 +289,11 @@
 - update packages, done
 - set `"og:url"` in Head with Javascript, remove env var, no, must be same on SSR and CSR
 - node env?, done
+- rename request models for services, done
+- empty state, home, profile... data.items: [], done
+- return ClientUser from all api endpoints, done
+- test form, node api, cypress, ci, error 500, done
+- zod.safeParse.error type, done
+- SettingsView test fails because of react-hook-form, done
+- add seed Postgres container inside Github Actions directly, done
+- docblocks in api functions, no
