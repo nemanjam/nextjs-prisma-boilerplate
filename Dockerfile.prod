@@ -21,10 +21,6 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 COPY prisma ./prisma
 
-# not needed in this stage
-ARG ARG_DATABASE_URL
-ENV DATABASE_URL=$ARG_DATABASE_URL
-
 RUN yarn install --production=true --frozen-lockfile --ignore-scripts \
     && npx prisma generate \
     && npm prune --production \
@@ -45,10 +41,11 @@ WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
 
+# only for SSG pages
 ARG ARG_DATABASE_URL
 ENV DATABASE_URL=$ARG_DATABASE_URL
 
-# NEXTAUTH_URL required at build time
+# NEXTAUTH_URL required at build time for CustomHead SEO
 ARG ARG_NEXTAUTH_URL
 ENV NEXTAUTH_URL=$ARG_NEXTAUTH_URL
 
@@ -77,13 +74,14 @@ COPY --from=builder /app/package.json ./package.json
 COPY --from=dependencies /app/prod_node_modules ./node_modules
 COPY --from=builder --chown=node:node /app/dist ./dist
 COPY --from=builder --chown=node:node /app/.next ./.next
-
-# writable folders
-COPY --from=builder --chown=node:node /app/uploads ./uploads
+# use schema from container
 COPY --from=builder --chown=node:node /app/prisma ./prisma
 
+# volumes
+COPY --from=builder --chown=node:node /app/uploads ./uploads
+
 # in command in d-c.yml
-RUN chmod 766 -R prisma uploads
+RUN chmod 766 -R uploads
 
 USER node
 

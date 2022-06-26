@@ -7,30 +7,19 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
-      # db needed for static site generation - getStaticProps
+      # DATABASE_URL needed for static site generation - getStaticProps
+      # NEXTAUTH_URL needed for CustomHead SEO
       args:
         - ARG_DATABASE_URL=$DATABASE_URL
         - ARG_NEXTAUTH_URL=$NEXTAUTH_URL
-
-    # ports:
-    #   - '3001:3001'
+    ports:
+      - '3001:3001'
     #command: sleep infinity
     volumes:
       - ./uploads:/app/uploads
-      # needed only for sqlite and db.dev
-      # - ./prisma:/app/prisma
-    # runtime only
     env_file:
       - ./envs/production-docker/.env.production.docker
       - ./envs/production-docker/.env.production.docker.local
-      # - ./envs/production-live/.env.production.live
-      # - ./envs/production-live/.env.production.live.local
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.nextjs-prisma-secure.rule=Host(`${SITE_HOSTNAME}`)'
-      - 'traefik.http.routers.nextjs-prisma-secure.entrypoints=websecure'
-      - 'traefik.http.routers.nextjs-prisma-secure.service=nextjs-prisma-svc'
-      - 'traefik.http.services.nextjs-prisma-svc.loadbalancer.server.port=3001'
     depends_on:
       - npb-db-prod
     networks:
@@ -49,13 +38,8 @@ services:
     # uncomment for external access
     # - ./prisma/pg-config/pg_hba.conf:/etc/postgresql.conf
     # - ./prisma/pg-config/postgresql.conf:/etc/pg_hba.conf
-
     environment:
       - PGDATA=/var/lib/postgresql/data/data-prod
-      # instead of env_file
-      # POSTGRES_USER=$POSTGRES_USER
-      # POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-      # POSTGRES_DB=$POSTGRES_DB
     env_file:
       - ./envs/production-docker/.env.production.docker.local
     networks:

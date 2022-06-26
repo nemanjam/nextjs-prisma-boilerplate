@@ -201,7 +201,7 @@ env | grep UID # same
 
 - **solution:**
 - **UID** is already defined variable in bash - for warning
-- only works from `.bashrs`, and **not** from `.profile`
+- only works from `.bashrc`, and **not** from `.profile`
 
 ```bash
 # UID and GID env vars for Docker volumes permissions
@@ -291,4 +291,89 @@ docker-compose --env-file ./config/.env.dev config
 
 ```bash
 docker-compose --env-file ./config/.env.dev up
+```
+
+### docker-compose live production
+
+- **staging:**
+- `docker-compose.prod.yml`, `/envs/production-docker/` - this is staging practically, to test production locally
+- `.env.production*` - to reuse Next.js envs configuration, locally
+- don't build image on live server, 1GB RAM enough to host and 4GB to build image
+
+- **live (real production):** - other repo, no Traefik install here
+
+- you can pass many files into container (`env_file:`), but **only one** file to docker-compose.yml (`--env-file` option)
+
+#### alternative 1 (all env vars in a single file):
+
+- put all (1. container's public, private, 2. docker-compose.yml) env vars in a single file and let docker-compose.yml forward them into container
+- Note: better comment out private vars here and set them on OS or use some dedicated vault (best)
+
+```bash
+# .env
+
+# app container vars -------------------
+# public vars
+- APP_ENV=live
+- SITE_PROTOCOL=http
+- SITE_HOSTNAME=subdomain.domain.com
+- PORT=3001
+- NEXTAUTH_URL=https://subdomain.domain.com
+# private vars
+- DATABASE_URL
+- SECRET=long-string
+- FACEBOOK_CLIENT_ID
+- FACEBOOK_CLIENT_SECRET
+- GOOGLE_CLIENT_ID
+- GOOGLE_CLIENT_SECRET
+
+# postgres container vars -------------------
+# private vars
+- POSTGRES_HOSTNAME=npb-db-live
+- POSTGRES_PORT=5432
+- POSTGRES_USER=postgres_user
+- POSTGRES_PASSWORD=
+- POSTGRES_DB=live-db
+
+# docker-compose.yml vars
+- SITE_HOSTNAME # already defined above for app container
+- MY_UID=1001 # id -u && id -g in ~/.bashrc or here, used in postgres container
+- MY_GID=1001
+```
+
+#### alternative 2 (separate app and docker-compose vars):
+
+- pass container's env vars with `env_file:` in docker-compose.yml
+- pass docker-compose.yml vars with `docker-compose up --env-file=.env.production.live.dc` or export them via shell before `docker-compose up`
+
+```bash
+# app container's public vars
+# .env.production.live
+- APP_ENV=live
+- SITE_PROTOCOL=http
+- SITE_HOSTNAME=subdomain.domain.com
+- PORT=3001
+- NEXTAUTH_URL=https://subdomain.domain.com
+
+# app and postgres container's private vars
+# .env.production.live.local
+# app
+- DATABASE_URL
+- SECRET=long-string
+- FACEBOOK_CLIENT_ID
+- FACEBOOK_CLIENT_SECRET
+- GOOGLE_CLIENT_ID
+- GOOGLE_CLIENT_SECRET
+# postgres
+- POSTGRES_HOSTNAME=npb-db-live
+- POSTGRES_PORT=5432
+- POSTGRES_USER=postgres_user
+- POSTGRES_PASSWORD=
+- POSTGRES_DB=live-db
+
+# docker-compose.yml vars
+# .env.production.live.dc
+- SITE_HOSTNAME
+- MY_UID=1001
+- MY_GID=1001
 ```

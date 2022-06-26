@@ -1,0 +1,73 @@
+version: '3.8'
+services:
+  npb-app-live:
+    container_name: npb-app-live
+    image: nemanjamitic/nextjs-prisma-boilerplate:latest
+    #command: sleep infinity
+    volumes:
+      - ./uploads:/app/uploads
+    # alternative 1 - d-c.yml env vars
+    environment:
+      # public vars
+      - APP_ENV
+      - SITE_PROTOCOL
+      - SITE_HOSTNAME
+      - PORT
+      - NEXTAUTH_URL
+      # private vars
+      - DATABASE_URL
+      - SECRET
+      - FACEBOOK_CLIENT_ID
+      - FACEBOOK_CLIENT_SECRET
+      - GOOGLE_CLIENT_ID
+      - GOOGLE_CLIENT_SECRET
+
+    # alternative 2 - env files
+    # env_file:
+    #   - .env.production.live
+    #   - .env.production.live.local
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=proxy'
+      - 'traefik.http.routers.npb-app-secure.rule=Host(`${SITE_HOSTNAME}`)'
+      - 'traefik.http.routers.npb-app-secure.entrypoints=websecure'
+      - 'traefik.http.routers.npb-app-secure.service=npb-app-svc'
+      - 'traefik.http.services.npb-app-svc.loadbalancer.server.port=3001'
+    depends_on:
+      - npb-db-live
+    networks:
+      - proxy
+
+  npb-db-live:
+    image: postgres:14.3-bullseye
+    container_name: npb-db-live
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    user: '${MY_UID}:${MY_GID}'
+    volumes:
+      - ./prisma/pg-data:/var/lib/postgresql/data
+    # uncomment for external access
+    # - ./prisma/pg-config/pg_hba.conf:/etc/postgresql.conf
+    # - ./prisma/pg-config/postgresql.conf:/etc/pg_hba.conf
+
+    # alternative 1 - d-c.yml env vars
+    environment:
+      - PGDATA=/var/lib/postgresql/data/data-live
+      # private vars
+      - POSTGRES_HOSTNAME
+      - POSTGRES_PORT
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+
+    # alternative 2 - env files
+    # env_file:
+    #   - .env.production.live.local
+    networks:
+      # for adminer
+      - proxy
+
+networks:
+  proxy:
+    external: true

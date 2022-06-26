@@ -94,10 +94,8 @@
 - build and test containers with new envs
 - test devcontainers
 
-- update callback url on Facebook and Google for Oracle
 - use `environment:` instead of `env_file:` in docker-compose.live.yml
 - single .env file for live...?
-- test if prod build and start works without NEXTAUTH_URL
 - add d-c.live.yml with dockerhub image
 
 ### Overview
@@ -302,3 +300,5 @@
 - settings google avatar fails, paceholder, profile too, only when im logged out or other user, maybe download avatar, done
 - google avatar fails too 403 forbidden, must bypass imageLoader for http:// ? `Rate-limit exceeded That’s all we know.`, fixed, just forward src in imageLoader for full url, dont touch Image component, done
 - facebook login fails, it works, just **must not use same email** with google, maybe handle that in next-auth if its worth it
+- update callback url on Facebook and Google for Oracle, done
+- test if prod build and start works without NEXTAUTH_URL, done

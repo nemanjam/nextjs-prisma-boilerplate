@@ -10,6 +10,7 @@ prisma/pg-data/data-*
 
 # very important
 /**/.env*.local
+/**/.env
 
 !uploads/avatars
 uploads/avatars/*

@@ -70,7 +70,8 @@
     "with:gitpod:env": "fn() { npx dotenv -e ./envs/development-gitpod/.env.development.gitpod -e ./envs/development-gitpod/.env.development.gitpod.local -- bash -c \"yarn $2\";}; fn --",
     "gitpod:migrate:dev:env": "yarn with:gitpod:env prisma:migrate:dev",
     "gitpod:push:env": "yarn with:gitpod:env prisma:push",
-    "gitpod:dev:env": "yarn with:gitpod:env dev"
+    "gitpod:dev:env": "yarn with:gitpod:env dev",
+    "docker:npb-app-live:build": "..."
   },
   "dependencies": {
     "@faker-js/faker": "^7.3.0",
