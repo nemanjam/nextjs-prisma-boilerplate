@@ -97,6 +97,7 @@
 - use `environment:` instead of `env_file:` in docker-compose.live.yml
 - single .env file for live...?
 - add d-c.live.yml with dockerhub image
+- yarn scripts to build and push live image to dockerhub
 
 ### Overview
 

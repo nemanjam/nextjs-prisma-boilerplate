@@ -377,3 +377,5 @@ docker-compose --env-file ./config/.env.dev up
 - MY_UID=1001
 - MY_GID=1001
 ```
+
+- docker-compose can build image but can't tag image in same command (will use tag from `image:` in d-c.yml), `docker build` can tag [cheatsheet](https://www.saltycrane.com/cheat-sheets/docker/)
