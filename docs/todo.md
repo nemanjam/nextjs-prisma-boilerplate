@@ -100,6 +100,7 @@
 - add d-c.live.yml with dockerhub image
 - yarn scripts to build and push live image to dockerhub
 - change image in settings doesnt work
+- edit user button leads to Home???
 
 ### Overview
 

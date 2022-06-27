@@ -212,3 +212,6 @@ export const getImage = async (imageUrl: string | undefined): Promise<File> => {
   // return success File with axios
 };
 ```
+
+- important: whenever query is not refetching **key didnt change**, is not unique
+- this is optimistic updates after mutation, with objects merging story (swr and apollo) instead of refetch

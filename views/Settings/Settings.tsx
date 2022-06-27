@@ -26,7 +26,7 @@ const Settings: FC = () => {
   const [progress, setProgress] = useState(0);
   const b = withBem('settings');
 
-  const [hasRanOnce, setHasRanOnce] = useState(false);
+  const [hasDefaultValuesLoaded, setHasDefaultValuesLoaded] = useState(false);
 
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -71,7 +71,7 @@ const Settings: FC = () => {
 
   useEffect(() => {
     // load everything at once when ready
-    if (!hasRanOnce && user && avatarFile && headerFile) {
+    if (!hasDefaultValuesLoaded && user && avatarFile && headerFile) {
       reset({
         ...getValues(),
         username: user.username,
@@ -81,9 +81,9 @@ const Settings: FC = () => {
         header: headerFile,
       } as UserUpdateFormData);
 
-      setHasRanOnce(true);
+      setHasDefaultValuesLoaded(true);
     }
-  }, [user, avatarFile, headerFile, hasRanOnce]);
+  }, [user, avatarFile, headerFile, hasDefaultValuesLoaded]);
 
   const {
     mutate: updateUser,
@@ -130,8 +130,12 @@ const Settings: FC = () => {
               queryClient.invalidateQueries([QueryKeys.ME]),
             ]);
           }
-          // refetch both images always
+          // refetch both images for a user always, with subkey
+          // [QueryKeys.IMAGE, userId, imageType, imageName]
           await queryClient.invalidateQueries([QueryKeys.IMAGE, user.id]);
+
+          // update defaultValues for the form
+          setHasDefaultValuesLoaded(false);
         },
       }
     );

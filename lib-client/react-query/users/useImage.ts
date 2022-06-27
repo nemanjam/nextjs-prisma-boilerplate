@@ -25,19 +25,30 @@ export const useImage = (
   user: ClientUser | undefined,
   imageType: 'avatar' | 'header'
 ) => {
-  const userId = user?.id;
+  let userId: string | undefined;
+  let imageUrl: string | undefined;
+  let imageName: string | undefined;
 
-  const imageUrl =
-    imageType === 'avatar'
-      ? user && getAvatarPath(user)
-      : user && getHeaderImagePath(user);
+  if (user) {
+    userId = user.id;
 
-  const query = useQuery<File | null, AxiosError>(
-    filterEmptyKeys([QueryKeys.IMAGE, userId, imageType]),
+    if (imageType === 'avatar') {
+      imageUrl = getAvatarPath(user);
+      imageName = user.avatar;
+    } else {
+      imageUrl = getHeaderImagePath(user);
+      imageName = user.headerImage;
+    }
+  }
+
+  const query = useQuery<File, AxiosError>(
+    // user.avatar and user.headerimage can be really undefined
+    // and can be filtered, must pass imageType in key
+    filterEmptyKeys([QueryKeys.IMAGE, userId, imageType, imageName]),
     () => getImage(imageUrl),
     {
       enabled: !!userId && !!imageUrl,
-      suspense: false,
+      suspense: false, // important for placeholders
     }
   );
 

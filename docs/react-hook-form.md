@@ -23,7 +23,7 @@
 - initial value for image must not be undefined, he wrote in issues, maybe cause for reset images fail
 - 3 states for images and text, many rerenders, maybe can be better
 - Dropzone is simple and fine
-- maybe solve it with useQuery dependent queries without suspense
+- maybe solve it with useQuery dependant queries without suspense
 
 ```ts
 // both images and text are loaded
@@ -47,4 +47,5 @@ const rootDirAbsolutePath = join(__dirname, '..');
 
 // join(__dirname, '..') is wrong, gives:
 // ...nextjs-prisma-boilerplate/.next/server/pages/api/
+// fails in seed too
 ```

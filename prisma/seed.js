@@ -10,9 +10,9 @@ const { lorem } = require('@faker-js/faker').faker;
 const { readdir, unlink, existsSync } = require('fs');
 const { promisify } = require('util');
 const { loadEnvConfig } = require('@next/env');
-const { join } = require('path');
 
-const rootDirAbsolutePath = join(__dirname, '..');
+// join(__dirname, '..') gives wrong path in prod
+const rootDirAbsolutePath = process.cwd();
 
 // load process.env.DATABASE_URL from .env.local
 loadEnvConfig(rootDirAbsolutePath);
