@@ -69,9 +69,12 @@ const Settings: FC = () => {
   const { register, handleSubmit, formState, reset, getValues } = methods;
   const { errors, dirtyFields } = formState;
 
+  // used after form reset()
+  const isImageLoading = isAvatarLoading || isHeaderLoading;
+
   useEffect(() => {
     // load everything at once when ready
-    if (!hasDefaultValuesLoaded && user && avatarFile && headerFile) {
+    if (!hasDefaultValuesLoaded && !isImageLoading && user && avatarFile && headerFile) {
       reset({
         ...getValues(),
         username: user.username,
@@ -83,7 +86,7 @@ const Settings: FC = () => {
 
       setHasDefaultValuesLoaded(true);
     }
-  }, [user, avatarFile, headerFile, hasDefaultValuesLoaded]);
+  }, [user, avatarFile, headerFile, hasDefaultValuesLoaded, isImageLoading]);
 
   const {
     mutate: updateUser,

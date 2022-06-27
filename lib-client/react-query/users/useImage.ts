@@ -34,10 +34,10 @@ export const useImage = (
 
     if (imageType === 'avatar') {
       imageUrl = getAvatarPath(user);
-      imageName = user.avatar;
+      imageName = user.image ?? undefined;
     } else {
       imageUrl = getHeaderImagePath(user);
-      imageName = user.headerImage;
+      imageName = user.headerImage ?? undefined;
     }
   }
 
