@@ -33,3 +33,8 @@ export const sleep = (seconds: number) => {
 export const isGithubActionsAppEnv = (): boolean => {
   return process.env.APP_ENV === 'ci';
 };
+
+/**
+ * Note: this might give wrong path in tests
+ */
+export const rootDirAbsolutePath = process.cwd();

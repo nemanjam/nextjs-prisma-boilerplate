@@ -47,8 +47,8 @@ export type UserUpdateMutationData = {
 export type UserUpdateFormData = {
   name: string;
   username: string;
-  avatar?: File;
-  header?: File;
+  avatar: File | null;
+  header: File | null;
   bio: string;
   password: string;
   confirmPassword: string;

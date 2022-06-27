@@ -1,9 +1,8 @@
 import { Routes } from 'lib-client/constants';
-import { join } from 'path';
+import { rootDirAbsolutePath } from 'utils';
 
 // node process, root folder, package.json
 // must be defined or entire root folder will be deleted on seed
-const rootDirAbsolutePath = join(__dirname, '..');
 
 export const avatarsFolderAbsolutePath = `${rootDirAbsolutePath}${Routes.STATIC.AVATARS}`;
 export const headersFolderAbsolutePath = `${rootDirAbsolutePath}${Routes.STATIC.HEADERS}`;

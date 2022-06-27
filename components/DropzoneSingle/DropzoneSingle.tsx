@@ -42,6 +42,7 @@ const DropzoneSingle: FC<IFileInputProps> = ({
   });
 
   useEffect(() => {
+    // same register like on field <input {...register('username')}
     register(name);
 
     return () => {

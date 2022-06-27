@@ -90,6 +90,7 @@
 - screenshots file permissions in Cypress container
 - update to Cypress 10
 - fix contains direct node access warning in lint
+- gitpod doesnt run initial command from yml
 
 - build and test containers with new envs
 - test devcontainers
@@ -98,6 +99,7 @@
 - single .env file for live...?
 - add d-c.live.yml with dockerhub image
 - yarn scripts to build and push live image to dockerhub
+- change image in settings doesnt work
 
 ### Overview
 

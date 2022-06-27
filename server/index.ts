@@ -16,7 +16,7 @@ const server = express();
 
 // vars from .env.* files are available inside prepare()
 app.prepare().then(() => {
-  server.use('/uploads', express.static(__dirname + '/../uploads'));
+  server.use('/uploads', express.static(__dirname + '/../uploads')); // Note: from /dist/
 
   server.all('*', (req, res) => {
     return handle(req, res);

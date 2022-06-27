@@ -32,6 +32,7 @@ const Settings: FC = () => {
 
   const [isAvatarLoading, setIsAvatarLoading] = useState(true);
   const [isHeaderLoading, setIsHeaderLoading] = useState(true);
+  const [isTextFieldsLoading, setIsTextFieldsLoading] = useState(true);
 
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -61,8 +62,8 @@ const Settings: FC = () => {
       username: '',
       name: '',
       bio: '',
-      avatar: undefined,
-      header: undefined,
+      avatar: null, // undefined must not be initial value, he said in github issues
+      header: null,
       password: '',
       confirmPassword: '',
     },
@@ -76,6 +77,7 @@ const Settings: FC = () => {
 
   // set initial value for avatar, header async
   // images should be in form state and not in React Query state
+  // 3 functions in one
   const loadDataIntoForm = async (
     user: ClientUser,
     field: 'avatar' | 'header' | 'text'
@@ -89,6 +91,8 @@ const Settings: FC = () => {
             name: user.name,
             bio: user.bio || '', // handle null
           } as UserUpdateFormData);
+
+          setIsTextFieldsLoading(false);
           break;
 
         case 'avatar': {
@@ -100,6 +104,7 @@ const Settings: FC = () => {
             ...getValues(),
             avatar,
           } as UserUpdateFormData);
+
           setIsAvatarLoading(false);
           break;
         }
@@ -107,10 +112,12 @@ const Settings: FC = () => {
           const headerUrl = getHeaderImagePath(user);
           const header = await getImage(headerUrl);
 
+          // dangerous, resets all form, whenever fields are reseting this is the cause
           reset({
             ...getValues(),
             header,
           } as UserUpdateFormData);
+
           setIsHeaderLoading(false);
           break;
         }
@@ -122,23 +129,41 @@ const Settings: FC = () => {
 
   // load all async default values into the form
   useEffect(() => {
-    const run = async () => {
-      if (user) {
+    const run = async (user: ClientUser) => {
+      if (isTextFieldsLoading) {
         await loadDataIntoForm(user, 'text');
       }
 
-      if (!avatarFile && isAvatarLoading && user) {
+      if (!avatarFile && isAvatarLoading) {
         await loadDataIntoForm(user, 'avatar');
       }
 
-      if (!headerFile && isHeaderLoading && user) {
+      if (!headerFile && isHeaderLoading) {
         await loadDataIntoForm(user, 'header');
       }
     };
-    if (isMounted) {
-      run();
+
+    // both images and text are loaded
+    const isLoadingCompleted =
+      !isAvatarLoading && !isHeaderLoading && !isTextFieldsLoading;
+
+    // this was wrong
+    if (isMounted && user && !isLoadingCompleted) {
+      run(user);
     }
-  }, [user, avatarFile, isAvatarLoading, headerFile, isHeaderLoading, isMounted]);
+  }, [
+    user,
+    avatarFile,
+    isAvatarLoading,
+    headerFile,
+    isHeaderLoading,
+    isTextFieldsLoading,
+    isMounted,
+    // important: because they are returned from the hook, can be stale
+    // otherwise it sets undefined images
+    getValues,
+    reset,
+  ]);
 
   const {
     mutate: updateUser,
