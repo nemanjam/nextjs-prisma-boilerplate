@@ -6,6 +6,7 @@ const QueryKeys = {
   USER: 'user',
   ME: 'me',
   USERS: 'users',
+  IMAGE: 'image',
 } as const;
 
 export type QueryKeysType = typeof QueryKeys[keyof typeof QueryKeys];

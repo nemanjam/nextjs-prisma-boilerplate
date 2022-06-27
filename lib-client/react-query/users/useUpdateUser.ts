@@ -39,17 +39,3 @@ export const useUpdateUser = () => {
 
   return mutation;
 };
-
-export const getImage = async (url: string): Promise<File> => {
-  const response = await axiosInstance.get(url, { responseType: 'blob' });
-  // const file = new File([response.data], 'default-image');
-
-  // use Blob instead of File for jsdom polyfill
-  const file = new Blob([response.data], {
-    type: response.headers['content-type'],
-  }) as any;
-  file['lastModifiedDate'] = new Date();
-  file['name'] = 'default-image';
-
-  return file as File;
-};

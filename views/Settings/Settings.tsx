@@ -8,31 +8,25 @@ import DropzoneSingle from 'components/DropzoneSingle';
 import { useQueryClient } from 'react-query';
 import { getErrorClass, withBem } from 'utils/bem';
 import Button from 'components/Button';
-import { getImage, useUpdateUser } from 'lib-client/react-query/users/useUpdateUser';
+import { useUpdateUser } from 'lib-client/react-query/users/useUpdateUser';
 import { useUser } from 'lib-client/react-query/users/useUser';
-import { getAvatarPath, getHeaderImagePath } from 'lib-client/imageLoaders';
 import QueryKeys from 'lib-client/react-query/queryKeys';
 import ProgressBar from 'components/ProgressBar';
 import Alert from 'components/Alert';
-import { useIsMounted } from 'components/hooks';
 import { MeContext } from 'lib-client/providers/Me';
 import {
   UserUpdateData,
   UserUpdateFormData,
-  ClientUser,
   UserUpdateDataKeys,
 } from 'types/models/User';
+import { useImage } from 'lib-client/react-query/users/useImage';
 
 // admin can edit other users
 const Settings: FC = () => {
   const [progress, setProgress] = useState(0);
   const b = withBem('settings');
 
-  const isMounted = useIsMounted();
-
-  const [isAvatarLoading, setIsAvatarLoading] = useState(true);
-  const [isHeaderLoading, setIsHeaderLoading] = useState(true);
-  const [isTextFieldsLoading, setIsTextFieldsLoading] = useState(true);
+  const [hasRanOnce, setHasRanOnce] = useState(false);
 
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -45,6 +39,9 @@ const Settings: FC = () => {
   const params = isOtherUser ? { username } : { id };
 
   const { data: user } = useUser(params);
+  // dependant queries
+  const { data: avatarFile, isLoading: isAvatarLoading } = useImage(user, 'avatar');
+  const { data: headerFile, isLoading: isHeaderLoading } = useImage(user, 'header');
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
@@ -72,98 +69,21 @@ const Settings: FC = () => {
   const { register, handleSubmit, formState, reset, getValues } = methods;
   const { errors, dirtyFields } = formState;
 
-  const avatarFile = getValues('avatar');
-  const headerFile = getValues('header');
-
-  // set initial value for avatar, header async
-  // images should be in form state and not in React Query state
-  // 3 functions in one
-  const loadDataIntoForm = async (
-    user: ClientUser,
-    field: 'avatar' | 'header' | 'text'
-  ) => {
-    try {
-      switch (field) {
-        case 'text':
-          reset({
-            ...getValues(),
-            username: user.username,
-            name: user.name,
-            bio: user.bio || '', // handle null
-          } as UserUpdateFormData);
-
-          setIsTextFieldsLoading(false);
-          break;
-
-        case 'avatar': {
-          const avatarUrl = getAvatarPath(user);
-          const avatar = await getImage(avatarUrl);
-
-          // reset resets formState.isDirty..., setValue doesnt
-          reset({
-            ...getValues(),
-            avatar,
-          } as UserUpdateFormData);
-
-          setIsAvatarLoading(false);
-          break;
-        }
-        case 'header': {
-          const headerUrl = getHeaderImagePath(user);
-          const header = await getImage(headerUrl);
-
-          // dangerous, resets all form, whenever fields are reseting this is the cause
-          reset({
-            ...getValues(),
-            header,
-          } as UserUpdateFormData);
-
-          setIsHeaderLoading(false);
-          break;
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // load all async default values into the form
   useEffect(() => {
-    const run = async (user: ClientUser) => {
-      if (isTextFieldsLoading) {
-        await loadDataIntoForm(user, 'text');
-      }
+    // load everything at once when ready
+    if (!hasRanOnce && user && avatarFile && headerFile) {
+      reset({
+        ...getValues(),
+        username: user.username,
+        name: user.name,
+        bio: user.bio || '', // handle null
+        avatar: avatarFile,
+        header: headerFile,
+      } as UserUpdateFormData);
 
-      if (!avatarFile && isAvatarLoading) {
-        await loadDataIntoForm(user, 'avatar');
-      }
-
-      if (!headerFile && isHeaderLoading) {
-        await loadDataIntoForm(user, 'header');
-      }
-    };
-
-    // both images and text are loaded
-    const isLoadingCompleted =
-      !isAvatarLoading && !isHeaderLoading && !isTextFieldsLoading;
-
-    // this was wrong
-    if (isMounted && user && !isLoadingCompleted) {
-      run(user);
+      setHasRanOnce(true);
     }
-  }, [
-    user,
-    avatarFile,
-    isAvatarLoading,
-    headerFile,
-    isHeaderLoading,
-    isTextFieldsLoading,
-    isMounted,
-    // important: because they are returned from the hook, can be stale
-    // otherwise it sets undefined images
-    getValues,
-    reset,
-  ]);
+  }, [user, avatarFile, headerFile, hasRanOnce]);
 
   const {
     mutate: updateUser,
@@ -210,6 +130,8 @@ const Settings: FC = () => {
               queryClient.invalidateQueries([QueryKeys.ME]),
             ]);
           }
+          // refetch both images always
+          await queryClient.invalidateQueries([QueryKeys.IMAGE, user.id]);
         },
       }
     );

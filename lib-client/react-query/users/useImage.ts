@@ -1,12 +1,14 @@
 import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
-import { ClientUser, UserGetData } from 'types/models/User';
-import { Routes } from 'lib-client/constants';
 import axiosInstance from 'lib-client/react-query/axios';
 import QueryKeys, { filterEmptyKeys } from 'lib-client/react-query/queryKeys';
+import { ClientUser } from 'types/models/User';
+import { getAvatarPath, getHeaderImagePath } from 'lib-client/imageLoaders';
 
-export const getImage = async (url: string): Promise<File> => {
-  const response = await axiosInstance.get(url, { responseType: 'blob' });
+export const getImage = async (imageUrl: string | undefined): Promise<File> => {
+  if (!imageUrl) return Promise.reject(new Error('Invalid imageUrl.'));
+
+  const response = await axiosInstance.get(imageUrl, { responseType: 'blob' });
   // const file = new File([response.data], 'default-image');
 
   // use Blob instead of File for jsdom polyfill
@@ -19,13 +21,25 @@ export const getImage = async (url: string): Promise<File> => {
   return file as File;
 };
 
-export const useUser = (params: UserGetData) => {
-  const subKey = params?.username || params?.email || params?.id;
+export const useImage = (
+  user: ClientUser | undefined,
+  imageType: 'avatar' | 'header'
+) => {
+  const userId = user?.id;
 
-  const query = useQuery<ClientUser, AxiosError>(
-    filterEmptyKeys([QueryKeys.USER, subKey]),
-    () => getUser(params),
-    { enabled: !!subKey }
+  const imageUrl =
+    imageType === 'avatar'
+      ? user && getAvatarPath(user)
+      : user && getHeaderImagePath(user);
+
+  const query = useQuery<File | null, AxiosError>(
+    filterEmptyKeys([QueryKeys.IMAGE, userId, imageType]),
+    () => getImage(imageUrl),
+    {
+      enabled: !!userId && !!imageUrl,
+      suspense: false,
+    }
   );
+
   return query;
 };

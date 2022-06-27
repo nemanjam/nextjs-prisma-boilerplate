@@ -197,3 +197,18 @@ const handleClick = async () => {
   await queryClient.refetchQueries(['me', 1], { exact: true });
 };
 ```
+
+### Return Types with dependant queries
+
+- [tkdodo blog](https://tkdodo.eu/blog/react-query-and-type-script#type-safety-with-the-enabled-option)
+
+```ts
+// RUNTIME check
+// throw error to avoid return type Promise<File | null>
+
+export const getImage = async (imageUrl: string | undefined): Promise<File> => {
+  if (!imageUrl) return Promise.reject(new Error('Invalid imageUrl.'));
+  //...
+  // return success File with axios
+};
+```
