@@ -92,13 +92,10 @@
 - fix contains direct node access warning in lint
 - gitpod doesnt run initial command from yml, maybe needs new workspace
 
+- deploy, comment out page suspense
+- build, up, down scripts, docker:test:up?
 - build and test containers with new envs
 - test devcontainers
-
-- use `environment:` instead of `env_file:` in docker-compose.live.yml, done
-- single .env file for live...?, done
-- add d-c.live.yml with dockerhub image, done
-- yarn scripts to build and push live image to dockerhub, done
 
 ### Overview
 
@@ -120,6 +117,7 @@
 
 ### Questions
 
+- use yarn scripts in Dockerfile or direct commands?
 - handle same google and facebook email, it crashes prod app, ask on next-auth discussions
 - error path, db function, getServerSideProps, api endpoint, ask reddit, github
 - where to place and call printLoadedEnvVariables() ?
@@ -307,3 +305,7 @@
 - test if prod build and start works without NEXTAUTH_URL, done
 - change image in settings doesnt work, done
 - fix errors: settings form reset, done
+- use `environment:` instead of `env_file:` in docker-compose.live.yml, done
+- single .env file for live...?, done
+- add d-c.live.yml with dockerhub image, done
+- yarn scripts to build and push live image to dockerhub, done

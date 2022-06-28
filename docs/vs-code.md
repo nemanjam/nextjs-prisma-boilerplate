@@ -235,3 +235,10 @@ export default $1;
 
 "jest.autoRun": "off"
 ```
+
+### Devcontainers, final
+
+- run `npb-db-dev` database container
+- right click app container `npb-app-dev` -> `Attach to container` -> open `/app` folder -> `install recommended extensions`, open app on `http://localhost:3001`, that's it
+- to see dev app node.js log `Show container log`
+- run tests, use local yarn scripts probably all works

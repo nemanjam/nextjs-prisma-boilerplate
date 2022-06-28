@@ -379,3 +379,8 @@ docker-compose --env-file ./config/.env.dev up
 ```
 
 - docker-compose can build image but can't tag image in same command (will use tag from `image:` in d-c.yml), `docker build` can tag [cheatsheet](https://www.saltycrane.com/cheat-sheets/docker/)
+
+### yarn scripts for Docker
+
+- `docker:dev:up` is enough because source and `.env*` files are mounted via volume plus correct `.env*` files are passed in `docker-compose.yml` via `env_file:` (**of course**), no need for `docker:dev:up:env`, same for docker:tests
+- env viles are only needed for `docker:prod:build` script (ARGs)
