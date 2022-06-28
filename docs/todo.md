@@ -86,11 +86,11 @@
 - run docker-compose as non root to avoid mount folders as root, app-dev, app-test containers...
 - uploadsImageLoader when src isUrl...?, google, fb avatar?, should be ok?
 - user in Cypress container for screenshots as non root
-- prevent test env logs in GA
+- prevent test env logs in GA, done for client
 - screenshots file permissions in Cypress container
 - update to Cypress 10
 - fix contains direct node access warning in lint
-- gitpod doesnt run initial command from yml
+- gitpod doesnt run initial command from yml, maybe needs new workspace
 
 - build and test containers with new envs
 - test devcontainers
@@ -99,15 +99,13 @@
 - single .env file for live...?
 - add d-c.live.yml with dockerhub image
 - yarn scripts to build and push live image to dockerhub
-- change image in settings doesnt work
-- edit user button leads to Home???
 
 ### Overview
 
 - code coverage setup
 - hydration bug - dependant queries, me and others
 - deploy new production
-- fix errors: settings form reset, image backend
+- image backend
 - deployment with ssh actions
 - docker volume folders as non root pg, cypress
 - ask to record tutorials
@@ -140,6 +138,7 @@
 - next.js startup handler where?
 - ask NODE_ENV=ci or test in Github Actions? reddit
 - read axios error message RQ error handlers, ask in axios discussions
+- edit user button leads to Home???, why this must be like this `const settingsHref = '${Routes.SITE.SETTINGS}${user.username}/'` or hard refresh
 
 ## Done
 
@@ -306,3 +305,5 @@
 - facebook login fails, it works, just **must not use same email** with google, maybe handle that in next-auth if its worth it
 - update callback url on Facebook and Google for Oracle, done
 - test if prod build and start works without NEXTAUTH_URL, done
+- change image in settings doesnt work, done
+- fix errors: settings form reset, done
