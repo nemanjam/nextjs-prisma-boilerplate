@@ -26,7 +26,10 @@ const Settings: FC = () => {
   const [progress, setProgress] = useState(0);
   const b = withBem('settings');
 
+  // for initial load
   const [hasDefaultValuesLoaded, setHasDefaultValuesLoaded] = useState(false);
+  // for form reset, avoid placeholder with keepPreviousData
+  const [isFormReset, setIsFormReset] = useState(false);
 
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -74,7 +77,15 @@ const Settings: FC = () => {
 
   useEffect(() => {
     // load everything at once when ready
-    if (!hasDefaultValuesLoaded && !isImageLoading && user && avatarFile && headerFile) {
+    if (
+      // main condition
+      (!hasDefaultValuesLoaded || isFormReset) &&
+      // data ready
+      !isImageLoading &&
+      user &&
+      avatarFile &&
+      headerFile
+    ) {
       reset({
         ...getValues(),
         username: user.username,
@@ -85,8 +96,9 @@ const Settings: FC = () => {
       } as UserUpdateFormData);
 
       setHasDefaultValuesLoaded(true);
+      setIsFormReset(false);
     }
-  }, [user, avatarFile, headerFile, hasDefaultValuesLoaded, isImageLoading]);
+  }, [user, avatarFile, headerFile, hasDefaultValuesLoaded, isFormReset, isImageLoading]);
 
   const {
     mutate: updateUser,
@@ -138,7 +150,7 @@ const Settings: FC = () => {
           await queryClient.invalidateQueries([QueryKeys.IMAGE, user.id]);
 
           // update defaultValues for the form
-          setHasDefaultValuesLoaded(false);
+          setIsFormReset(true);
         },
       }
     );
@@ -153,7 +165,7 @@ const Settings: FC = () => {
           {isError && <Alert variant="error" message={error.message} />}
 
           <div className={b('form-field', { header: true })}>
-            {!isHeaderLoading ? (
+            {!isHeaderLoading || isFormReset ? (
               <DropzoneSingle
                 name="header"
                 label="Header"
@@ -195,7 +207,7 @@ const Settings: FC = () => {
           </div>
 
           <div className={b('form-field', { avatar: true })}>
-            {!isAvatarLoading ? (
+            {!isAvatarLoading || isFormReset ? (
               <DropzoneSingle
                 name="avatar"
                 label="Avatar"

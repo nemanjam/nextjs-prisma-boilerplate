@@ -49,6 +49,7 @@ export const useImage = (
     {
       enabled: !!userId && !!imageUrl,
       suspense: false, // important for placeholders
+      keepPreviousData: true, // this fixes placeholder blink
     }
   );
 

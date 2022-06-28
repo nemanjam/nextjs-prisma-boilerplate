@@ -24,19 +24,29 @@ describe('Settings View', () => {
   });
 
   test('renders user settings view', async () => {
-    // assert title
-    const title = screen.getByRole('heading', {
-      name: /settings/i,
-    });
-    expect(title).toBeInTheDocument();
-
+    //
+    // async ui first
     // assert header image
-    const headerImage = screen.getByRole('img', { name: /header-image/i });
+    const headerImage = await screen.findByRole('img', { name: /header-image/i });
     expect(headerImage).toBeInTheDocument();
     expect(headerImage).toHaveAttribute(
       'src',
       expect.stringMatching(/^blob:https?:\/\//i)
     );
+
+    // assert avatar image
+    const avatarImage = await screen.findByRole('img', { name: /avatar-image/i });
+    expect(avatarImage).toBeInTheDocument();
+    expect(avatarImage).toHaveAttribute(
+      'src',
+      expect.stringMatching(/^blob:https?:\/\//i)
+    );
+
+    // assert title
+    const title = screen.getByRole('heading', {
+      name: /settings/i,
+    });
+    expect(title).toBeInTheDocument();
 
     // assert username input
     const usernameInput = screen.getByRole('textbox', {
@@ -49,14 +59,6 @@ describe('Settings View', () => {
       name: /^name$/i,
     });
     expect(nameInput).toBeInTheDocument();
-
-    // assert avatar image
-    const avatarImage = screen.getByRole('img', { name: /avatar-image/i });
-    expect(avatarImage).toBeInTheDocument();
-    expect(avatarImage).toHaveAttribute(
-      'src',
-      expect.stringMatching(/^blob:https?:\/\//i)
-    );
 
     // assert bio text area
     const bioTextArea = screen.getByRole('textbox', {

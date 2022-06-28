@@ -95,10 +95,10 @@
 - build and test containers with new envs
 - test devcontainers
 
-- use `environment:` instead of `env_file:` in docker-compose.live.yml
-- single .env file for live...?
-- add d-c.live.yml with dockerhub image
-- yarn scripts to build and push live image to dockerhub
+- use `environment:` instead of `env_file:` in docker-compose.live.yml, done
+- single .env file for live...?, done
+- add d-c.live.yml with dockerhub image, done
+- yarn scripts to build and push live image to dockerhub, done
 
 ### Overview
 
