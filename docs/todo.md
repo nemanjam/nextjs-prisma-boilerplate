@@ -88,7 +88,7 @@
 - user in Cypress container for screenshots as non root
 - prevent test env logs in GA, done for client
 - screenshots file permissions in Cypress container
-- update to Cypress 10
+- update to Cypress 10, Prisma 4
 - fix contains direct node access warning in lint
 - gitpod doesnt run initial command from yml, maybe needs new workspace
 
@@ -96,10 +96,11 @@
 - build, up, down scripts, docker:test:up?
 - build and test containers with new envs, dev, prod, live, test, e2e
 - test devcontainers, done
-- settings image after update again, header
+- settings image after update again, header, done
 
 ### Overview
 
+- record video (maybe Cypress) gif or youtube embed in readme
 - code coverage setup
 - hydration bug - dependant queries, me and others
 - deploy new production
