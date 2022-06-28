@@ -94,8 +94,9 @@
 
 - deploy, comment out page suspense
 - build, up, down scripts, docker:test:up?
-- build and test containers with new envs
-- test devcontainers
+- build and test containers with new envs, dev, prod, live, test, e2e
+- test devcontainers, done
+- settings image after update again, header
 
 ### Overview
 

@@ -383,4 +383,16 @@ docker-compose --env-file ./config/.env.dev up
 ### yarn scripts for Docker
 
 - `docker:dev:up` is enough because source and `.env*` files are mounted via volume plus correct `.env*` files are passed in `docker-compose.yml` via `env_file:` (**of course**), no need for `docker:dev:up:env`, same for docker:tests
-- env viles are only needed for `docker:prod:build` script (ARGs)
+- env files are only needed for `docker:prod:build` script (ARGs)
+
+- you can `docker-compose up` single service but you must remove entire `docker-compose.yml` file
+
+```json
+// dev up
+"docker:dev:up": "docker-compose -f docker-compose.dev.yml -p npb-dev up",
+// entire dev down, also db down, (always same args as up - file and project...)
+"docker:dev:down": "docker-compose -f docker-compose.dev.yml -p npb-dev down -v --remove-orphans",
+// db up, no single db down
+"docker:db:dev:up": "docker-compose -f docker-compose.dev.yml -p npb-dev up -d npb-db-dev",
+
+```
