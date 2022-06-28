@@ -4,7 +4,8 @@
 
 # Commands to start on workspace startup
 tasks:
-  - init: yarn install && yarn gitpod:push:env
+  - name: Terminal
+    init: yarn install && yarn gitpod:push:env
     command: yarn gitpod:dev:env
 
 # Ports to expose on workspace startup
