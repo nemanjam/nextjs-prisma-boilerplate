@@ -6,9 +6,6 @@ import next from 'next';
 // only here must use relative path, tsconfig.json, ts-node...
 import { getCertificates, printLoadedEnvVariables } from './utils';
 
-// must be here for next 12.1.6
-// process.env.__NEXT_REACT_ROOT = 'true';
-
 const isDev = !['production', 'test'].includes(process.env.NODE_ENV);
 const app = next({ dev: isDev });
 const handle = app.getRequestHandler();
