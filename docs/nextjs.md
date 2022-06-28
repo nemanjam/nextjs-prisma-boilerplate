@@ -151,6 +151,8 @@ const MeProvider: FC<ProviderProps> = ({ children }) => {
 ### Yarn scripts
 
 - use [dotenv-cli](https://github.com/entropitor/dotenv-cli) for .env.\* files
+- both `yarn dev` and `yarn start` share same `.next` folder, so with dev you can run old prod build, delete it, for `prisma migrate dev` too
+- actually **bash terminal window has old env variable**, open new terminal
 
 ### Update next to 12.1.6
 

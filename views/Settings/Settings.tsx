@@ -43,8 +43,19 @@ const Settings: FC = () => {
 
   const { data: user } = useUser(params);
   // dependant queries
-  const { data: avatarFile, isLoading: isAvatarLoading } = useImage(user, 'avatar');
-  const { data: headerFile, isLoading: isHeaderLoading } = useImage(user, 'header');
+  const avatarQuery = useImage(user, 'avatar');
+  const headerQuery = useImage(user, 'header');
+
+  const {
+    data: avatarFile,
+    isLoading: isAvatarLoading,
+    isFetching: isAvatarFetching,
+  } = avatarQuery;
+  const {
+    data: headerFile,
+    isLoading: isHeaderLoading,
+    isFetching: isHeaderFetching,
+  } = headerQuery;
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
@@ -72,8 +83,10 @@ const Settings: FC = () => {
   const { register, handleSubmit, formState, reset, getValues } = methods;
   const { errors, dirtyFields } = formState;
 
-  // used after form reset()
+  // initial load
   const isImageLoading = isAvatarLoading || isHeaderLoading;
+  // important to trigger useEffect after form reset(), or it fails only in prod (faster)
+  const isImageFetching = isAvatarFetching || isHeaderFetching;
 
   useEffect(() => {
     // load everything at once when ready
@@ -82,6 +95,7 @@ const Settings: FC = () => {
       (!hasDefaultValuesLoaded || isFormReset) &&
       // data ready
       !isImageLoading &&
+      !isImageFetching &&
       user &&
       avatarFile &&
       headerFile
@@ -98,7 +112,15 @@ const Settings: FC = () => {
       setHasDefaultValuesLoaded(true);
       setIsFormReset(false);
     }
-  }, [user, avatarFile, headerFile, hasDefaultValuesLoaded, isFormReset, isImageLoading]);
+  }, [
+    user,
+    avatarFile,
+    headerFile,
+    hasDefaultValuesLoaded,
+    isFormReset,
+    isImageLoading,
+    isImageFetching,
+  ]);
 
   const {
     mutate: updateUser,
