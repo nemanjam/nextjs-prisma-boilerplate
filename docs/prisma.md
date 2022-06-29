@@ -52,3 +52,5 @@ import { User } from '.prisma/client';
 - filtering `AND, OR, where, contains` [docs](https://www.prisma.io/docs/concepts/components/prisma-client/filtering-and-sorting)
 
 - problem: prisma `where` and `orderBy` type errors, solution: cast object e.g `{...} as Prisma.UserOrderByWithRelationAndSearchRelevanceInput,`
+
+- Prisma generates client on yarn install automatically

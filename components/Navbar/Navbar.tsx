@@ -160,6 +160,7 @@ const getAllItems = ({
         width={48}
         height={48}
         alt={me.name ?? 'avatar'}
+        objectFit="cover"
       />
     </Dropdown>
   ),
@@ -171,6 +172,7 @@ const getAllItems = ({
         width={96}
         height={96}
         alt={me.name ?? 'avatar'}
+        objectFit="cover"
       />
     </span>
   ),

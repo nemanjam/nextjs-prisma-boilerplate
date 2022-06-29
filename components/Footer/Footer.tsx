@@ -16,7 +16,7 @@ const Footer: FC = () => {
 
   return (
     <footer className={b()}>
-      <span />
+      <span className={b('left-empty')} />
       <div className={b('links')}>
         <span className={b('author')}>@nemanjam 2022</span>
         <iframe
@@ -25,7 +25,7 @@ const Footer: FC = () => {
           }`}
           frameBorder="0"
           scrolling="0"
-          width={isIframeSmall ? '150' : '170'}
+          width={isIframeSmall ? '90' : '170'}
           height={isIframeSmall ? '20' : '30'}
           title="GitHub"
         ></iframe>

@@ -4,6 +4,10 @@
 
   @apply flex justify-between items-center px-4;
 
+  &__left-empty {
+    @apply inline-block w-10;
+  }
+
   &__links {
     @apply flex justify-between items-center gap-2;
   }

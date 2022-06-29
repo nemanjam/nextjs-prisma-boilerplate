@@ -3,8 +3,6 @@ generator client {
   previewFeatures = ["fullTextSearch"]
 }
 
-// binaryTargets = ["debian-openssl-1.1.x"]
-
 // env("DB_PROVIDER")
 // provider must be hardcoded here
 // https://github.com/prisma/prisma/issues/3834
@@ -14,16 +12,13 @@ datasource db {
   url      =  env("DATABASE_URL")
 }
 
-// provider = "sqlite" 
-// url    =  "file:./dev.db"
-
 model Post {
   id          Int     @id @default(autoincrement())
   title       String
   content     String
   published   Boolean @default(false)
   authorId    String
-  author      User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author      User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
   createdAt   DateTime  @default(now()) @map(name: "created_at")
   updatedAt   DateTime  @updatedAt @map(name: "updated_at")
   // hero image, tag, category, comments, likes
@@ -34,7 +29,7 @@ model Post {
 model User {
   id            String    @id @default(cuid())
   name          String
-  email         String   @unique // optional, facebook
+  email         String    @unique // optional, facebook
   username      String    @unique @default(cuid())
   provider      String    @default("credentials")
   password      String? 
@@ -43,7 +38,7 @@ model User {
   headerImage   String?   @map("header_image")
   bio           String?
   role          String    @default("user") // user, admin
-  accounts      Account[] // next-auth requires this scheme, user is in scheme too
+  accounts      Account[] // next-auth requires this schema, user is in schema too
   sessions      Session[]
   posts         Post[]
   createdAt     DateTime  @default(now()) @map(name: "created_at")

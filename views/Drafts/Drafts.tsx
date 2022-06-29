@@ -15,7 +15,7 @@ const Drafts: FC = () => {
   const [page, setPage] = useState(1);
   const { data, isFetching, isPreviousData } = usePosts(QueryKeys.POSTS_DRAFTS, {
     page,
-    userId: me?.id,
+    username: me?.username,
     published: false,
   });
 

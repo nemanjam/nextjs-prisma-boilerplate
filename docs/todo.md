@@ -98,6 +98,9 @@
 - test devcontainers, done
 - settings image after update again, header, done
 - profile reset to first page, other user
+- navabar avatar deformed
+- center github button mobile
+- layout height on mobile Create page scroll
 
 ### Overview
 
