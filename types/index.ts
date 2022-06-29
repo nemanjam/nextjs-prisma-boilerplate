@@ -26,9 +26,9 @@ export type SortDirection = 'asc' | 'desc';
 /**
  * api NextApiRequest req.query
  */
-export type QueryParamsType = {
+export type QueryParamsType = Partial<{
   [key: string]: string | string[];
-};
+}>;
 
 /**
  * getServerSideProps req

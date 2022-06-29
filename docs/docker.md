@@ -424,6 +424,15 @@ CMD [ "yarn", "prisma:migrate:prod" ]
 
 ```
 
+```bash
+# order:
+yarn docker:test:build
+yarn docker:db:test:up
+yarn docker:test:client
+yarn docker:server:unit
+yarn docker:server:integration
+```
+
 - e2e testing containers explained:
 
 ```json

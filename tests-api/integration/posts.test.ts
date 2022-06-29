@@ -14,6 +14,9 @@ describe('Posts', () => {
   let mockedGetMeService: jest.SpyInstance<Promise<ClientUser | null>>;
 
   beforeAll(async () => {
+    // clear db data
+    await teardown();
+
     // create user in db for post.author and logged in mock
     const { username, email, name } = fakePosts.items[0].author;
     createdUser = await createUser({ username, email, name, password: '123456' });
