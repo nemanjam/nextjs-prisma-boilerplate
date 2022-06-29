@@ -424,6 +424,8 @@ CMD [ "yarn", "prisma:migrate:prod" ]
 
 ```
 
+- running tests scripts order:
+
 ```bash
 # order:
 yarn docker:test:build
@@ -431,6 +433,8 @@ yarn docker:db:test:up
 yarn docker:test:client
 yarn docker:server:unit
 yarn docker:server:integration
+# shut down test db
+yarn docker:test:down
 ```
 
 - e2e testing containers explained:
@@ -462,4 +466,22 @@ yarn docker:server:integration
 "docker:test:start": "yarn prisma:migrate:prod && yarn build && yarn start",
 // docker-compose.e2e.yml
 // command: yarn docker:test:start
+```
+
+- running e2e tests scripts order:
+
+```bash
+# order
+yarn docker:npb-app-test:build # same as docker:test:build
+yarn docker:npb-e2e:build
+# prepare - start db and build and start app - better
+yarn docker:npb-app-test:npb-db-test:e2e:up
+# run cypress
+yarn docker:npb-e2e:up
+# or all at once
+# avoid - leaves you in running app and db containers, ctrl C
+# does not remove containers
+yarn docker:test:e2e:up
+# remove containers
+yarn docker:test:e2e:down
 ```
