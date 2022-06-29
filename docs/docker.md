@@ -396,3 +396,61 @@ docker-compose --env-file ./config/.env.dev up
 "docker:db:dev:up": "docker-compose -f docker-compose.dev.yml -p npb-dev up -d npb-db-dev",
 
 ```
+
+- test containers explained:
+
+```json
+// same scripts with 2 names, let it be
+"docker:test:build": "docker-compose -f docker-compose.test.yml build npb-app-test",
+"docker:npb-app-test:build": "docker-compose -f docker-compose.test.yml build npb-app-test",
+// all build scripts are for app container (plus cypress for e2e)
+// either APP_ENV name or service name
+// docker:dev:build instead of docker:npb-app-dev:build
+// only for tests service name
+// -------------
+// Dockerfile.test - src is passed as bind mount volume
+// you need to rebuild container only on package.json change
+// this container doesn't run app by default (in test)
+CMD [ "yarn", "prisma:migrate:prod" ]
+// -----------
+// shut down test db
+"docker:test:down": "docker-compose -f docker-compose.test.yml down -v --remove-orphans",
+// ------------
+// these just need npb-db-test up (docker:db:test:up) and Dockerfile.test rebuilt (docker:test:build)
+// they run on their own
+"docker:test:client": "docker-compose -f docker-compose.test.yml -p npb-test run --rm npb-app-test sh -c 'yarn test:client'",
+"docker:test:server:unit": "docker-compose -f docker-compose.test.yml -p npb-test run --rm npb-app-test sh -c 'yarn test:server:unit'",
+"docker:test:server:integration": "docker-compose -f docker-compose.test.yml -p npb-test run --rm npb-app-test sh -c 'yarn test:server:integration'",
+
+```
+
+- e2e testing containers explained:
+
+```json
+// all builds are with docker-compose, except live
+// can be also with Dockerfile, just image name - tag, d-c better
+"docker:npb-app-test:build": "docker-compose -f docker-compose.test.yml build npb-app-test",
+"docker:npb-e2e:build": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml build npb-e2e",
+// 3 containers:
+// 1. npb-app-test - app
+// 2. npb-db-test - db
+// 3. npb-e2e - cypress
+// npb-e2e - service name - cypress
+// npb-db-test:e2e:up - e2e is APP_ENV for tests
+
+// start app and db - prepare for cypress
+"docker:npb-app-test:npb-db-test:e2e:up": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test up -d npb-app-test npb-db-test",
+// run cypress
+"docker:npb-e2e:up": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test up npb-e2e",
+// run all 3: app, db and cypress
+// from docker-compose.e2e.yml override
+"docker:test:e2e:up": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test up",
+"docker:test:e2e:down": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test down",
+// same db container as docker:db:test:up
+"docker:db:e2e:up": "docker-compose -f docker-compose.test.yml -f docker-compose.e2e.yml -p npb-test up -d npb-db-test",
+// ---------------
+// this starts test app for cypress
+"docker:test:start": "yarn prisma:migrate:prod && yarn build && yarn start",
+// docker-compose.e2e.yml
+// command: yarn docker:test:start
+```
