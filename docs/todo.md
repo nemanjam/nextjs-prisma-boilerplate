@@ -90,16 +90,10 @@
 - screenshots file permissions in Cypress container
 - update to Cypress 10, Prisma 4
 - fix contains direct node access warning in lint
-- gitpod doesnt run initial command from yml, maybe needs new workspace
 
 - deploy, comment out page suspense
 - build, up, down scripts, docker:test:up?
 - build and test containers with new envs, dev, prod, live, test, e2e
-- test devcontainers, done
-- settings image after update again, header, done
-- profile reset to first page, other user
-- navabar avatar deformed
-- center github button mobile
 - layout height on mobile Create page scroll
 
 ### Overview
@@ -315,3 +309,11 @@
 - single .env file for live...?, done
 - add d-c.live.yml with dockerhub image, done
 - yarn scripts to build and push live image to dockerhub, done
+- test devcontainers, done
+- settings image after update again, header, done
+- profile reset to first page, other user, done
+- navabar avatar deformed, done
+- center github button mobile, done
+- fix button height on UserItem mobile, done
+- fix avatar absolute top on UserItem mobile, done
+- gitpod doesnt run initial command from yml, maybe needs new workspace, yes, done

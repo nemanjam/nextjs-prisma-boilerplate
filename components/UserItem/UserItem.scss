@@ -19,7 +19,7 @@
 
   &__avatar-container-1 {
     @apply inline-flex bg-th-base-100; // same bg as layout
-    @apply absolute -top-12;
+    @apply absolute -top-16 xs:-top-12;
   }
 
   &__avatar-container-2 {
@@ -35,7 +35,7 @@
   }
 
   &__buttons {
-    @apply flex justify-end h-10 -mt-4 gap-2 xs:gap-4; // same hight with and without buttons
+    @apply flex justify-end items-start h-10 -mt-4 gap-2 xs:gap-4; // same hight with and without buttons
   }
 
   &__header-image {
