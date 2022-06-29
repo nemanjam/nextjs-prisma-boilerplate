@@ -23,10 +23,8 @@ COPY prisma ./prisma
 
 RUN yarn install --production=true --frozen-lockfile --ignore-scripts \
     && npx prisma generate \
-    && npm prune --production \
     && node-prune \
     && cp -R node_modules prod_node_modules \
-    && rm -f package-lock.json \
     && yarn install --production=false --prefer-offline \
     && npx prisma generate \
     && rm -rf prisma \
