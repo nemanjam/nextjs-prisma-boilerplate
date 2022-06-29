@@ -71,7 +71,8 @@
     "gitpod:migrate:dev:env": "yarn with:gitpod:env prisma:migrate:dev",
     "gitpod:push:env": "yarn with:gitpod:env prisma:push",
     "gitpod:dev:env": "yarn with:gitpod:env dev",
-    "docker:live:build": "dotenv -e ./envs/production-live/.env.production.live.build.local -- bash -c 'docker build -f Dockerfile.prod -t nextjs-prisma-boilerplate:latest .'",
+    "docker:live:build": "dotenv -e ./envs/production-live/.env.production.live.build.local -- bash -c 'docker build -f Dockerfile.prod -t nemanjamitic/nextjs-prisma-boilerplate:latest --build-arg ARG_DATABASE_URL=${DATABASE_URL} --build-arg ARG_NEXTAUTH_URL=${NEXTAUTH_URL} .'",
+    "docker:live:tag": "docker tag nextjs-prisma-boilerplate:latest nemanjamitic/nextjs-prisma-boilerplate:latest",
     "docker:live:push": "docker push nemanjamitic/nextjs-prisma-boilerplate:latest",
     "debug:env": "dotenv -e ./envs/production-live/.env.production.live.build.local -- sh -c 'echo $DATABASE_URL'"
   },

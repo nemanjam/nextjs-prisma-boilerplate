@@ -97,6 +97,7 @@
 - build and test containers with new envs, dev, prod, live, test, e2e
 - test devcontainers, done
 - settings image after update again, header, done
+- profile reset to first page, other user
 
 ### Overview
 

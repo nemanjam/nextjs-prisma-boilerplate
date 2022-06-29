@@ -485,3 +485,47 @@ yarn docker:test:e2e:up
 # remove containers
 yarn docker:test:e2e:down
 ```
+
+### Prod live containers explained
+
+```json
+// use docker build to specify custom tag
+// must have full username/image-name to be pushed
+"docker:live:build": "dotenv -e ./envs/production-live/.env.production.live.build.local -- bash -c 'docker build -f Dockerfile.prod -t nemanjamitic/nextjs-prisma-boilerplate:latest --build-arg ARG_DATABASE_URL=${DATABASE_URL} --build-arg ARG_NEXTAUTH_URL=${NEXTAUTH_URL} .'",
+```
+
+- **Dockerfile.prod runtime vs build time env vars (Dockerfile ARGs)**
+
+```bash
+DATABASE_URL - runtime var, buildtime for SSG, not inlined # actually app build failed
+NEXTAUTH_URL - runtime var, used in Head buildtime for SSG, not inlined (but NEXT_PUBLIC_BASE_URL is), coupled with React code
+```
+
+- long story short: **set both always**, db can be local seeded db
+
+- cache **IS** reused in Docker, see log, but yarn install layer isn't..., if you dont touch package.json (scripts...) it will be reused, separate scripts from dependencies...
+
+```bash
+Step 6/37 : WORKDIR /app
+ ---> Using cache
+ ---> 22e75b91732a
+```
+
+- push local live image to Dockerhub
+
+```bash
+docker login # username, pass
+# build, must have full username/image-name
+"docker:live:push": "docker push nemanjamitic/nextjs-prisma-boilerplate:latest",
+
+```
+
+- add/remove tag
+
+```bash
+# add tag
+docker tag image-id-or-tag old-tag new-tag
+# remove tag (can have multiple)
+docker rmi my-tag
+
+```
