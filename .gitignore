@@ -4,6 +4,7 @@ prisma/dev.db
 certs/
 dist/
 /**/tsconfig.tsbuildinfo
+yarn-error.log
 
 # postgres
 prisma/pg-data/data-*
