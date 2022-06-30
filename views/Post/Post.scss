@@ -1,5 +1,6 @@
 .post {
   @apply flex flex-col gap-4 p-4;
+  @apply border border-th-base-200;
 
   &__author {
     @apply flex flex-col gap-4 xs:flex-row xs:justify-between;
