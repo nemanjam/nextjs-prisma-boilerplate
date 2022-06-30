@@ -152,7 +152,7 @@ export const postsGetSchema = z.object({
   searchTerm: z.string().optional().or(z.literal('')),
   userId: z.string().cuid().optional().or(z.literal('')),
   email: z.string().email().optional().or(z.literal('')),
-  username: z.string().optional().or(z.literal('')),
+  username: z.string().min(usernameMin).max(usernameMax).optional().or(z.literal('')),
   sortDirection: z
     .string()
     .optional()

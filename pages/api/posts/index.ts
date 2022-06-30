@@ -35,6 +35,13 @@ handler.get(
   ) => {
     // just to convert types
     const parsedData = validatePostsSearchQueryParams(req.query);
+
+    const { published, username } = parsedData;
+    const me = await getMe({ req });
+
+    if (published === false && username && me && me?.username !== username)
+      throw new ApiError('You can not read draft posts of another user.', 401);
+
     const posts = await getPosts(parsedData);
     res.status(200).json(posts);
   }

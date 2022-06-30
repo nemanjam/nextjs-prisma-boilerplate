@@ -54,3 +54,9 @@ import { User } from '.prisma/client';
 - problem: prisma `where` and `orderBy` type errors, solution: cast object e.g `{...} as Prisma.UserOrderByWithRelationAndSearchRelevanceInput,`
 
 - Prisma generates client on yarn install automatically
+
+### Upgrade to Prisma 4
+
+- [docs](https://www.prisma.io/docs/guides/upgrade-guides/upgrading-versions/upgrading-to-prisma-4#breaking-changes)
+- validate schema `npx prisma validate`
+- nothing changed, all works

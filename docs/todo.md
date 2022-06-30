@@ -93,6 +93,7 @@
 
 - Prisma 4
 - deploy, comment out page suspense
+- on backend prevent to read drafts from other user
 
 ### Overview
 
