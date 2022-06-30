@@ -92,7 +92,7 @@
 - fix contains direct node access warning in lint
 
 - Prisma 4
-- deploy, comment out page suspense
+- deploy, comment out page suspense, query keys arent matching in getserverSideProps and useQuery CSR, profile e.g.
 - on backend prevent to read drafts from other user
 - can see draft post by id, done
 
