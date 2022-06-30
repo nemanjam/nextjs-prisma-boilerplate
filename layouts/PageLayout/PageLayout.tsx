@@ -11,7 +11,7 @@ type Props = {
   noPaddingTop?: boolean;
 };
 
-const PageLayout: FC<Props> = ({ children, noPaddingTop }) => {
+const PageLayout: FC<Props> = ({ children, noPaddingTop = false }) => {
   const b = withBem('page-layout');
 
   return (
@@ -23,7 +23,7 @@ const PageLayout: FC<Props> = ({ children, noPaddingTop }) => {
             <div className={b('navbar-placeholder')} />
 
             <main className={b('content', { 'no-padding-top': noPaddingTop })}>
-              {/* Views (page) level loading and error handling*/}
+              {/* Views (page) level loading and error handling */}
               <ErrorBoundaryWrapper errorFallbackType="page">
                 <SuspenseWrapper loaderType="page">{children}</SuspenseWrapper>
               </ErrorBoundaryWrapper>

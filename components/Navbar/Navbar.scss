@@ -1,7 +1,6 @@
 .navbar {
   @apply fixed top-0 left-0 right-0 z-10;
   @apply whitespace-nowrap border-b;
-  // @apply bg-gradient-to-r from-indigo-500 to-sky-500;
 
   // theme styles
   background-color: var(--navbar-bg-color, rgb(var(--base-100)));

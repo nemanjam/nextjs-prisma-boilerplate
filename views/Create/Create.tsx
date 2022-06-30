@@ -81,7 +81,6 @@ const Create: FC<Props> = ({ testOnSubmit }) => {
           <input
             {...register('title')}
             id="title"
-            autoFocus
             type="text"
             className={getErrorClass(errors.title?.message)}
             aria-errormessage="create-title-err-msg-id"

@@ -41,7 +41,11 @@ const CustomHead = ({ ...customMeta }: Meta) => {
     <Head>
       <title>{meta.title}</title>
       <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      {/* should handle position: fixed on Chrome mobile, it doesn't work */}
+      <meta
+        name="viewport"
+        content="initial-scale=1.0, minimum-scale=1.0, height=device-height, width=device-width"
+      />
 
       <meta name="robots" content="follow, index" />
       <meta content={meta.description} name="description" />
