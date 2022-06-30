@@ -42,6 +42,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, params 
 
   if (!post) return Redirects.NOT_FOUND;
 
+  // hide draft post
+  if (post.published === false && post.author.id !== me?.id) return Redirects.NOT_FOUND;
+
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([QueryKeys.POST, post.id], () => post);
   await queryClient.prefetchQuery(filterEmptyKeys([QueryKeys.ME, me?.id]), () => me);

@@ -17,11 +17,10 @@ const getPosts = async (params: PostsGetData) => {
 
 export const usePosts = (queryKey: QueryKeysType, params: PostsGetData) => {
   const queryClient = useQueryClient();
-  const { page = 1, userId, searchTerm, published } = params;
-  const _published = published === false ? 'unpublished' : undefined;
+  const { page = 1, userId, searchTerm } = params;
 
   const query = useQuery<PaginatedResponse<PostWithAuthor>, AxiosError>(
-    filterEmptyKeys([queryKey, userId, searchTerm, _published, page]),
+    filterEmptyKeys([queryKey, userId, searchTerm, page]),
     () => getPosts(params),
     {
       keepPreviousData: true,
@@ -35,7 +34,7 @@ export const usePosts = (queryKey: QueryKeysType, params: PostsGetData) => {
   useEffect(() => {
     if (hasMore) {
       queryClient.prefetchQuery(
-        filterEmptyKeys([queryKey, userId, searchTerm, _published, page + 1]),
+        filterEmptyKeys([queryKey, userId, searchTerm, page + 1]),
         () => getPosts({ ...params, page: page + 1 })
       );
     }

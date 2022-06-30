@@ -1,4 +1,4 @@
-import { createContext, FC, useMemo } from 'react';
+import { createContext, FC } from 'react';
 import { ClientUser } from 'types/models/User';
 import { useMe } from 'lib-client/react-query/auth/useMe';
 

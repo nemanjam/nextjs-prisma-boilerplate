@@ -51,7 +51,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   if (!posts) return Redirects._500;
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery([QueryKeys.POSTS_DRAFTS, 1], () => posts);
+  await queryClient.prefetchQuery([QueryKeys.POSTS_DRAFTS, me.id, 1], () => posts);
   await queryClient.prefetchQuery([QueryKeys.ME, me.id], () => me);
 
   return {

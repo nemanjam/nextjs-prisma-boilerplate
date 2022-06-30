@@ -34,6 +34,16 @@ handler.get(
     const id = validatePostIdNumber(req.query.id as string);
 
     const post = await getPost(id);
+
+    // only owner can see his draft post
+    if (post.published === false) {
+      const me = await getMe({ req });
+
+      if (me?.id !== post.author.id) {
+        throw new ApiError('Post not found.', 404);
+      }
+    }
+
     res.status(200).json(post);
   }
 );
