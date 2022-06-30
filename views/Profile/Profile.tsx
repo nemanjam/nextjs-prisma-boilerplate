@@ -29,13 +29,13 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const prevSearchTerm = usePrevious(searchTerm);
 
-  const { username } = profile;
-  const prevUsername = usePrevious(username);
+  const { id: userId } = profile;
+  const prevUserId = usePrevious(userId);
 
   const [page, setPage] = useState(1);
   const { data, isFetching, isPreviousData } = usePosts(QueryKeys.POSTS_PROFILE, {
     page,
-    username,
+    userId,
     ...(searchTerm && { searchTerm }),
   });
 
@@ -48,10 +48,10 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
 
   // if profile page of another user reset to first page
   useEffect(() => {
-    if (prevUsername !== username) {
+    if (prevUserId !== userId) {
       setPage(1);
     }
-  }, [prevUsername, username]);
+  }, [prevUserId, userId]);
 
   useEffect(() => {
     if (prevSearchTerm !== searchTerm) {

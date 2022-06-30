@@ -120,10 +120,12 @@ export const getPosts = async (
     published = true,
   } = postsGetData;
 
+  const byAuthor = userId || email || username;
+
   const where = {
     where: {
       published,
-      ...(username && {
+      ...(byAuthor && {
         author: {
           OR: [
             {

@@ -36,10 +36,10 @@ handler.get(
     // just to convert types
     const parsedData = validatePostsSearchQueryParams(req.query);
 
-    const { published, username } = parsedData;
+    const { published, userId } = parsedData;
     const me = await getMe({ req });
 
-    if (published === false && username && me && me?.username !== username)
+    if (published === false && userId && me && me?.id !== userId)
       throw new ApiError('You can not read draft posts of another user.', 401);
 
     const posts = await getPosts(parsedData);
