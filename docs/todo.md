@@ -92,9 +92,12 @@
 - fix contains direct node access warning in lint
 
 - Prisma 4
-- deploy, comment out page suspense, query keys arent matching in getserverSideProps and useQuery CSR, profile e.g.
 - on backend prevent to read drafts from other user
 - can see draft post by id, done
+- **hydration error - big difference in query keys in getServerSideProps and useQuery on client**
+- deploy, comment out page suspense, query keys arent matching in getserverSideProps and useQuery CSR, profile e.g.
+- try enabled false to preview csr and ssr, no
+- all props in UserItem available at same time, fixes it, {user, me}
 
 ### Overview
 

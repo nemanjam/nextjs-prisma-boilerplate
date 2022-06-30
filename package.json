@@ -33,6 +33,7 @@
     "prisma:studio:dev:env": "dotenv -e .env.development.local -- sh -c 'npx prisma studio'",
     "prisma:reset:dev:env": "dotenv -e .env.development.local -- sh -c 'npx prisma migrate reset dev --skip-seed'",
     "prisma:migrate:prod": "npx prisma migrate deploy",
+    "prisma:migrate:prod:env": "dotenv -e .env.production.local -- sh -c 'yarn prisma:migrate:prod'",
     "prisma:push": "npx prisma db push",
     "prisma:seed": "npx prisma db seed",
     "prisma:seed:dev:env": "dotenv -e .env.development.local -- sh -c 'yarn prisma:seed'",
