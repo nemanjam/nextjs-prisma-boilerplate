@@ -92,8 +92,6 @@
 - fix contains direct node access warning in lint
 
 - Prisma 4
-- layout height on mobile Chrome, Create page has unwanted scroll, Chrome debug, its because of focus on input that triggers wrong scroll, correct scroll is outside of page, it was autoFocus on textfield
-
 - deploy, comment out page suspense
 
 ### Overview
@@ -321,3 +319,4 @@
 - deploy new production, done
 - handle same email facebook and google, its ok, new user doesnt succeed
 - prevent admin to delete himself, done
+- layout height on mobile Chrome, Create page has unwanted scroll, Chrome debug, its because of focus on input that triggers wrong scroll, correct scroll is outside of page, it was autoFocus on textfield
