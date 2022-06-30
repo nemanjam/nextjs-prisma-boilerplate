@@ -48,11 +48,11 @@ describe('UserItem', () => {
       expect.stringMatching(settingsLinkRegex)
     );
 
-    // assert Delete button
-    const deleteButton = screen.getByRole('button', {
+    // assert Delete button, cannot delete himself
+    const deleteButton = screen.queryByRole('button', {
       name: /delete/i,
     });
-    expect(deleteButton).toBeInTheDocument();
+    expect(deleteButton).not.toBeInTheDocument();
 
     //
   });
