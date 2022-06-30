@@ -82,14 +82,26 @@ undefined/uploads/headers/header0.jpg?w=3840&q=75
 // axios fails in same way because it's inlined because of NEXT_PUBLIC_
 NEXT_PUBLIC_BASE_URL: `${process.env.NEXTAUTH_URL}/`,
 
+// MUST be set at runtime for OAuth redirect_urls to work
 ```
 
 - **conclusion:** it's possible to omit it at build time by passing `BASE_URL` (without NEXT*PUBLIC*) to `publicRuntimeConfig: {}` in `next.config.js`, **but only SSR, not SSG**
 - that's why official Next.js Docker example is without NEXTAUTH_URL
 - next-auth can work because its SSR
 - for SEO and SSG pages `<Head />` must provide it build time
+- **MUST be set at runtime for OAuth redirect_urls to work**
+- of course it must be same at build and runtime
+- **important:** for live production behind Traefik proxy (Traefik handles https) app uses http node server `SITE_PROTOCOL=http`, but NEXTAUTH_URL must be set to real https url for OAuth redirect_urls to work `NEXTAUTH_URL=https://${SITE_HOSTNAME}`
 
 - image loader can use relative path for image in same domain as app [docs](https://nextjs.org/docs/api-reference/next/image#src)
+
+```bash
+# http node server in live, Traefik handles https
+SITE_PROTOCOL=http
+
+# real url is https and doesn't have port, Traefik handles https and port
+NEXTAUTH_URL=https://${SITE_HOSTNAME}
+```
 
 ### Google and Facebook must not use same email, unhandled
 
