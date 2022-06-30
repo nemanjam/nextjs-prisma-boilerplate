@@ -90,7 +90,7 @@ NEXT_PUBLIC_BASE_URL: `${process.env.NEXTAUTH_URL}/`,
 - next-auth can work because its SSR
 - for SEO and SSG pages `<Head />` must provide it build time
 - **MUST be set at runtime for OAuth redirect_urls to work**
-- of course it must be same at build and runtime
+- of course it must be same at build and runtime, `ARG_NEXTAUTH_URL` in Github Actions or local live build
 - **important:** for live production behind Traefik proxy (Traefik handles https) app uses http node server `SITE_PROTOCOL=http`, but NEXTAUTH_URL must be set to real https url for OAuth redirect_urls to work `NEXTAUTH_URL=https://${SITE_HOSTNAME}`
 
 - image loader can use relative path for image in same domain as app [docs](https://nextjs.org/docs/api-reference/next/image#src)

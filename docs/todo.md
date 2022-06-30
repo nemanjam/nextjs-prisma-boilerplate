@@ -88,20 +88,19 @@
 - user in Cypress container for screenshots as non root
 - prevent test env logs in GA, done for client
 - screenshots file permissions in Cypress container
-- update to Cypress 10, Prisma 4
+- update to Cypress 10
 - fix contains direct node access warning in lint
 
+- Prisma 4
+- layout height on mobile Chrome, Create page has unwanted scroll, Chrome debug
 - deploy, comment out page suspense
-- build, up, down scripts, docker:test:up?
-- build and test containers with new envs, dev, prod, live, test, e2e
-- layout height on mobile, Create page has unwanted scroll
+- handle same email facebook and google, its ok, new user doesnt succeed
 
 ### Overview
 
 - record video (maybe Cypress) gif or youtube embed in readme
 - code coverage setup
 - hydration bug - dependant queries, me and others
-- deploy new production
 - image backend
 - deployment with ssh actions
 - docker volume folders as non root pg, cypress
@@ -317,3 +316,6 @@
 - fix button height on UserItem mobile, done
 - fix avatar absolute top on UserItem mobile, done
 - gitpod doesnt run initial command from yml, maybe needs new workspace, yes, done
+- build, up, down scripts, docker:test:up?, done
+- build and test containers with new envs, dev, prod, live, test, e2e, done
+- deploy new production, done

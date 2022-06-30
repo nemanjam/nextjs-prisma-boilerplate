@@ -82,6 +82,11 @@ handler.delete(
   validateUserCuid(),
   async (req: NextApiRequest, res: NextApiResponse<ClientUser>) => {
     const id = validateUserIdCuid(req.query.id as string);
+    const me = await getMe({ req });
+
+    if (id === me?.id) {
+      throw new ApiError('Admin cannot delete himself.', 400);
+    }
 
     const user = await deleteUser(id);
     res.status(204).json(user);

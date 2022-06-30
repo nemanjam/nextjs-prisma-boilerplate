@@ -37,6 +37,8 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
   const settingsHref = `${Routes.SITE.SETTINGS}${user.username}/`;
 
   const isAdmin = me && getIsAdmin(me);
+  // prevent deleting myself
+  const isMe = user && me && me.id === user.id;
 
   return (
     <section className={b()}>
@@ -85,15 +87,17 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
                     <Button tagName="span">Edit</Button>
                   </a>
                 </Link>
-                <Button
-                  data-testid="delete-button"
-                  variant="secondary"
-                  onClick={() => {
-                    deleteUser(user.id);
-                  }}
-                >
-                  {!restDelete.isLoading ? 'Delete' : 'Deleting...'}
-                </Button>
+                {!isMe && (
+                  <Button
+                    data-testid="delete-button"
+                    variant="secondary"
+                    onClick={() => {
+                      deleteUser(user.id);
+                    }}
+                  >
+                    {!restDelete.isLoading ? 'Delete' : 'Deleting...'}
+                  </Button>
+                )}
               </>
             )}
           </div>
