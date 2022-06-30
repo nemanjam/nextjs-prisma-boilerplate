@@ -7,6 +7,8 @@ Dockerfile*
 docker-compose*.yml
 README.md
 certs/
+docs/
+notes/
 
 # pass env vars through docker-compose 
 # or mount .env* in dev
