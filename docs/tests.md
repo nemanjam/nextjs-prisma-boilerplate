@@ -665,3 +665,35 @@ await userEvent.type(searchInput, `${searchTerm}{enter}`);
 ```
 
 - Github [issue](https://github.com/testing-library/react-testing-library/issues/551#issuecomment-652401388)
+
+### Jest coverage
+
+- in some branch...? [Kent Dodds repo](https://github.dev/kentcdodds/jest-cypress-react-babel-webpack)
+- setup coverage folders (both test files and coverage report with html) for both `jest.client.js` and `jest.server.js`
+
+- just `jest --coverage` flag in existing commands, and that's it
+
+```ts
+// jest.config.js
+// select tests
+collectCoverageFrom[/**/*.ts] // by default ignores *.test.ts files
+
+coveragePathIgnorePatterns: [
+  '/node_modules/',
+  '/__tests__/',
+  '__server_tests__/',
+],
+
+// coverage folder, default beside jest.server.js probably
+// jest.server.js
+coverageDirectory: path.join(__dirname, '../coverage/server'), // for server
+
+// scripts
+"test:coverage": "yarn test:coverage:client && test:coverage:server",
+"test:coverage:client": "jest --config test/jest.client.js --coverage",
+"test:coverage:server": "jest --config test/jest.server.js --coverage",
+
+```
+
+- **coverage must be defined once in root `jest.config.js` (where are `projects`)**, and not in `jest.client.js` and `jest.server.js` (jest coverage projects monorepo)
+- as stated here: github [issue](https://github.com/facebook/jest/issues/4255), and here [stackoverflow](https://stackoverflow.com/questions/64281758/jest-coveragedirectory-configuration-for-project-inside-monorepo)

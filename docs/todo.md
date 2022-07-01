@@ -78,14 +78,7 @@
 - update to Cypress 10
 - fix contains direct node access warning in lint
 
-- **hydration error - big difference in query keys in getServerSideProps and useQuery on client**
-- query keys arent matching in getserverSideProps and useQuery CSR, profile e.g.
-- try enabled false to preview csr and ssr, no
-- all props in UserItem available at same time, fixes it, {user, me}
-- block all UI until all data is ready, Navbar for example
-
 - test coverage setup
-- block navbar rendering, done
 - withBem() needs proper solution for additional clasname scoped under block
 - version docker images in Github Actions, and app release
 
@@ -331,3 +324,9 @@
 - can see draft post by id, done
 - deploy, comment out page suspense, no need, done
 - on post page if delete draft redirect to drafts page, done
+- **hydration error - big difference in query keys in getServerSideProps and useQuery on client**
+- query keys arent matching in getserverSideProps and useQuery CSR, profile e.g.
+- try enabled false to preview csr and ssr, no
+- all props in UserItem available at same time, fixes it, {user, me}
+- block all UI until all data is ready, Navbar for example
+- block navbar rendering, done, revert, gives more errors

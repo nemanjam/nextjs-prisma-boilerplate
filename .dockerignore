@@ -25,5 +25,8 @@ prisma/pg-data/data-*
 .next/
 node_modules/
 
-#cypress
+# cypress
 tests-e2e/node_modules/
+
+# jest coverage
+coverage/
