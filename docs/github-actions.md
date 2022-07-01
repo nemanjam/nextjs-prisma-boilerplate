@@ -169,3 +169,26 @@ PORT=${!NAME_PORT} # does not work
 - **Github Actions env vars final:**
   -Next.js app will load `.env.test` (`.env.test.local` isn't commited) because Jest sets `NODE_ENV=test`, but `process.env.VARS` hardcoded in `tests.yml` will override everything
 - all jobs use local yarn commands (withoud cmd:env)
+
+### Deploy with SSH Github Action to VPS - very simple
+
+- good [tutorial](https://hoohoo.top/blog/20210525232300-github-action-auto-ssh-to-host-and-excute-script/)
+- see for arguments [appleboy/ssh-action](https://github.com/appleboy/ssh-action)
+- `~/.ssh/authorized_keys` default location [stackexchange.com](https://unix.stackexchange.com/questions/162332/where-should-my-authorized-keys-file-be-if-i-want-to-ssh-to-localhost)
+- another action, but similar [tutorial](https://zellwk.com/blog/github-actions-deploy/)
+- chain Github Actions workflows or jobs [stackoverflow](https://stackoverflow.com/questions/62750603/github-actions-trigger-another-action-after-one-action-is-completed)
+
+```bash
+# generate key pair on dev machine, default location ~/.ssh
+ssh-keygen -t ed25519 -a 200 -C "my-email@gmail.com"
+# copy public key to server
+scp ./github_actions_oracle_amd1_id_ed25519.pub ubuntu@amd1:~/
+# paste public key contents into authorized_keys, note location
+cat ~/github_actions_oracle_amd1_id_ed25519.pub >> ~/.ssh/authorized_keys
+# add secret vars to Github Actions secrets
+# Repository -> Settings -> Secrets -> Actions -> New repository secret
+VPS_HOST # server ip address
+VPS_USERNAME # linux user, e.g. ubuntu
+VPS_PORT # 22 or other if configured differently
+VPS_KEY_ED25519 # contents of private key, e.g. github_actions_oracle_amd1_id_ed25519
+```

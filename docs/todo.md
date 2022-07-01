@@ -51,51 +51,36 @@
 - resize images on server, lovell/sharp
 - mount only pg-data and remove prisma files from traefik repo
 - skeletons, just in docs
-- remove password from all server users
 - maybe shell script for migration container
 - postgres expose external env var in d-c.yml
 - new next.js dockerfile? https://nextjs.org/docs/advanced-features/output-file-tracing
 - add role attributes for accesibility in one go, a11...
 - update resume react testing
 - find practical github repo code example for jest and cypress
-- setup Github Actions for tests
 - check additional Eslint rules from other repositories
 - setup Cypress
-- separate test config for react and backend api
 - mocks, spyes, describe
 - unit, integration
 - skeletons, react suspense
 - work organisation md doc
-- handle success, loading, error, empty states
-- ErrorBoundary, Suspense loading
-- tests: render 200 and 500, mutation, component - unit, forms, hooks, API backend, cypress with real db
-- Github Action CI for tests
+- remove password from all client users, done
 - handle http error in HomeView, both getServerSideProps and useQuery, ErrorBoundary, error handling and error testing same thing
 - test coverage setup
-- hooks error tests (and handling)
 - each form should be separate component, easier to test
 - one youtube lesson for english
 - container with vs code for replicating bugs - Gitpod Self-Hosted container
 - testing-lib/react-hooks ReactDom warning
-- avatar thrown out of the form state??? form.reset() not working...
 - kill next.js server on unhandled promise rejection
 - supertest pass dynamic route arg `/api/posts/:id`, maybe exists nicer solution {id}
-- rewrite yarn scripts
 - change all ports from 3001 to 3000
 - default theme fallback
 - run docker-compose as non root to avoid mount folders as root, app-dev, app-test containers...
-- uploadsImageLoader when src isUrl...?, google, fb avatar?, should be ok?
 - user in Cypress container for screenshots as non root
-- prevent test env logs in GA, done for client
-- screenshots file permissions in Cypress container
 - update to Cypress 10
 - fix contains direct node access warning in lint
 
-- Prisma 4
-- on backend prevent to read drafts from other user
-- can see draft post by id, done
 - **hydration error - big difference in query keys in getServerSideProps and useQuery on client**
-- deploy, comment out page suspense, query keys arent matching in getserverSideProps and useQuery CSR, profile e.g.
+- query keys arent matching in getserverSideProps and useQuery CSR, profile e.g.
 - try enabled false to preview csr and ssr, no
 - all props in UserItem available at same time, fixes it, {user, me}
 - block all UI until all data is ready, Navbar for example
@@ -111,7 +96,7 @@
 - ask to record tutorials
 - basic readme
 - update cv
-- cv testing, react query, next, react, tailwind, cypress, architectures, databases, devcontainers, traefik, homelab
+- cv testing, react query, next, react, tailwind, cypress, architectures, databases, devcontainers, traefik, homelab, projects, github actions
 
 ### Bugs
 
@@ -326,3 +311,18 @@
 - handle same email facebook and google, its ok, new user doesnt succeed
 - prevent admin to delete himself, done
 - layout height on mobile Chrome, Create page has unwanted scroll, Chrome debug, its because of focus on input that triggers wrong scroll, correct scroll is outside of page, it was autoFocus on textfield
+- setup Github Actions for tests, done
+- separate test config for react and backend api, done
+- handle success, loading, error, empty states, done
+- ErrorBoundary, Suspense loading, done
+- tests: render 200 and 500, mutation, component - unit, forms, hooks, API backend, cypress with real db, done
+- Github Action CI for tests, done
+- hooks error tests (and handling), done
+- avatar thrown out of the form state??? form.reset() not working..., done
+- rewrite yarn scripts, done
+- uploadsImageLoader when src isUrl...?, google, fb avatar?, should be ok?, done
+- prevent test env logs in GA, done for client
+- Prisma 4, done
+- on backend prevent to read drafts from other user, done
+- can see draft post by id, done
+- deploy, comment out page suspense, no need, done
