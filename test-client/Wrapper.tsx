@@ -42,7 +42,7 @@ const Wrapper: FC<WrapperProps> = ({
                 <Hydrate state={dehydratedState}>
                   <SuspenseWrapper loaderType="test">
                     {/* pass logged in use synchronously to prevent act errors */}
-                    <MeContext.Provider value={{ me: fakeUser }}>
+                    <MeContext.Provider value={{ me: fakeUser, isLoading: false }}>
                       {/* component, not a page */}
                       {children}
                     </MeContext.Provider>
