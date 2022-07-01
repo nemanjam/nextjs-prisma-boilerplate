@@ -230,3 +230,4 @@ export const getImage = async (imageUrl: string | undefined): Promise<File> => {
 2. all props in UserItem available at same time, fixes it, {user, me}, so so, provider should work same as props
 
 - test case repo [nemanjam/hydration-test-case](https://github.com/nemanjam/hydration-test-case)
+- isLoading in MeProvider and Navbar causes more errors in production
