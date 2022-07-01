@@ -1,4 +1,4 @@
-name: Deploy latest Docker image
+name: Deploy to VPS
 
 # trigger on docker build workflow
 # only works on a default branch
@@ -26,6 +26,10 @@ jobs:
           script_stop: true
           script: |
             cd /home/ubuntu/traefik-proxy/apps/nextjs-prisma-boilerplate
+            echo 'Old image id:'
+            docker inspect --format='{{index .RepoDigests 0}}' nemanjamitic/nextjs-prisma-boilerplate:latest 
             docker-compose down
             docker image rm nemanjamitic/nextjs-prisma-boilerplate:latest
             docker-compose up -d
+            echo 'New image id:'
+            docker inspect --format='{{index .RepoDigests 0}}' nemanjamitic/nextjs-prisma-boilerplate:latest

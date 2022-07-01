@@ -16,8 +16,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      # this workflow needs app source and Dockerfile to build image
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      # identify commit
+      - name: Print commit id and message
+        run: |
+          git show -s --format='%h %s'
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
