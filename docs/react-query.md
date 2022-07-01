@@ -221,8 +221,12 @@ export const getImage = async (imageUrl: string | undefined): Promise<File> => {
 - **most important cause, drastic:**
 - happens when query keys drastically don't match in getServerSideProps `queryClient.prefetchQuery(key, fn)` and `useQuery(key, fn)` on client, page reloads slowly, that's it
 - keys need to be managed constant structure... tutorial?, filterkeys() can return different results
+- you can pass different data in SSR and CSR and watch render
+- debug with React Query tools
 
 - this will help too:
 
 1. block all UI until **all data is ready**, Navbar for example, this
 2. all props in UserItem available at same time, fixes it, {user, me}, so so, provider should work same as props
+
+- test case repo [nemanjam/hydration-test-case](https://github.com/nemanjam/hydration-test-case)

@@ -23,7 +23,9 @@ export const usePosts = (queryKey: QueryKeysType, params: PostsGetData) => {
   const { page = 1, userId, searchTerm } = params;
 
   // drafts is dependant query on useMe
-  const shouldDisableDrafts = queryKey === QueryKeys.POSTS_DRAFTS && !!userId;
+  const isEnabled =
+    queryKey !== QueryKeys.POSTS_DRAFTS ||
+    (queryKey === QueryKeys.POSTS_DRAFTS && !!userId);
 
   const query = useQuery<PaginatedResponse<PostWithAuthor>, AxiosError>(
     // key must match getServerSideProps or hydration error
@@ -32,7 +34,7 @@ export const usePosts = (queryKey: QueryKeysType, params: PostsGetData) => {
     {
       keepPreviousData: true,
       staleTime: 5000,
-      enabled: shouldDisableDrafts,
+      enabled: isEnabled,
     }
   );
 

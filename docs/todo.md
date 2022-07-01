@@ -65,7 +65,6 @@
 - work organisation md doc
 - remove password from all client users, done
 - handle http error in HomeView, both getServerSideProps and useQuery, ErrorBoundary, error handling and error testing same thing
-- test coverage setup
 - each form should be separate component, easier to test
 - one youtube lesson for english
 - container with vs code for replicating bugs - Gitpod Self-Hosted container
@@ -84,6 +83,8 @@
 - try enabled false to preview csr and ssr, no
 - all props in UserItem available at same time, fixes it, {user, me}
 - block all UI until all data is ready, Navbar for example
+
+- test coverage setup
 
 ### Overview
 
