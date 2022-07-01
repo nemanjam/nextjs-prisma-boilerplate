@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { CSSProperties, FC, useCallback, useEffect, useState } from 'react';
 import { DropzoneOptions, useDropzone } from 'react-dropzone';
 import { useFormContext } from 'react-hook-form';
 import { withBem } from 'utils/bem';
@@ -10,17 +10,19 @@ interface IFileInputProps
   > {
   label: string;
   dropzoneOptions?: DropzoneOptions;
-  imageClassName?: string;
   altText?: string;
   name: string;
+  isLoading?: boolean;
+  imageStyle?: CSSProperties;
 }
 
 const DropzoneSingle: FC<IFileInputProps> = ({
   dropzoneOptions,
   name,
   label,
-  imageClassName = 'h-36',
   altText,
+  isLoading = false,
+  imageStyle,
   ...rest
 }) => {
   const b = withBem('dropzone-single');
@@ -53,36 +55,41 @@ const DropzoneSingle: FC<IFileInputProps> = ({
   // do hover in react instead css so both drag and hover can have same styles
 
   return (
-    <>
+    <div className={b()}>
       <label htmlFor={name} className={b('label')}>
         {label}
       </label>
-      <div {...getRootProps()}>
-        <input {...rest} id={name} name={name} {...getInputProps()} />
+      {!isLoading ? (
+        <div {...getRootProps()}>
+          <input {...rest} id={name} name={name} {...getInputProps()} />
 
-        <div
-          className={b('preview', { active: isDragActive })}
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-        >
-          {file && (
-            <>
-              <img
-                src={URL.createObjectURL(file)}
-                alt={altText}
-                className={b('image') + ` ${imageClassName}`}
-              />
-              <div className={b('overlay', { active: isDragActive || hover })}>
-                <span>
-                  {isDragActive && 'Drop here'}
-                  {hover && 'Click or \n drag & drop'}
-                </span>
-              </div>
-            </>
-          )}
+          <div
+            className={b('preview', { active: isDragActive })}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+          >
+            {file && (
+              <>
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt={altText}
+                  className={b('image')}
+                  style={{ ...imageStyle }}
+                />
+                <div className={b('overlay', { active: isDragActive || hover })}>
+                  <span>
+                    {isDragActive && 'Drop here'}
+                    {hover && 'Click or \n drag & drop'}
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    </>
+      ) : (
+        <div className={b('placeholder')} style={{ ...imageStyle }} />
+      )}
+    </div>
   );
 };
 

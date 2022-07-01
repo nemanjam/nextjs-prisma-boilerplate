@@ -34,12 +34,4 @@
   &__buttons {
     @apply max-w-md flex gap-4;
   }
-
-  &__header-placeholder {
-    @apply bg-th-neutral h-44 w-full;
-  }
-
-  &__avatar-placeholder {
-    @apply bg-th-neutral h-36 w-36;
-  }
 }

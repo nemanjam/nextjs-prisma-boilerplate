@@ -187,18 +187,14 @@ const Settings: FC = () => {
           {isError && <Alert variant="error" message={error.message} />}
 
           <div className={b('form-field', { header: true })}>
-            {!isHeaderLoading || isFormReset ? (
-              <DropzoneSingle
-                name="header"
-                label="Header"
-                imageClassName="max-h-44"
-                altText="header-image"
-                dropzoneOptions={dropzoneOptions}
-                data-testid="header-loaded"
-              />
-            ) : (
-              <div className={b('header-placeholder')} />
-            )}
+            <DropzoneSingle
+              name="header"
+              label="Header"
+              altText="header-image"
+              dropzoneOptions={dropzoneOptions}
+              data-testid="header-loaded"
+              isLoading={isHeaderLoading && !isFormReset}
+            />
             <p className={getErrorClass(errors.header?.message)}>
               {errors.header?.message}
             </p>
@@ -229,17 +225,15 @@ const Settings: FC = () => {
           </div>
 
           <div className={b('form-field', { avatar: true })}>
-            {!isAvatarLoading || isFormReset ? (
-              <DropzoneSingle
-                name="avatar"
-                label="Avatar"
-                altText="avatar-image"
-                dropzoneOptions={dropzoneOptions}
-                data-testid="avatar-loaded"
-              />
-            ) : (
-              <div className={b('avatar-placeholder')} />
-            )}
+            <DropzoneSingle
+              name="avatar"
+              label="Avatar"
+              altText="avatar-image"
+              dropzoneOptions={dropzoneOptions}
+              data-testid="avatar-loaded"
+              isLoading={isAvatarLoading && !isFormReset}
+              imageStyle={{ height: '9rem', width: '9rem' }}
+            />
             <p className={getErrorClass(errors.avatar?.message)}>
               {errors.avatar?.message}
             </p>

@@ -86,6 +86,7 @@
 
 - test coverage setup
 - block navbar rendering, done
+- withBem() needs proper solution for additional clasname scoped under block
 
 ### Overview
 

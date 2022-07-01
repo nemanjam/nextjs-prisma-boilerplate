@@ -8,7 +8,11 @@
   }
 
   &__image {
-    @apply w-full object-cover;
+    @apply w-full h-44 object-cover;
+  }
+
+  &__placeholder {
+    @apply bg-th-neutral w-full h-44;
   }
 
   &__overlay {
