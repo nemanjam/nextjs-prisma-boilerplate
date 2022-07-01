@@ -330,3 +330,4 @@
 - on backend prevent to read drafts from other user, done
 - can see draft post by id, done
 - deploy, comment out page suspense, no need, done
+- on post page if delete draft redirect to drafts page, done
