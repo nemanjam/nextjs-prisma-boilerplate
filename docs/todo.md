@@ -85,6 +85,7 @@
 - block all UI until all data is ready, Navbar for example
 
 - test coverage setup
+- block navbar rendering, done
 
 ### Overview
 

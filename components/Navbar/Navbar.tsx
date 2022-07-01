@@ -284,7 +284,7 @@ const Navbar: FC = () => {
     }
   }, [isMobile, mobileMenuOpen]);
 
-  const { me } = useContext(MeContext);
+  const { me, isLoading: isMeLoading } = useContext(MeContext);
 
   const _onHamburgerClick = () => setMobileMenuOpen((prevOpen) => !prevOpen);
 
@@ -304,25 +304,31 @@ const Navbar: FC = () => {
     <header className={b()} ref={navRef}>
       {/* desktop navbar */}
       <div className={b('desktop')}>
-        <div className={b('left-wrapper')}>
-          <div className={b('brand')}>
-            <Link href={Routes.SITE.HOME}>
-              <a className={b('brand-link')}>
-                <FaCat className={b('logo')} />
-                <span className={b('brand-text')}>NPB</span>
-              </a>
-            </Link>
-          </div>
-          <div className={b('left-nav')}>{leftNav}</div>
-        </div>
-        <div className={b('right-nav')}>
-          {rightNav}
-          {hamburger}
-        </div>
+        {!isMeLoading && (
+          <>
+            <div className={b('left-wrapper')}>
+              <div className={b('brand')}>
+                <Link href={Routes.SITE.HOME}>
+                  <a className={b('brand-link')}>
+                    <FaCat className={b('logo')} />
+                    <span className={b('brand-text')}>NPB</span>
+                  </a>
+                </Link>
+              </div>
+              <div className={b('left-nav')}>{leftNav}</div>
+            </div>
+            <div className={b('right-nav')}>
+              {rightNav}
+              {hamburger}
+            </div>
+          </>
+        )}
       </div>
 
       {/* mobile menu */}
-      {mobileMenuOpen && <nav className={b('mobile-nav')}>{mobileNav}</nav>}
+      {!isMeLoading && mobileMenuOpen && (
+        <nav className={b('mobile-nav')}>{mobileNav}</nav>
+      )}
     </header>
   );
 };

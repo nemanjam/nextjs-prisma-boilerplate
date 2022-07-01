@@ -6,7 +6,6 @@ import { Routes } from 'lib-client/constants';
 import axiosInstance from 'lib-client/react-query/axios';
 import QueryKeys, { filterEmptyKeys } from 'lib-client/react-query/queryKeys';
 import { AxiosError } from 'axios';
-import { useIsMounted } from 'components/hooks';
 
 const getUser = async (id: string | undefined) => {
   if (!id) return null;
@@ -20,9 +19,6 @@ const getUser = async (id: string | undefined) => {
  * used only in MeProvider and accessed via context
  */
 export const useMe = () => {
-  // fix for: Suspense boundary received an update before it finished hydrating
-  const isMounted = useIsMounted();
-
   const { data: session, status } = useSession(); // needs provider
   const id = session?.user?.id;
 
@@ -30,7 +26,7 @@ export const useMe = () => {
     filterEmptyKeys([QueryKeys.ME, id]),
     () => getUser(id),
     {
-      enabled: isMounted && status !== 'loading',
+      enabled: status !== 'loading',
       onError: (error) => {
         console.error('me query error: ', error.response);
 

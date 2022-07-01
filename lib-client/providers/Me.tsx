@@ -5,9 +5,10 @@ import { useMe } from 'lib-client/react-query/auth/useMe';
 // context
 type ContextProps = {
   me: ClientUser | null;
+  isLoading: boolean;
 };
 
-const defaultValue: ContextProps = { me: null };
+const defaultValue: ContextProps = { me: null, isLoading: false };
 export const MeContext = createContext<ContextProps>(defaultValue);
 
 // provider
@@ -21,14 +22,14 @@ type ProviderProps = {
  * Every page must prefetch me in getServerSideProps separately.
  */
 const MeProvider: FC<ProviderProps> = ({ children }) => {
-  const { data } = useMe();
+  const { data, isLoading } = useMe();
   const me = data ?? null;
 
   // memoize children, fix for: Suspense boundary received an update before it finished hydrating
   // https://github.com/facebook/react/issues/24476#issuecomment-1127800350
   // const memoChildren = useMemo(() => children, [me]);
 
-  return <MeContext.Provider value={{ me }}>{children}</MeContext.Provider>;
+  return <MeContext.Provider value={{ me, isLoading }}>{children}</MeContext.Provider>;
 };
 
 export default MeProvider;
