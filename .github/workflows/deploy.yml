@@ -1,0 +1,31 @@
+name: Deploy latest Docker image
+
+# trigger on docker build workflow
+# only works on a default branch
+on:
+  workflow_run:
+    workflows: ['Build and push Docker image - disabled']
+    types:
+      - completed
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy image from Dockerhub to VPS with ssh
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy latest image
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_KEY_ED25519 }}
+          port: ${{ secrets.VPS_PORT }}
+          script_stop: true
+          script: |
+            cd /home/ubuntu/traefik-proxy/apps/nextjs-prisma-boilerplate
+            docker-compose down
+            docker image rm nemanjamitic/nextjs-prisma-boilerplate:latest
+            docker-compose up -d

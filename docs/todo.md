@@ -98,6 +98,7 @@
 - deploy, comment out page suspense, query keys arent matching in getserverSideProps and useQuery CSR, profile e.g.
 - try enabled false to preview csr and ssr, no
 - all props in UserItem available at same time, fixes it, {user, me}
+- block all UI until all data is ready, Navbar for example
 
 ### Overview
 
