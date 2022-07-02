@@ -122,6 +122,14 @@ jobs:
       - name: Run server integration tests
         run: yarn test:server:integration
 
+      # -------------- rerun all tests again to calc coverage (with database) ---------------
+
+      # all unit and integration tests for coverage
+      # disable it if you don't need it on each run
+      - name: Rerun all tests to calc code coverage
+        # if: ${{ false }}
+        run: yarn test:coverage
+
       # --------------- run e2e tests with migrated db and with running prod app ---------------
 
       - name: Build prod app for e2e tests

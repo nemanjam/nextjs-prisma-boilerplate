@@ -688,7 +688,7 @@ coveragePathIgnorePatterns: [
 // jest.server.js
 coverageDirectory: path.join(__dirname, '../coverage/server'), // for server
 
-// scripts
+// scripts - separate jest run for each project, don't use this
 "test:coverage": "yarn test:coverage:client && test:coverage:server",
 "test:coverage:client": "jest --config test/jest.client.js --coverage",
 "test:coverage:server": "jest --config test/jest.server.js --coverage",
@@ -697,3 +697,77 @@ coverageDirectory: path.join(__dirname, '../coverage/server'), // for server
 
 - **coverage must be defined once in root `jest.config.js` (where are `projects`)**, and not in `jest.client.js` and `jest.server.js` (jest coverage projects monorepo)
 - as stated here: github [issue](https://github.com/facebook/jest/issues/4255), and here [stackoverflow](https://stackoverflow.com/questions/64281758/jest-coveragedirectory-configuration-for-project-inside-monorepo)
+
+- **scripts final:**
+
+```ts
+// deafult jest.config.js in root and /coverage dir
+"test:coverage": "jest -i --coverage",
+```
+
+- **jest.config.js with --projects option, final:**
+
+```ts
+module.exports = {
+  projects: [
+    '<rootDir>/test-client/config/jest.config.js',
+    '<rootDir>/test-server/config/jest.config.unit.js',
+    '<rootDir>/test-server/config/jest.config.integration.js',
+  ],
+  // coverage must be set up in this file
+  // and run all tests at once
+  collectCoverageFrom: [
+    // include -----------------------
+    // client code
+    'layouts/**/*.{ts,tsx}',
+    'views/**/*.{ts,tsx}',
+    'components/**/*.{ts,tsx}',
+    // client hooks
+    'lib-client/**/*.{ts,tsx}',
+    // server code
+    'lib-server/**/*.{ts,tsx}',
+    // client + server
+    'pages/**/*.{ts,tsx}',
+    'utils/**/*.{ts,tsx}',
+    // ignore, must come after -------
+    '!node_modules',
+    '!.next',
+    '!dist',
+    '!prisma',
+    '!themes',
+    '!test-client',
+    '!test-server',
+    '!tests-api',
+    '!tests-e2e',
+    '!notes',
+    '!server',
+    '!types',
+  ],
+  // this is default, can be undefined
+  coverageDirectory: 'coverage',
+  coverageThreshold: {
+    global: {
+      branches: 25,
+      functions: 25,
+      lines: 25,
+      statements: 25,
+    },
+  },
+};
+```
+
+- none of the jest tests needs prod built app, only app source; only e2e Cypress needs built prod app
+
+```json
+"test:client": "",
+"test:server:unit": "",
+
+// does NOT need built app
+// needs only migrated test-db
+"test:server:integration": "",
+
+// just uses mounted app source and overrides CMD from Dockerfile.test with run sh-c '...'
+// maybe can use sh -c 'prisma:migrate:prod && yarn test:server:integration'",
+"docker:test:server:integration": "docker-compose -f docker-compose.test.yml -p npb-test run --rm npb-app-test sh -c 'yarn test:server:integration'",
+
+```

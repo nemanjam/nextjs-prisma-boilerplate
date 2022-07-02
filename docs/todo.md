@@ -77,8 +77,7 @@
 - user in Cypress container for screenshots as non root
 - update to Cypress 10
 - fix contains direct node access warning in lint
-
-- test coverage setup
+- fix .next and dist folders created as root in app container if not exists (pass non-root user UID, GID)
 - withBem() needs proper solution for additional clasname scoped under block
 - version docker images in Github Actions, and app release
 
@@ -330,3 +329,5 @@
 - all props in UserItem available at same time, fixes it, {user, me}
 - block all UI until all data is ready, Navbar for example
 - block navbar rendering, done, revert, gives more errors
+- test coverage setup, done
+- write yarn script to run all tests for coverage and add to tests.yml, done

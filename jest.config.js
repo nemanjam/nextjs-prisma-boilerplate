@@ -9,13 +9,19 @@ module.exports = {
   // coverage must be set up in this file
   // and run all tests at once
   collectCoverageFrom: [
-    // include
-    'components/**/*.{ts,tsx}',
+    // include -----------------------
+    // client code
     'layouts/**/*.{ts,tsx}',
+    'views/**/*.{ts,tsx}',
+    'components/**/*.{ts,tsx}',
+    // client hooks
     'lib-client/**/*.{ts,tsx}',
+    // server code
     'lib-server/**/*.{ts,tsx}',
+    // client + server
     'pages/**/*.{ts,tsx}',
-    // ignore, must come after
+    'utils/**/*.{ts,tsx}',
+    // ignore, must come after -------
     '!node_modules',
     '!.next',
     '!dist',
@@ -27,17 +33,16 @@ module.exports = {
     '!tests-e2e',
     '!notes',
     '!server',
+    '!types',
   ],
   // this is default, can be undefined
   coverageDirectory: 'coverage',
-  /*
   coverageThreshold: {
     global: {
-      branches: 100,
-      functions: 100,
-      lines: 100,
-      statements: 100,
+      branches: 25,
+      functions: 25,
+      lines: 25,
+      statements: 25,
     },
   },
-  */
 };

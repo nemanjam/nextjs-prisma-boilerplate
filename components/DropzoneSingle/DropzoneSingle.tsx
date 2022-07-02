@@ -13,6 +13,7 @@ interface IFileInputProps
   altText?: string;
   name: string;
   isLoading?: boolean;
+  /** used only to override default height and width */
   imageStyle?: CSSProperties;
 }
 
