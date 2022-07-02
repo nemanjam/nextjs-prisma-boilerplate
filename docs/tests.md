@@ -771,3 +771,16 @@ module.exports = {
 "docker:test:server:integration": "docker-compose -f docker-compose.test.yml -p npb-test run --rm npb-app-test sh -c 'yarn test:server:integration'",
 
 ```
+
+- increase timeout in findBy()
+
+```ts
+const title = await screen.findByRole(
+  'heading',
+  {
+    name: RegExp(`${fakeUser.name}`, 'i'),
+  },
+  { timeout: 2000 } // default 1000, failed in GA
+);
+expect(title).toBeInTheDocument();
+```

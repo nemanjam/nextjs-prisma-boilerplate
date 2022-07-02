@@ -10,9 +10,13 @@ describe('Profile View', () => {
     customRender(<ProfileView profile={fakeUser} />);
 
     // assert title
-    const title = await screen.findByRole('heading', {
-      name: RegExp(`${fakeUser.name}`, 'i'),
-    });
+    const title = await screen.findByRole(
+      'heading',
+      {
+        name: RegExp(`${fakeUser.name}`, 'i'),
+      },
+      { timeout: 2000 } // default 1000, failed in GA
+    );
     expect(title).toBeInTheDocument();
 
     // assert pagination button 1
