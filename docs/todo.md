@@ -80,9 +80,12 @@
 - fix .next and dist folders created as root in app container if not exists (pass non-root user UID, GID)
 - withBem() needs proper solution for additional clasname scoped under block
 - version docker images in Github Actions, and app release
+- badges in readme
+- see what queries return results on server too, log them in node
 
 ### Overview
 
+- create release and tag v1.0 when finish readme
 - record video (maybe Cypress) gif or youtube embed in readme
 - code coverage setup
 - hydration bug - dependant queries, me and others
