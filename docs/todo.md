@@ -82,6 +82,7 @@
 - version docker images in Github Actions, and app release
 - badges in readme
 - see what queries return results on server too, log them in node
+- debug in hook with `console.log('query.data', query.data, isBrowser());`
 
 ### Overview
 

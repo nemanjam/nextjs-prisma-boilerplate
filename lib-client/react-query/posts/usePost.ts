@@ -18,5 +18,6 @@ export const usePost = (id: number) => {
       enabled: !isNaN(id), // important for 0
     }
   );
+
   return query;
 };
