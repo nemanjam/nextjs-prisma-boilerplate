@@ -6,7 +6,7 @@ import moment from 'moment';
 import { useRouter } from 'next/router';
 import { getIsAdmin, getIsPostOwner } from 'lib-client/permissions';
 import { getAvatarPath, uploadsImageLoader } from 'lib-client/imageLoaders';
-import { mommentFormats } from 'lib-server/constants';
+import { momentFormats } from 'lib-server/constants';
 import Button from 'components/Button';
 import { useUpdatePost } from 'lib-client/react-query/posts/useUpdatePost';
 import { useDeletePost } from 'lib-client/react-query/posts/useDeletePost';
@@ -80,7 +80,7 @@ const Post: FC = () => {
             </div>
 
             <div className={b('post-created-at')}>
-              {moment(post.createdAt).format(mommentFormats.dateForUsersAndPosts)}
+              {moment(post.createdAt).format(momentFormats.dateForUsersAndPosts)}
             </div>
           </div>
         </div>

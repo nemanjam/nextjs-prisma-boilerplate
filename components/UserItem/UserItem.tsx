@@ -11,7 +11,7 @@ import {
 import { getIsAdmin } from 'lib-client/permissions';
 import Button from 'components/Button';
 import { useDeleteUser } from 'lib-client/react-query/users/useDeleteUser';
-import { mommentFormats } from 'lib-server/constants';
+import { momentFormats } from 'lib-server/constants';
 import { ClientUser } from 'types/models/User';
 import { Routes } from 'lib-client/constants';
 import Alert from 'components/Alert';
@@ -112,7 +112,7 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
         </div>
         <p className={b('bio')}>{user.bio}</p>
         <p className={b('date')}>{`Joined ${moment(user.createdAt).format(
-          mommentFormats.dateForUsersAndPosts
+          momentFormats.dateForUsersAndPosts
         )}`}</p>
         {/* count messages, comments, followers */}
       </div>

@@ -3,7 +3,7 @@ import { extname } from 'path';
 import {
   avatarsFolderAbsolutePath,
   headersFolderAbsolutePath,
-  mommentFormats,
+  momentFormats,
 } from 'lib-server/constants';
 import moment from 'moment';
 
@@ -17,7 +17,7 @@ export const profileImagesUpload = multer({
       }
     },
     filename: async (req, file, cb) => {
-      const fileName = `${moment().format(mommentFormats.dateTimeForFiles)}__${
+      const fileName = `${moment().format(momentFormats.dateTimeForFiles)}__${
         file.originalname
       }`;
       cb(null, fileName);

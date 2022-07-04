@@ -8,7 +8,7 @@ import {
   getHeaderImagePath,
   uploadsImageLoader,
 } from 'lib-client/imageLoaders';
-import { mommentFormats } from 'lib-server/constants';
+import { momentFormats } from 'lib-server/constants';
 import { ClientUser } from 'types/models/User';
 import { usePosts } from 'lib-client/react-query/posts/usePosts';
 import Pagination from 'components/Pagination';
@@ -99,7 +99,7 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
           <p className={b('username')}>{`@${profile.username}`}</p>
           <p className={b('bio')}>{profile.bio}</p>
           <p className={b('date')}>{`Joined ${moment(profile.createdAt).format(
-            mommentFormats.dateForUsersAndPosts
+            momentFormats.dateForUsersAndPosts
           )}`}</p>
           {/* count messages, comments, followers */}
         </div>
