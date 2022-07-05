@@ -1,4 +1,4 @@
-name: Deploy to VPS
+name: deploy
 
 # trigger on docker build workflow
 # only works on a default branch
