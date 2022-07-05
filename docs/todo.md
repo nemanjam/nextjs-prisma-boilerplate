@@ -97,6 +97,7 @@
 - basic readme
 - update cv
 - cv testing, react query, next, react, tailwind, cypress, architectures, databases, devcontainers, traefik, homelab, projects, github actions
+- free Docker build from build time urls (CustomHead)
 
 ### Bugs
 

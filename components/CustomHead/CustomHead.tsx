@@ -24,7 +24,7 @@ const CustomHead = ({ ...customMeta }: Meta) => {
   const defaultMeta = {
     title: 'Next.js Prisma Boilerplate',
     description: 'Full stack boilerplate with Next.js, Prisma, Tailwind and Docker.',
-    image: `${baseUrl}images/banner.png`,
+    image: `${baseUrl}images/banner-1280x640-200kb.png`,
     type: 'website',
   };
 
