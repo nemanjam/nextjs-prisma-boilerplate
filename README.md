@@ -17,23 +17,23 @@ https://user-images.githubusercontent.com/9990165/177367837-a2692e5d-b694-454e-8
 #### Mobile screen:
 
 <p>
-    <img width="150px" src="readme-assets/mobile-screens/Screenshot1.png">
-    <img width="150px" src="readme-assets/mobile-screens/Screenshot2.png">
-    <img width="150px" src="readme-assets/mobile-screens/Screenshot3.png">
-    <img width="150px" src="readme-assets/mobile-screens/Screenshot4.png">
-    <img width="150px" src="readme-assets/mobile-screens/Screenshot5.png">
+    <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot1.png">
+    <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot2.png">
+    <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot3.png">
+    <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot4.png">
+    <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot5.png">
 </p>
 <p>
-    <img width="150px" src="readme-assets/mobile-screens/Screenshot6.png">
-    <img width="150px" src="readme-assets/mobile-screens/Screenshot7.png">
-    <img width="150px" src="readme-assets/mobile-screens/Screenshot8.png">
-    <img width="150px" src="readme-assets/mobile-screens/Screenshot9.png">
-    <img width="150px" src="readme-assets/mobile-screens/Screenshot10.png">
+    <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot6.png">
+    <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot7.png">
+    <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot8.png">
+    <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot9.png">
+    <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot10.png">
 </p>
 <p>
-    <img width="150px" src="readme-assets/mobile-screens/Screenshot11.png">
-    <img width="150px" src="readme-assets/mobile-screens/Screenshot12.png">
-    <img width="150px" src="readme-assets/mobile-screens/Screenshot13.png">
-    <img width="150px" src="readme-assets/mobile-screens/Screenshot14.png">
-    <img width="150px" src="readme-assets/mobile-screens/Screenshot15.png">
+    <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot11.png">
+    <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot12.png">
+    <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot13.png">
+    <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot14.png">
+    <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot15.png">
 </p>
