@@ -14,8 +14,6 @@ Don't spend next 3 months making architectural decisions, choosing libraries, se
 
 ## Screenshots
 
-#### Desktop screen:
-
 https://user-images.githubusercontent.com/9990165/177367837-a2692e5d-b694-454e-806d-21e806465836.mp4
 
 ## Features
