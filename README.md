@@ -10,7 +10,7 @@
 
 This is full stack boilerplate built around latest Next.js stack. It is composed of the best practices described in official docs combined with my decisions derived from my own experience and knowledge that I have gathered from working with other people.
 
-Don't spend next 3 months making architectural decisions, choosing libraries, setting up development environment and CI/CD pipelines, writing boilerplate code, _instead install this boilerplate in 15 minutes and start working on your features **today**._
+Don't spend next 3 months making architectural decisions, choosing libraries, setting up dev and prod environments and CI/CD pipelines, writing boilerplate code, _instead install this boilerplate in 15 minutes and start working on your features **today**._
 
 ## Screenshots
 
