@@ -6,6 +6,6 @@ import { setupServer } from 'msw/node';
 const handlers = [...authHandlers, ...usersHandlers, ...postsHandlers];
 
 /**
- * inital handlers list
+ * initial handlers list
  */
 export const server = setupServer(...handlers);

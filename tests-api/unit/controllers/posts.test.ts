@@ -36,7 +36,7 @@ describe('Posts controller', () => {
       })
     );
 
-    // assert sevice input args
+    // assert service input args
     expect(mockedCreatePostService).toHaveBeenCalledWith(user.id, postData);
 
     // getMe called 2 times
