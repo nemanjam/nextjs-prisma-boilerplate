@@ -57,3 +57,30 @@ https://user-images.githubusercontent.com/9990165/177367837-a2692e5d-b694-454e-8
 - Cypress task to seed and teardown test database, commands to filter errors, seed and login
 - custom Docker image with Cypress installed on top of official base image
 - both Jest and Cypress are configured to run locally, in Docker and in Github Actions
+
+#### Development environment:
+
+- 3 available configured development environments: local, Docker (VS Code devcontainers) and Gitpod
+- included VS Code settings and extensions for syntax highlighting, intellisense, formatting, linting and running tests
+- configured development database with Postgres and Adminer Docker containers
+
+#### Production environment:
+
+- two staging environments (local and Docker) for testing app built in production mode
+- one live production environment with Docker and Traefik reverse proxy in separate repository for deployment on VPS
+
+#### CI/CD:
+
+- 3 Github Actions automated workflows for running tests, building and pushing app production Docker image to Dockerhub and deployment on VPS using ssh
+
+#### Documentation:
+
+- docs folder with documented working notes, problems, solutions and included reference links for every technology used in this project
+- it is meant to be turned into human friendly blog articles (this is still work in progress)
+
+#### Core principles:
+
+- take full advantage of Docker containers in development, testing and production
+- choose simple, practical and clean solutions, follow official documentation but not blindly
+- vendor free - don't couple app architecture with any cloud provider (i.e. app or image hosting) and keep everything under your control, also avoid unnecessary API keys managing, renewing etc...
+- document everything, especially important and difficult parts
