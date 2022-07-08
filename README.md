@@ -16,6 +16,13 @@ Don't spend next 3 months making architectural decisions, choosing libraries, se
 
 https://user-images.githubusercontent.com/9990165/177367837-a2692e5d-b694-454e-806d-21e806465836.mp4
 
+## How you can use this
+
+- build your own projects on top of this (blog, social network, e-commerce, Saas...), suitable for any small to medium size web app that can run in a single Linux box, not every start up has billion users from first day
+- if you want to go serverless route you can still reuse a lot of code and implementation decisions from this project, few notes: 1. you need to remove custom http server and let Next.js app run natively, 2. you can't run production app in a single Docker container, 3. you must use different Multer storage type for uploads
+- reuse any specific design decision, feature or configuration (i.e. VS Code devcontainer can be reused for any Node.js project, theming plugin, email/password login with `next-auth`, etc...)
+- use it for learning or as a collection of working examples for reference
+
 ## Features
 
 #### Frontend:
@@ -80,7 +87,11 @@ https://user-images.githubusercontent.com/9990165/177367837-a2692e5d-b694-454e-8
 
 #### Core principles:
 
-- take full advantage of Docker containers in development, testing and production
-- choose simple, practical and clean solutions, follow official documentation but not blindly
-- vendor free - don't couple app architecture with any cloud provider (i.e. app or image hosting) and keep everything under your control, also avoid unnecessary API keys managing, renewing etc...
+- take full advantage of Docker containers for development, testing and production
+- choose simple, practical and clean solutions
+- vendor free - don't couple app architecture with any cloud provider and keep everything under your control
 - document everything, especially important and difficult parts
+
+#### Motivation:
+
+There are a lot of talk, theory, opinions, and buzz around JavaScript frameworks... but lets stop talking and actually try it out in practice, check how it works and see if we can build something useful and meaningful with it.
