@@ -33,11 +33,11 @@
 - where to go next doc: markdown editor with image inline and upload, comments, likes, follow, tags, categories
 - extract clear types in a single place, form, request, response, api - models, organize, consistent naming
 - maybe arrays in navbar for mobile
-- declerative navbar lesson
+- declarative navbar lesson
 - tests
 - drafts count in me
 - all in daisy ui
-- @tailwindcss/line-clamp plugin to limmit posts length
+- @tailwindcss/line-clamp plugin to limit posts length
 - custom font maybe
 - footer styling
 - login neutral button color, dark theme
@@ -54,15 +54,15 @@
 - maybe shell script for migration container
 - postgres expose external env var in d-c.yml
 - new next.js dockerfile? https://nextjs.org/docs/advanced-features/output-file-tracing
-- add role attributes for accesibility in one go, a11...
+- add role attributes for accessibility in one go, a11...
 - update resume react testing
 - find practical github repo code example for jest and cypress
 - check additional Eslint rules from other repositories
 - setup Cypress
-- mocks, spyes, describe
+- mocks, spies, describe
 - unit, integration
 - skeletons, react suspense
-- work organisation md doc
+- work organization md doc
 - remove password from all client users, done
 - handle http error in HomeView, both getServerSideProps and useQuery, ErrorBoundary, error handling and error testing same thing
 - each form should be separate component, easier to test
@@ -78,7 +78,7 @@
 - update to Cypress 10
 - fix contains direct node access warning in lint
 - fix .next and dist folders created as root in app container if not exists (pass non-root user UID, GID)
-- withBem() needs proper solution for additional clasname scoped under block
+- withBem() needs proper solution for additional classname scoped under block
 - version docker images in Github Actions, and app release
 - badges in readme
 - see what queries return results on server too, log them in node
@@ -118,7 +118,7 @@
 - types for reusing Login and Register form
 - fix FormData useUpdateuser hook test
 - fix act not supported in env
-- screenshots for all items (mutatuons), pages, screen error handling and alerts
+- screenshots for all items (mutations), pages, screen error handling and alerts
 - supertest vs axios?
 - clearMocks vs resetMocks vs restoreMocks
 - void vs undefined return type function?
@@ -302,7 +302,7 @@
 - test devcontainers, done
 - settings image after update again, header, done
 - profile reset to first page, other user, done
-- navabar avatar deformed, done
+- navbar avatar deformed, done
 - center github button mobile, done
 - fix button height on UserItem mobile, done
 - fix avatar absolute top on UserItem mobile, done
@@ -330,7 +330,7 @@
 - deploy, comment out page suspense, no need, done
 - on post page if delete draft redirect to drafts page, done
 - **hydration error - big difference in query keys in getServerSideProps and useQuery on client**
-- query keys arent matching in getserverSideProps and useQuery CSR, profile e.g.
+- query keys arent matching in getServerSideProps and useQuery CSR, profile e.g.
 - try enabled false to preview csr and ssr, no
 - all props in UserItem available at same time, fixes it, {user, me}
 - block all UI until all data is ready, Navbar for example
