@@ -294,9 +294,9 @@ This project has 4 separate testing configurations plus code coverage configurat
 4. Code coverage report - all Jest tests and test database
 5. E2E tests - Cypress, app running in production mode and test database
 
-#### 1. Running client unit and integration tests
-
 > Note: You can also run and debug all Jest tests with `orta.vscode-jest` extension that is already included in recommended list.
+
+#### 1. Running client unit and integration tests
 
 Running locally.
 
