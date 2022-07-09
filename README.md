@@ -125,6 +125,8 @@ cd nextjs-prisma-boilerplate
 yarn install
 ```
 
+> When you open project folder for the first time VS Code will ask you to install recommended extensions, you should accept them all, they are needed to highlight, autocomplete, lint and format code, run tests, manage containers.
+
 Fill in required **public** environment variables in `.env.development`. Fastest way is to run the app with `http` server.
 
 > You need `https` locally only for Facebook OAuth login. For that you need `mkcert` to install certificates for `localhost`, instructions for that you can find in `docs` folder.
@@ -238,6 +240,8 @@ yarn prisma:seed
 git config --list --show-origin
 ```
 
+> I suggest you install [Portainer Community Edition](https://www.portainer.io/pricing-new) container locally for easier managing and debugging containers, it's free and very useful tool.
+
 #### Gitpod environment
 
 Go to [elephantsql.com](https://elephantsql.com) create free account and create free 20MB Postgres database. Go to [gitpod.io](https://gitpod.io/), login with Github. Open your forked repository in Gitpod by opening following link (replace `your-username` with real one):
@@ -278,4 +282,138 @@ Everything is set up, you can now run the app in dev mode and open it in new bro
 
 ```bash
 yarn gitpod:dev:env
+```
+
+## Running tests
+
+This project has 4 separate testing configurations plus code coverage configuration. All tests can run locally, in Docker and in Github Actions.
+
+1. Client unit and integration tests - Jest and React Testing Library
+2. Server unit tests - Jest
+3. Server integration tests - Jest and test database
+4. Code coverage report - all Jest tests and test database
+5. E2E tests - Cypress, app running in production mode and test database
+
+#### 1. Running client unit and integration tests
+
+> Note: You can also run and debug all Jest tests with `orta.vscode-jest` extension that is already included in recommended list.
+
+Running locally.
+
+```bash
+yarn test:client
+```
+
+Running in Docker.
+
+```bash
+yarn docker:test:client
+```
+
+#### 2. Running server unit tests
+
+Running locally.
+
+```bash
+yarn test:server:unit
+```
+
+Running in Docker.
+
+```bash
+yarn docker:test:server:unit
+```
+
+#### 3. Running server integration tests
+
+Make sure that test database is up and migrated. You don't need to seed it.
+
+```bash
+# run database container
+yarn docker:db:test:up
+
+# migrate test database
+yarn prisma:migrate:test:env
+```
+
+Running locally.
+
+```bash
+yarn test:server:integration
+```
+
+Running in Docker.
+
+```bash
+yarn docker:test:server:integration
+```
+
+#### 4. Running code coverage report
+
+You need running test database, same as in previous step.
+
+Running locally.
+
+```bash
+yarn test:coverage
+```
+
+Running in Docker.
+
+```bash
+yarn docker:test:coverage
+```
+
+#### 5. Running E2E tests with Cypress
+
+**Running locally:**
+
+You need to run and migrate test database (no need for seed), build app for production, run the app and run Cypress.
+
+```bash
+# run database container
+yarn docker:db:test:up
+
+# migrate test database
+yarn prisma:migrate:test:env
+```
+
+Then you need to build app for production.
+
+```bash
+# build the app for prod
+yarn build
+```
+
+Then you need to start both app and Cypress at same time. This will open Cypress GUI.
+
+```bash
+# starts the app and Cypress GUI
+yarn test:e2e:env
+```
+
+You can also run Cypress in headless mode (without GUI).
+
+```bash
+# starts the app and Cypress in headless mode
+yarn test:e2e:headless:env
+```
+
+**Running in Docker:**
+
+Build both app and Cypress images.
+
+```bash
+# build testing app image
+yarn docker:npb-app-test:build
+
+# build Cypress container
+yarn docker:npb-e2e:build
+```
+
+Then you can run test database, test app container and Cypress (in headless mode) container at once.
+
+```bash
+# run db, app and Cypress headless
+yarn docker:npb-e2e:up
 ```
