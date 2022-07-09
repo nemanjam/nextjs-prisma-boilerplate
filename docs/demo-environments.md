@@ -45,6 +45,8 @@ NEXTAUTH_URL=https://3001-nemanjam-nextjsprismabo-dn2irzhpmzu.ws-eu47.gitpod.io
 
 ```
 
+- shadow db [dev.to](https://dev.to/prisma/how-to-setup-a-free-postgresql-database-on-heroku-1dc1), [prisma docs](https://www.prisma.io/docs/concepts/components/prisma-migrate/shadow-database#cloud-hosted-shadow-databases-must-be-created-manually)
+
 - **problem:** HOSTNAME is reserved readonly var on Gitpos (and Linux), use other var name
 - good thing HOSTNAME is used only in server.ts (in log, trivial, protocol too) and docker-compose.prod.yml, **solution:** rename it SITE_HOSTNAME, SITE_PROTOCOL
 
