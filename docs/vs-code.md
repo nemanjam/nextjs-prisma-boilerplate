@@ -243,6 +243,14 @@ export default $1;
 - to see dev app node.js log `Show container log`
 - run tests, use local yarn scripts probably all works
 
+- git works in container
+
+```bash
+git config --list --show-origin
+# or
+git config --list
+```
+
 ### Debug Chrome on mobile phone
 
 - on a phone go to `https://192.168.x.x:3001`

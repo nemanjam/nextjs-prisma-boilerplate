@@ -102,7 +102,15 @@ There are a lot of talk, theory, opinions, and buzz around JavaScript frameworks
 
 ## Installation
 
-This project has 3 available development environments: 1. local, 2. Docker (with and without devcontainers) and 3. Gitpod. You can pick whatever environment you prefer.
+This project has 3 available development environments:
+
+1. local
+2. Docker (with and without devcontainers)
+3. Gitpod
+
+You can pick whatever environment you prefer.
+
+> **Which one to choose?** If you like conventional approach pick local, if you work in a team and want to have consistent environments with colleagues to easily reproduce bugs and quickly onboard new members pick Docker, and if you want to make sandbox do reproduce a bug and ask for help publicly pick Gitpod.
 
 #### 1. local environment
 
@@ -125,6 +133,7 @@ Leave `PORT` as 3001, it is hardcoded in multiple places, if you want to change 
 
 ```bash
 # .env.development
+
 SITE_PROTOCOL=http
 SITE_HOSTNAME=localhost
 PORT=3001
@@ -185,7 +194,7 @@ yarn prisma:migrate:dev:env
 yarn prisma:seed:dev:env
 ```
 
-At this point everything is ready, you can now start the app. Open `http://localhost:3001` in browser to see the running app.
+At this point everything is ready, you can now start the app. Open `http://localhost:3001` in the browser to see the running app.
 
 ```bash
 # start the app in dev mode
@@ -194,7 +203,7 @@ yarn dev
 
 #### Docker environment
 
-Build app container.
+After you cloned repository build app container.
 
 ```bash
 # terminal on host
@@ -222,6 +231,13 @@ Open new terminal inside the container and seed the database, `docker-compose.de
 yarn prisma:seed
 ```
 
+> Note: Git will already exist in container with your account so you can commit and push changes directly from container.
+
+```bash
+# check that git config is already set inside the container
+git config --list --show-origin
+```
+
 #### Gitpod environment
 
 Go to [elephantsql.com](https://elephantsql.com) create free account and create free 20MB Postgres database. Go to [gitpod.io](https://gitpod.io/), login with Github. Open your forked repository in Gitpod by opening following link (replace `your-username` with real one):
@@ -246,7 +262,7 @@ DATABASE_URL=postgres://something:something@tyke.db.elephantsql.com/something
 
 Now migrate and seed the database.
 
-> Note: `elephantsql.com` database doesn't have all privileges so you must use `prisma push` command instead of usual `prisma migrate dev`. Read more details about shadow database in `docs/demo-environments.md`.
+> Note: `elephantsql.com` database doesn't have all privileges so you must use `prisma push` command instead of usual `prisma migrate dev`. Read more details about shadow database in [docs/demo-environments.md](docs/demo-environments.md).
 
 ```bash
 # terminal on Gitpod
