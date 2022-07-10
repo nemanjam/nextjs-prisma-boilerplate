@@ -48,3 +48,29 @@ labels:
 ```
 
 - set env vars on host permanently?
+
+#### Renew Let's Encrypt certificate manually
+
+[tutorial](https://traefik.io/blog/how-to-force-update-lets-encrypt-certificates/)
+
+```bash
+# -rw------- 1 ubuntu ubuntu 42335 May 15 10:45 acme.json
+
+# download acme.json
+scp ubuntu@amd1:/home/ubuntu/traefik-proxy/core/traefik-data/acme.json ./core/traefik-data/acme.json
+
+# remove all from array
+"Certificates": []
+
+# push back edited to server
+# chmod stays same 600
+# -rw------- 1 ubuntu ubuntu 3533 Jul 10 15:27 acme.json
+scp ./core/traefik-data/acme.json ubuntu@amd1:/home/ubuntu/traefik-proxy/core/traefik-data/acme.json
+
+# restart traefik
+docker-compose down
+docker-compose up -d
+
+# backup on server
+scp ./core/traefik-data/acme.json ubuntu@amd1:/home/ubuntu/acme.json.back
+```
