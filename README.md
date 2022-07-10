@@ -428,6 +428,10 @@ yarn docker:npb-e2e:up
 
 ## Deployment
 
+I made a separate repository only for deployment with Traefik reverse proxy that needs only environment variables and image from Dockerhub. There are also Github Actions workflows to build, push and redeploy latest image on your server. You should use that for deployment.
+
+For the sake of completeness I described here how to build and run production app locally and in Docker. These two can be useful as staging environments for testing. I also described how to build and push live image to Dockerhub from your local development machine.
+
 #### Build and run production app locally
 
 When building and running app in production mode it will read variables from `.env.production` and `.env.production.local`. At build time the only required variable is `NEXTAUTH_URL` (it is used for base url in `CustomHead` component responsible for SEO). If you use `getStaticProps` (Static Site Generation) you will need to pass `DATABASE_URL` too with correct data. At runtime you need to define all public and private variables in these two files.
