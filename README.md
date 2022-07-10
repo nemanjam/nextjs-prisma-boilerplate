@@ -153,6 +153,14 @@ cp .env.development.local.example .env.development.local
 
 ```
 
+In all environments Postgres container is configured to run as a current non-root user on a Linux host machine. This is important so that database files in volumes are created with correct ownership and permissions. For this you need to define `MY_UID` and `MY_GID`. Best place to set them is in `~/.bashrc`.
+
+```bash
+# ~/.bashrc
+export MY_UID=$(id -u)
+export MY_GID=$(id -g)
+```
+
 Fill in required **private** environment variables. The only required variables are for Postgres database connection and JWT secret.
 
 > Facebook and Google credentials are optional and used only for OAuth login. Facebook login requires `https` for redirect url. You can set any values for `POSTGRES_USER`, `POSTGRES_PASSWORD` and `POSTGRES_DB`.
@@ -416,4 +424,170 @@ Then you can run test database, test app container and Cypress (in headless mode
 ```bash
 # run db, app and Cypress headless
 yarn docker:npb-e2e:up
+```
+
+## Deployment
+
+#### Build and run production app locally
+
+When building and running app in production mode it will read variables from `.env.production` and `.env.production.local`. At build time the only required variable is `NEXTAUTH_URL` (it is used for base url in `CustomHead` component responsible for SEO). If you use `getStaticProps` (Static Site Generation) you will need to pass `DATABASE_URL` too with correct data. At runtime you need to define all public and private variables in these two files.
+
+To build and run production app run these two commands.
+
+```bash
+# build app
+yarn build
+
+# start app
+yarn start
+```
+
+#### Build and run production app in Docker
+
+When building production app inside a Docker image again you need to pass same variables like locally (`NEXTAUTH_URL` and `DATABASE_URL` for SSG), this time these are forwarded with `ARG_NEXTAUTH_URL` and `ARG_DATABASE_URL` in `Dockerfile.prod`. This time environment variables are read from `envs/production-docker/.env.production.docker` and `envs/production-docker/.env.production.docker.local`. At runtime you need to define all public and private variables in these two files.
+
+To build and run Docker production image run this.
+
+```bash
+# build production image
+yarn docker:prod:build:env
+
+# run production image
+yarn docker:prod:up
+```
+
+#### Build and push Docker live production image locally
+
+Again you need to set `NEXTAUTH_URL` and `DATABASE_URL` (for SSG) this time in `envs/production-live/.env.production.live.build.local`. Create this file from example file.
+
+```bash
+cp envs/production-live/.env.production.live.build.local.example envs/production-live/.env.production.live.build.local
+```
+
+You need to edit this yarn script and set your real Dockerhub username and image name.
+
+```bash
+# replace your-dockerhub-username and your-image-name with yours
+
+"docker:live:build": "dotenv -e ./envs/production-live/.env.production.live.build.local -- bash -c 'docker build -f Dockerfile.prod -t your-dockerhub-username/your-image-name:latest --build-arg ARG_DATABASE_URL=${DATABASE_URL} --build-arg ARG_NEXTAUTH_URL=${NEXTAUTH_URL} .'",
+
+```
+
+You can now build, tag and push to Dockerhub your production image. To push image you must first login in terminal with `docker login`.
+
+```bash
+# build and tag production image
+yarn docker:live:build
+
+# push image to Dockerhub
+yarn docker:live:push
+```
+
+#### Build and push Docker live production image in Github Actions (preferred)
+
+There is already set up workflow to build and push production image in Github Actions in `.github/workflows/build-docker-image.yml`. In your repository settings you just need to set these variables and run workflow.
+
+```bash
+# your dockerhub username
+DOCKERHUB_USERNAME
+# your dockerhub password
+DOCKERHUB_TOKEN
+# database url (only for SSG)
+NPB_DATABASE_URL
+# your live production app url (without trailing '/')
+# i.e. https://subdomain.my-domain.com
+NPB_NEXTAUTH_URL
+```
+
+#### Run live production app on VPS with Traefik
+
+You just need to set your image name inside `docker-compose.live.yml`, pass all environment variables to it and deploy it with `docker-compose up -d` on your server.
+
+```yml
+# docker-compose.live.yml
+
+services:
+  npb-app-live:
+    container_name: npb-app-live
+    image: your-dockerhub-username/your-image-name:latest
+```
+
+For this purpose I already made separate repository [nemanjam/traefik-proxy](https://github.com/nemanjam/traefik-proxy) with Traefik reverse proxy that allows you to host multiple apps inside Docker containers where each container expose different port and Traefik maps ports to subdomains. For details how to configure this see `README.md` file and linked tutorial in it. You just need to run your app container and Traefik will automatically pick it up without you needing to restart Traefik's container manually.
+
+Beside Traefik it also already has `portainer` container for managing containers, `adminer` container for administering production database, `uptime-kuma` for tracking website uptime, and another `postgres` container configured to accept connections from remote hosts (useful for building app in Github Actions).
+
+Bellow are listed all environments variables you need to set. For sake of simplicity I showed you here how to set them in local `.env` file, `docker-compose.yml` file will read it and forward all needed variables into containers. This is ok for demo apps but for real production apps proper way to do this is to set them in your cloud provider's dashboard or use some dedicated vault.
+
+```bash
+# create .env file locally and set vars
+cp apps/nextjs-prisma-boilerplate/.env.example apps/nextjs-prisma-boilerplate/.env
+
+# copy populated local .env file to server securely with ssh
+scp ./apps/nextjs-prisma-boilerplate/.env ubuntu@your-server:~/traefik-proxy/apps/nextjs-prisma-boilerplate
+```
+
+These are all needed variables.
+
+> `MY_UID` and `MY_GID` are id's of your current user and group on your Linux server. You can see their values by running `id -u` and `id -g` in your server's terminal. The best place to set them is globally in `~/.bashrc` because they can be needed for multiple containers. They are passed into Postgres container so that volume data files are created with correct permissions and ownership (as current user and not root user).
+
+```bash
+# apps/nextjs-prisma-boilerplate/.env
+
+# public vars bellow
+
+APP_ENV=live
+
+# http node server in live, Traefik handles https
+SITE_PROTOCOL=http
+
+# real full production public domain (with subdomain), used in app and Traefik
+SITE_HOSTNAME=nextjs-prisma-boilerplate.localhost3000.live
+PORT=3001
+
+# real url is https and doesn't have port, Traefik handles https and port
+NEXTAUTH_URL=https://${SITE_HOSTNAME}
+
+# private vars bellow
+
+# db container
+POSTGRES_HOSTNAME=npb-db-live
+POSTGRES_PORT=5432
+POSTGRES_USER=postgres_user
+POSTGRES_PASSWORD=
+POSTGRES_DB=npb-db-live
+
+# don't edit this
+DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOSTNAME}:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public
+
+# current host user as non-root user in Postgres container, set it here
+MY_UID=1001
+MY_GID=1001
+
+# or better globally in ~/.bashrc
+# export MY_UID=$(id -u)
+# export MY_GID=$(id -g)
+
+# jwt secret
+SECRET=some-long-random-string
+
+# Facebook
+FACEBOOK_CLIENT_ID=
+FACEBOOK_CLIENT_SECRET=
+
+# Google
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+```
+
+#### Redeploy latest Docker live production image on VPS
+
+To avoid manual work there is already Github Actions workflow in `.github/workflows/deploy.yml` that will remove old image and pull and run latest image from Dockerhub using ssh action. All you need to do is to trigger it either manually or chain it on existing build and push workflow.
+
+```yml
+# .github/workflows/deploy.yml
+
+# trigger redeploy with build workflow
+on:
+  workflow_run:
+    workflows: ['docker build']
 ```
