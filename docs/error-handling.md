@@ -107,7 +107,7 @@ if (!result.success) throw ApiError.fromZodError(result.error);
 ### Suspense and MeProvider
 
 - solution: pass `await queryClient.prefetchQuery([QueryKeys.ME, me.id], () => me);` in every page
-- must be in every page separatelly or entire app will be server side rendered (no static site generation) - Custom App component [Next.js docs](https://nextjs.org/docs/advanced-features/custom-app)
+- must be in every page separately or entire app will be server side rendered (no static site generation) - Custom App component [Next.js docs](https://nextjs.org/docs/advanced-features/custom-app)
 
 ```tsx
 const MeProvider: FC<ProviderProps> = ({ children }) => {

@@ -353,7 +353,7 @@ afterEach(() => {
 
 - when wrapped with Suspense and `suspense: true` in React Query initially always loader is dispalyed
 - `await screen.findByText()` IS solution because you need to wait a bit more, or you will get empty `<body><div/></body>`
-- **point** - wait for final wanted elements with `findById`, not all intermidiate loaders one by one with `waitForToBeRemoved`
+- **point** - wait for final wanted elements with `findById`, not all intermediate loaders one by one with `waitForToBeRemoved`
 
 ```ts
 customRender(<Footer />);
@@ -495,8 +495,8 @@ expect(nestedObject).toEqual(
 
 - Github Actions postgres docker-compose up [Github](https://github.com/andersnylund/next-js-prisma-integration-tests)
 
-- must create user in db before post, so it can connect, and for loggedin user mock
-- must mock loggedin user for protected endpoints, maybe possible to manipulate req object
+- must create user in db before post, so it can connect, and for logged in user mock
+- must mock logged in user for protected endpoints, maybe possible to manipulate req object
 
 ```ts
 // mock logged in user
@@ -523,7 +523,7 @@ const mockedGetMeService = jest.spyOn(usersService, 'getMe').mockResolvedValue(a
 
 - both database and node.js containers
 - same env for integration api test and cypress e2e
-- derrived from prod, no edit, no install packages, frontend prod build
+- derived from prod, no edit, no install packages, frontend prod build
 - both Dockerfile.test (from dev, simple enough) and docker-compose.test.yml (from prod) in pair
 - Docker only for local test run, in GA it runs directly in os
 - dont drop database, create and destroy container
@@ -538,9 +538,9 @@ const mockedGetMeService = jest.spyOn(usersService, 'getMe').mockResolvedValue(a
 
 - app works without seed, just migrated schema without data
 - app built in Dockerfile, no volumes and live reload, simple
-- no, build app in container runtime - cant rebuild while app is runing, but it will rebuild just app without container
+- no, build app in container runtime - cant rebuild while app is running, but it will rebuild just app without container
 - seed in beforeAll in tests only
-- change postgres port to 5435 so test-db container can run concurently with dev-db
+- change postgres port to 5435 so test-db container can run concurrently with dev-db
 
 ```yml
 # docker-compose.test.yml
@@ -559,7 +559,7 @@ POSTGRES_PORT=5435
 
 - app is not running so `NODE_ENV=test` probably? api integration `test`, Cypress `production`
 - basically you just need test database
-- cant run dev and test concurently node_modules are shared, so use same port
+- cant run dev and test concurrently node_modules are shared, so use same port
 - volumes so you just rebuild app and not container, Dockerfile CMD too
 - PrismaClient singleton for seed [stackoverflow](https://stackoverflow.com/a/57455542/4383275)
 - separate yarn script for integration tests because unit tests dont need database

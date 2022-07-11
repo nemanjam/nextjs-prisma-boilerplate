@@ -81,7 +81,7 @@ prisma = new PrismaClient({
 ```
 
 - MISTAKE: should be `COPY prisma ./prisma` for `prisma:client:fetcher Error: The table main.Post does not exist in the current database.`
-- problem: can't access schema.prisma and dev.db sqlite write error in container (not in volume), solution: prisma folder must have x permsission to cd into folder and files rw, so 766, (666 doesn't work)
+- problem: can't access schema.prisma and dev.db sqlite write error in container (not in volume), solution: prisma folder must have x permission to cd into folder and files rw, so 766, (666 doesn't work)
 
 ```
 RUN chmod 766 -R prisma uploads
