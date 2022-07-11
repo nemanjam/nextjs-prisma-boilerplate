@@ -87,8 +87,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          # node-version: '16.13.1'
-          node-version: '18.5.0'
+          node-version: '16.13.1'
           cache: 'yarn'
 
       - name: Install dependencies
