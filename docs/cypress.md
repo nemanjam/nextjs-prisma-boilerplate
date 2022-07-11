@@ -1,6 +1,6 @@
 ### Cypress
 
-- run tests on production bulid `yarn build && yarn start && yarn cypress`, [docs](https://nextjs.org/docs/testing#running-your-cypress-tests)
+- run tests on production build `yarn build && yarn start && yarn cypress`, [docs](https://nextjs.org/docs/testing#running-your-cypress-tests)
 
   > Since Cypress is testing a real Next.js application, it requires the Next.js server to be running
   > prior to starting Cypress. We recommend running your tests against your production code to more
@@ -182,7 +182,7 @@ cy.task('db:teardown');
 
 - Bahmutov tutorial [docs](https://www.cypress.io/blog/2019/05/02/run-cypress-with-a-single-docker-command/#testing-site-on-host)
 - test **online** website with `cypress/included:4.1.0` Docker image[cypress-example-docker-compose-included](https://github.com/cypress-io/cypress-example-docker-compose-included), make `npb-e2e-chrome` service
-- **app** and cypress Dockerfiles and d-c.yml services, Dockerfile needed for **additional** npm devDependencies in Cypress image [cypress-io/cypress-example-docker-compose](https://github.com/cypress-io/cypress-example-docker-compose), **realistic usecase, app and tests in Docker**, no Github Actions, custom Cypress install from **package.json** and base image (only needed for custom cypress install)
+- **app** and cypress Dockerfiles and d-c.yml services, Dockerfile needed for **additional** npm devDependencies in Cypress image [cypress-io/cypress-example-docker-compose](https://github.com/cypress-io/cypress-example-docker-compose), **realistic use-case, app and tests in Docker**, no Github Actions, custom Cypress install from **package.json** and base image (only needed for custom cypress install)
 - custom install - **any imports inside `/cypress` folder**
 
 ```ts

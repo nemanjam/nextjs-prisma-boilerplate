@@ -167,8 +167,8 @@ PORT=${!NAME_PORT} # does not work
 - Next.js recognizes production, so use local and docker production terms for staging (environment to test production deployment)
 
 - **Github Actions env vars final:**
-  -Next.js app will load `.env.test` (`.env.test.local` isn't commited) because Jest sets `NODE_ENV=test`, but `process.env.VARS` hardcoded in `tests.yml` will override everything
-- all jobs use local yarn commands (withoud cmd:env)
+  -Next.js app will load `.env.test` (`.env.test.local` isn't committed) because Jest sets `NODE_ENV=test`, but `process.env.VARS` hardcoded in `tests.yml` will override everything
+- all jobs use local yarn commands (without cmd:env)
 
 ### Deploy with SSH Github Action to VPS - very simple
 

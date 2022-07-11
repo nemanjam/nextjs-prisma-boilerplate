@@ -86,6 +86,7 @@
 
 ### Overview
 
+- update to Node 18
 - create release and tag v1.0 when finish readme
 - record video (maybe Cypress) gif or youtube embed in readme
 - code coverage setup
