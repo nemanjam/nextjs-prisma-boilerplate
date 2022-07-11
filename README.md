@@ -595,3 +595,23 @@ on:
   workflow_run:
     workflows: ['docker build']
 ```
+
+## References
+
+Complete references links are attached in docs files. Most important references are:
+
+- starting template project [tutorial](https://vercel.com/guides/nextjs-prisma-postgres), [prisma/blogr-nextjs-prisma/tree/final](https://github.com/prisma/blogr-nextjs-prisma/tree/final), [prisma-examples/typescript/rest-nextjs-api-routes-auth/](https://github.com/prisma/prisma-examples/tree/latest/typescript/rest-nextjs-api-routes-auth)
+- API handlers with `next-connect`, example app [hoangvvo/nextjs-mongodb-app](https://github.com/hoangvvo/nextjs-mongodb-app)
+- Vercel examples (custom-server-typescript, with-typescript-eslint-jest, with-docker, with-cypress) [vercel/next.js/tree/canary/examples](https://github.com/vercel/next.js/tree/canary/examples/custom-server-typescript)
+- Next.js docs [nextjs.org/docs](https://nextjs.org/docs)
+- SEO setup [leerob/leerob.io](https://github.com/leerob/leerob.io)
+- Express error handling [jonasschmedtmann/complete-node-bootcamp](https://github.com/jonasschmedtmann/complete-node-bootcamp)
+- Jest setup, React Query hooks [alan2207/bulletproof-react](https://github.com/alan2207/bulletproof-react)
+- themes as Tailwind plugin [saadeghi/daisyui](https://github.com/saadeghi/daisyui)
+- testing React Query [Tkdodo blog](https://tkdodo.eu/blog/testing-react-query), [TkDodo/testing-react-query](https://github.com/TkDodo/testing-react-query)
+- Tailwind configuration [tailwindcss.com/docs](https://tailwindcss.com/docs/guides/nextjs)
+- deployment with Traefik [tutorial](https://rafrasenberg.hashnode.dev/docker-container-management-with-traefik-v2-and-portainer), [rafrasenberg/docker-traefik-portainer](https://github.com/rafrasenberg/docker-traefik-portainer)
+- Next.js testing frontend (ts-jest setup, msw, forms, router) Bruno Antunes YouTube [playlist](https://www.youtube.com/playlist?list=PLYSZyzpwBEWTBdbfStjqJSGaulqcHoNkT)
+- Prisma docs, testing backend services, [unit-testing](https://www.prisma.io/docs/guides/testing/unit-testing), [integration-testing](https://www.prisma.io/docs/guides/testing/integration-testing)
+- React Hook Form, React Dropzone integration [example](https://github.com/react-hook-form/react-hook-form/discussions/2146#discussioncomment-579355)
+- Cypress Docker setup [cypress-io/cypress-example-docker-compose](https://github.com/cypress-io/cypress-example-docker-compose)

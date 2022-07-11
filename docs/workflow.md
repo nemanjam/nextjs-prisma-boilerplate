@@ -11,4 +11,4 @@
 
 ### Readme description
 
-- Use it as base for your projects to save a lot of time, or reuse wroking features and proven workflows from it, or learn from it.
+- Use it as base for your projects to save a lot of time, or reuse working features and proven workflows from it, or learn from it.
