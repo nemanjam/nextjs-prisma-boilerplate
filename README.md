@@ -78,7 +78,7 @@ React `18.2.0`, Next.js `12.2.0`, Node.js `16.13.1`, Prisma `4`, Postgres `14.3`
 #### Production environment:
 
 - two staging environments (local and Docker) for testing app built in production mode
-- one live production environment with Docker and Traefik reverse proxy in separate repository for deployment on VPS
+- one live production environment with Docker and Traefik reverse proxy in separate repository [nemanjam/traefik-proxy](https://github.com/nemanjam/traefik-proxy) for deployment on VPS
 
 #### CI/CD:
 
@@ -428,7 +428,7 @@ yarn docker:npb-e2e:up
 
 ## Deployment
 
-I made a separate repository only for deployment with Traefik reverse proxy that needs only environment variables and image from Dockerhub. There are also Github Actions workflows to build, push and redeploy latest image on your server. You should use that for deployment.
+I made a separate repository [nemanjam/traefik-proxy](https://github.com/nemanjam/traefik-proxy) only for deployment with Traefik reverse proxy that needs only environment variables and image from Dockerhub. There are also Github Actions workflows to build, push and redeploy latest image on your server. You should use that for deployment.
 
 For the sake of completeness I described here how to build and run production app locally and in Docker. These two can be useful as staging environments for testing. I also described how to build and push live image to Dockerhub from your local development machine.
 
