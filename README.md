@@ -100,7 +100,7 @@ React `18.2.0`, Next.js `12.2.0`, Node.js `16.13.1`, Prisma `4`, Postgres `14.3`
 
 There are a lot of talk, theory, opinions, and buzz around JavaScript frameworks... but lets stop talking and actually try it out in practice, check how it works and see if we can build something useful and meaningful with it.
 
-## Installation
+## Development environment
 
 This project has 3 available development environments:
 
@@ -426,7 +426,7 @@ Then you can run test database, test app container and Cypress (in headless mode
 yarn docker:npb-e2e:up
 ```
 
-## Deployment
+## Deployment to production
 
 I made a separate repository [nemanjam/traefik-proxy](https://github.com/nemanjam/traefik-proxy) only for deployment with Traefik reverse proxy that needs only environment variables and image from Dockerhub. There are also Github Actions workflows to build, push and redeploy latest image on your server. You should use that for deployment.
 
