@@ -83,6 +83,7 @@
 - badges in readme
 - see what queries return results on server too, log them in node
 - debug in hook with `console.log('query.data', query.data, isBrowser());`
+- issue (bug, feature) template, pull request template, contributing, code of conduct
 
 ### Overview
 
