@@ -608,10 +608,11 @@ on:
     workflows: ['docker build']
 ```
 
-## Related projects
+## Documentation
 
-- [nemanjam/traefik-proxy](https://github.com/nemanjam/traefik-proxy) - repository for deployment on VPS
-- [nemanjam/hydration-test-case](https://github.com/nemanjam/hydration-test-case) - repository to isolate and debug hydration errors
+## Contributing
+
+Contributions are welcome. You can find more info how to contribute in [contributing](CONTRIBUTING.md).
 
 ## Roadmap
 
@@ -622,6 +623,11 @@ on:
 - update to `cypress: 10.x` and `next-connect: 1.x` (they have breaking changes)
 - handle multiple TypeScript build contexts (Next.js app, custom server, seed script) in better way
 - add a feature for client side state and implement it with Redux Toolkit (maybe)
+
+## Related projects
+
+- [nemanjam/traefik-proxy](https://github.com/nemanjam/traefik-proxy) - repository for deployment on VPS
+- [nemanjam/hydration-test-case](https://github.com/nemanjam/hydration-test-case) - repository to isolate and debug hydration errors
 
 ## References
 

@@ -83,11 +83,11 @@
 - badges in readme
 - see what queries return results on server too, log them in node
 - debug in hook with `console.log('query.data', query.data, isBrowser());`
-- issue (bug, feature) template, pull request template, contributing, code of conduct
+- open issue, known issues, contributing, lighthouse screenshot, mobile screenshots, tag and release
 
 ### Overview
 
-- update to Node 18
+- update to Node 18, Next.js new routing
 - create release and tag v1.0 when finish readme
 - record video (maybe Cypress) gif or youtube embed in readme
 - code coverage setup
@@ -341,3 +341,4 @@
 - block navbar rendering, done, revert, gives more errors
 - test coverage setup, done
 - write yarn script to run all tests for coverage and add to tests.yml, done
+- issue (bug, feature) template, pull request template, code of conduct, done

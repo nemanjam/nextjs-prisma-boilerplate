@@ -25,6 +25,5 @@ Please delete options that are not relevant.
 - [ ] Make sure app compiles in both dev and prod mode by running `yarn dev` and `yarn build`
 - [ ] New and existing unit, integration and e2e tests pass locally with my changes
 - [ ] My changes generate no new warnings (browser console and Node.js terminal)
-- [ ] Make sure my changes generate no new linting warnings by running `yarn lint`
-- [ ] Make sure my changes generate no new typing warnings by running `yarn types`
+- [ ] There are no new linting `yarn lint` and typing `yarn types` errors
 - [ ] Make sure code is formatted by running `yarn format`
