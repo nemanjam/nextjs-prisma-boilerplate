@@ -642,3 +642,7 @@ Complete references links are attached in docs files. Most important references 
 - Prisma docs, testing backend services, [unit-testing](https://www.prisma.io/docs/guides/testing/unit-testing), [integration-testing](https://www.prisma.io/docs/guides/testing/integration-testing)
 - React Hook Form, React Dropzone integration [example](https://github.com/react-hook-form/react-hook-form/discussions/2146#discussioncomment-579355)
 - Cypress Docker setup [cypress-io/cypress-example-docker-compose](https://github.com/cypress-io/cypress-example-docker-compose)
+
+## License
+
+This project uses MIT license: [License](LICENSE)
