@@ -12,6 +12,18 @@ This is full stack boilerplate built around latest Next.js stack. It is composed
 
 Don't spend next 3 months making architectural decisions, choosing libraries, setting up dev and prod environments and CI/CD pipelines, writing boilerplate code, _instead install this boilerplate in 15 minutes and start working on your features **today**._
 
+## Demo
+
+#### Live production demo:
+
+- **[https://nextjs-prisma-boilerplate.localhost3000.live](https://nextjs-prisma-boilerplate.localhost3000.live/)**
+
+#### Gitpod development playground:
+
+> You need Gitpod account, and maybe Postgres database url if my demo database is vandalized. You can create one on [elephantsql.com](elephantsql.com), see [Gitpod Environment](#gitpod-environment) section for details.
+
+- **[Gitpod Workspace Snapshot](https://gitpod.io#snapshot/e338d5fe-1233-48b6-aa92-59a899bc40f4)**
+
 ## Screenshots
 
 https://user-images.githubusercontent.com/9990165/177367837-a2692e5d-b694-454e-806d-21e806465836.mp4
@@ -595,6 +607,21 @@ on:
   workflow_run:
     workflows: ['docker build']
 ```
+
+## Related projects
+
+- [nemanjam/traefik-proxy](https://github.com/nemanjam/traefik-proxy) - repository for deployment on VPS
+- [nemanjam/hydration-test-case](https://github.com/nemanjam/hydration-test-case) - repository to isolate and debug hydration errors
+
+## Roadmap
+
+- add backend support for Next.js `Image` component for locally hosted images
+- improve docs
+- try to reduce Docker image size with `output: 'standalone'` build option in `next.config.js`
+- try to remove `prisma` from prod dependencies with separate container for migrations without making workflow too complicated
+- update to `cypress: 10.x` and `next-connect: 1.x` (they have breaking changes)
+- handle multiple TypeScript build contexts (Next.js app, custom server, seed script) in better way
+- add a feature for client side state and implement it with Redux Toolkit (maybe)
 
 ## References
 

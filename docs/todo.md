@@ -101,10 +101,12 @@
 - cv testing, react query, next, react, tailwind, cypress, architectures, databases, devcontainers, traefik, homelab, projects, github actions
 - free Docker build from build time urls (CustomHead)
 - next-translations
+- known issues: hydrate bug, Image backend
+- Lighthouse score screenshot
 
 ### Bugs
 
-- testcase for react hydration bug
+- test-case for react hydration bug
 - comment out one by one component to isolate it
 
 ### Questions
