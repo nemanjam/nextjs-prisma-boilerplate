@@ -223,7 +223,7 @@ At this point everything is ready, you can now start the app. Open `http://local
 yarn dev
 ```
 
-#### Docker environment
+#### Docker environments
 
 After you cloned repository build app container.
 
