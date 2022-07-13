@@ -13,7 +13,7 @@ Thank you for taking interest in improving Next.js Prisma Boilerplate. Here is t
 
 ## Fix a bug or implement a new feature
 
-- check existing [Issues tab](issues) and [Roadmap](README.md#roadmap) and see if you can pick some of them
+- check existing [Issues](https://github.com/nemanjam/nextjs-prisma-boilerplate/issues) and [Roadmap](https://github.com/nemanjam/nextjs-prisma-boilerplate#roadmap) and see if you can pick some of them
 - all pull requests must be associated with issue number(s)
 - pick existing issue you want to work on and communicate in a comment that you will work on it and provide concise explanation how you plan to implement it so I can provide feedback
 - if there isn't existing issue about that topic open a new issue
@@ -25,7 +25,7 @@ Thank you for taking interest in improving Next.js Prisma Boilerplate. Here is t
 ## Development environment
 
 - please use Node.js `v16.x` and `yarn` package manager
-- instructions how to setup development environment you can find in [Development environment](README.md#development-environment) section
+- instructions how to setup development environment you can find in [Development environment](https://github.com/nemanjam/nextjs-prisma-boilerplate#development-environment) section
 
 ## Before you open a pull request
 
@@ -38,7 +38,7 @@ Thank you for taking interest in improving Next.js Prisma Boilerplate. Here is t
   - app compiles in both dev and prod mode
   - there aren't new typing and linting errors
   - code is formatted using existing prettier configuration
-  - existing Jest (unit and integration) and Cypress e2e tests pass, more info: [Running tests](README.md#running-tests)
+  - existing Jest (unit and integration) and Cypress e2e tests pass, more info: [Running tests](https://github.com/nemanjam/nextjs-prisma-boilerplate#running-tests)
   - there are no new errors in browser console and Node.js terminal
 
 ```bash
