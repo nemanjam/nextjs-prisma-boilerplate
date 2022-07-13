@@ -112,7 +112,7 @@ React `18.2.0`, Next.js `12.2.0`, Node.js `16.13.1`, Prisma `4`, Postgres `14.3`
 
 There are a lot of talk, theory, opinions, and buzz around JavaScript frameworks... but lets stop talking and actually try it out in practice, check how it works and see if we can build something useful and meaningful with it.
 
-## Development environment
+## Development environments
 
 This project has 3 available development environments:
 
@@ -223,7 +223,7 @@ At this point everything is ready, you can now start the app. Open `http://local
 yarn dev
 ```
 
-#### Docker environments
+#### Docker environment
 
 After you cloned repository build app container.
 
