@@ -109,10 +109,6 @@ React `18.2.0`, Next.js `12.2.0`, Node.js `16.13.1`, Prisma `4`, Postgres `14.3`
 - vendor free - don't couple app architecture with any cloud provider and keep everything under your control
 - document everything, especially important and difficult parts
 
-#### Motivation:
-
-There are a lot of talk, theory, opinions, and buzz around JavaScript frameworks... but lets stop talking, pick the most popular framework, read what they suggest in documentation and try it out in practice, check how it works and see if we can build something useful and meaningful with it.
-
 #### Lighthouse score:
 
 Without any special adjustments, there is room for further improvement.
@@ -641,6 +637,10 @@ Contributions are welcome. You can find more info how to contribute in [contribu
 
 - [nemanjam/traefik-proxy](https://github.com/nemanjam/traefik-proxy) - repository for deployment on VPS
 - [nemanjam/hydration-test-case](https://github.com/nemanjam/hydration-test-case) - repository to isolate and debug hydration errors
+
+## Motivation:
+
+There are a lot of talk, theory, opinions, and buzz around JavaScript frameworks... but lets stop talking, pick the most popular framework, read what they suggest in documentation and try it out in practice, check how it works and see if we can build something useful and meaningful with it.
 
 ## References
 
