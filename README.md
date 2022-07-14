@@ -624,6 +624,10 @@ Contributions are welcome. You can find more info how to contribute in [contribu
 - handle multiple TypeScript build contexts (Next.js app, custom server, seed script) in better way
 - add a feature for client side state and implement it with Redux Toolkit (maybe)
 
+## Known issues
+
+- in development mode refreshing a page sometimes causes hydration error, more info in this issue [Suspense - hydration error on page refresh](https://github.com/nemanjam/nextjs-prisma-boilerplate/issues/1)
+
 ## Related projects
 
 - [nemanjam/traefik-proxy](https://github.com/nemanjam/traefik-proxy) - repository for deployment on VPS

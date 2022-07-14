@@ -82,7 +82,7 @@
 - version docker images in Github Actions, and app release
 - see what queries return results on server too, log them in node
 - debug in hook with `console.log('query.data', query.data, isBrowser());`
-- open issue, known issues, lighthouse screenshot, mobile screenshots, tag and release
+- open issue, known issues, documentation, lighthouse screenshot, mobile screenshots, tag and release
 
 ### Overview
 
