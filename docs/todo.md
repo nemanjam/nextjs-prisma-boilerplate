@@ -78,23 +78,18 @@
 - update to Cypress 10
 - fix contains direct node access warning in lint
 - fix .next and dist folders created as root in app container if not exists (pass non-root user UID, GID)
-- withBem() needs proper solution for additional classname scoped under block
+- withBem() needs proper solution for additional classname scoped under block...?
 - version docker images in Github Actions, and app release
-- badges in readme
 - see what queries return results on server too, log them in node
 - debug in hook with `console.log('query.data', query.data, isBrowser());`
-- open issue, known issues, contributing, lighthouse screenshot, mobile screenshots, tag and release
+- open issue, known issues, lighthouse screenshot, mobile screenshots, tag and release
 
 ### Overview
 
 - update to Node 18, Next.js new routing
 - create release and tag v1.0 when finish readme
-- record video (maybe Cypress) gif or youtube embed in readme
-- code coverage setup
 - hydration bug - dependant queries, me and others
 - image backend
-- deployment with ssh actions
-- docker volume folders as non root pg, cypress
 - ask to record tutorials
 - basic readme
 - update cv
@@ -342,3 +337,9 @@
 - test coverage setup, done
 - write yarn script to run all tests for coverage and add to tests.yml, done
 - issue (bug, feature) template, pull request template, code of conduct, done
+- record video (maybe Cypress) gif or youtube embed in readme, done
+- code coverage setup, done
+- deployment with ssh actions, done
+- docker volume folders as non root pg, done
+- badges in readme, done
+- contributing, done
