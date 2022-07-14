@@ -666,6 +666,10 @@ Contributions are welcome. You can find more info how to contribute in [contribu
 
 There are a lot of talk, theory, opinions, and buzz around JavaScript frameworks... but lets stop talking, pick the most popular framework, read what they suggest in documentation and try it out in practice, check how it works and see if we can build something useful and meaningful with it.
 
+## Author
+
+[nemanjam](https://github.com/nemanjam), [Linkedin](https://www.linkedin.com/in/nemanja-mitic)
+
 ## References
 
 Complete references links are attached in docs files. Most important references are:
