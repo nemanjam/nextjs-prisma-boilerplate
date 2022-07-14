@@ -16,6 +16,8 @@ Don't spend next 3 months making architectural decisions, choosing libraries, se
 
 #### Live production demo:
 
+> If the app is vandalized just use `Reseed` link on the left side of the footer to reseed the database.
+
 - **[https://nextjs-prisma-boilerplate.localhost3000.live](https://nextjs-prisma-boilerplate.localhost3000.live/)**
 
 #### Gitpod development playground:
