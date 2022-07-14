@@ -81,13 +81,13 @@ React `18.2.0`, Next.js `12.2.0`, Node.js `16.13.1`, Prisma `4`, Postgres `14.3`
 - custom Docker image with Cypress installed on top of official base image
 - both Jest and Cypress are configured to run locally, in Docker and in Github Actions
 
-#### Development environment:
+#### Development:
 
 - 3 available configured development environments: local, Docker (VS Code devcontainers) and Gitpod
 - included VS Code settings and extensions for syntax highlighting, intellisense, formatting, linting and running tests
 - configured development database with Postgres and Adminer Docker containers
 
-#### Production environment:
+#### Production:
 
 - two staging environments (local and Docker) for testing app built in production mode
 - one live production environment with Docker and Traefik reverse proxy in separate repository [nemanjam/traefik-proxy](https://github.com/nemanjam/traefik-proxy) for deployment on VPS
@@ -105,14 +105,15 @@ React `18.2.0`, Next.js `12.2.0`, Node.js `16.13.1`, Prisma `4`, Postgres `14.3`
 
 - take full advantage of Docker containers for development, testing and production
 - choose simple, practical and clean solutions
+- avoid decision fatigue by having a system, reusability and consistency
 - vendor free - don't couple app architecture with any cloud provider and keep everything under your control
 - document everything, especially important and difficult parts
 
 #### Motivation:
 
-There are a lot of talk, theory, opinions, and buzz around JavaScript frameworks... but lets stop talking and actually try it out in practice, check how it works and see if we can build something useful and meaningful with it.
+There are a lot of talk, theory, opinions, and buzz around JavaScript frameworks... but lets stop talking, pick the most popular framework, read what they suggest in documentation and try it out in practice, check how it works and see if we can build something useful and meaningful with it.
 
-## Development environments
+## Development environment
 
 This project has 3 available development environments:
 

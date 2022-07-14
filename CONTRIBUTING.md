@@ -25,7 +25,7 @@ Thank you for taking interest in improving Next.js Prisma Boilerplate. Here is t
 ## Development environment
 
 - please use Node.js `v16.x` and `yarn` package manager
-- instructions how to setup development environment you can find in [Development environments](https://github.com/nemanjam/nextjs-prisma-boilerplate#development-environments) section
+- instructions how to setup development environment you can find in [Development environment](https://github.com/nemanjam/nextjs-prisma-boilerplate#development-environment) section
 
 ## Before you open a pull request
 
