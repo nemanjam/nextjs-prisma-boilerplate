@@ -22,7 +22,7 @@
 
 - enable Suspense and ErrorBoundary in React Query -`suspense: true`, `useErrorBoundary: true`, thats it
 
-- disable globaly ErrorBoundary for a mutation `useErrorBoundary: false` for `isError`, `error` for local Alert
+- disable globally ErrorBoundary for a mutation `useErrorBoundary: false` for `isError`, `error` for local Alert
 
 ```ts
 // lib-client/react-query/queryClientConfig.ts
@@ -217,4 +217,4 @@ ts-node --cwd <path/to/directory>
 }
 ```
 
-- deasn't work with node in production, don't use it, use relative path in server
+- doesn't work with node in production, don't use it, use relative path in server

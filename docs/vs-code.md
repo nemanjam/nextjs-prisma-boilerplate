@@ -35,7 +35,7 @@ code --list-extensions
 
 - port forward in devcontainer.json only needed with Dockerfile, already defined in docker-compose.yml
 
-### React Snipets
+### React Snippets
 
 - Github [readme](https://github.com/dsznajder/vscode-react-javascript-snippets/blob/HEAD/docs/Snippets.md)
 

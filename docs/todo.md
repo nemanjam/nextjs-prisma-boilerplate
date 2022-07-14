@@ -82,8 +82,7 @@
 - version docker images in Github Actions, and app release
 - see what queries return results on server too, log them in node
 - debug in hook with `console.log('query.data', query.data, isBrowser());`
-- open issue, known issues, lighthouse screenshot, done
-- documentation, mobile screenshots, tag and release
+- tag and release
 
 ### Overview
 
@@ -344,3 +343,5 @@
 - docker volume folders as non root pg, done
 - badges in readme, done
 - contributing, done
+- open issue, known issues, lighthouse screenshot, done
+- documentation, mobile screenshots, done
