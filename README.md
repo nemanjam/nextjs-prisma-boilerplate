@@ -37,7 +37,7 @@ https://user-images.githubusercontent.com/9990165/177367837-a2692e5d-b694-454e-8
 
 ## Features
 
-#### Tech stack
+#### Tech stack:
 
 React `18.2.0`, Next.js `12.2.0`, Node.js `16.13.1`, Prisma `4`, Postgres `14.3`, TypeScript `4.7.4`, React Query `4-beta`, Axios, React Hook Form `8-alpha`, React Dropzone, Zod, msw, TailwindCSS `3`, Jest `28`, Testing Library React, Cypress `9.6.1`.
 
@@ -112,6 +112,14 @@ React `18.2.0`, Next.js `12.2.0`, Node.js `16.13.1`, Prisma `4`, Postgres `14.3`
 #### Motivation:
 
 There are a lot of talk, theory, opinions, and buzz around JavaScript frameworks... but lets stop talking, pick the most popular framework, read what they suggest in documentation and try it out in practice, check how it works and see if we can build something useful and meaningful with it.
+
+#### Lighthouse score:
+
+Without any special adjustments, there is room for further improvement.
+
+<p>
+    <img width="450px" src="docs/readme-assets/lighthouse-score.png">
+</p>
 
 ## Development environment
 
