@@ -404,7 +404,7 @@ test('fail 500 query user hook', async () => {
 });
 ```
 
-- error handling with Axios interceptor for transforming error, for sideeffects React Query global handler is enough
+- error handling with Axios interceptor for transforming error, for side-effects React Query global handler is enough
 
 ```ts
 const queryClientConfig: QueryClientConfig = {

@@ -40,7 +40,7 @@ yarn add -D eslint-plugin-react-hooks
 
 - use `enabled` prop in useQuery to wait until async args are not resolved
 
-- `<Link />` with custom componenta requires `passHref` and `forwardRef` [next docs](https://nextjs.org/docs/api-reference/next/link#dynamic-routes)
+- `<Link />` with custom components requires `passHref` and `forwardRef` [next docs](https://nextjs.org/docs/api-reference/next/link#dynamic-routes)
 
 - problem: `Loading failed for the <script> with source “https://localhost:3001/_next/static/chunks/pages/settings/%5Busername%5D.js”.` and hard page refresh, solution:
 

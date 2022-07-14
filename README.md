@@ -615,6 +615,26 @@ on:
 
 ## Documentation
 
+There is an extensive documentation for this project in [docs](docs) folder. You can find all technical aspects carefully documented, especially important and difficult parts. There you can find problem descriptions, solutions, code snippets and related linked references.
+
+Currently documentation is bare in a sense that it holds only bare technical information how to solve something and it's not rounded in human friendly articles with additional context.
+
+Here is the brief overview of what you can find in it:
+
+- **[Next.js](docs/nextjs.md)** - contains mainly important points from official Next.js docs and examples, like environment variables, routing, custom http server, Image component, API handlers with `next-connect`, and some common React stuff
+- **[next-auth](docs/next-auth.md)** - tricky parts from docs about Credentials provider implementation, local SSL setup with `mkcert` and key details about Google and Facebook logins
+- **[Prisma](docs/prisma.md)** - offset based pagination, full text search with Postgres, and `v4` migration guide
+- **[React Query](docs/react-query.md)** - paginated queries, `v4` migration, testing components and hooks, hydration, mainly from docs and Tkdodo blog
+- **[React Hook Form](docs/react-hook-form.md)** - integrations with React Dropzone and Zod, async loading of default values
+- **[TailwindCSS](docs/tailwind.md)** - styling custom Button component, handling responsive fonts
+- **[Themes](docs/themes.md)** - `next-themes` configuration, themes as custom Tailwind plugin implementation from DaisyUI
+- **[Testing](docs/tests.md)** - `ts-jest` setup, async tests with React Query, testing forms, mocking Blob class in jsdom for images, userEvent `v14` migration, Suspense and ErrorBoundary in tests, msw, mocking Prisma in unit tests, using Supertest for testing controllers, backend integrations tests with test database, multi projects Jest setup, running tests inside Docker and Github Actions, `jest-preview` setup, code coverage configuration
+- **[Cypress](docs/cypress.md)** - local Cypress setup, asserting elements and http requests, handling user session, custom commands and tasks, running Cypress with TypeScript inside Docker, running in Github Actions
+- **[Docker](docs/docker.md)** - writing Dockerfile for dev and prod Next.js, handling environment variables, handling file permissions for volumes, handling Prisma migration and seed, overriding `docker-compose.yml`, live production container setup, custom Cypress image
+- **[Postgres](docs/postgres.md)** - allow remote connections, running in Docker as non-root user to handle file permissions in volumes, free `elephantsql.com` setup for demo purpose
+- **[Github Actions](docs/github-actions.md)** - building Docker container, running tests, handling environment variables, handling `NODE_ENV` and `APP_ENV` variables, VPS deployment using SSH action
+- **[Traefik](docs/traefik.md)** - setting up live production environment based on Docker, renewing Let's Encrypt certificate
+
 ## Contributing
 
 Contributions are welcome. You can find more info how to contribute in [contributing](CONTRIBUTING.md).
@@ -638,7 +658,7 @@ Contributions are welcome. You can find more info how to contribute in [contribu
 - [nemanjam/traefik-proxy](https://github.com/nemanjam/traefik-proxy) - repository for deployment on VPS
 - [nemanjam/hydration-test-case](https://github.com/nemanjam/hydration-test-case) - repository to isolate and debug hydration errors
 
-## Motivation:
+## Motivation
 
 There are a lot of talk, theory, opinions, and buzz around JavaScript frameworks... but lets stop talking, pick the most popular framework, read what they suggest in documentation and try it out in practice, check how it works and see if we can build something useful and meaningful with it.
 

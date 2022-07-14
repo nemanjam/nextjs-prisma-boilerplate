@@ -41,7 +41,7 @@ import { User } from '.prisma/client';
 
 ### Pagination Prisma
 
-- offset - for small number, must select previos, can jump to page, can sort on any field
+- offset - for small number, must select previous, can jump to page, can sort on any field
 - cursor - for infinite scroll facebook timeline, can handle large number, needs one sorted field, can't jump to page
 - offset and cursor-based pagination [prisma docs](https://www.prisma.io/docs/concepts/components/prisma-client/pagination) and [tutorial](https://medium.com/@smallbee/super-fast-offset-pagination-with-prisma2-21db93e5cc90)
 - Prisma code [example](https://dnlytras.com/snippets/searchable-paginated-endpoint-prisma/)

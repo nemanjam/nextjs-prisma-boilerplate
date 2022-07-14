@@ -9,7 +9,7 @@
 // this wil type all handler.get() .post() .use() ...
 const handler = nc<NextApiRequest, NextApiResponse>();
 
-// each .post() individualy
+// each .post() individually
 interface ExtendedRequest {
   user: string;
 }
