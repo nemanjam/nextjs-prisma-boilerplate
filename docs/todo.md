@@ -78,11 +78,11 @@
 - update to Cypress 10
 - fix contains direct node access warning in lint
 - fix .next and dist folders created as root in app container if not exists (pass non-root user UID, GID)
-- withBem() needs proper solution for additional classname scoped under block...?
+- withBem() needs proper solution for additional classname scoped under block, no this just generates classNames in html, without dot, not in js
 - version docker images in Github Actions, and app release
 - see what queries return results on server too, log them in node
 - debug in hook with `console.log('query.data', query.data, isBrowser());`
-- mobile screenshots, tag and release
+- tag and release
 
 ### Overview
 
@@ -91,13 +91,10 @@
 - hydration bug - dependant queries, me and others
 - image backend
 - ask to record tutorials
-- basic readme
-- update cv
 - cv testing, react query, next, react, tailwind, cypress, architectures, databases, devcontainers, traefik, homelab, projects, github actions
 - free Docker build from build time urls (CustomHead)
 - next-translations
 - known issues: hydrate bug, Image backend
-- Lighthouse score screenshot
 
 ### Bugs
 
@@ -345,3 +342,4 @@
 - contributing, done
 - open issue, known issues, lighthouse screenshot, done
 - documentation, mobile screenshots, done
+- mobile screenshots, done
