@@ -83,6 +83,7 @@
 - see what queries return results on server too, log them in node
 - debug in hook with `console.log('query.data', query.data, isBrowser());`
 - add Github Action workflow for releases, see some existing example
+- print tag too in build docker and deploy workflows
 - handle same Facebook Google email explicitly
 
 ### Overview

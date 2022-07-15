@@ -665,6 +665,7 @@ Here is the brief overview of what you can find in it:
 - [Github Actions](docs/github-actions.md) - building Docker container, running tests, handling environment variables, handling `NODE_ENV` and `APP_ENV` variables, VPS deployment using SSH action
 - [Traefik](docs/traefik.md) - setting up live production environment based on Docker, renewing Let's Encrypt certificate
 - [VS Code](docs/vs-code.md) - ESLint and Prettier setup, running Jest tests, devcontainers setup
+- [demo environments](docs/demo-environments.md) - docs about running this app on `gitpod.io`, `repl.it`, `codesandbox.io` and `stackblitz.com`, in `envs` and `notes/envs` folder you have configuration for all these environments but only Gitpod has enough computing power to run this app
 - [todo](docs/todo.md) - my simple personal task tracker
 
 ## Contributing
