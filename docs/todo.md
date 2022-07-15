@@ -82,7 +82,8 @@
 - version docker images in Github Actions, and app release
 - see what queries return results on server too, log them in node
 - debug in hook with `console.log('query.data', query.data, isBrowser());`
-- tag and release
+- add Github Action workflow for releases, see some existing example
+- handle same Facebook Google email explicitly
 
 ### Overview
 
@@ -343,3 +344,4 @@
 - open issue, known issues, lighthouse screenshot, done
 - documentation, mobile screenshots, done
 - mobile screenshots, done
+- tag and release, done
