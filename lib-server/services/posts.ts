@@ -7,6 +7,7 @@ import {
   PostWithAuthor,
 } from 'types/models/Post';
 import { PaginatedResponse, SortDirection } from 'types';
+import { filterSearchTerm } from 'utils';
 
 // -------- pages/api/posts/[id].ts
 
@@ -121,51 +122,22 @@ export const getPosts = async (
   } = postsGetData;
 
   const byAuthor = userId || email || username;
+  const search = filterSearchTerm(searchTerm);
 
   const where = {
     where: {
       published,
       ...(byAuthor && {
         author: {
-          OR: [
-            {
-              id: userId,
-            },
-            {
-              email,
-            },
-            {
-              username,
-            },
-          ],
+          OR: [{ id: userId }, { email }, { username }],
         },
       }),
-      ...(searchTerm && {
+      ...(search && {
         OR: [
-          {
-            title: {
-              search: searchTerm,
-            },
-          },
-          {
-            content: {
-              search: searchTerm,
-            },
-          },
-          {
-            author: {
-              username: {
-                search: searchTerm,
-              },
-            },
-          },
-          {
-            author: {
-              name: {
-                search: searchTerm,
-              },
-            },
-          },
+          { title: { search } },
+          { content: { search } },
+          { author: { username: { search } } },
+          { author: { name: { search } } },
         ],
       }),
     },

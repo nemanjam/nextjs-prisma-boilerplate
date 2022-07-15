@@ -56,9 +56,9 @@ https://user-images.githubusercontent.com/9990165/177367837-a2692e5d-b694-454e-8
     <img width="150px" src="docs/readme-assets/mobile-screens/Screenshot15.png">
 </p>
 
-## How you can use this
+## Usage
 
-- build your own projects on top of this (blog, social network, e-commerce, Saas...), suitable for any small to medium size web app that can run in a single Linux box, not every start up has billion users from first day
+- build your own projects on top of this (blog, social network, e-commerce, SaaS...), suitable for any small to medium size web app that can run in a single Linux box, not every start up has billion users from first day
 - if you want to go serverless route you can still reuse a lot of code and implementation decisions from this project, few notes: 1. you need to remove custom http server and let Next.js app run natively, 2. you can't run production app in a single Docker container, 3. you must use different Multer storage type for uploads
 - reuse any specific design decision, feature or configuration (i.e. VS Code devcontainer can be reused for any Node.js project, theming plugin, email/password login with `next-auth`, etc...)
 - use it for learning or as a collection of working examples for reference
@@ -665,7 +665,7 @@ Here is the brief overview of what you can find in it:
 - [Github Actions](docs/github-actions.md) - building Docker container, running tests, handling environment variables, handling `NODE_ENV` and `APP_ENV` variables, VPS deployment using SSH action
 - [Traefik](docs/traefik.md) - setting up live production environment based on Docker, renewing Let's Encrypt certificate
 - [VS Code](docs/vs-code.md) - ESLint and Prettier setup, running Jest tests, devcontainers setup
-- [todo](docs/todo.md) - my personal simple task tracker
+- [todo](docs/todo.md) - my simple personal task tracker
 
 ## Contributing
 

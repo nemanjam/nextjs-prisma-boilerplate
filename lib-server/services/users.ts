@@ -10,6 +10,7 @@ import {
   UsersGetData,
   UserUpdateServiceData,
 } from 'types/models/User';
+import { filterSearchTerm } from 'utils';
 
 /**
  *
@@ -133,26 +134,12 @@ export const getUsers = async (
     sortDirection = 'desc',
   } = usersGetData;
 
+  const search = filterSearchTerm(searchTerm, 'or');
+
   const where = {
     where: {
-      ...(searchTerm && {
-        OR: [
-          {
-            name: {
-              search: searchTerm,
-            },
-          },
-          {
-            username: {
-              search: searchTerm,
-            },
-          },
-          {
-            email: {
-              search: searchTerm,
-            },
-          },
-        ],
+      ...(search && {
+        OR: [{ name: { search } }, { username: { search } }, { email: { search } }],
       }),
     },
   };

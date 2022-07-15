@@ -60,3 +60,9 @@ import { User } from '.prisma/client';
 - [docs](https://www.prisma.io/docs/guides/upgrade-guides/upgrading-versions/upgrading-to-prisma-4#breaking-changes)
 - validate schema `npx prisma validate`
 - nothing changed, all works
+
+### Full text search with Postgres
+
+- `_` matches space literally, I need that and not `&` to match phrase with space `cat dog`
+- `cat & dog` matches those two words **anywhere in same content**, in any order, `cat some text dog`
+- Github [issue](https://github.com/prisma/prisma/issues/8939)
