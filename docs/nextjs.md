@@ -213,4 +213,4 @@ https://lh3.googleusercontent.com/a/AATXAJxGLQSA1Qx-WpSBpKD3GxB9QoiEh=s96-c?w=25
 
 #### Minimal Docker build, todo
 
-- `.next/standalone`, [docs][https://nextjs.org/docs/advanced-features/output-file-tracing], [example](https://github.com/vercel/next.js/tree/canary/examples/with-docker-compose)
+- `.next/standalone`, [docs](https://nextjs.org/docs/advanced-features/output-file-tracing), [example](https://github.com/vercel/next.js/tree/canary/examples/with-docker-compose)
