@@ -207,7 +207,7 @@ npb-e2e         |       TS18002: The 'files' list in config file 'tsconfig.json'
 3. and started with `cypress run --project ./tests-e2e` from **local** `package.json`, (`tests-e2e/package.json` -> `/app/package.json` (root))
 4. Cypress must be started from same folder like `package.json` and `node_modules`
 
-```json
+```ts
 // tests-e2e/package.json
 "scripts": {
   "test": "wait-on http://npb-app-test:3001 && cypress run --project ./tests-e2e"
@@ -305,7 +305,7 @@ jobs:
 
 - must use it because of local `package.json`
 
-```json
+```ts
 // i need this (moves entire folder with default cypress.json)
 "cypress": "cypress open --project ./tests-e2e",
 // and not this (moves only cypress.json)
@@ -333,7 +333,7 @@ npb-app-test    | error - ESLint: Failed to load plugin 'cypress' declared in '.
 - better use `env-cmd` or `dotenv-cli`, actually this **is** `dotenv-cli`
 - but actually docker-compose.yml and .env.\* files solve this
 
-```json
+```ts
 // original
 "test:e2e:env:original": "dotenv -e .env.test.local -- sh -c 'yarn test:e2e'",
 // print args

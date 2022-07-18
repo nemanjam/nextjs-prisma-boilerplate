@@ -207,7 +207,7 @@ ts-node --cwd <path/to/directory>
 
 - baseUrl to work with ts-node [stackoverflow](https://stackoverflow.com/questions/70515063/ts-config-path-error-error-cannot-find-module-models-userschema)
 
-```json
+```ts
 // yarn add -D tsconfig-paths
 // tsconfig.json:
 {

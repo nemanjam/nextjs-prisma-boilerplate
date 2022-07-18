@@ -151,7 +151,7 @@ DATABASE_URL=postgres://...
 - set port and yarnscript in `sandbox.config.json`
 - first terminal is readonly log from this inital process, other terminals are normal Linux terminals from container
 
-```json
+```ts
 {
   "infiniteLoopProtection": true,
   "hardReloadOnChange": false,

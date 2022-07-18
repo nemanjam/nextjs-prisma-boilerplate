@@ -758,7 +758,7 @@ module.exports = {
 
 - none of the jest tests needs prod built app, only app source; only e2e Cypress needs built prod app
 
-```json
+```ts
 "test:client": "",
 "test:server:unit": "",
 

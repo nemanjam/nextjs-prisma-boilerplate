@@ -255,7 +255,7 @@ docker-compose -f docker-compose.yml -f docker-compose.prod.yml config > docker-
 
 - extends with -f dc1 -f dc2 works, both containers have same name
 
-```json
+```ts
 // to run npb-app-test omit -f docker-compose.e2e.yml
 // exits because it doesn't have start command
 "docker:npb-app-test:npb-db-test:up": "docker-compose -f docker-compose.test.yml -p npb-test up -d npb-app-test npb-db-test",
@@ -387,7 +387,7 @@ docker-compose --env-file ./config/.env.dev up
 
 - you can `docker-compose up` single service but you must remove entire `docker-compose.yml` file
 
-```json
+```ts
 // dev up
 "docker:dev:up": "docker-compose -f docker-compose.dev.yml -p npb-dev up",
 // entire dev down, also db down, (always same args as up - file and project...)
@@ -399,7 +399,7 @@ docker-compose --env-file ./config/.env.dev up
 
 - test containers explained:
 
-```json
+```ts
 // same scripts with 2 names, let it be
 "docker:test:build": "docker-compose -f docker-compose.test.yml build npb-app-test",
 "docker:npb-app-test:build": "docker-compose -f docker-compose.test.yml build npb-app-test",
@@ -439,7 +439,7 @@ yarn docker:test:down
 
 - e2e testing containers explained:
 
-```json
+```ts
 // all builds are with docker-compose, except live
 // can be also with Dockerfile, just image name - tag, d-c better
 "docker:npb-app-test:build": "docker-compose -f docker-compose.test.yml build npb-app-test",
@@ -488,7 +488,7 @@ yarn docker:test:e2e:down
 
 ### Prod live containers explained
 
-```json
+```ts
 // use docker build to specify custom tag
 // must have full username/image-name to be pushed
 "docker:live:build": "dotenv -e ./envs/production-live/.env.production.live.build.local -- bash -c 'docker build -f Dockerfile.prod -t nemanjamitic/nextjs-prisma-boilerplate:latest --build-arg ARG_DATABASE_URL=${DATABASE_URL} --build-arg ARG_NEXTAUTH_URL=${NEXTAUTH_URL} .'",

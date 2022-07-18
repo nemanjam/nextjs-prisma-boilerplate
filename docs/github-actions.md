@@ -158,7 +158,7 @@ PORT=${!NAME_PORT} # does not work
 - all possible methods [tutorial](https://getridbug.com/reactjs/how-to-use-different-env-files-with-nextjs/)
 - blitz.js `APP_ENV` [docs](https://blitzjs.com/docs/environment-variables)
 
-```json
+```ts
 "test:e2e:env": "dotenv -e .env.test.local -- sh -c 'yarn test:e2e'",
 ```
 
