@@ -85,6 +85,7 @@
 - add Github Action workflow for releases, see some existing example
 - print tag too in build docker and deploy workflows
 - handle same Facebook Google email explicitly
+- fix default theme on mobile navbar, ThemeChanger is not mounted
 
 ### Overview
 
@@ -93,7 +94,6 @@
 - hydration bug - dependant queries, me and others
 - image backend
 - ask to record tutorials
-- cv testing, react query, next, react, tailwind, cypress, architectures, databases, devcontainers, traefik, homelab, projects, github actions
 - free Docker build from build time urls (CustomHead)
 - next-translations
 - known issues: hydrate bug, Image backend

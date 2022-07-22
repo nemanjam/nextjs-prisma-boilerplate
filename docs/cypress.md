@@ -39,7 +39,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 ```
 
 - `contains()` same as `findByText()`
-- wait() for requests (GET search posts) [tutorial](https://www.cypress.io/blog/2019/12/23/asserting-network-calls-from-cypress-tests/), [docs](https://docs.cypress.io/api/commands/wait#Aliases)
+- wait() for requests (GET search posts) with @alias [tutorial](https://www.cypress.io/blog/2019/12/23/asserting-network-calls-from-cypress-tests/), [docs](https://docs.cypress.io/api/commands/wait#Aliases)
 
 ```ts
 // needed for wait()
