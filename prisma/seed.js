@@ -163,7 +163,8 @@ class SeedSingleton {
 
   async handledDeleteAllTables() {
     try {
-      await this.deleteAllTables();
+      // await this.deleteAllTables();
+      await this.truncateAllTables();
     } catch (error) {
       console.error('Handled delete tables error:', error);
     }
@@ -189,6 +190,18 @@ class SeedSingleton {
     console.log('Tables deleted.');
   }
 
+  async truncateAllTables() {
+    console.log('Truncating tables ...');
+    await this.prisma.$transaction([
+      this.prisma.$executeRaw('TRUNCATE TABLE posts RESTART IDENTITY CASCADE;'),
+      this.prisma.$executeRaw('TRUNCATE TABLE accounts RESTART IDENTITY CASCADE;'),
+      this.prisma.$executeRaw('TRUNCATE TABLE sessions RESTART IDENTITY CASCADE;'),
+      this.prisma.$executeRaw('TRUNCATE TABLE verificationtokens RESTART IDENTITY CASCADE;'),
+      this.prisma.$executeRaw('TRUNCATE TABLE users RESTART IDENTITY CASCADE;'),
+    ]);
+    console.log('Tables Truncated.');
+  }
+
   // just require file, or fn will be called 2 times
   // without exception handling here
   async seed() {
@@ -199,7 +212,8 @@ class SeedSingleton {
 
     await deleteAllAvatars();
     await deleteAllHeaderImages();
-    await this.deleteAllTables();
+    // await this.deleteAllTables();
+    await this.truncateAllTables();
 
     const users = createUsers(numberOfUsers);
 
