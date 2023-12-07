@@ -440,7 +440,7 @@ docker-compose -f docker-compose.prod.yml build
 
 # ---
 
-export HOSTNAME="localhost3000.live"
+export HOSTNAME="nemanjamitic.com"
 echo $HOSTNAME
 
 docker-compose -f docker-compose.prod.yml up -d

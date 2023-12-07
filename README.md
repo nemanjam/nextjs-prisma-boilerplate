@@ -18,7 +18,7 @@ Don't spend next 3 months making architectural decisions, choosing libraries, se
 
 > If the app is vandalized just use `Reseed` link on the right side of the footer to reseed the database.
 
-- **[https://nextjs-prisma-boilerplate.amd1.localhost3002.live](https://nextjs-prisma-boilerplate.amd1.localhost3002.live/)**
+- **[https://nextjs-prisma-boilerplate.amd1.nemanjamitic.com](https://nextjs-prisma-boilerplate.amd1.nemanjamitic.com/)**
 
 #### Gitpod development playground:
 
@@ -590,7 +590,7 @@ APP_ENV=live
 SITE_PROTOCOL=http
 
 # real full production public domain (with subdomain), used in app and Traefik
-SITE_HOSTNAME=nextjs-prisma-boilerplate.localhost3000.live
+SITE_HOSTNAME=nextjs-prisma-boilerplate.nemanjamitic.com
 PORT=3001
 
 # real url is https and doesn't have port, Traefik handles https and port
