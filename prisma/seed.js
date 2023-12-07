@@ -192,13 +192,11 @@ class SeedSingleton {
 
   async truncateAllTables() {
     console.log('Truncating tables ...');
-    await this.prisma.$transaction([
-      this.prisma.$executeRaw('TRUNCATE TABLE posts RESTART IDENTITY CASCADE;'),
-      this.prisma.$executeRaw('TRUNCATE TABLE accounts RESTART IDENTITY CASCADE;'),
-      this.prisma.$executeRaw('TRUNCATE TABLE sessions RESTART IDENTITY CASCADE;'),
-      this.prisma.$executeRaw('TRUNCATE TABLE verificationtokens RESTART IDENTITY CASCADE;'),
-      this.prisma.$executeRaw('TRUNCATE TABLE users RESTART IDENTITY CASCADE;'),
-    ]);
+    const tables = ['posts', 'accounts', 'sessions', 'verificationtokens', 'users'];
+    const truncatePromises = tables.map((table) =>
+      this.prisma.$queryRawUnsafe(`TRUNCATE TABLE "${table}" RESTART IDENTITY CASCADE`)
+    );
+    await this.prisma.$transaction(truncatePromises);
     console.log('Tables Truncated.');
   }
 
