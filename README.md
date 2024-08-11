@@ -18,7 +18,7 @@ Don't spend next 3 months making architectural decisions, choosing libraries, se
 
 > If the app is vandalized just use `Reseed` link on the right side of the footer to reseed the database.
 
-- **[https://nextjs-prisma-boilerplate.amd1.nemanjamitic.com](https://nextjs-prisma-boilerplate.amd1.nemanjamitic.com/)**
+- **[https://nextjs-prisma-boilerplate.arm1.nemanjamitic.com](https://nextjs-prisma-boilerplate.arm1.nemanjamitic.com/)**
 
 #### Gitpod development playground:
 
